@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://leonesantumalal.cl/</loc>
+    <loc>https://clta.cl/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://clta.cl/evento-musica-de-peliculas.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://clta.cl/trabajo-en-terreno.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://clta.cl/trabajo.html?id=jornada-cancer-de-mama</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://clta.cl/trabajo.html?id=apoyo-oncologia-infantil</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://clta.cl/trabajo.html?id=cajas-diez-instituciones</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://clta.cl/trabajo.html?id=cuidado-adultos-mayores</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://clta.cl/trabajo.html?id=liceo-gabriela-mistral</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://clta.cl/trabajo.html?id=lentes-para-quienes-los-necesitan</loc>
+    <priority>0.5</priority>
   </url>
 </urlset>

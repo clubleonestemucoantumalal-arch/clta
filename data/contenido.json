@@ -2,7 +2,6 @@
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
   "actualizado": "2026-09-07T00:00:00.000Z",
-
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -14,7 +13,6 @@
     "distrito": "Distrito T-4 · Distrito Múltiple T Chile",
     "proposito": "Ir en ayuda del más necesitado."
   },
-
   "contacto": {
     "email": "leonestemucoantumalal@gmail.com",
     "telefono": "+56 9 0000 0000",
@@ -24,7 +22,6 @@
     "mapaEmbed": "https://www.google.com/maps?q=Temuco,+La+Araucan%C3%ADa,+Chile&output=embed",
     "horario": "2° y 4° lunes de cada mes · 20:30 h"
   },
-
   "redes": {
     "instagram": "https://www.instagram.com/leonestemuco_antumalal/",
     "instagramUser": "leonestemuco_antumalal",
@@ -33,31 +30,51 @@
     "lionsOficial": "https://www.lionsclubs.org/es",
     "sitioEclubhouse": "https://e-clubhouse.org/sites/temucoantumalal/"
   },
-
-  "formulario": { "endpoint": "", "metodo": "POST" },
-
+  "formulario": {
+    "endpoint": "",
+    "metodo": "POST",
+    "origenes": "Google o buscador\nInstagram\nFacebook\nUn conocido o amigo\nUn socio del club\nUn ex socio\nUna actividad del club (bingo, paella, operativo)\nPrensa o noticias\nOtro"
+  },
   "noticias": {
     "archivoLocal": "data/noticias.json",
     "maximo": 9,
     "actualizarEnVivo": false,
     "proxyCors": ""
   },
-
   "instagram": {
     "beholdUrl": "",
     "iframeUrl": "",
     "archivoLocal": "data/instagram.json",
     "maximo": 8
   },
-
   "impacto": [
-    { "valor": 1983, "sufijo": "", "etiqueta": "Año de fundación", "formato": "plano" },
-    { "valor": 43, "sufijo": "+", "etiqueta": "Años de servicio" },
-    { "valor": 35, "sufijo": "", "etiqueta": "Socios activos" },
-    { "valor": 120, "sufijo": "+", "etiqueta": "Operativos realizados" },
-    { "valor": 8500, "sufijo": "+", "etiqueta": "Personas beneficiadas" }
+    {
+      "valor": 1983,
+      "sufijo": "",
+      "etiqueta": "Año de fundación",
+      "formato": "plano"
+    },
+    {
+      "valor": 43,
+      "sufijo": "+",
+      "etiqueta": "Años de servicio"
+    },
+    {
+      "valor": 35,
+      "sufijo": "+",
+      "etiqueta": "Socios activos"
+    },
+    {
+      "valor": 67,
+      "sufijo": "",
+      "etiqueta": "Operativos realizados en 2026"
+    },
+    {
+      "valor": 4689,
+      "sufijo": "",
+      "etiqueta": "Personas beneficiadas en 2026"
+    }
   ],
-
   "donaciones": {
     "titular": "Club de Leones Temuco Antumalal",
     "rut": "00.000.000-0",
@@ -66,7 +83,6 @@
     "numero": "000000000",
     "email": "tesoreria@leonesantumalal.cl"
   },
-
   "agenda": {
     "auto": true,
     "maximo": 20,
@@ -74,14 +90,30 @@
     "lugar": "Centro de reuniones quincho Martin Lutero, Temuco.",
     "tituloSegundo": "Sesión ordinaria",
     "tituloCuarto": "Sesión ordinaria y trabajo de comisiones",
-    "eventos": []
+    "eventos": [
+      {
+        "fecha": "2026-10-17",
+        "titulo": "Operativo médico en el Hospital de Pitrufquén",
+        "texto": "Atención gastroenterológica, oftalmológica, urológica y endoscópica. Hospital de Pitrufquén.",
+        "hora": "09:00 a 17:00 h",
+        "abierto": true
+      },
+      {
+        "fecha": "2026-10-24",
+        "titulo": "Música de películas · Maestro Roberto Bravo y Andrea Cárdenas",
+        "texto": "Concierto en el Teatro Municipal de Temuco, con el auspicio del club. Entradas en passline.cl.",
+        "hora": "19:00 h",
+        "abierto": true,
+        "enlace": "https://www.passline.com/eventos-plano/roberto-bravo-con-musica-de-peliculas",
+        "enlaceTexto": "Comprar entradas"
+      }
+    ]
   },
-
   "textos": {
     "hero": {
       "pill": "<b>Desde 1983</b> Distrito T-4 · Temuco",
-      "titulo": "Servir es la forma más noble de <em>estar presentes</em>",
-      "sub": "Somos el Club de <em>Leones Temuco Antumalal</em>. Hace más de cuatro décadas que trabajamos, sin fines de lucro, para ir en ayuda de quien más lo necesita en La Araucanía.",
+      "titulo": "Nosotros <em>Servimos</em>",
+      "sub": "Hace más de cuatro décadas que trabajamos, sin fines de lucro, para ir en ayuda de quien más lo necesita en La Araucanía.",
       "btn1": "Súmate al club",
       "btn2": "Ver nuestros proyectos",
       "statValor": 43,
@@ -101,7 +133,7 @@
     "causas": {
       "eyebrow": "Nuestro trabajo",
       "titulo": "Las causas que nos mueven",
-      "lead": "Los Leones actuamos donde la necesidad es más urgente. Estas son las áreas de servicio que Lions International prioriza en todo el mundo y que aterrizamos en Temuco."
+      "lead": "Estas son las áreas en las que trabajamos, junto a Lions en todo el mundo."
     },
     "sellos": {
       "eyebrow": "Lo que nos respalda",
@@ -110,12 +142,10 @@
     "proyectos": {
       "eyebrow": "Proyectos",
       "titulo": "Lo que hacemos en terreno",
-      "lead": "Campañas permanentes y operativos puntuales que ejecutamos durante el año leonístico."
+      "lead": "Lo que hicimos entre agosto y octubre de 2026, según los informes de servicio del club.",
+      "leer": "Leer la historia"
     },
     "valores": {
-      "eyebrow": "Nuestros valores",
-      "titulo": "En qué creemos y cómo lo hacemos",
-      "lead": "No son declaraciones de buenas intenciones: son los criterios con los que decidimos a quién ayudamos, cómo lo hacemos y de qué manera rendimos cuenta.",
       "cita": "&ldquo;No se puede llegar muy lejos en la vida hasta que no se empieza a hacer algo por los demás.&rdquo;",
       "citaAutor": "Melvin Jones, fundador de Lions Clubs International, 1917"
     },
@@ -149,6 +179,8 @@
       "eyebrow": "Colabora",
       "titulo": "Formas de aportar",
       "lead": "Todo aporte se destina íntegramente a los programas de servicio del club.",
+      "eventosTitulo": "Actividades que hacemos cada año",
+      "eventosLead": "Son nuestra forma de recaudar fondos: puedes sumarte comprando o difundiendo.",
       "subtitulo": "Transferencia bancaria",
       "nota": "Envía el comprobante al correo de tesorería indicando tu nombre y, si quieres, a qué campaña deseas destinar el aporte."
     },
@@ -159,96 +191,336 @@
     "contactoSec": {
       "eyebrow": "Contacto",
       "titulo": "Conversemos",
-      "lead": "Si quieres postular como socio, solicitar ayuda, auspiciar una campaña o simplemente saber más del club, escríbenos."
+      "lead": "Si quieres postular como socio, solicitar ayuda, auspiciar una campaña o simplemente saber más del club, escríbenos.",
+      "origenPregunta": "¿Cómo conociste el club?"
     },
-    "instagram": { "usuario": "@leonestemuco_antumalal" },
+    "instagram": {
+      "usuario": "@leonestemuco_antumalal"
+    },
     "footer": {
       "texto": "Organización de servicio voluntario sin fines de lucro, fundada el 28 de marzo de 1983 y afiliada a Lions Clubs International."
     },
     "marquesina": [
-      "Nosotros Servimos", "We Serve", "Visión", "Hambre",
-      "Diabetes", "Medio Ambiente", "Cáncer Infantil", "Catástrofes"
+      "Nosotros Servimos",
+      "We Serve",
+      "Visión",
+      "Hambre",
+      "Diabetes",
+      "Medio Ambiente",
+      "Cáncer Infantil",
+      "Catástrofes"
     ]
   },
-
   "imagenClaves": {
     "hero": "",
     "sobre1": "",
     "sobre2": "",
     "sobre3": ""
   },
-
-  "clubFirma": [
-    { "dato": "1917", "etiqueta": "Fundación Lions" },
-    { "dato": "T-4", "etiqueta": "Nuestro distrito" },
-    { "dato": "2° y 4°", "etiqueta": "Lunes, 20:30 h" }
-  ],
-
+  "clubFirma": [],
   "causas": [
-    { "icono": "corazon", "titulo": "Cáncer infantil", "texto": "Acompañamiento a niñas y niños en tratamiento y a sus familias, aliviando la carga que no se ve." },
-    { "icono": "diabetes", "titulo": "Diabetes", "texto": "Campañas de detección, control y educación para prevenir complicaciones de una enfermedad con alta prevalencia en la región." },
-    { "icono": "escudoCheck", "titulo": "Auxilio en casos de desastre", "texto": "Respuesta inmediata ante incendios, terremotos e inundaciones: agua, alimento, abrigo y reconstrucción a largo plazo." },
-    { "icono": "arbol", "titulo": "Medio ambiente", "texto": "Arborización urbana, reciclaje y educación ambiental junto a colegios y juntas de vecinos de Temuco." },
-    { "icono": "hambre", "titulo": "Hambre", "texto": "Ollas comunes, canastas familiares y apoyo a comedores. Nadie en nuestra comunidad debería quedarse sin un plato de comida." },
-    { "icono": "mano", "titulo": "Otro servicio humanitario", "texto": "Apoyo a adultos mayores, personas en situación de calle y otras necesidades puntuales de la comunidad." },
-    { "icono": "ojo", "titulo": "Visión", "texto": "Operativos oftalmológicos, entrega de lentes y pesquisa temprana. Es la causa histórica de los Leones a través del programa SightFirst." },
-    { "icono": "graduacion", "titulo": "Juventud", "texto": "Becas escolares, Concurso Cartel de la Paz, campamentos e intercambios juveniles y el programa Leo de voluntariado." }
+    {
+      "icono": "corazon",
+      "titulo": "Cáncer infantil",
+      "texto": "Acompañamos a niñas, niños y familias durante el tratamiento."
+    },
+    {
+      "icono": "diabetes",
+      "titulo": "Diabetes",
+      "texto": "Campañas de detección, control y educación para prevenir complicaciones."
+    },
+    {
+      "icono": "escudoCheck",
+      "titulo": "Auxilio en casos de desastre",
+      "texto": "Respuesta inmediata ante incendios, terremotos e inundaciones: agua, alimento y abrigo."
+    },
+    {
+      "icono": "arbol",
+      "titulo": "Medio ambiente",
+      "texto": "Árboles, reciclaje y educación ambiental junto a colegios y vecinos."
+    },
+    {
+      "icono": "hambre",
+      "titulo": "Hambre",
+      "texto": "Canastas familiares y apoyo a comedores, para que nadie se quede sin comer."
+    },
+    {
+      "icono": "mano",
+      "titulo": "Otro servicio humanitario",
+      "texto": "Apoyo a adultos mayores, personas en situación de calle y otras necesidades."
+    },
+    {
+      "icono": "ojo",
+      "titulo": "Visión",
+      "texto": "Operativos oftalmológicos y lentes. Es la causa histórica de los Leones."
+    },
+    {
+      "icono": "graduacion",
+      "titulo": "Juventud",
+      "texto": "Becas, Cartel de la Paz, campamentos y el programa Leo de voluntariado."
+    }
   ],
-
   "sellos": [
-    { "titulo": "100% voluntario", "texto": "Ningún socio percibe remuneración. Lo recaudado se destina íntegramente al servicio." },
-    { "titulo": "Respaldo mundial", "texto": "Somos parte de una red de 46.000 clubes en más de 200 países y áreas geográficas." },
-    { "titulo": "Rendición de cuentas", "texto": "Cada campaña se informa a los socios y a la comunidad con cifras y resultados." },
-    { "titulo": "Raíz local", "texto": "Detectamos necesidades reales de Temuco junto a colegios, consultorios y juntas de vecinos." },
-    { "titulo": "Acceso a LCIF", "texto": "La fundación de Lions ha entregado más de US$700 millones en subvenciones desde 1968." }
+    {
+      "titulo": "100% voluntario",
+      "texto": "Ningún socio percibe remuneración. Lo recaudado se destina íntegramente al servicio."
+    },
+    {
+      "titulo": "Respaldo mundial",
+      "texto": "Somos parte de una red de 46.000 clubes en más de 200 países y áreas geográficas."
+    },
+    {
+      "titulo": "Rendición de cuentas",
+      "texto": "Cada campaña se informa a los socios y a la comunidad con cifras y resultados."
+    },
+    {
+      "titulo": "Acceso a LCIF",
+      "texto": "La fundación de Lions ha entregado más de US$700 millones en subvenciones desde 1968."
+    }
   ],
-
   "proyectos": [
-    { "tag": "Salud visual", "titulo": "Operativos oftalmológicos", "texto": "Controles de vista gratuitos y entrega de lentes ópticos a personas sin cobertura, en coordinación con profesionales voluntarios.", "imagen": "assets/img/fotos/proyecto-1.svg", "enlace": "#contacto", "ancho": true },
-    { "tag": "Invierno", "titulo": "Abrigo y leña", "texto": "Frazadas, ropa de abrigo y combustible para familias y adultos mayores durante los meses más fríos.", "imagen": "assets/img/fotos/proyecto-2.svg", "enlace": "#contacto", "ancho": false },
-    { "tag": "Educación", "titulo": "Becas y útiles escolares", "texto": "Apoyo a estudiantes destacados de escasos recursos para que no interrumpan su trayectoria escolar.", "imagen": "assets/img/fotos/proyecto-3.svg", "enlace": "#contacto", "ancho": false },
-    { "tag": "Juventud", "titulo": "Cartel de la Paz", "texto": "Concurso internacional de Lions donde niñas y niños de 11 a 13 años expresan su visión de la paz.", "imagen": "assets/img/fotos/proyecto-4.svg", "enlace": "#contacto", "ancho": false },
-    { "tag": "Adulto mayor", "titulo": "Acompañamiento", "texto": "Visitas periódicas, celebraciones y ayuda concreta a personas mayores de la comuna.", "imagen": "assets/img/fotos/proyecto-5.svg", "enlace": "#contacto", "ancho": false },
-    { "tag": "Medio ambiente", "titulo": "Temuco más verde", "texto": "Plantación de árboles nativos, limpieza de espacios públicos y talleres de reciclaje con establecimientos educacionales.", "imagen": "assets/img/fotos/proyecto-6.svg", "enlace": "#contacto", "ancho": true }
+    {
+      "tag": "Octubre · Salud",
+      "titulo": "Jornada contra el cáncer de mama",
+      "texto": "Acompañamos a las Damas en el Hospital Regional con un desayuno saludable —frutas, snack y café— en una jornada de difusión sobre prevención y detección temprana. Llegamos a unas 100 personas.",
+      "imagen": "assets/img/proyectos/cancer-mama.jpg",
+      "fecha": "2026-10-01",
+      "enlace": "",
+      "ancho": true,
+      "id": "jornada-cancer-de-mama",
+      "lugar": "Hospital Regional de Temuco",
+      "personas": "100",
+      "cuerpo": "El 1 de octubre, mes de la lucha contra el cáncer de mama, el club acompañó a nuestras Damas al Hospital Regional de Temuco, donde se realizó una jornada de difusión sobre prevención y detección temprana.\n\nQuisimos estar presentes con algo simple y cercano: un desayuno saludable con frutas, snack y café, para transformar la mañana en un espacio de encuentro entre pacientes, funcionarias y funcionarios del hospital, voluntarias y Leones.\n\nLa jornada fue también un recordatorio: cuidar la salud con hábitos sanos y controles a tiempo es el primer gran paso en esta lucha, y la prevención y la detección temprana salvan vidas.\n\nLa actividad se hizo junto a la asociación de cáncer de mama que trabaja con el Hospital de Temuco, y llegó a unas 100 personas.",
+      "foto2": "assets/img/proyectos/galeria/cancer-mama-1.jpg",
+      "foto3": "assets/img/proyectos/galeria/cancer-mama-2.jpg"
+    },
+    {
+      "tag": "Septiembre · Cáncer infantil",
+      "titulo": "Apoyo a familias de oncología infantil",
+      "texto": "Cajas de alimentos, una gift card y un vale de gas para familias de pacientes de oncología infantil en situación vulnerable.",
+      "imagen": "assets/img/proyectos/oncologia-infantil.jpg?v=2",
+      "fecha": "2026-09-08",
+      "enlace": "",
+      "ancho": false,
+      "id": "apoyo-oncologia-infantil",
+      "lugar": "Hospital de Temuco",
+      "personas": "13",
+      "cuerpo": "Cuando un niño o una niña está en tratamiento oncológico, toda la familia entra en tratamiento con él o ella. Por eso, en septiembre el club acompañó a familias de pacientes de oncología infantil que atraviesan una situación vulnerable.\n\nEl 3 de septiembre entregamos una caja de alimentos, una gift card por 50 dólares y un vale de gas de 15 kilos para un paciente y su familia. El 8 de septiembre sumamos cajas de alimentos para otras dos familias.\n\nEn total, trece personas —pacientes y sus familias— recibieron este apoyo durante el mes.\n\nCáncer infantil es una de las causas prioritarias de Lions en el mundo, y la que más nos mueve a seguir presentes.",
+      "foto2": "assets/img/proyectos/galeria/oncologia-infantil-1.jpg",
+      "foto3": "assets/img/proyectos/galeria/oncologia-infantil-2.jpg"
+    },
+    {
+      "tag": "Septiembre · Alimentos",
+      "titulo": "Cajas de alimentos para 10 instituciones",
+      "texto": "Entregamos cajas a diez instituciones de ayuda social —parroquias, el Hogar de Cristo y un hogar de ancianos—, llegando a unas 200 personas.",
+      "imagen": "assets/img/proyectos/instituciones.jpg",
+      "fecha": "2026-09-03",
+      "enlace": "",
+      "ancho": false,
+      "id": "cajas-diez-instituciones",
+      "lugar": "Temuco y la Araucanía",
+      "personas": "200",
+      "cuerpo": "A comienzos de septiembre el club entregó cajas de alimentos a diez instituciones de ayuda social, para que lleguen a más familias a través de quienes ya las acompañan todos los días.\n\nParticiparon el Hogar de Cristo, el Hogar de Ancianos Nuestra Señora del Carmen, CONILE, Más Paz Santuario Ayinrehue y las parroquias San Juan Bautista, Perpetuo Socorro, María Ayuda, San Francisco, Santiago Apóstol y la de Loncoche.\n\nEntregar a través de instituciones nos permite llegar más lejos y asegurar que la ayuda vaya a quienes más la necesitan. En total, la entrega alcanzó a unas 200 personas.\n\nHambre es otra de las causas que Lions prioriza en el mundo: nadie en nuestra comunidad debería quedarse sin un plato de comida.",
+      "foto2": "assets/img/proyectos/galeria/instituciones-1.jpg",
+      "foto3": "assets/img/proyectos/galeria/instituciones-2.jpg"
+    },
+    {
+      "tag": "Agosto y septiembre · Adulto mayor",
+      "titulo": "Cuidado de nuestros adultos mayores",
+      "texto": "Cajas de alimentos en Pueblo Nuevo y Amanecer, frazadas para adultos mayores detectados por la asistente social del hospital y una tarde con esquinazo en el Hogar San Vicente de Paul.",
+      "imagen": "assets/img/proyectos/adultos-mayores.jpg",
+      "fecha": "2026-09-10",
+      "enlace": "",
+      "ancho": false,
+      "id": "cuidado-adultos-mayores",
+      "lugar": "Temuco",
+      "personas": "101",
+      "cuerpo": "Entre fines de agosto y septiembre, el trabajo del club se volcó a quienes más han dado a la comunidad: nuestros adultos mayores.\n\nEl 28 de agosto, entre las 15:00 y las 17:00 horas, entregamos cajas de alimentos a personas mayores en situación de pobreza en Temuco. El 10 de septiembre repartimos diez cajas a familias de adultos mayores de los sectores de Pueblo Nuevo y Amanecer, en dos grupos, y entregamos frazadas a personas mayores detectadas por la asistente social del hospital.\n\nEl 12 de septiembre, con Leones y Damas, visitamos el Hogar San Vicente de Paul: una tarde de compañía, con un esquinazo —presentación folclórica— a cargo de un grupo de la escuela San Juan.\n\nEn total, más de cien personas recibieron algo de este trabajo: alimento, abrigo y, sobre todo, compañía.",
+      "foto2": "assets/img/proyectos/galeria/adultos-mayores-1.jpg",
+      "foto3": "assets/img/proyectos/galeria/adultos-mayores-2.jpg"
+    },
+    {
+      "tag": "Agosto y septiembre · Educación",
+      "titulo": "Con el Liceo Gabriela Mistral",
+      "texto": "Lions Quest llega a cerca de 800 estudiantes del liceo. Además apoyamos la formación de lideresas mistralianas y el concurso de ortografía Spelling Bee.",
+      "imagen": "assets/img/proyectos/liceo-mistral.jpg",
+      "fecha": "2026-09-23",
+      "enlace": "",
+      "ancho": false,
+      "id": "liceo-gabriela-mistral",
+      "lugar": "Liceo Gabriela Mistral, Temuco",
+      "personas": "800",
+      "cuerpo": "El Liceo Gabriela Mistral es uno de los lugares donde el club trabaja de manera más sostenida. Allí se desarrolla Lions Quest, un programa de habilidades para la vida que llega a cerca de 800 estudiantes, de prekínder a cuarto medio: son los propios profesores —27 docentes, una hora semanal— quienes lo llevan a las salas.\n\nEn septiembre, además, Leones del club participaron en la actividad «Formación de Lideresas Mistralianas», inspirada en los principios y la vida de la premio Nobel Gabriela Mistral, entre ellos la educación como eje del desarrollo de una comunidad. Participaron unas 150 alumnas.\n\nAl día siguiente, el club apoyó el concurso de ortografía hablada «Spelling Bee» en el liceo, donde el León Gabriel Luza tuvo una destacada participación en la organización.\n\nJuventud es una de las áreas de servicio de Lions, y en este liceo se ve todas las semanas.",
+      "foto2": "assets/img/proyectos/galeria/liceo-mistral-1.jpg",
+      "foto3": "assets/img/proyectos/galeria/liceo-mistral-2.jpg"
+    },
+    {
+      "tag": "Septiembre · Salud visual",
+      "titulo": "Lentes para quienes los necesitan",
+      "texto": "Junto al Comité de Damas entregamos lentes a dos personas que requerían este apoyo: un alivio para su salud y para su economía familiar.",
+      "imagen": "assets/img/proyectos/lentes.jpg?v=2",
+      "fecha": "2026-09-17",
+      "enlace": "",
+      "ancho": true,
+      "id": "lentes-para-quienes-los-necesitan",
+      "lugar": "Temuco",
+      "personas": "2",
+      "cuerpo": "Una acción sencilla, pero muy significativa. El 17 de septiembre la presidenta del Comité de Damas Temuco Antumalal acompañó la entrega de lentes a dos personas que requerían este importante apoyo.\n\nUnos lentes a tiempo cambian el día a día: se lee, se trabaja y se camina con más seguridad. Y representan además un alivio para la economía familiar.\n\nLa visión es la causa histórica de los Leones desde que Helen Keller les pidió, en 1925, ser «caballeros de los ciegos en la cruzada contra la oscuridad». Hasta hoy, cada par de lentes entregado en Temuco continúa esa historia.",
+      "foto2": "assets/img/proyectos/galeria/lentes-1.jpg"
+    }
   ],
-
   "valores": [
-    { "icono": "corazonSolo", "titulo": "Servicio", "texto": "&ldquo;Nosotros Servimos&rdquo; no es un lema de adorno: es el criterio con el que se resuelve cada solicitud. Antes de decidir, verificamos el caso en terreno." },
-    { "icono": "escudoCheck", "titulo": "Transparencia", "texto": "Cada campaña se informa con cifras a los socios, a la comunidad y al Distrito T-4. Los gastos administrativos salen de las cuotas sociales, nunca de lo recaudado." },
-    { "icono": "personas", "titulo": "Compañerismo", "texto": "Un club se sostiene por la amistad entre quienes lo forman. Sesionamos, trabajamos y celebramos juntos: sin eso, el servicio no se sostiene en el tiempo." },
-    { "icono": "escudo", "titulo": "Dignidad", "texto": "Se ayuda sin exponer a nadie. Resguardamos la identidad y la privacidad de quienes reciben apoyo: nadie tiene que pagar con su imagen la ayuda que recibe." },
-    { "icono": "casa", "titulo": "Independencia", "texto": "El club no tiene filiación política ni religiosa. Se sirve a la persona que lo necesita, sin preguntar por su credo, origen ni preferencia." },
-    { "icono": "corazon", "titulo": "Raíz local", "texto": "Las necesidades las detectamos aquí, con vecinos, colegios y consultorios de Temuco. El respaldo es mundial; la decisión de a quién ayudar es de la comunidad." }
+    {
+      "icono": "corazonSolo",
+      "titulo": "Servicio",
+      "texto": "&ldquo;Nosotros Servimos&rdquo; no es un lema de adorno: es el criterio con el que se resuelve cada solicitud. Antes de decidir, verificamos el caso en terreno."
+    },
+    {
+      "icono": "escudoCheck",
+      "titulo": "Transparencia",
+      "texto": "Cada campaña se informa con cifras a los socios, a la comunidad y al Distrito T-4. Los gastos administrativos salen de las cuotas sociales, nunca de lo recaudado."
+    },
+    {
+      "icono": "personas",
+      "titulo": "Compañerismo",
+      "texto": "Un club se sostiene por la amistad entre quienes lo forman. Sesionamos, trabajamos y celebramos juntos: sin eso, el servicio no se sostiene en el tiempo."
+    },
+    {
+      "icono": "escudo",
+      "titulo": "Dignidad",
+      "texto": "Se ayuda sin exponer a nadie. Resguardamos la identidad y la privacidad de quienes reciben apoyo: nadie tiene que pagar con su imagen la ayuda que recibe."
+    },
+    {
+      "icono": "casa",
+      "titulo": "Independencia",
+      "texto": "El club no tiene filiación política ni religiosa. Se sirve a la persona que lo necesita, sin preguntar por su credo, origen ni preferencia."
+    },
+    {
+      "icono": "corazon",
+      "titulo": "Raíz local",
+      "texto": "Las necesidades las detectamos aquí, con vecinos, colegios y consultorios de Temuco. El respaldo es mundial; la decisión de a quién ayudar es de la comunidad."
+    }
   ],
-
   "directiva": [
-    { "nombre": "Héctor Jara Fernández", "cargo": "Presidente del Club", "foto": "assets/img/fotos/directiva-1.svg" },
-    { "nombre": "Mario Gorena Palominos", "cargo": "Tesorero del Club", "foto": "assets/img/fotos/directiva-2.svg" },
-    { "nombre": "Edmundo Hofmann Frene", "cargo": "Secretario del Club", "foto": "assets/img/fotos/directiva-3.svg" }
+    {
+      "nombre": "Héctor Jara Fernández",
+      "cargo": "Presidente del Club",
+      "foto": "assets/img/fotos/directiva-1.svg"
+    },
+    {
+      "nombre": "Mario Gorena Palominos",
+      "cargo": "Tesorero del Club",
+      "foto": "assets/img/fotos/directiva-2.svg"
+    },
+    {
+      "nombre": "Edmundo Hofmann Frene",
+      "cargo": "Secretario del Club",
+      "foto": "assets/img/fotos/directiva-3.svg"
+    }
   ],
-
   "testimonios": [
-    { "texto": "Mi mamá llevaba años sin poder leer bien. En el operativo la atendieron y le entregaron sus lentes el mismo mes. Para nosotros fue enorme.", "autor": "María Cristina R.", "detalle": "Vecina de Padre Las Casas", "iniciales": "MC" },
-    { "texto": "Trabajamos con el club en la campaña de útiles escolares. Son ordenados, cumplen lo que prometen y se nota que llevan años haciendo esto.", "autor": "Jorge P.", "detalle": "Director de escuela, Temuco", "iniciales": "JP" },
-    { "texto": "Entré buscando ayudar en algo concreto y me encontré con un grupo de amigos. Cada actividad deja algo que uno se lleva para la casa.", "autor": "Carolina A.", "detalle": "Socia desde 2019", "iniciales": "CA" },
-    { "texto": "Después del incendio llegaron con frazadas y mercadería sin que nadie se los pidiera. Uno no se olvida de eso.", "autor": "Rosa S.", "detalle": "Sector Labranza", "iniciales": "RS" },
-    { "texto": "Como profesional voluntario he participado en varios operativos. La organización es impecable y la gente lo agradece de verdad.", "autor": "Dr. Hernán M.", "detalle": "Oftalmólogo voluntario", "iniciales": "HM" }
+    {
+      "texto": "Mi mamá llevaba años sin poder leer bien. En el operativo la atendieron y le entregaron sus lentes el mismo mes. Para nosotros fue enorme.",
+      "autor": "María Cristina R.",
+      "detalle": "Vecina de Padre Las Casas",
+      "iniciales": "MC"
+    },
+    {
+      "texto": "Trabajamos con el club en la campaña de útiles escolares. Son ordenados, cumplen lo que prometen y se nota que llevan años haciendo esto.",
+      "autor": "Jorge P.",
+      "detalle": "Director de escuela, Temuco",
+      "iniciales": "JP"
+    },
+    {
+      "texto": "Entré buscando ayudar en algo concreto y me encontré con un grupo de amigos. Cada actividad deja algo que uno se lleva para la casa.",
+      "autor": "Carolina A.",
+      "detalle": "Socia desde 2019",
+      "iniciales": "CA"
+    },
+    {
+      "texto": "Después del incendio llegaron con frazadas y mercadería sin que nadie se los pidiera. Uno no se olvida de eso.",
+      "autor": "Rosa S.",
+      "detalle": "Sector Labranza",
+      "iniciales": "RS"
+    },
+    {
+      "texto": "Como profesional voluntario he participado en varios operativos. La organización es impecable y la gente lo agradece de verdad.",
+      "autor": "Dr. Hernán M.",
+      "detalle": "Oftalmólogo voluntario",
+      "iniciales": "HM"
+    }
   ],
-
   "faq": [
-    { "pregunta": "¿Qué es un Club de Leones?", "respuesta": "Es una organización de servicio voluntario sin fines de lucro. Lions Clubs International se fundó en 1917 y hoy reúne a más de 1,4 millones de socios en unos 46.000 clubes de más de 200 países. Nuestro lema es \"Nosotros Servimos\"." },
-    { "pregunta": "¿Cómo puedo hacerme socio?", "respuesta": "Escríbenos por el formulario de contacto o por WhatsApp y te invitamos a una sesión. Se ingresa por presentación de un socio y aprobación del directorio. No hay cuota de incorporación: solo una cuota mensual que financia la operación del club." },
-    { "pregunta": "¿Cuándo y dónde se reúnen?", "respuesta": "El 2° y 4° lunes de cada mes a las 20:30 horas, en el Centro de reuniones quincho Martin Lutero, Temuco. Confírmanos antes de asistir por si hay cambios de fecha." },
-    { "pregunta": "¿Hay que tener una profesión o cierta edad?", "respuesta": "No. Se requiere ser mayor de edad y tener disposición a servir. Buscamos diversidad de oficios y edades. Los jóvenes entre 12 y 30 años también pueden participar a través del programa Leo." },
-    { "pregunta": "¿Cuánto tiempo demanda ser socio?", "respuesta": "Dos sesiones mensuales de alrededor de dos horas, más la participación en los operativos y campañas que cada socio pueda apoyar. Cada uno aporta según su realidad." },
-    { "pregunta": "¿A dónde va el dinero que recaudan?", "respuesta": "Íntegramente a los programas de servicio. Ningún socio recibe remuneración y los gastos administrativos se financian con las cuotas sociales, no con lo recaudado en campañas." },
-    { "pregunta": "¿Puedo solicitar ayuda al club?", "respuesta": "Sí. Escríbenos detallando la situación y los datos de contacto. Cada solicitud se revisa en sesión y, cuando corresponde, se verifica en terreno antes de resolver." },
-    { "pregunta": "¿Mi empresa puede auspiciar una campaña?", "respuesta": "Por supuesto. Coordinamos el alcance del auspicio, la difusión de la marca en la actividad y la rendición del uso de los fondos. Contáctanos y conversamos." }
+    {
+      "pregunta": "¿Qué es un Club de Leones?",
+      "respuesta": "Es una organización de servicio voluntario sin fines de lucro. Lions Clubs International se fundó en 1917 y hoy reúne a más de 1,4 millones de socios en unos 46.000 clubes de más de 200 países. Nuestro lema es \"Nosotros Servimos\"."
+    },
+    {
+      "pregunta": "¿Cómo puedo hacerme socio?",
+      "respuesta": "Escríbenos por el formulario de contacto o por WhatsApp y te invitamos a una sesión. Se ingresa por presentación de un socio y aprobación del directorio. No hay cuota de incorporación: solo una cuota mensual que financia la operación del club."
+    },
+    {
+      "pregunta": "¿Cuándo y dónde se reúnen?",
+      "respuesta": "El 2° y 4° lunes de cada mes a las 20:30 horas, en el Centro de reuniones quincho Martin Lutero, Temuco. Confírmanos antes de asistir por si hay cambios de fecha."
+    },
+    {
+      "pregunta": "¿Hay que tener una profesión o cierta edad?",
+      "respuesta": "No. Se requiere ser mayor de edad y tener disposición a servir. Buscamos diversidad de oficios y edades. Los jóvenes entre 12 y 30 años también pueden participar a través del programa Leo."
+    },
+    {
+      "pregunta": "¿Cuánto tiempo demanda ser socio?",
+      "respuesta": "Dos sesiones mensuales de alrededor de dos horas, más la participación en los operativos y campañas que cada socio pueda apoyar. Cada uno aporta según su realidad."
+    },
+    {
+      "pregunta": "¿A dónde va el dinero que recaudan?",
+      "respuesta": "Íntegramente a los programas de servicio. Ningún socio recibe remuneración y los gastos administrativos se financian con las cuotas sociales, no con lo recaudado en campañas."
+    },
+    {
+      "pregunta": "¿Puedo solicitar ayuda al club?",
+      "respuesta": "Sí. Escríbenos detallando la situación y los datos de contacto. Cada solicitud se revisa en sesión y, cuando corresponde, se verifica en terreno antes de resolver."
+    },
+    {
+      "pregunta": "¿Mi empresa puede auspiciar una campaña?",
+      "respuesta": "Por supuesto. Coordinamos el alcance del auspicio, la difusión de la marca en la actividad y la rendición del uso de los fondos. Contáctanos y conversamos."
+    }
   ],
-
+  "donaEventos": [
+    {
+      "icono": "estrella",
+      "mes": "Mayo o junio",
+      "titulo": "Bingo solidario",
+      "texto": "Cada año, entre mayo y junio, reunimos a la comunidad en un bingo para recaudar fondos. Puedes ayudar participando y compartiendo la información en tus redes sociales."
+    },
+    {
+      "icono": "corazon",
+      "mes": "Octubre o noviembre",
+      "titulo": "Paella solidaria",
+      "texto": "Entre octubre y noviembre organizamos una paella a beneficio. Puedes ayudar comprando tu porción y compartiendo la información en tus redes sociales."
+    }
+  ],
   "donaOps": [
-    { "icono": "voluntario", "titulo": "Voluntariado profesional", "texto": "Si eres personal de salud u otro profesional, tu tiempo vale tanto como un aporte." },
-    { "icono": "calendario", "titulo": "Auspicio de campañas", "texto": "Empresas y comercios pueden auspiciar un operativo completo. Coordinamos difusión y rendición." },
-    { "icono": "ubicacion", "titulo": "Fundación LCIF", "texto": "También puedes aportar directamente a la Fundación Internacional de Clubes de Leones." }
+    {
+      "icono": "voluntario",
+      "titulo": "Voluntariado profesional",
+      "texto": "Si eres personal de salud u otro profesional, tu tiempo vale tanto como un aporte.",
+      "enlace": "#contacto",
+      "enlaceTexto": "Escríbenos",
+      "motivo": "Voluntariado profesional"
+    },
+    {
+      "icono": "calendario",
+      "titulo": "Auspicio de campañas",
+      "texto": "Empresas y comercios pueden auspiciar un operativo completo. Coordinamos difusión y rendición.",
+      "enlace": "#contacto",
+      "enlaceTexto": "Escríbenos",
+      "motivo": "Quiero donar o auspiciar"
+    },
+    {
+      "icono": "ubicacion",
+      "titulo": "Fundación LCIF",
+      "texto": "También puedes aportar directamente a la Fundación Internacional de Clubes de Leones.",
+      "enlace": "https://www.lionsclubs.org/about-us/our-foundation/about-our-foundation",
+      "enlaceTexto": "Ir a la página oficial"
+    }
   ]
 }

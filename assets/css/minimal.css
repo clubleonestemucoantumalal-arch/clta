@@ -1,0 +1,145 @@
+/* =========================================================================
+   MINIMAL.CSS: versión minimalista de la portada (minimal.html)
+   Se carga DESPUÉS de rediseno.css y solo actúa con <body class="minimal">.
+   Fondos lisos, sin partículas, sin tarjetas con sombra: líneas finas y aire.
+   ========================================================================= */
+body.minimal {
+  --min-noche: #FBF9F3;
+  --min-papel: #FFFFFF;
+  --min-linea-n: rgba(6, 16, 43, .16);
+  --min-linea-p: rgba(6, 16, 43, .18);
+  background: var(--min-noche);
+}
+
+/* fuera efectos */
+body.minimal #gl, body.minimal .luz, body.minimal .grano, body.minimal .cursor,
+body.minimal .marq, body.minimal .riel { display: none !important; }
+body.minimal .pcard::before, body.minimal .sello-it::before, body.minimal .op::after,
+body.minimal .valor::after, body.minimal .valor__luz, body.minimal .pcard__luz { display: none !important; }
+body.minimal * { box-shadow: none !important; text-shadow: none !important; }
+
+/* fondos lisos */
+body.minimal .sec--noche, body.minimal .proy, body.minimal .cita, body.minimal .pie, body.minimal .hero { background: var(--min-noche); }
+body.minimal .sec--papel { background: #fff; border-radius: 0; }
+body.minimal .proy { border-radius: 0; }
+
+/* encabezado sobrio */
+body.minimal .cab { background: rgba(251, 249, 243, .94); border: 0; border-bottom: 1px solid var(--min-linea-n); border-radius: 0; width: 100%; top: 0; left: 0; transform: none; backdrop-filter: none; padding-inline: clamp(1rem, 3vw, 2.4rem); }
+body.minimal .cab__marca img { filter: none; }
+
+/* portada */
+body.minimal .hero__dist { border: 0; background: transparent; padding: 0; letter-spacing: .2em; color: rgba(255, 255, 255, .85); }
+body.minimal .hero__temuco { text-shadow: none; }
+body.minimal .btn--vidrio { background: transparent; border: 1px solid rgba(255, 255, 255, .4); backdrop-filter: none; }
+
+/* elementos comunes: nada de recuadros, solo una línea fina arriba */
+body.minimal :is(#valores .valor, #dona .op, #impacto .sello-it, #club .firma li, #noticias .nota, .pcard, .miembro, .tarjeta) {
+  background: transparent; border: 0; border-radius: 0; box-shadow: none; backdrop-filter: none; transform: none;
+}
+body.minimal :is(#valores .valor, #dona .op, #impacto .sello-it, #club .firma li, .pcard, .miembro) { border-top: 1px solid var(--min-linea-n); padding-inline: 0; }
+body.minimal :is(#valores .valor, #dona .op, #noticias .nota):hover { transform: none; border-color: var(--oro); }
+body.minimal :is(#valores .valor:hover, #dona .op:hover, .pcard:hover, .sello-it:hover) { background: transparent; }
+
+/* valores y formas de aportar (sobre crema): texto oscuro */
+body.minimal #valores .valor, body.minimal #dona .op { color: var(--tinta); border-top-color: var(--min-linea-p); }
+body.minimal #valores .valor h3, body.minimal #dona .op h3 { color: var(--tinta); }
+body.minimal #valores .valor p, body.minimal #dona .op p { color: var(--tinta-2); }
+body.minimal #valores .valor__ico, body.minimal #dona .op__i { background: transparent; color: var(--azul); border: 1px solid var(--min-linea-p); }
+body.minimal #valores .valor:hover .valor__ico, body.minimal #dona .op:hover .op__i { background: var(--azul); color: var(--oro); }
+
+/* noticias */
+body.minimal #noticias .nota { color: var(--tinta); border-top: 1px solid var(--min-linea-p); padding: .8rem 0 0; gap: .5rem; }
+body.minimal #noticias .nota__img::after { display: none; }
+body.minimal #noticias .nota__meta { padding: 0; color: var(--tinta-2); }
+body.minimal #noticias .nota__meta b { padding: 0; background: transparent; color: var(--azul); }
+body.minimal #noticias .nota h3 { padding: 0; color: var(--tinta); min-height: 0; }
+body.minimal #noticias .nota__leer { padding: 0; color: var(--azul); }
+
+/* causas: lista limpia, la activa solo cambia de color */
+body.minimal #causas .causas__panel { background: var(--min-noche); border-radius: 0; }
+body.minimal #causas .causa { background: transparent; border: 0; border-bottom: 1px solid var(--min-linea-p); border-radius: 0; padding-inline: 0; }
+body.minimal #causas .causa:hover, body.minimal #causas .causa[aria-selected="true"] { background: transparent; color: var(--azul); border-color: var(--azul); padding-left: .6rem; }
+body.minimal #causas .causa:hover .causa__i, body.minimal #causas .causa[aria-selected="true"] .causa__i,
+body.minimal #causas .causa:hover .causa__f, body.minimal #causas .causa[aria-selected="true"] .causa__f { color: var(--azul); }
+
+/* el club, impacto, proyectos */
+body.minimal #club .club__cols { background: transparent; border: 0; padding: 0; backdrop-filter: none; }
+body.minimal #club .club__lit { border-left: 0; padding-left: 0; }
+body.minimal #club .firma li { border-top: 1px solid var(--oro); }
+body.minimal #impacto .cifras { background: transparent; border: 0; border-top: 1px solid var(--min-linea-n); border-bottom: 1px solid var(--min-linea-n); border-radius: 0; gap: 0; }
+body.minimal #impacto .cifra { background: transparent; }
+body.minimal #impacto .sello-it h4 { color: #fff; }
+body.minimal .pcard--sinfoto { background: transparent; border: 0; border-top: 1px solid var(--min-linea-n); }
+body.minimal .pcard__ico { background: transparent; color: var(--oro); border: 1px solid var(--min-linea-n); }
+body.minimal .pcard .chip { background: transparent; border: 0; padding: 0; }
+
+/* agenda */
+body.minimal .agenda__cal { background: transparent; border: 0; border-top: 1px solid var(--min-linea-n); border-radius: 0; }
+body.minimal .agenda__cal-dias button { background: transparent; border-color: rgba(255, 205, 0, .5); }
+body.minimal .agenda__nav { background: transparent; }
+
+/* directorio */
+body.minimal .miembro__foto { border-radius: 0; background: #0B1B45; }
+body.minimal .miembro__foto::after { display: none; }
+
+/* botón de subir del pie y sello web */
+body.minimal .sello-web { background: transparent; border-radius: 0; }
+
+/* ===== tema claro: crema y blanco, azul marino solo para el texto y los acentos ===== */
+body.minimal { color: var(--tinta); background: #FBF9F3; }
+body.minimal :is(#impacto, #agenda, #unete, .pie, #directorio) { background: #F1ECDD; }
+body.minimal :is(.sec--noche, .hero, .proy, .cita, .pie) { color: var(--tinta); }
+body.minimal :is(.sec--noche, .hero, .proy, .cita, .pie) :where(h1, h2, h3, h4, p, li, span, b, strong, small, blockquote, time, a, label, i, em) { color: var(--tinta) !important; }
+body.minimal :is(.sec--noche, .hero, .proy, .cita, .pie) :where(p, li, small) { color: var(--tinta-2) !important; }
+
+/* acentos (van después para ganar) */
+body.minimal .eyebrow, body.minimal .eyebrow * { color: var(--azul) !important; }
+body.minimal em, body.minimal .hero__temuco { color: #B07D00 !important; }
+body.minimal .hero__club, body.minimal .hero__dist { color: var(--azul) !important; }
+body.minimal .btn--oro, body.minimal .btn--oro * { color: var(--noche) !important; color: #06102B !important; }
+body.minimal .btn--vidrio, body.minimal .btn--vidrio * { color: var(--tinta) !important; }
+body.minimal .btn--vidrio { border-color: rgba(6, 16, 43, .35); }
+body.minimal .cifra__n { background: none; -webkit-text-fill-color: var(--azul); color: var(--azul) !important; }
+body.minimal .cifra__n * { -webkit-text-fill-color: var(--azul); }
+body.minimal :is(.evento__f b, .firma b, .sello__c b, .link-f, .link-f *, .pcard .chip, .sello-it h4, .miembro p) { color: var(--azul) !important; }
+body.minimal .evento__f span, body.minimal .evento__h span { color: var(--tinta-2) !important; }
+body.minimal .sello__giro text { fill: var(--azul); }
+body.minimal .pie__gigante span { color: transparent !important; -webkit-text-stroke: 1.5px var(--azul); }
+body.minimal .pcard__ico { background: var(--azul); border: 0; }
+body.minimal .pcard__ico, body.minimal .pcard__ico * { color: var(--oro) !important; }
+body.minimal .evento__tag { border-color: var(--min-linea-n); }
+body.minimal .evento__tag.abierto, body.minimal .evento__tag.abierto * { background: var(--oro); color: #06102B !important; }
+body.minimal .agenda__cal-dias button { color: var(--azul); border-color: rgba(0, 31, 92, .35); background: transparent; }
+body.minimal .agenda__cal-dias button.hoy, body.minimal .agenda__cal-dias span.hoy { background: var(--oro); color: #06102B !important; border-color: var(--oro); }
+body.minimal .agenda__cal-dias .sel { background: var(--azul); color: #fff !important; border-color: var(--azul); }
+body.minimal .agenda__cal-dias span { color: var(--tinta-2); }
+body.minimal .agenda__cal-sem span, body.minimal .agenda__cal-nota { color: var(--tinta-2); }
+body.minimal .agenda__nav { color: var(--tinta); border-color: var(--min-linea-n); }
+body.minimal #club .firma li { border-top: 1px solid var(--azul); }
+body.minimal .miembro__foto { background: #EDE7D4; }
+body.minimal .causas__panel, body.minimal .causas__panel * { color: #fff !important; }
+body.minimal .causas__panel .causas__tit { color: var(--oro) !important; }
+
+/* encabezado claro */
+body.minimal .cab, body.minimal .cab a, body.minimal .cab__marca b, body.minimal .cab__marca small { color: var(--tinta); }
+body.minimal .cab__nav a { color: var(--tinta-2); }
+body.minimal .cab__nav a:hover, body.minimal .cab__nav a.on { color: var(--azul); }
+body.minimal .cab .btn--oro, body.minimal .cab .btn--oro * { color: #06102B !important; }
+body.minimal .burger { background: rgba(6, 16, 43, .06); border-color: rgba(6, 16, 43, .2); }
+body.minimal .burger i { background: var(--tinta); }
+body.minimal .progreso i { background: var(--azul); }
+
+/* el menú de pantalla completa sigue oscuro */
+body.minimal .menu, body.minimal .menu a, body.minimal .menu p { color: #fff; }
+body.minimal .menu__redes a, body.minimal .menu .eyebrow, body.minimal .menu .eyebrow * { color: var(--oro) !important; }
+
+/* correcciones de contraste del tema claro */
+body.minimal .sec--azul { background: #EFE9D8; border-radius: 0; }
+body.minimal .causas__panel { background: #06102B; }
+body.minimal .cita footer, body.minimal .cita footer * { color: var(--azul) !important; }
+body.minimal #contacto .form { background: #fff; border: 1px solid var(--min-linea-n); backdrop-filter: none; }
+body.minimal .campo input, body.minimal .campo textarea, body.minimal .campo select { color: var(--tinta); border-color: var(--min-linea-n); background: transparent; }
+body.minimal .campo label { color: var(--tinta-2) !important; }
+body.minimal .campo select option { color: #06102B; }
+body.minimal .test :is(.tit, h2, blockquote, small, b, span, p, button) { color: var(--tinta) !important; }
+body.minimal .test .test__ini, body.minimal .test .testimonio__ini { background: var(--oro); color: #06102B !important; }

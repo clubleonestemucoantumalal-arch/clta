@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trabajo en terreno | Club de Leones Temuco Antumalal</title>
+<meta name="description" content="Todo el trabajo en terreno del Club de Leones Temuco Antumalal, mes a mes: operativos, ayudas, visitas y apoyo a la comunidad.">
+<meta name="theme-color" content="#030A1F">
+<link rel="icon" href="assets/img/lions-international.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  :root { --noche: #030A1F; --oro: #FFCD00; --linea: rgba(255,255,255,.16); --txt: rgba(255,255,255,.82); --f-tit: 'Instrument Serif', Georgia, serif; --f-txt: 'Instrument Sans', system-ui, sans-serif; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font: 400 1.05rem/1.6 var(--f-txt); color: var(--txt); background: radial-gradient(1200px 600px at 80% -10%, #0B2260 0%, transparent 60%), var(--noche); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { width: min(100% - 32px, 1120px); margin-inline: auto; }
+  .barra { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; }
+  .barra__marca { display: flex; align-items: center; gap: .8rem; text-decoration: none; color: #fff; font-weight: 600; }
+  .barra__marca img { width: 48px; height: 48px; }
+  .volver { font-weight: 600; font-size: .95rem; text-decoration: none; color: var(--oro); border-bottom: 1.5px solid rgba(255,205,0,.45); padding-bottom: 2px; }
+  .volver:hover { border-color: var(--oro); }
+  .cab { padding: clamp(1.4rem, 5vh, 3rem) 0 clamp(1rem, 3vh, 2rem); }
+  .eyebrow { display: inline-flex; align-items: center; gap: .6rem; font: italic 400 1.15rem/1 var(--f-tit); color: var(--oro); margin-bottom: 1rem; }
+  .eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--oro); }
+  h1 { font: 400 clamp(2.4rem, 6vw, 4.4rem)/1 var(--f-tit); color: #fff; margin-bottom: 1rem; }
+  .cab p { max-width: 46ch; color: #fff; font-size: clamp(1.05rem, 2vw, 1.25rem); }
+  .mes { margin-top: clamp(2rem, 6vh, 3.4rem); }
+  .mes h2 { display: flex; align-items: baseline; gap: 1rem; font: 400 clamp(1.8rem, 3.6vw, 2.5rem)/1 var(--f-tit); color: var(--oro); text-transform: capitalize; padding-bottom: .8rem; border-bottom: 1px solid var(--linea); margin-bottom: 1.2rem; }
+  .mes h2 small { font: 600 .85rem/1 var(--f-txt); letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+  .rejilla { display: grid; gap: clamp(.8rem, 1.6vw, 1.4rem); grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+  .tarj { text-decoration: none; transition: transform .4s; display: flex; flex-direction: column; border-radius: 1.4rem; overflow: hidden; background: linear-gradient(180deg, #0B2260, #04123A); border: 1px solid var(--linea); box-shadow: 0 26px 50px -34px rgba(0,0,0,.8); }
+  .tarj__img { aspect-ratio: 16 / 10; background: #0B2260; overflow: hidden; }
+  .tarj__img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .tarj__cuerpo { padding: 1.1rem 1.3rem 1.4rem; display: grid; gap: .5rem; align-content: start; }
+  .chip { justify-self: start; font: 700 .72rem/1 var(--f-txt); letter-spacing: .12em; text-transform: uppercase; color: var(--oro); border: 1px solid rgba(255,205,0,.45); border-radius: 99px; padding: .4rem .8rem; }
+  .tarj h3 { font: 400 clamp(1.4rem, 2.4vw, 1.7rem)/1.1 var(--f-tit); color: #fff; }
+  .tarj p { font-size: .98rem; color: var(--txt); }
+  .tarj:hover { transform: translateY(-6px); border-color: rgba(255,205,0,.5); }
+  .leer { margin-top: .4rem; font-weight: 700; font-size: .92rem; color: var(--oro); }
+  .vacio { margin-top: 2rem; color: var(--txt); }
+  .mas { margin: clamp(2.4rem, 6vh, 4rem) 0 0; padding: clamp(1.4rem, 3vw, 2.2rem); border: 1px solid var(--linea); border-radius: 1.4rem; background: rgba(255,255,255,.05); display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; justify-content: space-between; }
+  .mas h2 { font: 400 clamp(1.6rem, 3vw, 2.1rem)/1.1 var(--f-tit); color: #fff; }
+  .mas p { margin-top: .3rem; }
+  .btn { display: inline-flex; align-items: center; gap: .6rem; padding: 1rem 1.6rem; border-radius: 99px; font: 700 1rem/1 var(--f-txt); text-decoration: none; background: var(--oro); color: var(--noche); box-shadow: 0 14px 30px -12px rgba(255,205,0,.55); transition: transform .3s; }
+  .btn:hover { transform: translateY(-3px); }
+  footer { border-top: 1px solid var(--linea); margin-top: clamp(2.4rem, 6vh, 4rem); padding: 1.6rem 0 2.4rem; font-size: .9rem; color: rgba(255,255,255,.6); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<header class="wrap barra">
+  <a class="barra__marca" href="index.html" aria-label="Club de Leones Temuco Antumalal, inicio">
+    <img src="assets/img/lions-international.png" alt="" width="48" height="48"><span>Leones Temuco Antumalal</span>
+  </a>
+  <a class="volver" href="index.html#proyectos">&larr; Volver al sitio</a>
+</header>
+
+<main class="wrap" id="contenido">
+  <div class="cab">
+    <p class="eyebrow">Archivo</p>
+    <h1>Trabajo en terreno</h1>
+    <p>Lo que hemos hecho junto a la comunidad, mes a mes. Aquí quedan guardadas todas las actividades, también las de meses pasados.</p>
+  </div>
+  <div id="archivo" aria-live="polite"><p class="vacio">Cargando…</p></div>
+
+  <section class="mas">
+    <div>
+      <h2>Mucho más en nuestras redes</h2>
+      <p>Mira fotos y novedades recientes del club en Instagram.</p>
+    </div>
+    <a class="btn" id="verIg" href="https://www.instagram.com/leonestemuco_antumalal/" target="_blank" rel="noopener">Instagram del club &rarr;</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>Club de Leones Temuco Antumalal · Distrito T-4 · Nosotros Servimos</span><a href="index.html">Ir al sitio principal</a></div>
+</footer>
+
+<!-- Copia de respaldo: permite ver el archivo aun abriendo el archivo con doble clic -->
+<script src="assets/js/rediseno-respaldo.js"></script>
+<script>
+(function () {
+  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var cont = document.getElementById('archivo');
+  var bajar = function (u) { return fetch(u, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); };
+
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  // Los textos del panel pueden traer etiquetas simples (<em>, <strong>): se muestran como texto plano.
+  function slug(s) { return plano(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+  function plano(s) { var d = document.createElement('div'); d.innerHTML = s == null ? '' : String(s); return d.textContent; }
+
+  Promise.all([bajar('data/contenido.json'), bajar('data/imagenes.json')]).then(function (r) {
+    var D = r[0] || window.RESPALDO || {};
+    var IMGS = r[1] || {};
+    if (D.redes && D.redes.instagram) document.getElementById('verIg').href = D.redes.instagram;
+
+    var foto = function (ref) {
+      ref = String(ref || '');
+      if (ref.indexOf('img:') === 0) return IMGS[ref.slice(4)] || '';
+      if (/assets\/img\/fotos\/.*\.svg$/i.test(ref)) return '';
+      return ref;
+    };
+
+    var lista = (D.proyectos || []).slice();
+    if (!lista.length) { cont.innerHTML = ''; cont.appendChild(el('p', 'vacio', 'Pronto compartiremos nuestro trabajo en terreno.')); return; }
+
+    // agrupa por mes (más reciente primero); lo que no tiene fecha va al final
+    var grupos = {};
+    lista.forEach(function (p) {
+      var m = /^(\d{4})-(\d{2})/.exec(p.fecha || '');
+      var k = m ? m[1] + '-' + m[2] : 'sin-fecha';
+      (grupos[k] = grupos[k] || []).push(p);
+    });
+    var claves = Object.keys(grupos).filter(function (k) { return k !== 'sin-fecha'; }).sort().reverse();
+    if (grupos['sin-fecha']) claves.push('sin-fecha');
+
+    cont.innerHTML = '';
+    claves.forEach(function (k) {
+      var sec = el('section', 'mes');
+      var h = el('h2');
+      if (k === 'sin-fecha') { h.textContent = 'Otras actividades'; }
+      else { var a = k.split('-'); h.textContent = MESES[+a[1] - 1] + ' ' + a[0]; }
+      var n = grupos[k].length; h.appendChild(el('small', null, n + (n === 1 ? ' actividad' : ' actividades')));
+      sec.appendChild(h);
+      var rej = el('div', 'rejilla');
+      grupos[k].forEach(function (p) {
+        var t = el('a', 'tarj'); t.href = 'trabajo.html?id=' + encodeURIComponent(p.id || slug(p.titulo));
+        var f = foto(p.imagen);
+        if (f) { var c = el('div', 'tarj__img'), i = document.createElement('img'); i.src = f; i.alt = plano(p.titulo); i.loading = 'lazy'; c.appendChild(i); t.appendChild(c); }
+        var cu = el('div', 'tarj__cuerpo');
+        if (p.tag) cu.appendChild(el('span', 'chip', plano(p.tag)));
+        cu.appendChild(el('h3', null, plano(p.titulo)));
+        cu.appendChild(el('p', null, plano(p.texto)));
+        cu.appendChild(el('span', 'leer', 'Leer la historia →'));
+        t.appendChild(cu); rej.appendChild(t);
+      });
+      sec.appendChild(rej); cont.appendChild(sec);
+    });
+  });
+})();
+</script>
+</body>
+</html>

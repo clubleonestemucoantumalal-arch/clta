@@ -32,6 +32,13 @@ const gnews = (q) =>
 
 const FUENTES = [
   {
+    nombre: 'Distrito T4',
+    tipo:   'oficial',
+    url:    'https://leonest4.cl/noticias',
+    limite: 8,
+    custom: 'leonest4'
+  },
+  {
     nombre: 'LION Magazine',
     tipo:   'oficial',
     url:    'https://www.lionmagazine.org/feed',
@@ -140,8 +147,44 @@ async function traer(url, intentos = 2) {
   }
 }
 
+
+/* ---------- Distrito T4 (leonest4.cl): no tiene RSS, se leen sus páginas ---------- */
+const MESES_ES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+async function leerLeonesT4(f) {
+  const base = 'https://leonest4.cl';
+  const listado = await traer(f.url);
+  const slugs = [...new Set([...listado.matchAll(/href="\/noticias\/([a-z0-9-]+)"/gi)].map((m) => m[1]))].slice(0, f.limite || 8);
+
+  const items = await Promise.all(slugs.map(async (slug) => {
+    try {
+      const html = await traer(`${base}/noticias/${slug}`);
+      const titulo = decodificar((html.match(/<title>([^<]*)<\/title>/i) || [])[1] || '')
+        .replace(/\s+[—-]\s+Distrito T4\s*$/i, '').trim();
+      const resumen = decodificar((html.match(/<meta name="description" content="([^"]*)"/i) || [])[1] || '').slice(0, 230);
+      const d = html.match(/(\d{1,2})\s+de\s+([a-záéíóú]+)\s+de\s+(\d{4})/i);
+      const mes = d ? MESES_ES.indexOf(d[2].toLowerCase()) : -1;
+      const fecha = d && mes >= 0 ? new Date(Date.UTC(+d[3], mes, +d[1], 12)) : new Date();
+      const img = (html.match(/<img[^>]+src="(\/uploads\/[^"]+)"/i) || [])[1];
+      return {
+        titulo,
+        resumen,
+        enlace: `${base}/noticias/${slug}`,
+        fecha: fecha.toISOString(),
+        fuente: 'Distrito T4',
+        tipo: f.tipo,
+        imagen: img ? base + img : ''
+      };
+    } catch {
+      return null;
+    }
+  }));
+  return items.filter((n) => n && n.titulo);
+}
+
 /* ---------- procesar una fuente ---------- */
 async function leerFuente(f) {
+  if (f.custom === 'leonest4') return leerLeonesT4(f);
   const xml = await traer(f.url);
   const bloques = xml.match(/<item[\s\S]*?<\/item>|<entry[\s\S]*?<\/entry>/gi) || [];
 

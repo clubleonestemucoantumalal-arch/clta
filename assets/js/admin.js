@@ -251,7 +251,7 @@
      para que ninguna sección del panel se caiga por una llave ausente. */
   function normalizar(d) {
     const listas = ['impacto', 'causas', 'sellos', 'proyectos', 'valores',
-                    'directiva', 'testimonios', 'faq', 'donaOps', 'clubFirma'];
+                    'directiva', 'testimonios', 'faq', 'donaOps', 'donaEventos', 'clubFirma'];
     listas.forEach((k) => { if (!Array.isArray(d[k])) d[k] = []; });
 
     const objetos = ['identidad', 'contacto', 'redes', 'formulario', 'noticias',
@@ -966,17 +966,7 @@
           { tipo: 'imagen', ruta: 'imagenClaves.sobre1', etiqueta: 'Foto principal', clave: 'sobre1', ancho: 1200, pordefecto: 'assets/img/fotos/sobre-1.svg' },
           { tipo: 'imagen', ruta: 'imagenClaves.sobre2', etiqueta: 'Foto 2', clave: 'sobre2', ancho: 900, pordefecto: 'assets/img/fotos/sobre-2.svg' },
           { tipo: 'imagen', ruta: 'imagenClaves.sobre3', etiqueta: 'Foto 3', clave: 'sobre3', ancho: 900, pordefecto: 'assets/img/fotos/sobre-3.svg' }
-        ] },
-        { repetidor: {
-          ruta: 'clubFirma', etiqueta: 'Datos al pie del relato',
-          ayuda: 'Los tres datos chicos que cierran la sección (año, distrito, día de sesión).',
-          textoNuevo: 'Agregar dato',
-          titulo: (it) => `${it.dato || '—'} · ${it.etiqueta || ''}`,
-          nuevo: { dato: '', etiqueta: '' },
-          campos: [
-            { tipo: 'texto', ruta: 'dato', etiqueta: 'Dato destacado' },
-            { tipo: 'texto', ruta: 'etiqueta', etiqueta: 'Qué significa' }
-          ] } }
+        ] }
       ] },
 
     { id: 'causas', grupo: 'Contenido de la página', nombre: 'Causas', ico: ICO.grid,
@@ -1036,7 +1026,7 @@
 
     { id: 'proyectos', grupo: 'Contenido de la página', nombre: 'Proyectos', ico: ICO.grid,
       titulo: 'Proyectos',
-      bajada: 'Las tarjetas con foto de "Lo que hacemos en terreno".',
+      bajada: 'Las tarjetas con foto de "Lo que hacemos en terreno". En la portada se ven las primeras 8; todas quedan en la página de archivo por mes (trabajo-en-terreno.html), así no se pierde el trabajo de meses pasados.',
       tarjetas: [
         { pintar: pintarImportadorLions },
         { titulo: 'Encabezado', campos: [
@@ -1047,28 +1037,34 @@
         { repetidor: {
           ruta: 'proyectos', etiqueta: 'Proyectos', textoNuevo: 'Agregar proyecto',
           titulo: (it) => it.titulo,
-          nuevo: { tag: '', titulo: 'Nuevo proyecto', texto: '', imagen: 'assets/img/fotos/proyecto-1.svg', enlace: '#contacto', ancho: false },
+          nuevo: { tag: '', titulo: 'Nuevo proyecto', texto: '', fecha: '', cuerpo: '', lugar: '', personas: '', imagen: 'assets/img/fotos/proyecto-1.svg', enlace: '', ancho: false },
           campos: [
             { tipo: 'texto', ruta: 'titulo', etiqueta: 'Nombre del proyecto' },
+            { tipo: 'fecha', ruta: 'fecha', etiqueta: 'Fecha de la actividad', ayuda: 'Sirve para ordenar el archivo histórico por mes. El carrusel de la portada muestra los primeros de esta lista; <b>los demás no se pierden</b>: quedan en la página «Trabajo en terreno».' },
             { tipo: 'texto', ruta: 'tag', etiqueta: 'Etiqueta', ayuda: 'La palabra chica sobre el título: "Salud visual", "Invierno"…' },
             { tipo: 'area', ruta: 'texto', etiqueta: 'Descripción', filas: 3 },
             { tipo: 'imagen', ruta: 'imagen', etiqueta: 'Foto', clave: 'proyecto', ancho: 1400,
               pordefecto: 'assets/img/fotos/proyecto-1.svg' },
-            { tipo: 'texto', ruta: 'enlace', etiqueta: 'A dónde lleva al hacer clic',
-              ayuda: 'Deja <code>#contacto</code> para llevar al formulario, o pega una dirección web completa.' },
+            { tipo: 'texto', ruta: 'foco', etiqueta: 'Encuadre de la foto',
+              ayuda: 'Qué parte de la foto se ve en el recuadro, como <code>50% 10%</code> (horizontal vertical). Con fotos verticales usa un vertical bajo (0%–20%) para que se vean las caras.' },
+            { tipo: 'texto', ruta: 'lugar', etiqueta: 'Lugar (opcional)', marca: 'Hospital Regional de Temuco' },
+            { tipo: 'texto', ruta: 'personas', etiqueta: 'Personas beneficiadas (opcional)', marca: '100' },
+            { tipo: 'area', ruta: 'cuerpo', etiqueta: 'La historia completa (la que se lee al entrar)', filas: 9,
+              ayuda: 'Escribe como una noticia. <b>Deja una línea en blanco entre párrafos.</b> Si lo dejas vacío, se muestra solo la descripción corta.' },
+            { tipo: 'texto', ruta: 'cita', etiqueta: 'Frase destacada (opcional)', ayuda: 'Una frase corta que se muestra grande a la mitad de la historia.' },
+            { tipo: 'imagen', ruta: 'foto2', etiqueta: 'Foto extra 1 (opcional)', clave: 'terreno', ancho: 1200, pordefecto: '' },
+            { tipo: 'imagen', ruta: 'foto3', etiqueta: 'Foto extra 2 (opcional)', clave: 'terreno', ancho: 1200, pordefecto: '' },
+            { tipo: 'imagen', ruta: 'foto4', etiqueta: 'Foto extra 3 (opcional)', clave: 'terreno', ancho: 1200, pordefecto: '' },
+            { tipo: 'texto', ruta: 'enlace', etiqueta: 'Enlace distinto (opcional)',
+              ayuda: 'Normalmente déjalo <b>vacío</b>: así la tarjeta abre la historia completa. Solo si quieres que lleve a otra página, pega la dirección completa.' },
             { tipo: 'switch', ruta: 'ancho', etiqueta: 'Ocupar el doble de ancho' }
           ] } }
       ] },
 
     { id: 'valores', grupo: 'Contenido de la página', nombre: 'Valores', ico: ICO.grid,
       titulo: 'Valores',
-      bajada: 'Los criterios con que trabaja el club, y la cita del final.',
+      bajada: 'Se muestran dentro de "Nuestro sello de trabajo" (sección de cifras). Aquí también se edita la cita del final.',
       tarjetas: [
-        { titulo: 'Encabezado', campos: [
-          { tipo: 'texto', ruta: 'textos.valores.eyebrow', etiqueta: 'Palabra pequeña de arriba' },
-          { tipo: 'texto', ruta: 'textos.valores.titulo', etiqueta: 'Título' },
-          { tipo: 'area', ruta: 'textos.valores.lead', etiqueta: 'Bajada', filas: 3 }
-        ] },
         { repetidor: {
           ruta: 'valores', etiqueta: 'Valores', textoNuevo: 'Agregar valor',
           titulo: (it) => it.titulo,
@@ -1122,8 +1118,10 @@
         { repetidor: {
           ruta: 'testimonios', etiqueta: 'Testimonios', textoNuevo: 'Agregar testimonio',
           titulo: (it) => it.autor,
-          nuevo: { texto: '', autor: '', detalle: '', iniciales: '' },
+          nuevo: { texto: '', autor: '', detalle: '', iniciales: '', foto: '' },
           campos: [
+            { tipo: 'imagen', ruta: 'foto', etiqueta: 'Foto de la persona (opcional)', clave: 'testimonio', ancho: 400, pordefecto: '',
+              ayuda: 'Si no subes foto, se muestra el círculo con las iniciales. Sube una foto solo si la persona lo autorizó.' },
             { tipo: 'area', ruta: 'texto', etiqueta: 'Lo que dijo', filas: 4 },
             { tipo: 'texto', ruta: 'autor', etiqueta: 'Quién lo dice' },
             { tipo: 'texto', ruta: 'detalle', etiqueta: 'Quién es', ayuda: '"Vecina de Padre Las Casas", "Socia desde 2019"…' },
@@ -1156,6 +1154,27 @@
           { tipo: 'texto', ruta: 'textos.dona.subtitulo', etiqueta: 'Título del recuadro de la cuenta' },
           { tipo: 'area', ruta: 'textos.dona.nota', etiqueta: 'Nota bajo los datos bancarios', filas: 3 }
         ] },
+        { titulo: 'Actividades que hacemos cada año', campos: [
+          { tipo: 'texto', ruta: 'textos.dona.eventosTitulo', etiqueta: 'Título del bloque' },
+          { tipo: 'area', ruta: 'textos.dona.eventosLead', etiqueta: 'Bajada', filas: 2 }
+        ] },
+        { repetidor: {
+          ruta: 'donaEventos', etiqueta: 'Actividades solidarias (bingo, paella…)', textoNuevo: 'Agregar actividad',
+          ayuda: 'Cuando una actividad salga a la venta: activa "Ya está a la venta", pon la fecha, el lugar, el precio, el enlace para comprar y el afiche. Aparece destacada en el sitio.',
+          titulo: (it) => (it.venta ? '● ' : '') + (it.titulo || ''),
+          nuevo: { icono: 'estrella', mes: '', titulo: 'Nueva actividad', texto: '', venta: false, lugar: '', precio: '', enlace: '', enlaceTexto: '', imagen: '' },
+          campos: [
+            { tipo: 'texto', ruta: 'titulo', etiqueta: 'Nombre' },
+            { tipo: 'switch', ruta: 'venta', etiqueta: 'Ya está a la venta / con inscripciones abiertas', pordefecto: false },
+            { tipo: 'texto', ruta: 'mes', etiqueta: 'Cuándo se hace', ayuda: 'Antes de tener fecha: "Mayo o junio". Cuando la tengas: "Sábado 30 de mayo, 20:00 h".' },
+            { tipo: 'texto', ruta: 'lugar', etiqueta: 'Lugar (opcional)', marca: 'Centro de reuniones quincho Martin Lutero' },
+            { tipo: 'texto', ruta: 'precio', etiqueta: 'Precio (opcional)', marca: 'Cartón $3.000 · Porción $8.000' },
+            { tipo: 'area', ruta: 'texto', etiqueta: 'Descripción', filas: 3 },
+            { tipo: 'texto', ruta: 'enlace', etiqueta: 'Enlace para comprar o inscribirse (opcional)', ayuda: 'Dirección web completa (https://…) o <code>#contacto</code> para llevar al formulario. Si lo dejas vacío no aparece el botón.' },
+            { tipo: 'texto', ruta: 'enlaceTexto', etiqueta: 'Texto del botón', marca: 'Comprar entradas' },
+            { tipo: 'imagen', ruta: 'imagen', etiqueta: 'Afiche o foto (opcional)', clave: 'gala', ancho: 900, pordefecto: '' },
+            { tipo: 'icono', ruta: 'icono', etiqueta: 'Ícono (si no hay afiche)' }
+          ] } },
         { repetidor: {
           ruta: 'donaOps', etiqueta: 'Otras formas de aportar', textoNuevo: 'Agregar forma de aportar',
           titulo: (it) => it.titulo,
@@ -1163,7 +1182,12 @@
           campos: [
             { tipo: 'texto', ruta: 'titulo', etiqueta: 'Título' },
             { tipo: 'area', ruta: 'texto', etiqueta: 'Descripción', filas: 3 },
-            { tipo: 'icono', ruta: 'icono', etiqueta: 'Ícono' }
+            { tipo: 'icono', ruta: 'icono', etiqueta: 'Ícono' },
+            { tipo: 'texto', ruta: 'enlace', etiqueta: 'Adónde lleva al hacer clic',
+              ayuda: 'Pon #contacto para llevar al formulario, o la dirección de una página (https://…). Vacío = sin enlace.' },
+            { tipo: 'texto', ruta: 'enlaceTexto', etiqueta: 'Texto del botón' },
+            { tipo: 'texto', ruta: 'motivo', etiqueta: 'Motivo que se marca en el formulario',
+              ayuda: 'Solo si lleva al formulario. Debe ser igual a una opción de "Motivo": Quiero ser socio, Solicito ayuda, Quiero donar o auspiciar, Voluntariado profesional, Prensa o difusión, Otro.' }
           ] } }
       ] },
 
@@ -1194,6 +1218,13 @@
           { tipo: 'texto', ruta: 'textos.contactoSec.titulo', etiqueta: 'Título' },
           { tipo: 'area', ruta: 'textos.contactoSec.lead', etiqueta: 'Bajada', filas: 3 }
         ] },
+        { titulo: 'Pregunta «¿Cómo conociste el club?»',
+          ayuda: 'El formulario le pregunta a quien escribe cómo se enteró del club. Sirve para saber qué canales funcionan mejor.',
+          campos: [
+            { tipo: 'texto', ruta: 'textos.contactoSec.origenPregunta', etiqueta: 'Pregunta', marca: '¿Cómo conociste el club?' },
+            { tipo: 'area', ruta: 'formulario.origenes', etiqueta: 'Opciones (una por línea)', filas: 9,
+              ayuda: 'Cada línea es una opción de la lista. Si borras todo, la pregunta no aparece en el formulario.' }
+          ] },
         { titulo: 'A dónde llegan los mensajes',
           ayuda: 'Si dejas esto vacío, al enviar el formulario se abre WhatsApp con el mensaje ya escrito. Funciona bien y no requiere configurar nada.',
           campos: [
@@ -1398,6 +1429,8 @@
         { tipo: 'texto', ruta: 'titulo', etiqueta: 'Nombre de la actividad' },
         { tipo: 'area', ruta: 'texto', etiqueta: 'Detalle', filas: 2, ayuda: 'Dónde es, qué hay que llevar. Si lo dejas vacío usa el lugar de las sesiones.' },
         { tipo: 'texto', ruta: 'hora', etiqueta: 'Hora', marca: '10:00 h' },
+        { tipo: 'texto', ruta: 'enlace', etiqueta: 'Enlace (opcional)', ayuda: 'Por ejemplo el link para comprar entradas o inscribirse. Dirección web completa (https://…).' },
+        { tipo: 'texto', ruta: 'enlaceTexto', etiqueta: 'Texto del enlace', marca: 'Comprar entradas' },
         { tipo: 'switch', ruta: 'abierto', etiqueta: 'Abierta a la comunidad', pordefecto: true }
       ]
     }));

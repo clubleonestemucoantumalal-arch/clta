@@ -52,6 +52,7 @@
   const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 
   /* ═══════════════ DATOS ═══════════════ */
+  const slugDe = (t) => texto(t).replace(/<[^>]+>/g, '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
   const bajar = (u) => fetch(u, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
   let IMGS = {};
 
@@ -61,13 +62,14 @@
       try { D = JSON.parse(localStorage.getItem('antumalal.borrador')); } catch { /* se usa el publicado */ }
     }
     D = D || (await bajar('data/contenido.json')) || window.RESPALDO || {};
-    const [noti, imgs, dist] = await Promise.all([
-      bajar((D.noticias && D.noticias.archivoLocal) || 'data/noticias.json'),
+    const [noti, imgs, dist, propias] = await Promise.all([
+      bajar((D.noticias && D.noticias.archivoLocal) || 'data/noticias.json').then((r) => r || window.RESPALDO_NOTICIAS),
       bajar('data/imagenes.json'),
-      bajar('data/agenda-distrito.json')
+      bajar('data/agenda-distrito.json').then((r) => r || window.RESPALDO_AGENDA),
+      bajar('data/noticias-propias.json').then((r) => r || window.RESPALDO_NOTICIAS_PROPIAS)
     ]);
     IMGS = imgs || {};
-    return { D, noticias: (noti && noti.noticias) || [], distrito: (dist && dist.eventos) || [] };
+    return { D, noticias: [...((propias && propias.noticias) || []), ...((noti && noti.noticias) || [])], distrito: (dist && dist.eventos) || [] };
   }
 
   /* Imagen real (ruta o foto subida al panel). Los marcadores SVG cuentan como "sin foto". */
@@ -93,7 +95,7 @@
       return new Date(a, m, 1 + ((8 - d.getDay()) % 7) + (cual === 2 ? 7 : 21));
     };
     if (cfg.auto !== false) {
-      for (let m = 0; m < 6 && items.length < cupo * 2; m++) {
+      for (let m = 0; m < 12 && items.length < 200; m++) {
         const b = new Date(hoy.getFullYear(), hoy.getMonth() + m, 1);
         for (const cual of [2, 4]) {
           const f = lunes(b.getFullYear(), b.getMonth(), cual);
@@ -111,7 +113,7 @@
       if (p.length < 3 || !p[0]) return;
       const f = new Date(p[0], p[1] - 1, p[2]);
       if (isNaN(f) || f < hoy) return;
-      items.push({ f, titulo: e.titulo || 'Actividad del club', texto: e.texto || lugar, hora: e.hora || hora, abierto: e.abierto !== false });
+      items.push({ f, titulo: e.titulo || 'Actividad del club', texto: e.texto || lugar, hora: e.hora || hora, abierto: e.abierto !== false, enlace: texto(e.enlace), enlaceTexto: texto(e.enlaceTexto) });
     });
     (Array.isArray(distrito) ? distrito : []).forEach((e) => {
       if (!e || !e.fecha) return;
@@ -119,9 +121,69 @@
       if (p.length < 3 || !p[0]) return;
       const f = new Date(p[0], p[1] - 1, p[2]);
       if (isNaN(f) || f < hoy) return;
-      items.push({ f, titulo: e.titulo || 'Distrito T4', texto: e.texto || 'Distrito T4', hora: e.hora || '', abierto: false, distrito: true });
+      items.push({ f, titulo: e.titulo || 'Distrito T4', texto: e.texto || 'Distrito T4', hora: e.hora || '', abierto: false, distrito: true, internacional: e.ambito === 'internacional' });
     });
-    return items.sort((a, b) => a.f - b.f).slice(0, cupo);
+    const orden = items.sort((a, b) => a.f - b.f);
+    const visibles = orden.slice(0, cupo);
+    visibles.todos = orden;
+    return visibles;
+  }
+
+  /* Agenda interactiva: calendario mensual + lista del mes (o del día elegido) */
+  const NOMBRE_DIA_MINI = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+  const htmlEvento = (e) => `
+              <li class="evento">
+                <div class="evento__f"><b>${String(e.f.getDate()).padStart(2, '0')}</b><span>${MES3[e.f.getMonth()]} ${e.f.getFullYear()}</span></div>
+                <div class="evento__c"><h3>${limpiar(e.titulo)}</h3><p>${limpiar(e.texto)}</p>${e.enlace ? `<a class="evento__go" href="${esc(e.enlace)}"${/^https?:/i.test(e.enlace) ? ' target="_blank" rel="noopener"' : ''}>${limpiar(e.enlaceTexto || 'Más información')} ${flecha(14)}</a>` : ''}</div>
+                <div class="evento__h"><span>${DIAS[e.f.getDay()]}</span><b>${esc(e.hora)}</b></div>
+                <span class="evento__tag ${e.abierto ? 'abierto' : ''}">${e.internacional ? 'Internacional' : e.distrito ? 'Distrito T4' : (e.abierto ? 'Abierta a la comunidad' : 'Socios')}</span>
+              </li>`;
+  const htmlDias = (todos, anio, mes, sel) => {
+    const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    const n = new Date(anio, mes + 1, 0).getDate();
+    const off = (new Date(anio, mes, 1).getDay() + 6) % 7;
+    const con = new Set(todos.filter((e) => e.f.getFullYear() === anio && e.f.getMonth() === mes).map((e) => e.f.getDate()));
+    return Array(off).fill('<span></span>').concat(Array.from({ length: n }, (_, i) => {
+      const d = i + 1;
+      const esHoy = hoy.getFullYear() === anio && hoy.getMonth() === mes && hoy.getDate() === d;
+      const cls = [esHoy ? 'hoy' : '', con.has(d) ? 'con-evento' : '', sel === d ? 'sel' : ''].join(' ').trim();
+      return con.has(d)
+        ? `<button type="button" class="${cls}" data-dia="${d}" aria-label="${d} de ${MESES[mes]}: ver actividades">${d}</button>`
+        : `<span class="${cls}">${d}</span>`;
+    })).join('');
+  };
+  function agendaInteractiva(todos) {
+    const cont = $('.agenda__cal');
+    if (!cont || !todos || !todos.length) return;
+    const hoy = new Date();
+    const base = { a: hoy.getFullYear(), m: hoy.getMonth() };
+    const est = { a: base.a, m: base.m, dia: null };
+    const MAX = 11;
+    const pintar = () => {
+      $('#calTitulo').textContent = `${MESES[est.m]} ${est.a}`;
+      $('#calDias').innerHTML = htmlDias(todos, est.a, est.m, est.dia);
+      const delMes = todos.filter((e) => e.f.getFullYear() === est.a && e.f.getMonth() === est.m);
+      const lista = est.dia ? delMes.filter((e) => e.f.getDate() === est.dia) : delMes;
+      const ver = lista.slice(0, 5);
+      const resto = lista.length - ver.length;
+      $('#agendaLista').innerHTML = ver.length
+        ? ver.map(htmlEvento).join('') + (resto > 0 ? `<li class="evento evento--mas">y ${resto} actividad${resto === 1 ? '' : 'es'} más este mes</li>` : '')
+        : `<li class="evento evento--vacio">No hay actividades registradas en ${MESES[est.m]}.</li>`;
+      const dist = (est.a - base.a) * 12 + est.m - base.m;
+      $('[data-dir="-1"]', cont).disabled = dist <= 0;
+      $('[data-dir="1"]', cont).disabled = dist >= MAX;
+    };
+    cont.addEventListener('click', (ev) => {
+      const nav = ev.target.closest('[data-dir]');
+      if (nav && !nav.disabled) {
+        const d = new Date(est.a, est.m + Number(nav.dataset.dir), 1);
+        est.a = d.getFullYear(); est.m = d.getMonth(); est.dia = null;
+        pintar(); return;
+      }
+      const dia = ev.target.closest('[data-dia]');
+      if (dia) { const n = Number(dia.dataset.dia); est.dia = est.dia === n ? null : n; pintar(); }
+    });
+    pintar();
   }
 
   /* ═══════════════ PLANTILLAS ═══════════════ */
@@ -131,7 +193,7 @@
   ];
   const RIEL = [
     ['inicio', 'Inicio'], ['club', 'El Club'], ['impacto', 'Impacto'], ['causas', 'Causas'], ['proyectos', 'Proyectos'],
-    ['valores', 'Valores'], ['noticias', 'Noticias'], ['agenda', 'Agenda'], ['directorio', 'Directorio'],
+    ['noticias', 'Noticias'], ['agenda', 'Agenda'], ['directorio', 'Directorio'],
     ['testimonios', 'Voces'], ['unete', 'Súmate'], ['dona', 'Colabora'], ['faq', 'Dudas'], ['contacto', 'Contacto']
   ];
   const ICONO_PROYECTO = [
@@ -157,7 +219,11 @@
     const hero = `
     <section class="hero sec--noche" id="inicio" data-shape="ondas" data-lado="1" data-esc="1.3" data-alfa=".2" data-ym=".58" data-escm=".5" data-nav>
       <div class="hero__in wrap">
-        <p class="pill" data-hero="pill"><span class="pill__punto"></span><span>${limpiar(H.pill || '')}</span></p>
+        <div class="hero__nombre" data-hero="pill">
+          <span class="hero__club">Club de Leones</span>
+          <strong class="hero__temuco">Temuco Antumalal</strong>
+          <span class="hero__dist"><i class="pill__punto"></i>Distrito T4 · Desde 1983</span>
+        </div>
         <h1 class="hero__t split" data-hero="titulo">${limpiar(H.titulo || '')}</h1>
         <p class="hero__sub" data-hero="sub">${limpiar(H.sub || '')}</p>
         <div class="hero__cta" data-hero="cta">
@@ -202,9 +268,6 @@
               <div class="sello__c"><b>${limpiar(CL.selloNum || '1983')}</b><span>${limpiar(CL.selloTxt || '')}</span></div>
             </div>
           </div>
-          <ul class="firma" data-rev>
-            ${(D.clubFirma || []).map((f) => `<li><b>${esc(f.dato)}</b><span>${esc(f.etiqueta)}</span></li>`).join('')}
-          </ul>
         </div>
       </div>
     </section>`;
@@ -232,6 +295,13 @@
                 <p>${limpiar(s.texto)}</p>
               </li>`).join('')}
           </ol>
+          <div class="sellos__valores">
+            ${(D.valores || []).map((v, i) => `
+              <article class="guia" data-rev style="--i:${i}">
+                <span class="guia__ico">${ico(v.icono, 24)}</span>
+                <div><h4>${limpiar(v.titulo)}</h4><p>${limpiar(v.texto)}</p></div>
+              </article>`).join('')}
+          </div>
         </div>
       </div>
     </section>`;
@@ -274,13 +344,13 @@
         </div>
         <div class="proy__vista" data-cursor="Arrastra">
           <div class="proy__pista" id="proyPista">
-            ${(D.proyectos || []).map((p, i) => {
+            ${(D.proyectos || []).slice(0, 8).map((p, i) => {
               const foto = fotoReal(p.imagen);
               return `
               <article class="pcard${p.ancho ? ' pcard--ancho' : ''}${foto ? '' : ' pcard--sinfoto'}" data-tilt style="--h:${(i * 47) % 360}">
                 ${foto ? `
                 <div class="pcard__vis pcard__vis--foto">
-                  <img src="${esc(foto)}" alt="${esc(p.titulo)}" loading="lazy">
+                  <img src="${esc(foto)}" alt="${esc(p.titulo)}" loading="lazy"${/^[\d.]+%\s+[\d.]+%$/.test(p.foco || '') ? ` style="object-position:${p.foco}"` : ''}>
                   <span class="pcard__luz"></span>
                 </div>` : ''}
                 <div class="pcard__cuerpo">
@@ -288,11 +358,11 @@
                   <span class="chip">${limpiar(p.tag)}</span>
                   <h3>${limpiar(p.titulo)}</h3>
                   <p>${limpiar(p.texto)}</p>
-                  <a class="link-f" href="${esc(p.enlace || '#contacto')}">Quiero saber más ${flecha(15)}</a>
+                  <a class="link-f" href="${esc(p.enlace && p.enlace !== '#contacto' ? p.enlace : 'trabajo.html?id=' + encodeURIComponent(p.id || slugDe(p.titulo)))}">${p.enlace && p.enlace !== '#contacto' ? 'Quiero saber más' : 'Leer la historia'} ${flecha(15)}</a>
                 </div>
               </article>`;
             }).join('')}
-            <div class="pcard pcard--fin"><b>¿Tienes una causa?</b><a class="btn btn--oro mag" href="#contacto"><span>Cuéntanos</span>${flecha(16)}</a></div>
+            <div class="pcard pcard--fin"><b>Hay mucho más en terreno</b><a class="btn btn--oro mag" href="trabajo-en-terreno.html"><span>Ver más trabajo en terreno</span>${flecha(16)}</a></div>
           </div>
         </div>
         <div class="proy__pie wrap"><div class="proy__barra"><i id="proyBarra"></i></div><span class="proy__ayuda">Recorre los proyectos</span></div>
@@ -302,20 +372,6 @@
     /* ── VALORES + CITA ── */
     const VA = T.valores || {};
     const valores = `
-    <section class="sec sec--papel valores" id="valores" data-nav>
-      <div class="wrap">
-        ${cabecera(VA.eyebrow || 'Nuestros valores', VA.titulo || '', VA.lead)}
-        <div class="valores__grid">
-          ${(D.valores || []).map((v, i) => `
-            <article class="valor" data-tilt data-rev style="--i:${i}">
-              <span class="valor__luz"></span>
-              <span class="valor__ico">${ico(v.icono, 30)}</span>
-              <h3>${limpiar(v.titulo)}</h3>
-              <p>${limpiar(v.texto)}</p>
-            </article>`).join('')}
-        </div>
-      </div>
-    </section>
     <section class="cita sec--noche" data-shape="ondas" data-lado="0" data-esc="1.5" data-alfa=".2">
       <div class="wrap">
         <blockquote>
@@ -333,7 +389,7 @@
       const cuando = f && !isNaN(f) ? `${f.getDate()} ${MES3[f.getMonth()]} ${f.getFullYear()}` : '';
       const resumen = texto(n.resumen).slice(0, i === 0 ? 220 : 130).trim();
       return `
-        <a class="nota${i === 0 ? ' nota--grande' : ''}" href="${esc(n.enlace)}" target="_blank" rel="noopener" data-rev data-tilt>
+        <a class="nota${i === 0 ? ' nota--grande' : ''}" href="${esc(n.enlace)}"${/^https?:/i.test(n.enlace || '') ? ' target="_blank" rel="noopener"' : ''} data-rev data-tilt>
           <span class="nota__img">${n.imagen ? `<img src="${esc(n.imagen)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<i class="nota__mono">${esc(texto(n.fuente).slice(0, 1))}</i></span>
           <span class="nota__meta"><b class="${n.tipo === 'oficial' ? 'ofi' : ''}">${esc(n.fuente)}</b>${cuando ? `<time>${cuando}</time>` : ''}</span>
           <h3>${esc(n.titulo)}</h3>
@@ -351,45 +407,27 @@
 
     /* ── AGENDA ── */
     const AG = T.agendaSec || {};
-    const NOMBRE_DIA_MINI = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
-    const cal = (() => {
-      const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
-      const anio = hoy.getFullYear(), mes = hoy.getMonth();
-      const diasEnMes = new Date(anio, mes + 1, 0).getDate();
-      const offset = (new Date(anio, mes, 1).getDay() + 6) % 7; // semana empieza lunes
-      const conEvento = new Set(agenda
-        .filter((e) => e.f.getFullYear() === anio && e.f.getMonth() === mes)
-        .map((e) => e.f.getDate()));
-      const celdas = Array(offset).fill(null).concat(
-        Array.from({ length: diasEnMes }, (_, i) => i + 1));
-      return { nombre: MESES[mes], anio, celdas, conEvento, hoyDia: hoy.getDate() };
-    })();
+    const hoyAg = new Date();
     const agendaSec = `
     <section class="sec sec--noche agenda" id="agenda" data-shape="ondas" data-lado="1" data-esc="1.2" data-alfa=".35" data-nav>
       <div class="wrap">
         ${cabecera(AG.eyebrow || 'Agenda', AG.titulo || '', AG.lead)}
         <div class="agenda__grid">
           <div class="agenda__cal" data-rev>
-            <div class="agenda__cal-cab"><h3>${cal.nombre} ${cal.anio}</h3></div>
-            <div class="agenda__cal-sem">${NOMBRE_DIA_MINI.map((d) => `<span>${d}</span>`).join('')}</div>
-            <div class="agenda__cal-dias">
-              ${cal.celdas.map((d) => d === null
-                ? `<span></span>`
-                : `<span class="${d === cal.hoyDia ? 'hoy' : ''} ${cal.conEvento.has(d) ? 'con-evento' : ''}">${d}</span>`
-              ).join('')}
+            <div class="agenda__cal-cab">
+              <button type="button" class="agenda__nav" data-dir="-1" aria-label="Mes anterior" disabled>&lsaquo;</button>
+              <h3 id="calTitulo">${MESES[hoyAg.getMonth()]} ${hoyAg.getFullYear()}</h3>
+              <button type="button" class="agenda__nav" data-dir="1" aria-label="Mes siguiente">&rsaquo;</button>
             </div>
-            <p class="agenda__cal-nota"><i></i>Días con actividad</p>
+            <div class="agenda__cal-sem">${NOMBRE_DIA_MINI.map((d) => `<span>${d}</span>`).join('')}</div>
+            <div class="agenda__cal-dias" id="calDias">${htmlDias(agenda.todos || agenda, hoyAg.getFullYear(), hoyAg.getMonth(), null)}</div>
+            <p class="agenda__cal-nota"><i></i>Toca un día marcado para ver su actividad</p>
           </div>
-          <ol class="agenda__lista">
-            ${agenda.slice(0, 8).map((e, i) => `
-              <li class="evento" data-rev>
-                <div class="evento__f"><b>${String(e.f.getDate()).padStart(2, '0')}</b><span>${MES3[e.f.getMonth()]} ${e.f.getFullYear()}</span></div>
-                <div class="evento__c"><h3>${limpiar(e.titulo)}</h3><p>${limpiar(e.texto)}</p></div>
-                <div class="evento__h"><span>${DIAS[e.f.getDay()]}</span><b>${esc(e.hora)}</b></div>
-                <span class="evento__tag ${e.abierto ? 'abierto' : ''}">${e.distrito ? 'Distrito T4' : (e.abierto ? 'Abierta a la comunidad' : 'Socios')}</span>
-              </li>`).join('')}
-          </ol>
+          <ol class="agenda__lista" id="agendaLista">${agenda.slice(0, 5).map(htmlEvento).join('')}</ol>
         </div>
+        <p class="agenda__fuentes" data-rev>Fechas del distrito y de Lions International, actualizadas automáticamente desde
+          <a href="https://leonest4.cl/" target="_blank" rel="noopener">Lions Distrito T4</a> y
+          <a href="${(D.redes && D.redes.lionsOficial) || 'https://www.lionsclubs.org/es'}" target="_blank" rel="noopener">Lions Clubs International</a>.</p>
       </div>
     </section>`;
 
@@ -428,7 +466,7 @@
             ${tests.map((t, i) => `
               <figure class="tcita${i === 0 ? ' on' : ''}" data-i="${i}" ${i ? 'aria-hidden="true"' : ''}>
                 <blockquote>${limpiar(t.texto)}</blockquote>
-                <figcaption><span class="tcita__av">${esc(t.iniciales)}</span><span><b>${limpiar(t.autor)}</b><small>${limpiar(t.detalle)}</small></span></figcaption>
+                <figcaption>${fotoReal(t.foto) ? `<span class="tcita__av tcita__av--foto"><img src="${esc(fotoReal(t.foto))}" alt="${esc(texto(t.autor))}" loading="lazy"></span>` : `<span class="tcita__av">${esc(t.iniciales)}</span>`}<span><b>${limpiar(t.autor)}</b><small>${limpiar(t.detalle)}</small></span></figcaption>
               </figure>`).join('')}
           </div>
           <div class="test__ctrl">
@@ -463,13 +501,44 @@
     <section class="sec sec--papel dona" id="dona" data-nav>
       <div class="wrap">
         ${cabecera(DO.eyebrow || 'Colabora', DO.titulo || '', DO.lead)}
+        ${(D.donaEventos || []).length ? `
+        <div class="gala" data-rev>
+          <div class="gala__cab"><h3>${limpiar(DO.eventosTitulo || 'Actividades que hacemos cada año')}</h3>${DO.eventosLead ? `<p>${limpiar(DO.eventosLead)}</p>` : ''}</div>
+          <div class="gala__grid">
+            ${D.donaEventos.map((e) => {
+              const afiche = fotoReal(e.imagen);
+              const enlExt = /^https?:/i.test(e.enlace || '');
+              const detalles = [e.lugar, e.precio].filter((x) => texto(x).trim());
+              return `
+              <article class="gala__it${e.venta ? ' gala__it--venta' : ''}${afiche ? ' gala__it--afiche' : ''}">
+                ${afiche
+                  ? `<a class="gala__afiche" href="${esc(afiche)}" target="_blank" rel="noopener" aria-label="Ver afiche de ${esc(e.titulo)}"><img src="${esc(afiche)}" alt="Afiche de ${esc(e.titulo)}" loading="lazy"></a>`
+                  : `<span class="gala__ico">${ico(e.icono, 26)}</span>`}
+                <div class="gala__cuerpo">
+                  <div class="gala__chips">${e.venta ? '<span class="gala__venta">A la venta</span>' : ''}<span class="gala__mes">${limpiar(e.mes)}</span></div>
+                  <h4>${limpiar(e.titulo)}</h4>
+                  <p>${limpiar(e.texto)}</p>
+                  ${detalles.length ? `<ul class="gala__det">${detalles.map((d) => `<li>${limpiar(d)}</li>`).join('')}</ul>` : ''}
+                  <div class="gala__acc">
+                    ${e.enlace ? `<a class="btn btn--oro btn--sm" href="${esc(e.enlace)}"${enlExt ? ' target="_blank" rel="noopener"' : ''}><span>${limpiar(e.enlaceTexto || (e.venta ? 'Comprar ahora' : 'Más información'))}</span></a>` : ''}
+                    ${(D.redes && D.redes.instagram) ? `<a class="gala__ig" href="${esc(D.redes.instagram)}" target="_blank" rel="noopener" aria-label="Instagram del club, @${esc((D.redes && D.redes.instagramUser) || '')}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>` : ''}
+                    <button type="button" class="gala__compartir" data-compartir="${esc(texto(e.titulo))}">Compartir ${flecha(14)}</button>
+                  </div>
+                </div>
+              </article>`;
+            }).join('')}
+          </div>
+        </div>` : ''}
         <div class="dona__grid dona__grid--solo">
           <div class="ops">
-            ${(D.donaOps || []).map((o, i) => `
-              <article class="op" data-rev style="--i:${i}">
-                <span class="op__i">${ico(o.icono, 26)}</span>
-                <div><h3>${limpiar(o.titulo)}</h3><p>${limpiar(o.texto)}</p></div>
-              </article>`).join('')}
+            ${(D.donaOps || []).map((o, i) => {
+              const ext = /^https?:/i.test(o.enlace || '');
+              const cuerpo = `<span class="op__i">${ico(o.icono, 26)}</span>
+                <div><h3>${limpiar(o.titulo)}</h3><p>${limpiar(o.texto)}</p>${o.enlace ? `<span class="op__go">${limpiar(o.enlaceTexto || 'Saber más')} ${flecha(15)}</span>` : ''}</div>`;
+              return o.enlace
+                ? `<a class="op op--link" data-rev style="--i:${i}" href="${o.enlace}"${ext ? ' target="_blank" rel="noopener"' : ''}${o.motivo ? ` data-motivo="${o.motivo}"` : ''}>${cuerpo}</a>`
+                : `<article class="op" data-rev style="--i:${i}">${cuerpo}</article>`;
+            }).join('')}
           </div>
         </div>
       </div>
@@ -508,6 +577,10 @@
               <div class="campo"><input id="fEmail" name="email" type="email" required autocomplete="email" placeholder=" "><label for="fEmail">Correo</label><i></i></div>
             </div>
             <div class="campo campo--sel"><select id="fMotivo" name="motivo"><option>Quiero ser socio</option><option>Solicito ayuda</option><option>Quiero donar o auspiciar</option><option>Voluntariado profesional</option><option>Prensa o difusión</option><option>Otro</option></select><label for="fMotivo">Motivo</label><i></i></div>
+            ${(() => {
+              const ops = texto((D.formulario || {}).origenes).split(/\r?\n/).map((x) => x.trim()).filter(Boolean);
+              return ops.length ? `<div class="campo campo--sel"><select id="fOrigen" name="origen"><option value="">Selecciona una opción (opcional)</option>${ops.map((o) => `<option>${esc(o)}</option>`).join('')}</select><label for="fOrigen">${limpiar((T.contactoSec || {}).origenPregunta || '¿Cómo conociste el club?')}</label><i></i></div>` : '';
+            })()}
             <div class="campo"><textarea id="fMsg" name="mensaje" rows="4" required placeholder=" "></textarea><label for="fMsg">Cuéntanos brevemente…</label><i></i></div>
             <button class="btn btn--oro btn--lg mag" type="submit"><span>Enviar mensaje</span>${flecha(18)}</button>
             <p class="form__msg" id="formMsg" role="status"></p>
@@ -588,17 +661,18 @@
     const glCanvas = $('#gl');
     const tareas = [
       cargarDatos(),
-      (document.fonts && document.fonts.load ? Promise.all([document.fonts.load('800 200px Fraunces'), document.fonts.load('400 16px Figtree')]).catch(() => 0) : Promise.resolve()),
-      window.LeonesGL ? window.LeonesGL.init(glCanvas).catch(() => false) : Promise.resolve(false)
+      (document.fonts && document.fonts.load ? Promise.all([document.fonts.load('400 200px "Instrument Serif"'), document.fonts.load('italic 400 40px "Instrument Serif"'), document.fonts.load('600 16px "Instrument Sans"')]).catch(() => 0) : Promise.resolve()),
+      window.LeonesGL && !window.__MINIMAL ? window.LeonesGL.init(glCanvas).catch(() => false) : Promise.resolve(false)
     ];
     const limite = new Promise((r) => setTimeout(r, 9000, 'tiempo'));
     const [datos, , glOk] = await Promise.race([Promise.all(tareas), limite.then(() => Promise.all(tareas.map((t) => Promise.race([t, Promise.resolve(null)]))))]);
 
     const { D, noticias, distrito } = datos || (await tareas[0]);
     const agenda = calcularAgenda(D, distrito);
+    window.__agendaTodos = agenda.todos;
     app.innerHTML = plantillas(D, noticias, agenda);
     if (!glOk) document.body.classList.add('sin-gl');
-    else window.LeonesGL.figura('galaxia', true);
+    else window.LeonesGL.figura('ondas', true);
 
     _D = D;
     iniciar(D);
@@ -672,11 +746,13 @@
     magnetos();
     inclinacion();
     causasInteractivas();
+    agendaInteractiva(window.__agendaTodos);
     ajustarPantallas();
     faq();
     testimonios();
     formulario(D);
     copiar();
+    compartir(D);
     $('#arriba').addEventListener('click', () => irA(0));
 
     if (!HAY_GSAP || !window.ScrollTrigger) return;
@@ -948,7 +1024,7 @@
         if (!w) return;
         if (!ESC.matches) { w.style.zoom = ''; return; }
         const tope = innerHeight + 1;
-        let lo = 0.75, hi = 1.8;
+        let lo = 0.5, hi = ({ testimonios: 1.08, dona: 1.12, unete: 1.15 })[sec.id] || 1.32;
         w.style.zoom = lo;
         if (sec.getBoundingClientRect().height > tope) return;
         for (let i = 0; i < 8; i++) {
@@ -964,6 +1040,16 @@
     addEventListener('resize', luego);
     (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(aplicar, 400));
     setTimeout(aplicar, 1500);
+    // si el contenido cambia después (textos que rotan, datos que llegan), se reajusta
+    if (window.ResizeObserver) {
+      let intentos = 0;
+      const ro = new ResizeObserver(() => {
+        const pasa = $$('main .sec').some((sec) => ESC.matches && sec.getBoundingClientRect().height > innerHeight + 2);
+        if (pasa && intentos < 8) { intentos++; luego(); }
+      });
+      $$('main .sec').forEach((sec) => ro.observe(sec));
+      addEventListener('resize', () => { intentos = 0; });
+    }
   }
 
   function causasInteractivas() {
@@ -997,7 +1083,6 @@
     }
     btns.forEach((b, i) => {
       b.addEventListener('click', () => poner(i, true));
-      b.addEventListener('pointerenter', () => { if (PUNTERO_FINO) poner(i, true); });
       b.addEventListener('focus', () => poner(i, true));
     });
     poner(0);
@@ -1034,10 +1119,14 @@
       puntos.forEach((p, k) => p.classList.toggle('on', k === i));
       const nueva = citas[i];
       if (HAY_GSAP && !MOV_RED) {
-        G.to(viejo, { opacity: 0, y: -24, duration: 0.45, ease: 'power2.in', onComplete: () => viejo.classList.remove('on') });
+        // se cancela cualquier cambio a medias y se oculta todo lo que no sea el testimonio que sale o el que entra
+        G.killTweensOf(citas);
+        citas.forEach((c) => { if (c !== viejo && c !== nueva) { c.classList.remove('on'); G.set(c, { opacity: 0, y: 0 }); } });
+        G.to(viejo, { opacity: 0, y: -24, duration: 0.35, ease: 'power2.in', onComplete: () => viejo.classList.remove('on') });
         nueva.classList.add('on');
-        G.fromTo(nueva, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, delay: 0.35, ease: 'expo.out' });
-      } else { viejo.classList.remove('on'); nueva.classList.add('on'); }
+        // el nuevo entra recién cuando el anterior ya desapareció: nunca se ven dos juntos
+        G.fromTo(nueva, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.4, ease: 'expo.out' });
+      } else { citas.forEach((c) => c.classList.remove('on')); nueva.classList.add('on'); }
       reiniciar();
     }
     function reiniciar() {
@@ -1060,6 +1149,17 @@
   }
 
   /* ── Copiar datos bancarios ── */
+  function compartir(D) {
+    document.addEventListener('click', async (e) => {
+      const b = e.target.closest('[data-compartir]'); if (!b) return;
+      const url = location.href.split('#')[0] + '#dona';
+      const datos = { title: b.dataset.compartir + ' · ' + ((D.identidad && D.identidad.nombre) || 'Club de Leones'), text: 'Ayúdanos a difundir esta actividad del ' + ((D.identidad && D.identidad.nombre) || 'Club de Leones') + '.', url };
+      const aviso = (t) => { const o = b.innerHTML; b.textContent = t; setTimeout(() => { b.innerHTML = o; }, 2000); };
+      if (navigator.share) { try { await navigator.share(datos); } catch { /* el usuario canceló */ } return; }
+      try { await navigator.clipboard.writeText(url); aviso('Enlace copiado'); }
+      catch { window.prompt('Copia este enlace para compartir:', url); }
+    });
+  }
   function copiar() {
     $$('.copiar').forEach((b) => b.addEventListener('click', async () => {
       try { await navigator.clipboard.writeText(b.dataset.copia); }
@@ -1077,6 +1177,7 @@
       e.preventDefault();
       const v = (id) => f.elements[id].value.trim();
       const datos = { nombre: v('nombre'), telefono: v('telefono'), email: v('email'), motivo: v('motivo'), mensaje: v('mensaje') };
+      if (f.elements.origen) datos.origen = v('origen');
       let ok = true;
       ['nombre', 'email', 'mensaje'].forEach((k) => {
         const el = f.elements[k]; const mal = !datos[k] || (k === 'email' && !/^\S+@\S+\.\S+$/.test(datos[k]));
@@ -1093,7 +1194,7 @@
         } catch { msg.textContent = 'No pudimos enviarlo. Escríbenos por WhatsApp o correo.'; msg.classList.add('mal'); }
       } else {
         const n = texto(C.whatsapp).replace(/\D/g, '');
-        const t = `${datos.motivo}\n\n${datos.mensaje}\n\n${datos.nombre}${datos.telefono ? ' · ' + datos.telefono : ''} · ${datos.email}`;
+        const t = `${datos.motivo}\n\n${datos.mensaje}\n\n${datos.nombre}${datos.telefono ? ' · ' + datos.telefono : ''} · ${datos.email}${datos.origen ? `\n\nCómo conocí el club: ${datos.origen}` : ''}`;
         window.open(`https://wa.me/${n}?text=${encodeURIComponent(t)}`, '_blank', 'noopener');
         msg.textContent = 'Abrimos WhatsApp con tu mensaje listo para enviar.'; msg.classList.add('bien');
       }

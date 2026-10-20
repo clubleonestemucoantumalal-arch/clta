@@ -8,4 +8,4 @@ Disallow: /admin.html
 # en Google con la página principal. Al elegirla, se borra esta línea.
 Disallow: /experiencia.html
 
-Sitemap: https://leonesantumalal.cl/sitemap.xml
+Sitemap: https://clta.cl/sitemap.xml

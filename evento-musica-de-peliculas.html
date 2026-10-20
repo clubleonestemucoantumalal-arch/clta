@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Música de películas · Maestro Roberto Bravo | Club de Leones Temuco Antumalal</title>
+<meta name="description" content="Concierto «Música de películas» con el Maestro Roberto Bravo y la soprano Andrea Cárdenas. Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco. Entradas en passline.cl.">
+<meta name="theme-color" content="#030A1F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Música de películas · Maestro Roberto Bravo y Andrea Cárdenas">
+<meta property="og:description" content="Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco. Auspicia el Club de Leones Temuco Antumalal.">
+<meta property="og:image" content="assets/img/eventos/musica-de-peliculas-portada.jpg">
+<link rel="icon" href="assets/img/lions-international.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  :root { --noche: #030A1F; --azul: #001F5C; --oro: #FFCD00; --blanco: #fff; --linea: rgba(255,255,255,.16); --txt: rgba(255,255,255,.82); --f-tit: 'Instrument Serif', Georgia, serif; --f-txt: 'Instrument Sans', system-ui, sans-serif; }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body { font: 400 1.05rem/1.65 var(--f-txt); color: var(--txt); background: radial-gradient(1200px 600px at 80% -10%, #0B2260 0%, transparent 60%), var(--noche); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { width: min(100% - 32px, 1120px); margin-inline: auto; }
+  .barra { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; }
+  .barra__marca { display: flex; align-items: center; gap: .8rem; text-decoration: none; color: #fff; font-weight: 600; }
+  .barra__marca img { width: 48px; height: 48px; }
+  .volver { display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; font-size: .95rem; text-decoration: none; color: var(--oro); border-bottom: 1.5px solid rgba(255,205,0,.45); padding-bottom: 2px; }
+  .volver:hover { border-color: var(--oro); }
+  .art { display: grid; gap: clamp(1.6rem, 4vw, 3.4rem); padding: clamp(1rem, 4vh, 2.4rem) 0 clamp(3rem, 8vh, 5rem); }
+  @media (min-width: 900px) { .art { grid-template-columns: minmax(0, 420px) minmax(0, 1fr); align-items: start; } .cartel { position: sticky; top: 1.5rem; } }
+  .cartel { border-radius: 1.4rem; overflow: hidden; border: 1px solid var(--linea); box-shadow: 0 40px 80px -40px rgba(0,0,0,.8); background: #000; }
+  .cartel img { display: block; width: 100%; height: auto; }
+  .eyebrow { display: inline-flex; align-items: center; gap: .6rem; font: italic 400 1.15rem/1 var(--f-tit); color: var(--oro); margin-bottom: 1rem; }
+  .eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--oro); }
+  h1 { font: 400 clamp(2.4rem, 6vw, 4.2rem)/1 var(--f-tit); color: #fff; letter-spacing: -.01em; margin-bottom: 1rem; }
+  h1 em { color: var(--oro); }
+  .bajada { font-size: clamp(1.05rem, 2vw, 1.25rem); color: #fff; margin-bottom: 1.6rem; max-width: 52ch; }
+  .datos { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); margin-bottom: 1.8rem; }
+  .dato { padding: 1rem 1.2rem; border: 1px solid var(--linea); border-radius: 1rem; background: rgba(255,255,255,.05); }
+  .dato b { display: block; font: 400 1.5rem/1.1 var(--f-tit); color: var(--oro); margin-bottom: .2rem; }
+  .dato span { font-size: .9rem; color: var(--txt); }
+  .acciones { display: flex; flex-wrap: wrap; gap: .8rem 1.2rem; align-items: center; margin-bottom: 2.2rem; }
+  .btn { display: inline-flex; align-items: center; gap: .6rem; padding: 1rem 1.7rem; border-radius: 99px; font: 700 1.05rem/1 var(--f-txt); text-decoration: none; background: var(--oro); color: var(--noche); box-shadow: 0 14px 30px -12px rgba(255,205,0,.55); transition: transform .3s; border: 0; cursor: pointer; }
+  .btn:hover { transform: translateY(-3px); }
+  .btn--linea { background: none; color: #fff; box-shadow: none; border: 1.5px solid var(--linea); }
+  .btn--linea:hover { border-color: var(--oro); }
+  .texto p + p { margin-top: 1rem; }
+  .texto h2 { font: 400 1.7rem/1.1 var(--f-tit); color: #fff; margin: 2rem 0 .7rem; }
+  .apoyos { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .4rem; }
+  .apoyos li { list-style: none; padding: .45rem .9rem; border: 1px solid var(--linea); border-radius: 99px; font-size: .88rem; color: var(--txt); }
+  footer { border-top: 1px solid var(--linea); padding: 1.6rem 0 2.4rem; font-size: .9rem; color: rgba(255,255,255,.6); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; justify-content: space-between; }
+  .skip { position: absolute; left: -999px; } .skip:focus { left: 8px; top: 8px; background: #fff; color: #000; padding: .5rem 1rem; z-index: 9; }
+</style>
+</head>
+<body>
+<a class="skip" href="#articulo">Saltar al contenido</a>
+
+<header class="wrap barra">
+  <a class="barra__marca" href="index.html" aria-label="Club de Leones Temuco Antumalal, inicio">
+    <img src="assets/img/lions-international.png" alt="" width="48" height="48"><span>Leones Temuco Antumalal</span>
+  </a>
+  <a class="volver" href="index.html#noticias">&larr; Volver a noticias</a>
+</header>
+
+<main class="wrap art" id="articulo">
+  <figure class="cartel">
+    <img src="assets/img/eventos/musica-de-peliculas.jpg" width="900" height="1200" alt="Afiche del concierto Música de películas, con el Maestro Roberto Bravo y la soprano Andrea Cárdenas. Sábado 24 de octubre, 19:00 horas, Teatro Municipal de Temuco. Entradas en passline.cl.">
+  </figure>
+
+  <article>
+    <p class="eyebrow">Concierto solidario · Octubre 2026</p>
+    <h1>Música de <em>películas</em></h1>
+    <p class="bajada">Un homenaje emotivo a las grandes bandas sonoras de la historia del séptimo arte, con el Maestro Roberto Bravo y la soprano invitada Andrea Cárdenas.</p>
+
+    <div class="datos">
+      <div class="dato"><b>Sáb. 24 de octubre</b><span>Fecha</span></div>
+      <div class="dato"><b>19:00 horas</b><span>Hora</span></div>
+      <div class="dato"><b>Teatro Municipal</b><span>Temuco</span></div>
+    </div>
+
+    <div class="acciones">
+      <!-- Para cambiar el enlace de compra, edita solo esta dirección. -->
+      <a class="btn" id="comprar" href="https://www.passline.com/eventos-plano/roberto-bravo-con-musica-de-peliculas" target="_blank" rel="noopener">Comprar entradas en Passline &rarr;</a>
+      <a class="btn btn--linea" href="https://www.instagram.com/leonestemuco_antumalal/" target="_blank" rel="noopener" aria-label="Instagram del club, @leonestemuco_antumalal">Instagram @leonestemuco_antumalal</a>
+      <button type="button" class="btn btn--linea" id="compartir">Compartir</button>
+    </div>
+
+    <div class="texto">
+      <p>El <strong>Club de Leones Temuco Antumalal</strong> auspicia este concierto en el Teatro Municipal de Temuco, una noche para disfrutar de la música del cine en vivo junto a uno de los grandes intérpretes del país.</p>
+      <p>Las entradas están disponibles en <strong>passline.cl</strong>. Comprar tu entrada o compartir esta información en tus redes sociales es una forma de acompañar el trabajo del club.</p>
+      <h2>Acompañan el concierto</h2>
+      <ul class="apoyos">
+        <li>Teatro Municipal de Temuco</li><li>Corporación Cultural de Temuco</li><li>Lions International</li><li>Colegio Médico Araucanía</li><li>Universidad de La Frontera</li>
+      </ul>
+      <h2>¿Quieres sumarte al club?</h2>
+      <p>Si quieres conocernos o participar en nuestras actividades, <a href="index.html#contacto" style="color:var(--oro)">escríbenos desde el formulario de contacto</a>.</p>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap"><span>Club de Leones Temuco Antumalal · Distrito T-4 · Nosotros Servimos</span><a href="index.html">Ir al sitio principal</a></div>
+</footer>
+
+<script>
+  document.getElementById('compartir').addEventListener('click', async function () {
+    var b = this, url = location.href.split('#')[0], antes = b.textContent;
+    var datos = { title: document.title, text: 'Música de películas · Maestro Roberto Bravo y Andrea Cárdenas. Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco.', url: url };
+    if (navigator.share) { try { await navigator.share(datos); } catch (e) {} return; }
+    try { await navigator.clipboard.writeText(url); b.textContent = 'Enlace copiado'; setTimeout(function () { b.textContent = antes; }, 2000); }
+    catch (e) { window.prompt('Copia este enlace para compartir:', url); }
+  });
+</script>
+</body>
+</html>

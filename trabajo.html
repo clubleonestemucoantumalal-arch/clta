@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trabajo en terreno | Club de Leones Temuco Antumalal</title>
+<meta name="description" content="Historias del trabajo en terreno del Club de Leones Temuco Antumalal.">
+<meta name="theme-color" content="#030A1F">
+<link rel="icon" href="assets/img/lions-international.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  :root { --noche: #030A1F; --azul: #001F5C; --oro: #FFCD00; --papel: #F5EFE0; --linea: rgba(255,255,255,.16); --txt: rgba(255,255,255,.86); --f-tit: 'Instrument Serif', Georgia, serif; --f-txt: 'Instrument Sans', system-ui, sans-serif; }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body { font: 400 1.1rem/1.75 var(--f-txt); color: var(--txt); background: var(--noche); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .prog { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--oro); z-index: 50; }
+  .wrap { width: min(100% - 32px, 1120px); margin-inline: auto; }
+  .estrecho { width: min(100% - 32px, 720px); margin-inline: auto; }
+
+  /* barra */
+  .barra { position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem clamp(16px, 4vw, 40px); }
+  .barra__marca { display: flex; align-items: center; gap: .8rem; text-decoration: none; color: #fff; font-weight: 600; text-shadow: 0 2px 12px rgba(0,0,0,.5); }
+  .barra__marca img { width: 48px; height: 48px; }
+  .pill { display: inline-flex; align-items: center; gap: .5rem; padding: .6rem 1.1rem; border-radius: 99px; background: rgba(3,10,31,.55); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.25); color: #fff; font-weight: 600; font-size: .92rem; text-decoration: none; }
+  .pill:hover { border-color: var(--oro); color: var(--oro); }
+
+  /* portada */
+  .hero { position: relative; min-height: min(86vh, 760px); display: grid; align-items: end; overflow: hidden; background: #0B2260; }
+  .hero__img { position: absolute; inset: 0; }
+  .hero__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transform: scale(1.04); animation: zoom 14s ease-out forwards; }
+  @keyframes zoom { to { transform: scale(1.12); } }
+  .hero__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3,10,31,.55) 0%, rgba(3,10,31,.05) 30%, rgba(3,10,31,.78) 72%, var(--noche) 100%); }
+  .hero__txt { position: relative; z-index: 2; padding: clamp(6rem, 18vh, 10rem) 0 clamp(2rem, 6vh, 3.4rem); }
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.2rem; }
+  .chip { font: 700 .74rem/1 var(--f-txt); letter-spacing: .12em; text-transform: uppercase; color: var(--noche); background: var(--oro); border-radius: 99px; padding: .5rem .9rem; }
+  .chip--l { background: rgba(3,10,31,.55); color: #fff; border: 1px solid rgba(255,255,255,.3); backdrop-filter: blur(8px); }
+  h1 { font: 400 clamp(2.5rem, 7vw, 5.2rem)/.98 var(--f-tit); color: #fff; letter-spacing: -.02em; max-width: 18ch; text-shadow: 0 4px 30px rgba(0,0,0,.45); }
+  .hero__bajada { margin-top: 1.2rem; max-width: 40ch; font-size: clamp(1.1rem, 2.2vw, 1.4rem); line-height: 1.45; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,.5); }
+
+  /* cifras */
+  .cifras { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--linea); border: 1px solid var(--linea); border-radius: 1.4rem; overflow: hidden; margin-top: -2rem; position: relative; z-index: 3; box-shadow: 0 30px 60px -30px rgba(0,0,0,.8); }
+  .cifra { background: linear-gradient(180deg, #0B2260, #06153F); padding: 1.3rem 1.5rem; }
+  .cifra b { display: block; font: 400 clamp(1.8rem, 4vw, 2.6rem)/1 var(--f-tit); color: var(--oro); margin-bottom: .35rem; }
+  .cifra span { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+
+  /* relato */
+  .relato { padding: clamp(2.6rem, 8vh, 4.5rem) 0 clamp(1.6rem, 4vh, 2.6rem); }
+  .relato p { margin-bottom: 1.4rem; }
+  .relato p:first-child::first-letter { float: left; font: 400 4.6rem/.8 var(--f-tit); color: var(--oro); padding: .35rem .6rem 0 0; }
+  .relato p:first-child { color: #fff; font-size: 1.2rem; }
+  .cita { margin: clamp(2rem, 5vh, 3rem) 0; padding: .4rem 0 .4rem 1.6rem; border-left: 3px solid var(--oro); font: italic 400 clamp(1.6rem, 3.6vw, 2.2rem)/1.2 var(--f-tit); color: #fff; }
+
+  /* galería */
+  .galeria { padding: clamp(1.4rem, 4vh, 2.4rem) 0; }
+  .galeria h2, .mas h2 { font: 400 clamp(1.8rem, 3.6vw, 2.5rem)/1 var(--f-tit); color: #fff; margin-bottom: 1.2rem; }
+  .galeria__rej { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .foto { position: relative; border: 0; padding: 0; border-radius: 1.2rem; overflow: hidden; cursor: zoom-in; background: #0B2260; aspect-ratio: 4 / 3; }
+  .foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; transition: transform .8s cubic-bezier(.2,.7,.2,1); display: block; }
+  .foto:hover img { transform: scale(1.06); }
+  .visor { position: fixed; inset: 0; z-index: 100; display: none; place-items: center; background: rgba(3,10,31,.94); padding: 20px; }
+  .visor.on { display: grid; }
+  .visor img { max-width: min(100%, 1100px); max-height: 88vh; border-radius: 1rem; box-shadow: 0 40px 100px rgba(0,0,0,.7); }
+  .visor button { position: absolute; top: 18px; right: 18px; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.08); color: #fff; font-size: 1.4rem; cursor: pointer; }
+
+  /* compartir / CTA */
+  .acciones { display: flex; flex-wrap: wrap; gap: .8rem 1rem; align-items: center; padding: clamp(1rem, 3vh, 1.6rem) 0 clamp(2rem, 5vh, 3rem); border-top: 1px solid var(--linea); margin-top: 1rem; }
+  .acciones span { margin-right: .4rem; font-weight: 600; color: #fff; }
+  .btn { display: inline-flex; align-items: center; gap: .6rem; padding: .95rem 1.5rem; border-radius: 99px; font: 700 1rem/1 var(--f-txt); text-decoration: none; background: var(--oro); color: var(--noche); border: 0; cursor: pointer; box-shadow: 0 14px 30px -12px rgba(255,205,0,.55); transition: transform .3s; }
+  .btn:hover { transform: translateY(-3px); }
+  .btn--l { background: none; color: #fff; box-shadow: none; border: 1.5px solid var(--linea); }
+  .btn--l:hover { border-color: var(--oro); }
+  .unete { margin: 0 auto clamp(2.4rem, 6vh, 4rem); padding: clamp(1.6rem, 4vw, 2.6rem); border-radius: 1.6rem; background: linear-gradient(135deg, #0B2260, #04123A); border: 1px solid var(--linea); display: flex; flex-wrap: wrap; gap: 1.2rem 2rem; align-items: center; justify-content: space-between; }
+  .unete h2 { font: 400 clamp(1.7rem, 3.4vw, 2.4rem)/1.05 var(--f-tit); color: #fff; max-width: 20ch; }
+  .unete p { margin-top: .4rem; font-size: 1rem; }
+
+  /* más historias */
+  .mas { background: var(--papel); color: #08163F; padding: clamp(2.4rem, 7vh, 4rem) 0; border-radius: 2rem 2rem 0 0; }
+  .mas h2 { color: #08163F; }
+  .mas__rej { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+  .mini { display: flex; flex-direction: column; border-radius: 1.3rem; overflow: hidden; text-decoration: none; background: #fff; border: 1px solid rgba(0,31,92,.1); box-shadow: 0 18px 36px -28px rgba(0,31,92,.5); transition: transform .4s; }
+  .mini:hover { transform: translateY(-6px); }
+  .mini__img { aspect-ratio: 16 / 10; background: #0B2260; overflow: hidden; }
+  .mini__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; display: block; }
+  .mini__c { padding: 1rem 1.2rem 1.3rem; display: grid; gap: .4rem; }
+  .mini__c small { font: 700 .7rem/1 var(--f-txt); letter-spacing: .12em; text-transform: uppercase; color: #8a6d00; }
+  .mini__c h3 { font: 400 1.5rem/1.1 var(--f-tit); color: #08163F; }
+  .mas__todo { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: .8rem; }
+  .mas .btn--l { color: #08163F; border-color: rgba(0,31,92,.25); }
+  .mas .btn--l:hover { border-color: #08163F; }
+  footer { background: var(--papel); color: #3B4A76; border-top: 1px solid rgba(0,31,92,.12); padding: 1.4rem 0 2rem; font-size: .9rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; justify-content: space-between; }
+  .nada { padding: 30vh 0; text-align: center; }
+  .nada h1 { margin: 0 auto 1rem; max-width: none; }
+  @media (prefers-reduced-motion: reduce) { .hero__img img { animation: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+
+<header class="barra">
+  <a class="barra__marca" href="index.html" aria-label="Club de Leones Temuco Antumalal, inicio">
+    <img src="assets/img/lions-international.png" alt="" width="48" height="48"><span>Leones Temuco Antumalal</span>
+  </a>
+  <a class="pill" href="trabajo-en-terreno.html">&larr; Todo el trabajo en terreno</a>
+</header>
+
+<main id="historia"><div class="nada"><p>Cargando…</p></div></main>
+
+<div class="visor" id="visor" role="dialog" aria-label="Foto ampliada"><button type="button" aria-label="Cerrar" id="cerrar">&times;</button><img alt="" id="visorImg"></div>
+
+<script src="assets/js/rediseno-respaldo.js"></script>
+<script>
+(function () {
+  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var main = $('#historia');
+
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  function plano(s) { var d = document.createElement('div'); d.innerHTML = s == null ? '' : String(s); return d.textContent; }
+  function slug(s) { return plano(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+  var idDe = function (p) { return p.id || slug(p.titulo); };
+  var bajar = function (u) { return fetch(u, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); };
+  function fechaLarga(f) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(f || ''); return m ? (+m[3]) + ' de ' + MESES[+m[2] - 1] + ' de ' + m[1] : ''; }
+  function mesAnio(f) { var m = /^(\d{4})-(\d{2})/.exec(f || ''); return m ? MESES[+m[2] - 1] + ' ' + m[1] : ''; }
+
+  Promise.all([bajar('data/contenido.json'), bajar('data/imagenes.json')]).then(function (r) {
+    var D = r[0] || window.RESPALDO || {}, IMGS = r[1] || {};
+    var foto = function (ref) { ref = String(ref || ''); if (ref.indexOf('img:') === 0) return IMGS[ref.slice(4)] || ''; if (/assets\/img\/fotos\/.*\.svg$/i.test(ref)) return ''; return ref; };
+    var lista = D.proyectos || [];
+    var id = new URLSearchParams(location.search).get('id') || '';
+    var i = lista.findIndex(function (p) { return idDe(p) === id; });
+    if (i < 0) {
+      main.innerHTML = '';
+      var n = el('div', 'nada estrecho'); n.appendChild(el('h1', null, 'No encontramos esta historia'));
+      var a = el('a', 'btn', 'Ver todo el trabajo en terreno'); a.href = 'trabajo-en-terreno.html'; n.appendChild(a); main.appendChild(n); return;
+    }
+    var p = lista[i];
+    var titulo = plano(p.titulo);
+    document.title = titulo + ' | Club de Leones Temuco Antumalal';
+    var parrafos = String(p.cuerpo || p.texto || '').split(/\n\s*\n/).map(function (s) { return plano(s).trim(); }).filter(Boolean);
+    var fotos = [p.imagen, p.foto2, p.foto3, p.foto4].map(foto).filter(Boolean);
+    var meta = $('meta[name=description]'); if (meta) meta.setAttribute('content', plano(p.texto));
+
+    main.innerHTML = '';
+    // portada
+    var hero = el('section', 'hero');
+    var hi = el('div', 'hero__img'); if (fotos[0]) { var im = document.createElement('img'); im.src = fotos[0]; im.alt = titulo; hi.appendChild(im); } hero.appendChild(hi);
+    var ht = el('div', 'hero__txt wrap');
+    var chips = el('div', 'chips');
+    if (p.fecha) chips.appendChild(el('span', 'chip', mesAnio(p.fecha)));
+    if (p.tag) chips.appendChild(el('span', 'chip chip--l', plano(p.tag).replace(/^[^·]*·\s*/, '') || plano(p.tag)));
+    ht.appendChild(chips); ht.appendChild(el('h1', null, titulo)); ht.appendChild(el('p', 'hero__bajada', plano(p.texto)));
+    hero.appendChild(ht); main.appendChild(hero);
+
+    // cifras
+    var cif = [];
+    if (p.personas) cif.push([p.personas, 'Personas beneficiadas']);
+    if (p.fecha) cif.push([fechaLarga(p.fecha), 'Fecha']);
+    if (p.lugar) cif.push([plano(p.lugar), 'Lugar']);
+    if (cif.length) {
+      var w = el('div', 'wrap'), c = el('div', 'cifras');
+      cif.forEach(function (x) { var d = el('div', 'cifra'); d.appendChild(el('b', null, x[0])); d.appendChild(el('span', null, x[1])); c.appendChild(d); });
+      w.appendChild(c); main.appendChild(w);
+    }
+
+    // relato (con una cita destacada a la mitad)
+    var rel = el('article', 'relato estrecho');
+    var mitad = Math.ceil(parrafos.length / 2);
+    parrafos.forEach(function (t, k) {
+      rel.appendChild(el('p', null, t));
+      if (k === mitad - 1 && p.cita && parrafos.length > 2) rel.appendChild(el('blockquote', 'cita', plano(p.cita)));
+    });
+    main.appendChild(rel);
+
+    // galería
+    if (fotos.length > 1) {
+      var g = el('section', 'galeria wrap'); g.appendChild(el('h2', null, 'Así se vivió'));
+      var rej = el('div', 'galeria__rej');
+      fotos.slice(1).forEach(function (f) {
+        var b = el('button', 'foto'); b.type = 'button'; b.setAttribute('aria-label', 'Ampliar foto');
+        var im2 = document.createElement('img'); im2.src = f; im2.alt = 'Foto de ' + titulo; im2.loading = 'lazy'; b.appendChild(im2);
+        b.addEventListener('click', function () { $('#visorImg').src = f; $('#visor').classList.add('on'); });
+        rej.appendChild(b);
+      });
+      g.appendChild(rej); main.appendChild(g);
+    }
+
+    // compartir
+    var ac = el('div', 'acciones estrecho'); ac.appendChild(el('span', null, 'Comparte esta historia'));
+    var url = location.href.split('#')[0];
+    var bw = el('a', 'btn', 'WhatsApp'); bw.href = 'https://wa.me/?text=' + encodeURIComponent(titulo + ' — Club de Leones Temuco Antumalal ' + url); bw.target = '_blank'; bw.rel = 'noopener'; ac.appendChild(bw);
+    var bc = el('button', 'btn btn--l', 'Copiar enlace'); bc.type = 'button';
+    bc.addEventListener('click', function () {
+      var ok = function () { bc.textContent = 'Enlace copiado'; setTimeout(function () { bc.textContent = 'Copiar enlace'; }, 2000); };
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, function () { window.prompt('Copia este enlace:', url); }); else window.prompt('Copia este enlace:', url);
+    });
+    ac.appendChild(bc);
+    if (D.redes && D.redes.instagram) { var bi = el('a', 'btn btn--l', 'Instagram del club'); bi.href = D.redes.instagram; bi.target = '_blank'; bi.rel = 'noopener'; ac.appendChild(bi); }
+    main.appendChild(ac);
+
+    // súmate
+    var un = el('section', 'unete estrecho');
+    var tx = el('div'); tx.appendChild(el('h2', null, '¿Quieres ser parte de esto?')); tx.appendChild(el('p', null, 'Hacemos este trabajo con voluntarios como tú.'));
+    var bs = el('a', 'btn', 'Súmate al club'); bs.href = 'index.html#unete';
+    un.appendChild(tx); un.appendChild(bs); main.appendChild(un);
+
+    // más historias
+    var otros = lista.filter(function (_, k) { return k !== i; }).slice(0, 3);
+    if (otros.length) {
+      var mas = el('section', 'mas'), mw = el('div', 'wrap'); mw.appendChild(el('h2', null, 'Más trabajo en terreno'));
+      var mr = el('div', 'mas__rej');
+      otros.forEach(function (o) {
+        var a2 = el('a', 'mini'); a2.href = 'trabajo.html?id=' + encodeURIComponent(idDe(o));
+        var fi = foto(o.imagen); if (fi) { var ci = el('div', 'mini__img'), ii = document.createElement('img'); ii.src = fi; ii.alt = ''; ii.loading = 'lazy'; ci.appendChild(ii); a2.appendChild(ci); }
+        var cc = el('div', 'mini__c'); if (o.fecha) cc.appendChild(el('small', null, mesAnio(o.fecha))); cc.appendChild(el('h3', null, plano(o.titulo))); a2.appendChild(cc); mr.appendChild(a2);
+      });
+      mw.appendChild(mr);
+      var todo = el('div', 'mas__todo'); var bt = el('a', 'btn', 'Ver todo el archivo'); bt.href = 'trabajo-en-terreno.html'; todo.appendChild(bt);
+      var bv = el('a', 'btn btn--l', 'Volver al sitio'); bv.href = 'index.html#proyectos'; todo.appendChild(bv);
+      mw.appendChild(todo); mas.appendChild(mw); main.appendChild(mas);
+    }
+    var f = el('footer'), fw = el('div', 'wrap'); fw.appendChild(el('span', null, 'Club de Leones Temuco Antumalal · Distrito T-4 · Nosotros Servimos'));
+    var fa = el('a', null, 'Ir al sitio principal'); fa.href = 'index.html'; fw.appendChild(fa); f.appendChild(fw); main.appendChild(f);
+  });
+
+  // visor de fotos
+  var visor = $('#visor');
+  visor.addEventListener('click', function () { visor.classList.remove('on'); });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape') visor.classList.remove('on'); });
+  // barra de progreso de lectura
+  addEventListener('scroll', function () { var h = document.documentElement; var t = h.scrollHeight - h.clientHeight; $('#prog').style.width = (t > 0 ? (h.scrollTop / t) * 100 : 0) + '%'; }, { passive: true });
+})();
+</script>
+</body>
+</html>

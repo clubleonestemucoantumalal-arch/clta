@@ -20,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 const RAIZ   = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SALIDA = resolve(RAIZ, 'data/agenda-distrito.json');
 const FUENTE = 'https://leonest4.cl/';
+const CONVENCION = 'https://lionscon.lionsclubs.org/es/';   // sitio oficial de Lions International, en español
 const UA     = 'Mozilla/5.0 (compatible; LeonesAntumalalBot/1.0; +https://leonesantumalal.cl)';
 
 /* La página trae el calendario completo incrustado en el HTML:
@@ -56,6 +57,7 @@ function extraerEventos(html) {
         titulo: ev.title.trim(),
         texto: detalle,
         hora: (ev.time || '').trim(),
+        ambito: 'distrito',
         pasado: !!ev.past
       });
     });
@@ -63,12 +65,40 @@ function extraerEventos(html) {
   return eventos;
 }
 
+
+/* Convención Internacional de Lions (sitio oficial, ya publicado en español). */
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+async function eventosInternacionales() {
+  try {
+    const html = await traer(CONVENCION);
+    const f = html.match(/Del\s+(\d{1,2})\s+al\s+(\d{1,2})\s+de\s+([a-záéíóú]+)\s+de\s+(\d{4})/i);
+    if (!f) return [];
+    const mes = MESES.indexOf(f[3].toLowerCase());
+    if (mes < 0) return [];
+    const t = html.match(/<title>LionsCon\s+(\d{4})\s+([^<]*?)\s+(?:&#8211;|–)/i);
+    const ciudad = t ? t[2].replace(/&amp;/g, '&').trim() : '';
+    const fecha = `${f[4]}-${String(mes + 1).padStart(2, '0')}-${String(f[1]).padStart(2, '0')}`;
+    return [{
+      fecha,
+      titulo: `Convención Internacional de Lions ${f[4]}`,
+      texto: `${ciudad ? ciudad + ' · ' : ''}del ${f[1]} al ${f[2]} de ${f[3].toLowerCase()} de ${f[4]}`,
+      hora: '',
+      ambito: 'internacional'
+    }];
+  } catch (e) {
+    console.warn('  ! No se pudo leer la convención internacional:', e.message);
+    return [];
+  }
+}
+
 (async () => {
   console.log('Consultando calendario del Distrito T4…\n');
 
   const html = await traer(FUENTE);
   const todos = extraerEventos(html);
-  const eventos = todos.filter((e) => !e.pasado).map(({ pasado, ...e }) => e);
+  const hoyISO = new Date().toISOString().slice(0, 10);
+  const eventos = todos.filter((e) => !e.pasado).map(({ pasado, ...e }) => e)
+    .concat((await eventosInternacionales()).filter((e) => e.fecha >= hoyISO));
 
   if (!eventos.length) {
     console.error('No se obtuvo ninguna fecha vigente. Se conserva el archivo anterior.');

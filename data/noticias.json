@@ -1,7 +1,12 @@
 {
-  "generado": "2026-09-27T21:30:09.030Z",
+  "generado": "2026-09-28T17:12:05.637Z",
   "total": 24,
   "fuentes": [
+    {
+      "nombre": "Distrito T4",
+      "tipo": "oficial",
+      "url": "https://leonest4.cl/noticias"
+    },
     {
       "nombre": "LION Magazine",
       "tipo": "oficial",
@@ -24,6 +29,15 @@
     }
   ],
   "noticias": [
+    {
+      "titulo": "Con profundo pesar despedimos al león César Sánchez Neira",
+      "resumen": "Hoy despedimos a quien dejó una huella imborrable entre quienes tuvieron la dicha de conocerlo. Su recuerdo, sus enseñanzas y el cariño compartido permanecerán siempre en nuestros corazones.",
+      "enlace": "https://leonest4.cl/noticias/con-profundo-pesar-despedimos-al-leon-cesar-sanchez-neira",
+      "fecha": "2026-09-26T12:00:00.000Z",
+      "fuente": "Distrito T4",
+      "tipo": "oficial",
+      "imagen": "https://leonest4.cl/uploads/publicaciones/con-profundo-pesar-despedimos-al-leon-cesar-sanchez-neira-20260926182519-1e7cac.webp"
+    },
     {
       "titulo": "La rápida respuesta de LCIF al ébola",
       "resumen": "La República Democrática del Congo (RDC) se enfrenta al brote de ébola de más rápido crecimiento jamás registrado. Hasta el 28 de julio, se han confirmado miles de casos, incluidas más de 1.500 muertes. El brote es causado por la ",
@@ -79,6 +93,15 @@
       "imagen": ""
     },
     {
+      "titulo": "El Distrito T4 moderniza sus comunicaciones con el nuevo sistema de publicación de noticias por correo electrónico",
+      "resumen": "Con el objetivo de agilizar la difusión de las actividades y obras de servicio de los Clubes de Leones, el Área de Informática del Distrito T4 presentó una innovadora herramienta que permite a los encargados de prensa publicar not",
+      "enlace": "https://leonest4.cl/noticias/el-distrito-t4-moderniza-sus-comunicaciones-con-el-nuevo-sistema-de-publicacion-de-noticias-por-correo-electronico",
+      "fecha": "2026-07-22T12:00:00.000Z",
+      "fuente": "Distrito T4",
+      "tipo": "oficial",
+      "imagen": "https://leonest4.cl/uploads/publicaciones/noticia-de-prueba_20260722132001.jpg"
+    },
+    {
       "titulo": "Club de Leones de La Unión conmemoró 70 años de trayectoria al servicio de la comunidad",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNekl5aVFCM0RHV1NzS3BObGhqdUJsaEJ6NXlGWC1TNnpmOEZfVUtNOG9BbWZrX203dktLZWZVenk5bXhzWGRudnhsbklsZkZoVlQxdnhTd1NKek00VlV1RVA2U3JJX3M1MDZtdVdOMmtlWnMyaWRFWjlBSEpjSnEwSVd6Rk52OGpQdk5OUDdBMGJkUQ?oc=5",
@@ -92,7 +115,7 @@
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNVExlbjR5Wi1tMG5PMVhfYWVEckZVQnNxamJYNnhCaUY2ek0yR1Nuem01NjdaZGNxZ1VRSDEwak1YSlg1NnA5bHdkamEyV1g2aEttbmdpd2pHUTNxTG1OS3E1VFMzMGJmRUNlb3JlUk9OVktrVGlpMThqNTBOVjhRUHZDYldoU2M0RG9ObFY4eVA3NmI1NkRF?oc=5",
       "fecha": "2026-07-07T07:00:00.000Z",
-      "fuente": "| Fuerza Aérea de Chile",
+      "fuente": "fach.mil.cl",
       "tipo": "prensa",
       "imagen": ""
     },
@@ -101,7 +124,7 @@
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxNUDBXNFJvaTgyZDNLODVFcjBKMlJTTkl1eUswWFlIN1k5ZjJBYU1GVndGLU5haXRhd05vZzFMUUdDZ3Q2MVlMZVBIclN1VXcyRzk0Z0pJQU5HbVF4d3dZc284aEQyRTJoSVFHZFF4Q25XbF9Hb29pVE5jSlY5cFdUYTlZR3VHVFJOV25yaHItQjg3a0tZWFNveVFrTkR1VHA5SVR1YjhVMkN0WWk4RjVFUENnWU5QSDV3ei0zUFJ1ODllYnAzRTVjNFZVaWwzR01ROUsyaWdhbWdac25yTm9hSno3Zm5TdzBsenZGanNYQ1lKQzhOVjkwZklDS19Udw?oc=5",
       "fecha": "2026-07-03T07:00:00.000Z",
-      "fuente": "Ministerio de Salud de Chile",
+      "fuente": "minsal.cl",
       "tipo": "prensa",
       "imagen": ""
     },
@@ -110,7 +133,7 @@
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNSmRIWjlwTEh0QVNnWl9zU2JmUy0wRl9OMzFFUGFZd0xPNkVsLWllcUVZYWozRzd2TTV1NkMwTEtUU2RTTUxDNWc5VnJZUENYY09WQTdNWTdrOFRUSzF6ZWhSSmRIdWx6bGZycVJmT0gxMmJ1QjdDWkNscUJHbDVFLWMxREQ0S0VIVFhTQW9rWlVOZGJpRWdEQlB1QWZVZTVTRVRxUFpSMUotVWREbG9WMEM2UllyNU5FbmhwSHlrYTR0YzVtMUJXaktmSzM2RHVGTzFHSDFFUEg?oc=5",
       "fecha": "2026-07-02T07:00:00.000Z",
-      "fuente": "Supermercado Al Día",
+      "fuente": "supermercadoaldia.cl",
       "tipo": "prensa",
       "imagen": ""
     },
@@ -129,6 +152,15 @@
       "enlace": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNM3k1SGc3U1hLaHVic295WGlmQ21UME1GS3A0QUFJM0dsV1hNODZKbVc0bV8xZkFXYl9zbmZQU3dBUFFmTzF6UVFSZVhsRTI1M3dKa0x3a1hfdGdMVHhDc0U2UFN6eFRBdVpvUnlSNmpTbHNqVHlXSFlMVG1aY1RfT0RoclRHUjhKZzlkbURfN3dEUm9LX0MzbFkyS1VZUmpjcmZUbWw4Qkllc0xoZUZYbjZvLTY3Z3Rz0gGwAUFVX3lxTE56NkVFRXNLanFPRnVLWHpCdHRTSTQxU0VlcXdYRkhWbDJCbktSQm5YeDdzOXVjZGNPaGxpaGRSVGM2ZW90X0RPYXJwalR1dW5xQ3I3aG1pZnBTSDdFa0pWRHdQR1d5d1JLMXRrYXRBLXBuUDZjdGdOcjJ3clctWGFaUUlCSHpKa0hFZ0FsTXN5TjlzS3RsNzBnS3YwWUp0VUpkVGhvOXVNUmtVU2ZoSEdj?oc=5",
       "fecha": "2026-05-08T07:00:00.000Z",
       "fuente": "Araucanía Diario",
+      "tipo": "prensa",
+      "imagen": ""
+    },
+    {
+      "titulo": "Club de Leones Río Negro tendrá rama juvenil",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5tUW5MYXlBZ2s5TS0yVU1PbG93RVI1Y0hmMHRRcWJpZXF3Q0RlYzFNRVhRR3ZpOVh1cDltUTZXWi11ZXRQd3hTVHZOQ0JsSW1pRHZhTTRhTnNCMWpEMFVmbmRnMVhEbzlUZmU2bFIzWlJxNXh0UVZmSF9TYW4tdw?oc=5",
+      "fecha": "2026-05-06T07:00:00.000Z",
+      "fuente": "Paislobo Prensa",
       "tipo": "prensa",
       "imagen": ""
     },
@@ -169,20 +201,11 @@
       "imagen": ""
     },
     {
-      "titulo": "Club de Leones Río Negro se constituye oficialmente",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQRWNBd3AyN2ctaVVORjBJamdYblMzdE5vX2ZTMkNYLTZrWjdlRVZldkJ5ZFdLbHFkZW1Semd0LTc5UmNUZk5FcklkNGdjUlNkaU9VekhvQ0VjZmxMQTVvRTFzeG5rMmJJQXVMckNPeTg2YWtGaFE1bUp6UnFwQUxzRFVOaGZudS00VElUVVV1MjBmdw?oc=5",
-      "fecha": "2025-11-16T08:00:00.000Z",
-      "fuente": "Paislobo Prensa",
-      "tipo": "prensa",
-      "imagen": ""
-    },
-    {
       "titulo": "Conoce la labor de los Clubes de Leones y lo que trae la próxima convención nacional",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNcTJ6OVN3YXlOTWtWc2JmZTFMbEcxbEZSRXdBejAySTBkRUFPLTQwNkxzeDBlNTFSUWRndFE1cVVvNXpvZWJ6UzdqYVc5M2ljaTVoOWlneDBGSnBiM3g1X05KY1NCbkJhbDNwLVNzTFVBbS1CT3FKckk1Tl9pLXZGYXZvVXVsbEs1Mm5Ram5FY2FzSlVLWjZrS1czWHNPT1FfbGE2NGtFV2ZSdndoSFB6cDFaUWtLSUJHWHJBV254bkxDSzhnTWpxYnRGLVROdmU1MnVRNFg5QQ?oc=5",
       "fecha": "2025-05-09T07:00:00.000Z",
-      "fuente": "Canal 9 Bío Bío Televisión",
+      "fuente": "canal9.cl",
       "tipo": "prensa",
       "imagen": ""
     },
@@ -192,6 +215,15 @@
       "enlace": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPSEZudHBLSzdYTlhZbTdFdHEyQm5TQVJzX3NacldKUEpKaEtaOTlpUHpheG5fQWNkOFQwb2tjdW43ZkRtSkgtRWZpQnp4WE96UUFtNi1tbWtMV1JzSHRZN2JVS1dEZ2VpSU11OGJ2c25BUkcyNFRIRnRSZ3Y4UzdzdmJYRTVDUnMtc2Yw?oc=5",
       "fecha": "2024-08-17T13:45:31.000Z",
       "fuente": "Senado República de Chile",
+      "tipo": "prensa",
+      "imagen": ""
+    },
+    {
+      "titulo": "Leones se reúnen en Collipulli",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1zdjk1RC1lS2VyZTRLd0Z5SGdob05pWV9XWU1hbEU1OVVjVjdFdGpGaTE2RUphQlFRN3R5U1czVk8tUmxBMnZhU2FnaWFNTUhQVnlORTlFbjdla3BFZ245SFVUcE1idGlvY2UwTVg0cFpGdG9VMHBHcDhUM3l4SUE?oc=5",
+      "fecha": "2024-01-10T08:00:00.000Z",
+      "fuente": "araucanianoticias.cl",
       "tipo": "prensa",
       "imagen": ""
     },
@@ -209,33 +241,6 @@
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNUTZITmpjY1FTME9XakZWN1ZTN2tfMkY1NkdNY0xjeXR0TE5IaDlKVEJ2UTNPZ0N2a3dRMDI2d3hUN2J3bzdJLXV4azBGcEpkUkhENTMyOHFxUzByeTZ5aHBaTlZrM0NJMGxNNkJTVU1TX2tIdy1PYVNlbWhuNW1oLVZyQUY3YVYzRGR0MHRVTW00azIteUNoOU5CQmNNaGREUEhmc3hremNHWVlaSlU5anI2eFVYV2QwOEk4RHhoTDdyTmM?oc=5",
       "fecha": "2021-11-30T08:00:00.000Z",
-      "fuente": "Universidad Austral de Chile",
-      "tipo": "prensa",
-      "imagen": ""
-    },
-    {
-      "titulo": "Gutemberg Jara es el nuevo presidente del Club de Leones Temuco Ñielol",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNLThOTGM3V3lLbHBKcXhXMGdxNi1YeVJCTXBKOGxjb09MdUFRT2pndTRRSUl0UUM3MVNBaTd5Y0hMUDJSYXdIalI4UkxBZE83V1FqY1drdXJ2UnJTaG9PYTdjcldTcTNzSUNyMENFczhRc3pHb2kxQmtmaThsbmpycEZaVjY3T1hPbVhtaU9hbEc0X2RxVUN1QzhaMA?oc=5",
-      "fecha": "2020-08-11T07:00:00.000Z",
-      "fuente": "tiempo21.cl",
-      "tipo": "prensa",
-      "imagen": ""
-    },
-    {
-      "titulo": "LXVIII Convención Nacional de Clubes de Leones de Chile",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPbTdxa08waHNYQ0MwY2tNQ1NaRm5md2hvNVVLSzF6cGNKRC1fS0RBc1JqZDZXT1YzR0F0cm5oMWNiVTg3ZHdMUFJiWmlCR3d0WWc5S0hmTGFTd3kxZWo1N01kTFdoLTRYUnlDbGU2YURKbV9fSEFFek5lb0t2MS0wSDN3?oc=5",
-      "fecha": "2018-05-21T07:00:00.000Z",
-      "fuente": "Paislobo Prensa",
-      "tipo": "prensa",
-      "imagen": ""
-    },
-    {
-      "titulo": "UACh y Club de Leones firman convenio de colaboración – Noticias UACh",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOS1Q2WHdwZWxhaHhfYmtlNEtLSjFzSElLZHhiS3UyYm53ZVlKelZoZFkyeUZFMFJaaTFEdGNla3NBak9FcmNLR2w2clJlZ0g3bTVJbjN1dl8zWmpPcXV3RmhTS0MwQU8yNGp1WW1xQ2N5M3M2cm1FRS00SGJPNVVaVUdB?oc=5",
-      "fecha": "2016-12-07T08:00:00.000Z",
       "fuente": "Universidad Austral de Chile",
       "tipo": "prensa",
       "imagen": ""
