@@ -15,8 +15,8 @@
   },
   "contacto": {
     "email": "leonestemucoantumalal@gmail.com",
-    "telefono": "+56 9 0000 0000",
-    "whatsapp": "56900000000",
+    "telefono": "",
+    "whatsapp": "",
     "whatsappMsg": "Hola, quiero información sobre el Club de Leones Temuco Antumalal",
     "direccion": "Centro de reuniones quincho Martin Lutero, Temuco",
     "mapaEmbed": "https://www.google.com/maps?q=Temuco,+La+Araucan%C3%ADa,+Chile&output=embed",
@@ -31,7 +31,7 @@
     "sitioEclubhouse": "https://e-clubhouse.org/sites/temucoantumalal/"
   },
   "formulario": {
-    "endpoint": "",
+    "endpoint": "https://formsubmit.co/ajax/leonestemucoantumalal@gmail.com",
     "metodo": "POST",
     "origenes": "Google o buscador\nInstagram\nFacebook\nUn conocido o amigo\nUn socio del club\nUn ex socio\nUna actividad del club (bingo, paella, operativo)\nPrensa o noticias\nOtro"
   },
@@ -173,7 +173,7 @@
       "titulo": "¿Quieres sumarte a nuestra comunidad de servicio?",
       "lead": "La membresía se postula y la evalúan los socios: no buscamos dinero ni contactos, sino compromiso real con el servicio. Completa el formulario y te contactamos para iniciar el proceso de ingreso.",
       "btn1": "Quiero postular",
-      "btn2": "Escríbenos por WhatsApp"
+      "btn2": "Escríbenos"
     },
     "dona": {
       "eyebrow": "Colabora",
@@ -457,7 +457,7 @@
     },
     {
       "pregunta": "¿Cómo puedo hacerme socio?",
-      "respuesta": "Escríbenos por el formulario de contacto o por WhatsApp y te invitamos a una sesión. Se ingresa por presentación de un socio y aprobación del directorio. No hay cuota de incorporación: solo una cuota mensual que financia la operación del club."
+      "respuesta": "Escríbenos por el formulario de contacto y te invitamos a una sesión. Se ingresa por presentación de un socio y aprobación del directorio. No hay cuota de incorporación: solo una cuota mensual que financia la operación del club."
     },
     {
       "pregunta": "¿Cuándo y dónde se reúnen?",

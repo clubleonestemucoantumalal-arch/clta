@@ -29,8 +29,8 @@ window.CLUB = {
      --------------------------------------------------------------- */
   contacto: {
     email:      "leonestemucoantumalal@gmail.com",
-    telefono:   "+56 9 0000 0000",
-    whatsapp:   "56900000000",            // solo números, con código país, sin +
+    telefono:   "",
+    whatsapp:   "",            // solo números, con código país, sin +
     whatsappMsg:"Hola, quiero información sobre el Club de Leones Temuco Antumalal",
     direccion:  "Centro de reuniones quincho Martin Lutero, Temuco",
     // Enlace de Google Maps para incrustar (reemplazar por la sede real)

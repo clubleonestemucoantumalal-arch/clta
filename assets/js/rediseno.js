@@ -1188,15 +1188,19 @@
       const endpoint = D.formulario && D.formulario.endpoint;
       if (endpoint) {
         try {
-          const r = await fetch(endpoint, { method: (D.formulario.metodo || 'POST'), headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(datos) });
+          const r = await fetch(endpoint, { method: (D.formulario.metodo || 'POST'), headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.assign({ _subject: "Nuevo mensaje desde clta.cl", _template: "table" }, datos)) });
           if (!r.ok) throw new Error();
           msg.textContent = '¡Gracias! Recibimos tu mensaje y te responderemos pronto.'; msg.classList.add('bien'); f.reset();
-        } catch { msg.textContent = 'No pudimos enviarlo. Escríbenos por WhatsApp o correo.'; msg.classList.add('mal'); }
+        } catch { msg.textContent = 'No pudimos enviarlo. Escríbenos al correo leonestemucoantumalal@gmail.com.'; msg.classList.add('mal'); }
       } else {
-        const n = texto(C.whatsapp).replace(/\D/g, '');
-        const t = `${datos.motivo}\n\n${datos.mensaje}\n\n${datos.nombre}${datos.telefono ? ' · ' + datos.telefono : ''} · ${datos.email}${datos.origen ? `\n\nCómo conocí el club: ${datos.origen}` : ''}`;
-        window.open(`https://wa.me/${n}?text=${encodeURIComponent(t)}`, '_blank', 'noopener');
-        msg.textContent = 'Abrimos WhatsApp con tu mensaje listo para enviar.'; msg.classList.add('bien');
+        const correo = texto(C.email) || "leonestemucoantumalal@gmail.com";
+        const t = `${datos.mensaje}
+
+${datos.nombre}${datos.telefono ? " · " + datos.telefono : ""} · ${datos.email}${datos.origen ? `
+
+Cómo conocí el club: ${datos.origen}` : ""}`;
+        window.location.href = `mailto:${correo}?subject=${encodeURIComponent(datos.motivo)}&body=${encodeURIComponent(t)}`;
+        msg.textContent = "Abrimos tu correo con el mensaje listo para enviar."; msg.classList.add("bien");
       }
     });
     $$('.campo input, .campo textarea').forEach((el) => el.addEventListener('input', () => el.closest('.campo').classList.remove('error')));
