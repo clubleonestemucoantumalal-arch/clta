@@ -39,10 +39,9 @@
     <button type="submit" class="btn btn--bloque" style="margin-top:16px" id="entradaBtn">Entrar</button>
 
     <p class="entrada__aviso">
-      <strong>Ojo:</strong> esta clave evita que alguien entre por curiosidad, pero no es
-      una caja fuerte: el sitio no tiene servidor, así que la protección de verdad la da
-      el hosting. En Netlify puedes proteger <code>/admin.html</code> con contraseña.
-      <a href="docs/PANEL-ADMIN.md" target="_blank" rel="noopener">Cómo hacerlo</a>.
+      <strong>Cómo funciona:</strong> esta clave solo se guarda en este computador y sirve para
+      ordenar el trabajo. Los cambios solo llegan a la página pública cuando se publican con
+      la cuenta de GitHub del club, que es la que realmente protege el sitio.
     </p>
   </form>
 </div>
@@ -98,12 +97,12 @@
     <div class="dialogo__cuerpo">
 
       <div class="pestanas" id="pestanasPublicar">
-        <button class="activo" data-tab="descargar">Descargar archivos</button>
-        <button data-tab="github">Publicar en GitHub</button>
+        <button class="activo" data-tab="github">Publicar en GitHub</button>
+        <button data-tab="descargar">Descargar archivos</button>
       </div>
 
       <!-- ─── A) Descargar ─── -->
-      <div id="tabDescargar">
+      <div id="tabDescargar" class="oculto">
         <div class="aviso aviso--info">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
           <span>
@@ -144,7 +143,7 @@
       </div>
 
       <!-- ─── B) GitHub ─── -->
-      <div id="tabGithub" class="oculto">
+      <div id="tabGithub">
         <div class="aviso aviso--ok">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
           <span>
@@ -211,6 +210,6 @@
 <script src="assets/js/iconos.js?v=1"></script>
 <script src="assets/js/almacen.js?v=1"></script>
 <script src="assets/js/config.js?v=3"></script>
-<script src="assets/js/admin.js?v=9"></script>
+<script src="assets/js/admin.js?v=10"></script>
 </body>
 </html>

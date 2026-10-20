@@ -1740,7 +1740,7 @@
 
       marcarPublicado();
       salida.innerHTML = mensaje('ok', '¡Publicado!',
-        'Los cambios están en GitHub. Si el sitio se publica solo (Netlify, Vercel o GitHub Pages), en uno o dos minutos se ven en línea.');
+        'Los cambios están en GitHub. En uno o dos minutos se ven en clta.cl (recarga con Ctrl + F5).');
       aviso('Cambios publicados en GitHub.');
     } catch (e) {
       salida.innerHTML = mensaje('mal', 'No se pudo publicar', e.message);
@@ -1836,12 +1836,12 @@
       $('#tabGithub').classList.toggle('oculto', b.dataset.tab !== 'github');
     }));
 
-    const gh = ALMACEN.leerChico('github', null);
-    if (gh) {
-      $('#ghUsuario').value = gh.usuario || '';
-      $('#ghRepo').value = gh.repo || '';
-      $('#ghRama').value = gh.rama || 'main';
-    }
+    // Datos del club ya puestos: solo falta el token.
+    const gh = ALMACEN.leerChico('github', null) ||
+      { usuario: 'clubleonestemucoantumalal-arch', repo: 'clta', rama: 'main' };
+    $('#ghUsuario').value = gh.usuario || '';
+    $('#ghRepo').value = gh.repo || '';
+    $('#ghRama').value = gh.rama || 'main';
     const tok = ALMACEN.leerChico('githubToken', '');
     if (tok) { $('#ghToken').value = tok; $('#ghRecordar').checked = true; }
     $('#btnGhPublicar').addEventListener('click', publicarEnGitHub);
