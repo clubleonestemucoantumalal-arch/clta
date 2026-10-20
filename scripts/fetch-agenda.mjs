@@ -21,7 +21,7 @@ const RAIZ   = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SALIDA = resolve(RAIZ, 'data/agenda-distrito.json');
 const FUENTE = 'https://leonest4.cl/';
 const CONVENCION = 'https://lionscon.lionsclubs.org/es/';   // sitio oficial de Lions International, en español
-const UA     = 'Mozilla/5.0 (compatible; LeonesAntumalalBot/1.0; +https://leonesantumalal.cl)';
+const UA     = 'Mozilla/5.0 (compatible; LeonesAntumalalBot/1.0; +https://clta.cl)';
 
 /* La página trae el calendario completo incrustado en el HTML:
    `const EVENTS = { "2026-10-1": [ {...} ], ... };` */

@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 const RAIZ    = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SALIDA  = resolve(RAIZ, 'data/noticias.json');
 const MAXIMO  = 24;                       // cuántas noticias guardar
-const UA      = 'Mozilla/5.0 (compatible; LeonesAntumalalBot/1.0; +https://leonesantumalal.cl)';
+const UA      = 'Mozilla/5.0 (compatible; LeonesAntumalalBot/1.0; +https://clta.cl)';
 
 /* -------------------------------------------------------------------------
    FUENTES
