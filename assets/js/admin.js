@@ -880,7 +880,7 @@
       bajada: 'Estos datos alimentan la sección de contacto, el botón de WhatsApp y el pie de página.',
       tarjetas: [
         { titulo: 'Cómo nos ubican', campos: [
-          { tipo: 'email', ruta: 'contacto.email', etiqueta: 'Correo electrónico', marca: 'contacto@leonesantumalal.cl' },
+          { tipo: 'email', ruta: 'contacto.email', etiqueta: 'Correo electrónico', marca: 'leonestemucoantumalal@gmail.com' },
           { tipo: 'tel', ruta: 'contacto.telefono', etiqueta: 'Teléfono', marca: '+56 9 1234 5678' },
           { tipo: 'texto', ruta: 'contacto.whatsapp', etiqueta: 'WhatsApp',
             marca: '56912345678',

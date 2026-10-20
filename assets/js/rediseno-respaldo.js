@@ -81,7 +81,7 @@ window.RESPALDO = {
   "banco": "Banco Estado",
   "tipo": "Cuenta Corriente",
   "numero": "000000000",
-  "email": "tesoreria@leonesantumalal.cl"
+  "email": "leonestemucoantumalal@gmail.com"
  },
  "agenda": {
   "auto": true,

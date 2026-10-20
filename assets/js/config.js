@@ -28,7 +28,7 @@ window.CLUB = {
      Reemplaza los valores de ejemplo por los reales del club.
      --------------------------------------------------------------- */
   contacto: {
-    email:      "contacto@leonesantumalal.cl",
+    email:      "leonestemucoantumalal@gmail.com",
     telefono:   "+56 9 0000 0000",
     whatsapp:   "56900000000",            // solo números, con código país, sin +
     whatsappMsg:"Hola, quiero información sobre el Club de Leones Temuco Antumalal",
@@ -122,6 +122,6 @@ window.CLUB = {
     banco:    "Banco Estado",
     tipo:     "Cuenta Corriente",
     numero:   "000000000",
-    email:    "tesoreria@leonesantumalal.cl"
+    email:    "leonestemucoantumalal@gmail.com"
   }
 };
