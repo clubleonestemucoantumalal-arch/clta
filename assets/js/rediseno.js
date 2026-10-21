@@ -188,12 +188,14 @@
 
   /* ═══════════════ PLANTILLAS ═══════════════ */
   const NAV = [
-    ['club', 'El Club'], ['causas', 'Causas'], ['proyectos', 'Proyectos'], ['noticias', 'Noticias'], ['articulos', 'Artículos'],
-    ['agenda', 'Agenda'], ['dona', 'Colabora'], ['contacto', 'Contacto']
+    ['club', 'El Club'], ['causas', 'Causas'], ['proyectos', 'Proyectos'], ['noticias', 'Noticias'],
+    ['agenda', 'Agenda'], ['dona', 'Colabora'], ['contacto', 'Contacto'], ['articulos', 'Artículos']
   ];
+  // «Artículos» no está en la portada: el menú abre su página propia
+  const destinoNav = (id) => (id === 'articulos' ? 'articulos.html' : '#' + id);
   const RIEL = [
     ['inicio', 'Inicio'], ['club', 'El Club'], ['impacto', 'Impacto'], ['causas', 'Causas'], ['proyectos', 'Proyectos'],
-    ['noticias', 'Noticias'], ['articulos', 'Artículos'], ['agenda', 'Agenda'], ['directorio', 'Directorio'],
+    ['noticias', 'Noticias'], ['agenda', 'Agenda'], ['directorio', 'Directorio'],
     ['testimonios', 'Voces'], ['unete', 'Súmate'], ['dona', 'Colabora'], ['faq', 'Dudas'], ['contacto', 'Contacto']
   ];
   const ICONO_PROYECTO = [
@@ -634,7 +636,7 @@
       </div>
     </footer>`;
 
-    return hero + marquesina + club + impacto + causas + proyectos + valores + noticiasSec + articulosSec + agendaSec + directorio + testimonios + cta + dona + faq + contacto + pie;
+    return hero + marquesina + club + impacto + causas + proyectos + valores + noticiasSec + agendaSec + directorio + testimonios + cta + dona + faq + contacto + pie;
   }
 
   /* ═══════════════ DIVISIÓN DE TEXTO EN PALABRAS ═══════════════
@@ -753,8 +755,8 @@
   /* ═══════════════ INTERACCIÓN ═══════════════ */
   function iniciar(D) {
     /* Menús */
-    $('#cabNav').innerHTML = NAV.map(([id, t]) => `<a href="#${id}" data-link="${id}"><span>${t}</span></a>`).join('');
-    $('#menuNav').innerHTML = NAV.concat([['unete', 'Súmate']]).map(([id, t], i) => `<a href="#${id}" style="--i:${i}"><span>${t}</span></a>`).join('');
+    $('#cabNav').innerHTML = NAV.map(([id, t]) => `<a href="${destinoNav(id)}" data-link="${id}"><span>${t}</span></a>`).join('');
+    $('#menuNav').innerHTML = NAV.concat([['unete', 'Súmate']]).map(([id, t], i) => `<a href="${destinoNav(id)}" style="--i:${i}"><span>${t}</span></a>`).join('');
     const C = D.contacto || {}, R = D.redes || {};
     $('#menuLado').innerHTML = `
       <p class="eyebrow"><i></i>Escríbenos</p>

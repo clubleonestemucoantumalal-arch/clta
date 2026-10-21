@@ -120,7 +120,7 @@
   <a class="barra__marca" href="index.html" aria-label="Club de Leones Temuco Antumalal, inicio">
     <img src="assets/img/lions-international.png" alt="" width="48" height="48"><span>Leones Temuco Antumalal</span>
   </a>
-  <a class="pill" href="index.html#articulos">&larr; Todos los artículos</a>
+  <a class="pill" href="articulos.html">&larr; Todos los artículos</a>
 </header>
 
 <main id="historia"><div class="nada"><p>Cargando…</p></div></main>
@@ -155,7 +155,7 @@
     if (i < 0) {
       main.innerHTML = '';
       var n = el('div', 'nada estrecho'); n.appendChild(el('h1', null, 'No encontramos este artículo'));
-      var a = el('a', 'btn', 'Ver los artículos'); a.href = 'index.html#articulos'; n.appendChild(a); main.appendChild(n); return;
+      var a = el('a', 'btn', 'Ver los artículos'); a.href = 'articulos.html'; n.appendChild(a); main.appendChild(n); return;
     }
     var p = lista[i];
     var titulo = plano(p.titulo);
@@ -224,7 +224,7 @@
         var cc = el('div', 'mini__c'); if (o.fecha) cc.appendChild(el('small', null, fechaLarga(o.fecha))); cc.appendChild(el('h3', null, plano(o.titulo))); a2.appendChild(cc); mr.appendChild(a2);
       });
       mw.appendChild(mr);
-      var todo = el('div', 'mas__todo'); var bv = el('a', 'btn btn--l', 'Volver al sitio'); bv.href = 'index.html#articulos'; todo.appendChild(bv);
+      var todo = el('div', 'mas__todo'); var bv = el('a', 'btn btn--l', 'Volver al sitio'); bv.href = 'articulos.html'; todo.appendChild(bv);
       mw.appendChild(todo); mas.appendChild(mw); main.appendChild(mas);
     }
     var f = el('footer'), fw = el('div', 'wrap'); fw.appendChild(el('span', null, 'Club de Leones Temuco Antumalal · Distrito T-4 · Nosotros Servimos'));
