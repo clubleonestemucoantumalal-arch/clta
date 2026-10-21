@@ -11,9 +11,9 @@ routes = [
 GH_USUARIO = "clubleonestemucoantumalal-arch"
 GH_REPO    = "clta"
 GH_RAMA    = "main"
-# Se completan después de crear la aplicación en Cloudflare Access:
-ACCESS_TEAM = ""   # el nombre del equipo (lo que va antes de .cloudflareaccess.com)
-ACCESS_AUD  = ""   # el "Application Audience (AUD) Tag" de la aplicación
+# Datos de la aplicación de Cloudflare Access que protege el panel:
+ACCESS_TEAM = "twilight-wave-97b6"   # lo que va antes de .cloudflareaccess.com
+ACCESS_AUD  = "843e15c9744e0817b5ffccd6be5153836edc640dbda71d7605554610edc8edba"   # "Application Audience (AUD) Tag" de la aplicación Panel del club
 # Opcional: lista de correos que pueden publicar, separados por coma. Vacío = todos los autorizados en Access.
 EDITORES = ""
 
