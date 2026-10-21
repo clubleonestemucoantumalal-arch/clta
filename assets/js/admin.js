@@ -1934,6 +1934,20 @@
   // Si la persona ya entró con su correo (Cloudflare Access), no hace falta una segunda clave.
   fetch('/api/sesion', { credentials: 'same-origin', cache: 'no-store' })
     .then((r) => (r.ok ? r.json() : null))
-    .then((j) => { if (j && j.email) entrar(); else iniciarCandado(); })
-    .catch(() => iniciarCandado());
+    .then((j) => { if (j && j.email) { try { sessionStorage.removeItem('accesoReintento'); } catch (e) {} entrar(); } else sinSesion(); })
+    .catch(sinSesion);
+
+  // En clta.cl el panel solo se abre con la sesión del correo. Si el navegador mostró una copia guardada
+  // sin pasar por Cloudflare, se pide la página de nuevo (una sola vez) para que aparezca el ingreso por correo.
+  function sinSesion() {
+    const enSitio = /(^|\.)clta\.cl$/.test(location.hostname);
+    let probado = false;
+    try { probado = !!sessionStorage.getItem('accesoReintento'); } catch (e) { probado = true; }
+    if (enSitio && !probado) {
+      try { sessionStorage.setItem('accesoReintento', '1'); } catch (e) { /* sin almacenamiento */ }
+      location.replace('/admin.html?r=' + Date.now());
+      return;
+    }
+    iniciarCandado();
+  }
 })();
