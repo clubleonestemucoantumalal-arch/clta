@@ -14,7 +14,7 @@ window.RESPALDO = {
   "proposito": "Ir en ayuda del más necesitado."
  },
  "contacto": {
-  "email": "leonestemucoantumalal@gmail.com",
+  "email": "info@clta.cl",
   "telefono": "",
   "whatsapp": "",
   "whatsappMsg": "Hola, quiero información sobre el Club de Leones Temuco Antumalal",
@@ -31,7 +31,7 @@ window.RESPALDO = {
   "sitioEclubhouse": "https://e-clubhouse.org/sites/temucoantumalal/"
  },
  "formulario": {
-  "endpoint": "https://formsubmit.co/ajax/leonestemucoantumalal@gmail.com",
+  "endpoint": "https://formsubmit.co/ajax/info@clta.cl",
   "metodo": "POST",
   "origenes": "Google o buscador\nInstagram\nFacebook\nUn conocido o amigo\nUn socio del club\nUn ex socio\nUna actividad del club (bingo, paella, operativo)\nPrensa o noticias\nOtro"
  },
@@ -81,7 +81,7 @@ window.RESPALDO = {
   "banco": "Banco Estado",
   "tipo": "Cuenta Corriente",
   "numero": "000000000",
-  "email": "leonestemucoantumalal@gmail.com"
+  "email": "info@clta.cl"
  },
  "agenda": {
   "auto": true,

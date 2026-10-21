@@ -1191,9 +1191,9 @@
           const r = await fetch(endpoint, { method: (D.formulario.metodo || 'POST'), headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.assign({ _subject: "Nuevo mensaje desde clta.cl", _template: "table" }, datos)) });
           if (!r.ok) throw new Error();
           msg.textContent = '¡Gracias! Recibimos tu mensaje y te responderemos pronto.'; msg.classList.add('bien'); f.reset();
-        } catch { msg.textContent = 'No pudimos enviarlo. Escríbenos al correo leonestemucoantumalal@gmail.com.'; msg.classList.add('mal'); }
+        } catch { msg.textContent = 'No pudimos enviarlo. Escríbenos al correo info@clta.cl.'; msg.classList.add('mal'); }
       } else {
-        const correo = texto(C.email) || "leonestemucoantumalal@gmail.com";
+        const correo = texto(C.email) || "info@clta.cl";
         const t = `${datos.mensaje}
 
 ${datos.nombre}${datos.telefono ? " · " + datos.telefono : ""} · ${datos.email}${datos.origen ? `
