@@ -44,4 +44,12 @@
     <loc>https://clta.cl/trabajo.html?id=lentes-para-quienes-los-necesitan</loc>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://clta.cl/articulo.html?id=voces-detras-del-servicio</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://clta.cl/trabajo.html?id=operativo-medico-pitrufquen</loc>
+    <priority>0.5</priority>
+  </url>
 </urlset>
