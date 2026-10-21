@@ -1061,6 +1061,37 @@
           ] } }
       ] },
 
+    { id: 'articulos', grupo: 'Contenido de la página', nombre: 'Artículos', ico: ICO.diario,
+      titulo: 'Artículos',
+      bajada: 'Textos más largos del club: entrevistas, testimonios y reflexiones. Cada artículo puede llevar un video de YouTube. Se ven en la portada y tienen su propia página.',
+      tarjetas: [
+        { titulo: 'Encabezado', campos: [
+          { tipo: 'texto', ruta: 'textos.articulosSec.eyebrow', etiqueta: 'Palabra pequeña de arriba' },
+          { tipo: 'texto', ruta: 'textos.articulosSec.titulo', etiqueta: 'Título' },
+          { tipo: 'area', ruta: 'textos.articulosSec.lead', etiqueta: 'Bajada', filas: 2 }
+        ] },
+        { repetidor: {
+          ruta: 'articulos', etiqueta: 'Artículos', textoNuevo: 'Agregar artículo',
+          titulo: (it) => it.titulo,
+          nuevo: { tag: 'Artículo', titulo: 'Nuevo artículo', texto: '', fecha: '', autor: '', imagen: '', video: '', videoCredito: '', cuerpo: '', cita: '' },
+          campos: [
+            { tipo: 'texto', ruta: 'titulo', etiqueta: 'Título del artículo' },
+            { tipo: 'fecha', ruta: 'fecha', etiqueta: 'Fecha de publicación' },
+            { tipo: 'texto', ruta: 'tag', etiqueta: 'Etiqueta', ayuda: 'La palabra chica sobre el título: "Entrevista", "Video", "Opinión"…' },
+            { tipo: 'texto', ruta: 'autor', etiqueta: 'Autor (opcional)', marca: 'Nombre y apellido',
+              ayuda: 'Si lo escribes, el artículo muestra «Por …» bajo el título. <b>Si lo dejas vacío, el artículo se publica sin firma.</b>' },
+            { tipo: 'area', ruta: 'texto', etiqueta: 'Resumen (bajada)', filas: 3, ayuda: 'Dos líneas que se ven en la tarjeta de la portada y bajo el título.' },
+            { tipo: 'imagen', ruta: 'imagen', etiqueta: 'Foto de portada', clave: 'articulo', ancho: 1400, pordefecto: '',
+              ayuda: 'Si el artículo lleva video y dejas la foto vacía, se usa la imagen del club.' },
+            { tipo: 'texto', ruta: 'video', etiqueta: 'Video de YouTube (opcional)', marca: 'https://www.youtube.com/watch?v=…',
+              ayuda: 'Pega la dirección del video tal como aparece en YouTube. Se verá dentro del artículo.' },
+            { tipo: 'texto', ruta: 'videoCredito', etiqueta: 'Crédito del video (opcional)', marca: 'Video: nombre del canal, publicado el …' },
+            { tipo: 'area', ruta: 'cuerpo', etiqueta: 'El artículo completo', filas: 12,
+              ayuda: '<b>Deja una línea en blanco entre párrafos.</b> Se recomienda un tono formal y basarse solo en hechos que se puedan respaldar.' },
+            { tipo: 'texto', ruta: 'cita', etiqueta: 'Frase destacada (opcional)', ayuda: 'Una frase corta que se muestra grande a la mitad del artículo.' }
+          ] } }
+      ] },
+
     { id: 'valores', grupo: 'Contenido de la página', nombre: 'Valores', ico: ICO.grid,
       titulo: 'Valores',
       bajada: 'Se muestran dentro de "Nuestro sello de trabajo" (sección de cifras). Aquí también se edita la cita del final.',

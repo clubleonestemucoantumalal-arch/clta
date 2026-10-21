@@ -188,12 +188,12 @@
 
   /* ═══════════════ PLANTILLAS ═══════════════ */
   const NAV = [
-    ['club', 'El Club'], ['causas', 'Causas'], ['proyectos', 'Proyectos'], ['noticias', 'Noticias'],
+    ['club', 'El Club'], ['causas', 'Causas'], ['proyectos', 'Proyectos'], ['noticias', 'Noticias'], ['articulos', 'Artículos'],
     ['agenda', 'Agenda'], ['dona', 'Colabora'], ['contacto', 'Contacto']
   ];
   const RIEL = [
     ['inicio', 'Inicio'], ['club', 'El Club'], ['impacto', 'Impacto'], ['causas', 'Causas'], ['proyectos', 'Proyectos'],
-    ['noticias', 'Noticias'], ['agenda', 'Agenda'], ['directorio', 'Directorio'],
+    ['noticias', 'Noticias'], ['articulos', 'Artículos'], ['agenda', 'Agenda'], ['directorio', 'Directorio'],
     ['testimonios', 'Voces'], ['unete', 'Súmate'], ['dona', 'Colabora'], ['faq', 'Dudas'], ['contacto', 'Contacto']
   ];
   const ICONO_PROYECTO = [
@@ -405,6 +405,31 @@
       </div>
     </section>`;
 
+    /* ── ARTÍCULOS ── */
+    const AR = T.articulosSec || {};
+    const arts = (D.articulos || []).filter((a) => texto(a.titulo).trim());
+    const articulosHtml = arts.slice(0, 6).map((a) => {
+      const f = a.fecha ? new Date(a.fecha + 'T12:00:00') : null;
+      const cuando = f && !isNaN(f) ? `${f.getDate()} ${MES3[f.getMonth()]} ${f.getFullYear()}` : '';
+      const foto = fotoReal(a.imagen) || 'assets/img/noticias-respaldo.jpg';
+      const idA = a.id || slugDe(a.titulo);
+      return `
+        <a class="nota" href="articulo.html?id=${encodeURIComponent(idA)}" data-rev data-tilt>
+          <span class="nota__img"><img src="${esc(foto)}" alt="" loading="lazy" referrerpolicy="no-referrer" style="object-position:50% 50%"onerror="if(!this.dataset.r){this.dataset.r=1;this.src='assets/img/noticias-respaldo.jpg'}else{this.remove()}">${a.video ? '<i class="nota__play" aria-hidden="true"></i>' : ''}</span>
+          <span class="nota__meta"><b>${esc(texto(a.tag) || 'Artículo')}</b>${cuando ? `<time>${cuando}</time>` : ''}</span>
+          <h3>${limpiar(a.titulo)}</h3>
+          ${a.texto ? `<p>${esc(texto(a.texto).slice(0, 150))}${texto(a.texto).length > 150 ? '…' : ''}</p>` : ''}
+          <span class="nota__leer">Leer artículo ${flecha(14)}</span>
+        </a>`;
+    }).join('');
+    const articulosSec = arts.length ? `
+    <section class="sec sec--noche articulos" id="articulos" data-nav>
+      <div class="wrap">
+        ${cabecera(AR.eyebrow || 'Para leer', AR.titulo || 'Artículos', AR.lead)}
+        <div class="notas">${articulosHtml}</div>
+      </div>
+    </section>` : '';
+
     /* ── AGENDA ── */
     const AG = T.agendaSec || {};
     const hoyAg = new Date();
@@ -609,7 +634,7 @@
       </div>
     </footer>`;
 
-    return hero + marquesina + club + impacto + causas + proyectos + valores + noticiasSec + agendaSec + directorio + testimonios + cta + dona + faq + contacto + pie;
+    return hero + marquesina + club + impacto + causas + proyectos + valores + noticiasSec + articulosSec + agendaSec + directorio + testimonios + cta + dona + faq + contacto + pie;
   }
 
   /* ═══════════════ DIVISIÓN DE TEXTO EN PALABRAS ═══════════════
