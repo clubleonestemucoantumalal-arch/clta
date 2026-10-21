@@ -402,7 +402,7 @@ main { position: relative; z-index: 1; }
 .nota--grande .nota__img { aspect-ratio: 16 / 9; }
 @media (min-width: 1000px) { .nota--grande .nota__img { flex: 1; aspect-ratio: auto; min-height: 280px; } }
 .nota__mono { font: 300 5rem/1 var(--f-tit); color: rgba(255, 205, 0, .85); font-style: normal; }
-.nota__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.nota__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transition: transform 1.2s var(--ease); }
 .nota:hover .nota__img img { transform: scale(1.06); }
 .nota__meta { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; padding-inline: .5rem; font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); }
 .nota__meta b { color: var(--azul); }

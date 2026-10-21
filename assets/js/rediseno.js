@@ -390,7 +390,7 @@
       const resumen = texto(n.resumen).slice(0, i === 0 ? 220 : 130).trim();
       return `
         <a class="nota${i === 0 ? ' nota--grande' : ''}" href="${esc(n.enlace)}"${/^https?:/i.test(n.enlace || '') ? ' target="_blank" rel="noopener"' : ''} data-rev data-tilt>
-          <span class="nota__img">${n.imagen ? `<img src="${esc(n.imagen)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<i class="nota__mono">${esc(texto(n.fuente).slice(0, 1))}</i></span>
+          <span class="nota__img"><img src="${esc(n.imagen || 'assets/img/noticias-respaldo.jpg')}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="if(!this.dataset.r){this.dataset.r=1;this.src='assets/img/noticias-respaldo.jpg'}else{this.remove()}"><i class="nota__mono">${esc(texto(n.fuente).slice(0, 1))}</i></span>
           <span class="nota__meta"><b class="${n.tipo === 'oficial' ? 'ofi' : ''}">${esc(n.fuente)}</b>${cuando ? `<time>${cuando}</time>` : ''}</span>
           <h3>${esc(n.titulo)}</h3>
           ${resumen ? `<p>${esc(resumen)}…</p>` : ''}

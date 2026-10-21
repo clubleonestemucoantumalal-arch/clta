@@ -238,6 +238,56 @@ async function leerFuente(f) {
   ));
 }
 
+/* ---------- fotos: toda noticia lleva una ---------- */
+const RESPALDO = 'assets/img/noticias-respaldo.jpg';
+const NAVEGADOR = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36';
+
+// Google Noticias entrega un enlace intermedio: se resuelve al de la nota original.
+async function resolverGoogle(enlace) {
+  const id = enlace.split('/articles/')[1]?.split('?')[0];
+  if (!id) return '';
+  const r = await fetch(`https://news.google.com/articles/${id}?hl=es-419&gl=CL&ceid=CL:es-419`,
+    { headers: { 'User-Agent': NAVEGADOR }, signal: AbortSignal.timeout(12000) });
+  const html = await r.text();
+  const sg = (html.match(/data-n-a-sg="([^"]+)"/) || [])[1];
+  const ts = (html.match(/data-n-a-ts="([^"]+)"/) || [])[1];
+  if (!sg || !ts) return '';
+  const carga = ['Fbv4je', JSON.stringify(['garturlreq', [['X', 'X', ['X', 'X'], null, null, 1, 1, 'US:en', null, 1, null, null, null, null, null, 0, 1], 'X', 'X', 1, [1, 1, 1], 1, 1, null, 0, 0, null, 0], id, Number(ts), sg]), null, 'generic'];
+  const rr = await fetch('https://news.google.com/_/DotsSplashUi/data/batchexecute', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'User-Agent': NAVEGADOR },
+    body: 'f.req=' + encodeURIComponent(JSON.stringify([[carga]])),
+    signal: AbortSignal.timeout(12000)
+  });
+  const m = (await rr.text()).match(/garturlres\\",\\"(https?:[^\\]+)/);
+  return m ? m[1].replace(/\\u003d/g, '=').replace(/\\u0026/g, '&') : '';
+}
+
+async function fotoDeNota(url) {
+  const r = await fetch(url, { headers: { 'User-Agent': NAVEGADOR }, redirect: 'follow', signal: AbortSignal.timeout(12000) });
+  const h = await r.text();
+  const m = h.match(/<meta[^>]+(?:property|name)=["'](?:og:image|twitter:image)["'][^>]+content=["']([^"']+)["']/i)
+         || h.match(/<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["'](?:og:image|twitter:image)["']/i);
+  const img = m && decodificar(m[1]);
+  return img && /^https?:/i.test(img) ? img : '';
+}
+
+// A cada noticia sin foto se le busca la de la nota original; si no hay, va la imagen del club.
+async function completarFotos(noticias, previas) {
+  const conocidas = new Map((previas || []).filter((p) => p.imagen && p.imagen !== RESPALDO).map((p) => [p.enlace, p.imagen]));
+  let encontradas = 0, respaldo = 0;
+  for (const n of noticias) {
+    if (n.imagen) continue;
+    if (conocidas.has(n.enlace)) { n.imagen = conocidas.get(n.enlace); continue; }
+    try {
+      const destino = n.enlace.includes('news.google.com') ? await resolverGoogle(n.enlace) : n.enlace;
+      if (destino && !/instagram\.com|facebook\.com/i.test(destino)) n.imagen = await fotoDeNota(destino);
+    } catch { /* se usa la imagen de respaldo */ }
+    if (n.imagen) encontradas++; else { n.imagen = RESPALDO; respaldo++; }
+  }
+  console.log(`   fotos: ${encontradas} halladas en la nota original, ${respaldo} con la imagen del club`);
+}
+
 /* ---------- principal ---------- */
 (async () => {
   console.log('Consultando fuentes de noticias…\n');
@@ -266,6 +316,10 @@ async function leerFuente(f) {
 
   noticias.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
   noticias = noticias.slice(0, MAXIMO);
+
+  let previas = [];
+  try { previas = JSON.parse(await readFile(SALIDA, 'utf8')).noticias || []; } catch { /* primera vez */ }
+  await completarFotos(noticias, previas);
 
   if (!noticias.length) {
     console.error('\nNo se obtuvo ninguna noticia. Se conserva el archivo anterior.');
