@@ -522,7 +522,7 @@
                   <div class="gala__acc">
                     ${e.enlace ? `<a class="btn btn--oro btn--sm" href="${esc(e.enlace)}"${enlExt ? ' target="_blank" rel="noopener"' : ''}><span>${limpiar(e.enlaceTexto || (e.venta ? 'Comprar ahora' : 'Más información'))}</span></a>` : ''}
                     ${(D.redes && D.redes.instagram) ? `<a class="gala__ig" href="${esc(D.redes.instagram)}" target="_blank" rel="noopener" aria-label="Instagram del club, @${esc((D.redes && D.redes.instagramUser) || '')}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a>` : ''}
-                    <button type="button" class="gala__compartir" data-compartir="${esc(texto(e.titulo))}">Compartir ${flecha(14)}</button>
+                    <button type="button" class="gala__compartir" data-compartir="${esc(texto(e.titulo))}" data-comp-mes="${esc(texto(e.mes))}">Compartir ${flecha(14)}</button>
                   </div>
                 </div>
               </article>`;
@@ -1153,10 +1153,13 @@
     document.addEventListener('click', async (e) => {
       const b = e.target.closest('[data-compartir]'); if (!b) return;
       const url = location.href.split('#')[0] + '#dona';
-      const datos = { title: b.dataset.compartir + ' · ' + ((D.identidad && D.identidad.nombre) || 'Club de Leones'), text: 'Ayúdanos a difundir esta actividad del ' + ((D.identidad && D.identidad.nombre) || 'Club de Leones') + '.', url };
-      const aviso = (t) => { const o = b.innerHTML; b.textContent = t; setTimeout(() => { b.innerHTML = o; }, 2000); };
+      const club = (D.identidad && D.identidad.nombre) || 'Club de Leones Temuco Antumalal';
+      const mes = b.dataset.compMes ? ' (' + b.dataset.compMes.toLowerCase() + ')' : '';
+      const invitacion = '¡Te invitamos a la actividad «' + b.dataset.compartir + '» del ' + club + mes + '! Participa y apoya las causas del club.';
+      const datos = { title: b.dataset.compartir + ' · ' + club, text: invitacion, url };
+      const aviso = (t) => { const o = b.innerHTML; b.textContent = t; setTimeout(() => { b.innerHTML = o; }, 2200); };
       if (navigator.share) { try { await navigator.share(datos); } catch { /* el usuario canceló */ } return; }
-      try { await navigator.clipboard.writeText(url); aviso('Enlace copiado'); }
+      try { await navigator.clipboard.writeText(invitacion + '\n' + url); aviso('Texto y enlace copiados'); }
       catch { window.prompt('Copia este enlace para compartir:', url); }
     });
   }
