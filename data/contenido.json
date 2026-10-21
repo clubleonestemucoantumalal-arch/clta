@@ -281,6 +281,19 @@
   "proyectos": [
     {
       "tag": "Octubre · Salud",
+      "titulo": "Operativo médico en Pitrufquén",
+      "texto": "Junto al Club de Leones de Pitrufquén y con apoyo del Servicio de Salud Araucanía Sur, atendimos a pacientes del hospital de Pitrufquén para ayudar a reducir su lista de espera.",
+      "imagen": "",
+      "fecha": "2026-10-17",
+      "enlace": "https://noticiasdelsur.cl/club-de-leones-impulsan-operativo-medico-en-pitrufquen-para-ayudar-a-reducir-lista-de-espera/",
+      "ancho": false,
+      "id": "operativo-medico-pitrufquen",
+      "lugar": "Hospital de Pitrufquén",
+      "personas": "",
+      "cuerpo": "El sábado 17 de octubre, desde las 09:00 horas, los clubes de Leones de Temuco Antumalal y de Pitrufquén realizaron un operativo médico en el hospital de Pitrufquén, con el apoyo del Servicio de Salud Araucanía Sur.\n\nLa jornada tuvo atenciones en oftalmología, urología y gastroenterología, y estuvo dirigida a pacientes que ya estaban inscritos en la lista de espera del recinto, cuyos datos entregó el propio hospital.\n\nEl objetivo fue simple: ayudar a que más personas reciban atención médica antes y reducir los tiempos de espera.\n\nCobertura de prensa: Noticias del Sur, 17 de octubre de 2026."
+    },
+    {
+      "tag": "Octubre · Salud",
       "titulo": "Jornada contra el cáncer de mama",
       "texto": "Acompañamos a las Damas en el Hospital Regional con un desayuno saludable —frutas, snack y café— en una jornada de difusión sobre prevención y detección temprana. Llegamos a unas 100 personas.",
       "imagen": "assets/img/proyectos/cancer-mama.jpg",
