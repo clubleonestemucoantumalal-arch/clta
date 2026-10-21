@@ -1931,5 +1931,9 @@
     });
   }
 
-  iniciarCandado();
+  // Si la persona ya entró con su correo (Cloudflare Access), no hace falta una segunda clave.
+  fetch('/api/sesion', { credentials: 'same-origin', cache: 'no-store' })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((j) => { if (j && j.email) entrar(); else iniciarCandado(); })
+    .catch(() => iniciarCandado());
 })();
