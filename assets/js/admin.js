@@ -1780,6 +1780,32 @@
     }
   }
 
+  /* ─── Publicar con la cuenta (sin token) ─── */
+  async function publicarConCuenta() {
+    const salida = $('#cuentaSalida');
+    const boton = $('#btnCuentaPublicar');
+    boton.disabled = true;
+    salida.innerHTML = mensaje('info', 'Publicando…', 'Subiendo los cambios a la página.');
+    try {
+      const r = await fetch('/api/publicar', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ archivos: archivos().map((f) => ({ ruta: f.ruta, texto: f.texto })) })
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || ('Error ' + r.status));
+      marcarPublicado();
+      salida.innerHTML = mensaje('ok', '¡Publicado!',
+        'Los cambios ya están en camino: en uno o dos minutos se ven en clta.cl (recarga con Ctrl + F5).');
+      aviso('Cambios publicados.');
+    } catch (e) {
+      salida.innerHTML = mensaje('mal', 'No se pudo publicar', e.message);
+    } finally {
+      boton.disabled = false;
+    }
+  }
+
   function mensaje(tipo, titulo, texto) {
     return `<div class="aviso aviso--${tipo}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
@@ -1865,7 +1891,20 @@
       $$('#pestanasPublicar button').forEach((o) => o.classList.toggle('activo', o === b));
       $('#tabDescargar').classList.toggle('oculto', b.dataset.tab !== 'descargar');
       $('#tabGithub').classList.toggle('oculto', b.dataset.tab !== 'github');
+      $('#tabCuenta').classList.toggle('oculto', b.dataset.tab !== 'cuenta');
     }));
+
+    // Si la persona entró con su correo (Cloudflare Access), se publica sin token.
+    fetch('/api/sesion', { credentials: 'same-origin', cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        if (!j || !j.email) return;
+        $('#cuentaCorreo').textContent = ' como ' + j.email;
+        $('#pestanaCuenta').classList.remove('oculto');
+        $('#pestanaCuenta').click();
+      })
+      .catch(() => { /* sin sesión: quedan los otros métodos */ });
+    $('#btnCuentaPublicar').addEventListener('click', publicarConCuenta);
 
     // Datos del club ya puestos: solo falta el token.
     const gh = ALMACEN.leerChico('github', null) ||

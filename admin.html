@@ -97,6 +97,7 @@
     <div class="dialogo__cuerpo">
 
       <div class="pestanas" id="pestanasPublicar">
+        <button class="oculto" data-tab="cuenta" id="pestanaCuenta">Publicar con mi cuenta</button>
         <button class="activo" data-tab="github">Publicar en GitHub</button>
         <button data-tab="descargar">Descargar archivos</button>
       </div>
@@ -140,6 +141,22 @@
             <code>Ctrl</code> + <code>F5</code>.
           </div>
         </div>
+      </div>
+
+      <!-- ─── Cuenta (sesión con correo, sin token) ─── -->
+      <div id="tabCuenta" class="oculto">
+        <div class="aviso aviso--ok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+          <span>
+            <b>Sesión iniciada<span id="cuentaCorreo"></span>.</b>
+            No necesitas token: los cambios se publican con la cuenta del club y queda registrado quién los hizo.
+          </span>
+        </div>
+        <button class="btn btn--bloque" id="btnCuentaPublicar" style="margin-top:16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          Publicar ahora en la página
+        </button>
+        <div id="cuentaSalida" style="margin-top:14px"></div>
       </div>
 
       <!-- ─── B) GitHub ─── -->
@@ -210,6 +227,6 @@
 <script src="assets/js/iconos.js?v=1"></script>
 <script src="assets/js/almacen.js?v=1"></script>
 <script src="assets/js/config.js?v=3"></script>
-<script src="assets/js/admin.js?v=11"></script>
+<script src="assets/js/admin.js?v=12"></script>
 </body>
 </html>

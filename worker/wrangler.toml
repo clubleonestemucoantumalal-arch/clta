@@ -1,0 +1,20 @@
+name = "clta-publicar"
+main = "publicar.js"
+compatibility_date = "2026-10-01"
+
+# Solo responde en clta.cl/api/*. Esa ruta debe estar protegida por Cloudflare Access.
+routes = [
+  { pattern = "clta.cl/api/*", zone_name = "clta.cl" }
+]
+
+[vars]
+GH_USUARIO = "clubleonestemucoantumalal-arch"
+GH_REPO    = "clta"
+GH_RAMA    = "main"
+# Se completan después de crear la aplicación en Cloudflare Access:
+ACCESS_TEAM = ""   # el nombre del equipo (lo que va antes de .cloudflareaccess.com)
+ACCESS_AUD  = ""   # el "Application Audience (AUD) Tag" de la aplicación
+# Opcional: lista de correos que pueden publicar, separados por coma. Vacío = todos los autorizados en Access.
+EDITORES = ""
+
+# El secreto GITHUB_TOKEN NO va aquí. Se guarda con:  npx wrangler secret put GITHUB_TOKEN
