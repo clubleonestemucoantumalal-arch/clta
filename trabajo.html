@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Trabajo en terreno | Club de Leones Temuco Antumalal</title>
 <meta name="description" content="Historias del trabajo en terreno del Club de Leones Temuco Antumalal.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Club de Leones Temuco Antumalal">
+<meta property="og:locale" content="es_CL">
+<meta property="og:title" content="Lo que hacemos en terreno · Club de Leones Temuco Antumalal">
+<meta property="og:description" content="Auspicia el Club de Leones Temuco Antumalal para sus causas: historias de ayuda y servicio a la comunidad.">
+<meta property="og:image" content="https://clta.cl/assets/img/compartir.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#030A1F">
 <link rel="icon" href="assets/img/lions-international.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -191,7 +198,7 @@
     // compartir
     var ac = el('div', 'acciones estrecho'); ac.appendChild(el('span', null, 'Comparte esta historia'));
     var url = location.href.split('#')[0];
-    var bw = el('a', 'btn', 'WhatsApp'); bw.href = 'https://wa.me/?text=' + encodeURIComponent(titulo + ' — Club de Leones Temuco Antumalal ' + url); bw.target = '_blank'; bw.rel = 'noopener'; ac.appendChild(bw);
+    var bw = el('a', 'btn', 'WhatsApp'); bw.href = 'https://wa.me/?text=' + encodeURIComponent(titulo + ' — Auspicia el Club de Leones Temuco Antumalal para sus causas. ' + url); bw.target = '_blank'; bw.rel = 'noopener'; ac.appendChild(bw);
     var bc = el('button', 'btn btn--l', 'Copiar enlace'); bc.type = 'button';
     bc.addEventListener('click', function () {
       var ok = function () { bc.textContent = 'Enlace copiado'; setTimeout(function () { bc.textContent = 'Copiar enlace'; }, 2000); };

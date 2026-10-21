@@ -6,10 +6,18 @@
 <title>Música de películas · Maestro Roberto Bravo | Club de Leones Temuco Antumalal</title>
 <meta name="description" content="Concierto «Música de películas» con el Maestro Roberto Bravo y la soprano Andrea Cárdenas. Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco. Entradas en passline.cl.">
 <meta name="theme-color" content="#030A1F">
+<link rel="canonical" href="https://clta.cl/evento-musica-de-peliculas.html">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Club de Leones Temuco Antumalal">
+<meta property="og:locale" content="es_CL">
+<meta property="og:url" content="https://clta.cl/evento-musica-de-peliculas.html">
 <meta property="og:title" content="Música de películas · Maestro Roberto Bravo y Andrea Cárdenas">
-<meta property="og:description" content="Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco. Auspicia el Club de Leones Temuco Antumalal.">
-<meta property="og:image" content="assets/img/eventos/musica-de-peliculas-portada.jpg">
+<meta property="og:description" content="Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco. Auspicia el Club de Leones Temuco Antumalal para sus causas.">
+<meta property="og:image" content="https://clta.cl/assets/img/eventos/musica-de-peliculas-portada.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Música de películas · Maestro Roberto Bravo y Andrea Cárdenas">
+<meta name="twitter:description" content="Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco. Auspicia el Club de Leones Temuco Antumalal para sus causas.">
+<meta name="twitter:image" content="https://clta.cl/assets/img/eventos/musica-de-peliculas-portada.jpg">
 <link rel="icon" href="assets/img/lions-international.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,9 +114,10 @@
 <script>
   document.getElementById('compartir').addEventListener('click', async function () {
     var b = this, url = location.href.split('#')[0], antes = b.textContent;
-    var datos = { title: document.title, text: 'Música de películas · Maestro Roberto Bravo y Andrea Cárdenas. Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco.', url: url };
+    var texto = 'Música de películas · Maestro Roberto Bravo y Andrea Cárdenas. Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco. Auspicia el Club de Leones Temuco Antumalal para sus causas.';
+    var datos = { title: document.title, text: texto, url: url };
     if (navigator.share) { try { await navigator.share(datos); } catch (e) {} return; }
-    try { await navigator.clipboard.writeText(url); b.textContent = 'Enlace copiado'; setTimeout(function () { b.textContent = antes; }, 2000); }
+    try { await navigator.clipboard.writeText(texto + '\n' + url); b.textContent = 'Texto y enlace copiados'; setTimeout(function () { b.textContent = antes; }, 2200); }
     catch (e) { window.prompt('Copia este enlace para compartir:', url); }
   });
 </script>
