@@ -14,3 +14,7 @@ causas.jpeg
 REPORTE EXCEL CLUB/
 actividades en terreno/
 thumbnail (3).jpg
+
+# Archivos locales de Cloudflare (wrangler)
+worker/.wrangler/
+worker/node_modules/
