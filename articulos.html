@@ -155,7 +155,7 @@
     var D = r[0] || window.RESPALDO || {}, IMGS = r[1] || {};
     var foto = function (ref) { ref = String(ref || ''); if (ref.indexOf('img:') === 0) return IMGS[ref.slice(4)] || ''; return ref; };
     var S = (D.textos && D.textos.articulosSec) || {};
-    var lista = (D.articulos || []).filter(function (a) { return plano(a.titulo).trim(); })
+    var lista = (D.articulos || []).filter(function (a) { return plano(a.titulo).trim() && (plano(a.texto).trim() || plano(a.cuerpo).trim()); })
       .sort(function (x, y) { return String(y.fecha || '').localeCompare(String(x.fecha || '')); });
 
     main.innerHTML = '';
