@@ -1,6 +1,6 @@
 {
-  "generado": "2026-10-21T23:20:12.756Z",
-  "total": 23,
+  "generado": "2026-10-22T11:25:57.912Z",
+  "total": 24,
   "fuentes": [
     {
       "nombre": "Distrito T4",
@@ -30,6 +30,15 @@
   ],
   "noticias": [
     {
+      "titulo": "Pianista Roberto Bravo ofrecerá concierto en el Club de Leones Temuco Antumalal",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQS0M1NkdxeEJNamt1UDBhWEFfVE05MmtHNUhGZVRSQzVpWWFXMUhyNmVqOExtVjhHWEFmdWE4UXFvMFpqTGdYN0Z1OEtVTnhyZG9MWUtXY3ZuQjM4MXhoN2FjRTJKWUpXem5ZZ2l6X2ZmT0x2aWxReXZyMlBmcTczTzBRYnBjZ0NXTElPMzFrSjI2RDFkQkxvTVdLLXhJTmtncDZDUEh1TjFpLUNVQnc?oc=5",
+      "fecha": "2026-10-22T09:26:42.000Z",
+      "fuente": "radiotemuco.com",
+      "tipo": "prensa",
+      "imagen": "https://radiotemuco.com/home/wp-content/uploads/2026/10/Captura-de-pantalla-2026-10-22-060147.png"
+    },
+    {
       "titulo": "El Club de Leones Puerto Varas Los Colonos recibió a la Gobernadora del Distrito T-4, León Claudia Brulé Puentes, en una instancia que destacó el compromiso institucional, la trayectoria de sus integrantes y el aporte solidario a la comunidad. En el ámbito",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1Xc0dKellxYzFYOGNtZFhldlZNZ0dMYzdTMlphdm9CaHF3TVZHWXFLamxzaWxNNF9hSGVGSHBzQTk5Z2hBa1ZoWGRxR2ZOazhicWc?oc=5",
@@ -48,8 +57,8 @@
       "imagen": "https://noticiasdelsur.cl/wp-content/uploads/2026/10/1001598822-scaled-1.jpg"
     },
     {
-      "titulo": "Expanding Vision Care Across India with US$1.8 Million in LCIF Grant Funding",
-      "resumen": "A person’s sight affects almost every aspect of their life. Yet for many people across India, quality eye care remains difficult to access, especially in communities outside major cities. For instance, even though cataracts are tr",
+      "titulo": "Ampliar la atención de la vista en toda la India con una subvención de LCIF de 1,8 millones de dólares",
+      "resumen": "La vista de una persona afecta a casi todos los aspectos de su vida. Sin embargo, para muchas personas en toda la India, la atención oftalmológica de calidad sigue siendo de difícil acceso, especialmente en comunidades fuera de la",
       "enlace": "https://lionmagazine.org/articles/expanding-vision-care-across-india-with-us1-8-million-in-lcif-grant-funding/",
       "fecha": "2026-10-16T13:00:48.000Z",
       "fuente": "LION Magazine",
@@ -60,7 +69,7 @@
       "titulo": "Club de Leones Punta Arenas donó 30 frazadas para usuarios de la Unidad de Emergencia del Hospital Clínico de Magallanes.",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxQZlR5aVNPXzM4Sjhmd3dmbWJvbWprWllTeGlIZS0xMXhEVHh2Z0dvSXZ2Z3dpdXh2T1hvaThnRlZDcUE4NTd3NWFxSzRCWnhCOG1yaEZ4cENxeGRHVS0yRk93Nmd5ZzNZcmluMDhaUkpsVWdpYWJXRkItSjFuVXR2R1RUcWw5SGhmeUZ6QVJSQ0FnZ1VHamEwOVk4Q1I2WW55OVNXLXRjQnZIdnQ2QXU2eE5jWmMzNGlCUlZwZVRaNFhPc3RyLURCVTRhZW5XZS1xMXgtdDVNZjNaeHJfZEY2cW9YWXpqWFJLUXZwamd1TXJOQQ?oc=5",
-      "fecha": "2026-10-10T19:00:16.000Z",
+      "fecha": "2026-10-10T07:00:00.000Z",
       "fuente": "OvejeroNoticias",
       "tipo": "prensa",
       "imagen": "https://www.ovejeronoticias.cl/wp-content/uploads/2026/10/donacionfrazadas.jpg"
@@ -93,8 +102,8 @@
       "imagen": "https://leonest4.cl/uploads/publicaciones/con-profundo-pesar-despedimos-al-leon-cesar-sanchez-neira-20260926182519-1e7cac.webp"
     },
     {
-      "titulo": "LCIF’s Rapid Response to Ebola",
-      "resumen": "The Democratic Republic of the Congo (DRC) is facing the fastest-growing Ebola outbreak ever recorded. As of July 28, thousands of cases have been confirmed, including over 1,500 deaths. The outbreak is caused by the rare Bundibug",
+      "titulo": "La rápida respuesta de LCIF al ébola",
+      "resumen": "La República Democrática del Congo (RDC) se enfrenta al brote de ébola de más rápido crecimiento jamás registrado. Hasta el 28 de julio, se han confirmado miles de casos, incluidas más de 1.500 muertes. El brote es causado por la ",
       "enlace": "https://lionmagazine.org/articles/lcifs-rapid-response-to-ebola/",
       "fecha": "2026-09-18T14:00:25.000Z",
       "fuente": "LION Magazine",
@@ -102,8 +111,8 @@
       "imagen": "https://lionmagazine.org/wp-content/uploads/2026/09/5B7A1170-1-300x200.jpg"
     },
     {
-      "titulo": "Lions Create a Safer Space for Children Battling Cancer",
-      "resumen": "The Immuno-Hematology and Stem Cell Transplantation Department at the National Bone Marrow Transplantation Center (CNGMO) in Tunis is one of the leading cancer facilities in North Africa. Each year, the center provides 6,000 consu",
+      "titulo": "Los Leones crean un espacio más seguro para los niños que luchan contra el cáncer",
+      "resumen": "El Departamento de Inmunohematología y Trasplante de Células Madre del Centro Nacional de Trasplante de Médula Ósea (CNGMO) en Túnez es una de las principales instalaciones oncológicas del norte de África. Cada año, el centro brin",
       "enlace": "https://lionmagazine.org/articles/lions-create-a-safer-space-for-children-battling-cancer/",
       "fecha": "2026-09-16T14:00:04.000Z",
       "fuente": "LION Magazine",
@@ -111,7 +120,7 @@
       "imagen": "https://lionmagazine.org/wp-content/uploads/2026/09/Screenshot-2026-08-27-083031-247x300.jpg"
     },
     {
-      "titulo": "We are Rooted in Service",
+      "titulo": "Estamos arraigados en el servicio",
       "resumen": "Dear Lion, Service is the foundation of our organization and at the heart of who we are as Lions. Every day, in communities around the world, we bring kindness, compassion and support to those who need it most. Our shared commitme",
       "enlace": "https://lionmagazine.org/articles/we-are-rooted-in-service/",
       "fecha": "2026-08-12T12:36:34.000Z",
@@ -120,7 +129,7 @@
       "imagen": "https://lionmagazine.org/wp-content/uploads/2026/07/Lyon-Mark_CR1_2800x3500-3-240x300.jpg"
     },
     {
-      "titulo": "Rooted In Service",
+      "titulo": "Arraigado en el servicio",
       "resumen": "Service is the foundation of Lions. It’s who we are and what we do. Our roots run deep — stretching far and wide to build lasting connections and strengthen our world. Every time we serve, our roots grow stronger and deeper. Where",
       "enlace": "https://lionmagazine.org/articles/rooted-in-service/",
       "fecha": "2026-08-12T12:36:26.000Z",
@@ -129,8 +138,8 @@
       "imagen": "https://lionmagazine.org/wp-content/uploads/2026/07/Lyon_DSC07079-Fix-300x178.jpg"
     },
     {
-      "titulo": "Crossing into Friendship",
-      "resumen": "Lion Mike Contreras of Whidbey Island, Washington, was about to cross a busy street when he noticed an elderly man in the crosswalk struggling to maneuver his wheelchair. The Oak Harbor Lion and former police officer quickly jumpe",
+      "titulo": "Cruzando hacia la amistad",
+      "resumen": "El león Mike Contreras de Whidbey Island, Washington, estaba a punto de cruzar una calle muy transitada cuando notó que un anciano en el cruce de peatones luchaba por maniobrar su silla de ruedas. El León de Oak Harbor y el ex ofi",
       "enlace": "https://lionmagazine.org/articles/crossing-into-friendship/",
       "fecha": "2026-08-12T12:36:11.000Z",
       "fuente": "LION Magazine",
@@ -163,15 +172,6 @@
       "fuente": "Ministerio de Salud de Chile",
       "tipo": "prensa",
       "imagen": "https://www.minsal.cl/wp-content/uploads/2026/07/8Q7A6144-scaled.jpg"
-    },
-    {
-      "titulo": "SE CUMPLEN 109 AÑOS DESDE LA FUNDACION DE LIONS INTERNATIONAL",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNS0hCTWZJMGhSRVFOZ01GY21KS1lnXzNRN0wyaG5zU1ZJX19PUVdtdTQtNDMwSDZINDg3aTR6RW1YcHNwWkdacGtqUExrN0xMMVV0ckd5NUpZb1I5eUNHdHkzbGJLUzZmeW9FNzhUcG5UcjZETjRfeGxsRmx4ZXhrckF2bTlNdTdNMEVQMzI5MkzSAZYBQVVfeXFMTXpPQld1V3V2QU52cmtwRXpoZDRKNUVxZzY5eEN2Sl9ORy1GOVlGQXByeFg3eXl6dVBIQ3ZFU0poeW9XSzN1MEZLOVUzcG9QSFdFUEdiWnJnYkw3bnZudDU4QjdranBUNjZfV0JvYW9PbVV1NC1XemhoLXNUUTVnU0tNY2hYNFg2bGREUzB0OXVqZDF0UXln?oc=5",
-      "fecha": "2026-06-07T07:00:00.000Z",
-      "fuente": "Radio Viaducto - Collipulli",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
       "titulo": "El mejor Regalo para mamá: Leones presentan a Roberto Bravo en el Municipal",
@@ -219,6 +219,15 @@
       "imagen": "https://media.canal9.cl/2025/05/CLUB-DE-LEONES-768x432.jpeg"
     },
     {
+      "titulo": "Magallánica fue elegida como Gobernadora de Clubes de Leones",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPazljdnpBVTNzWkNzQzlfTEEyU2JscHUyS2dfb1NGODg0V0pVcEk0S0QxNEVuT3hzeE92ZWdHTi0wemxOaTFxU3pmdDJnWmFQaDhQSy1FYndvRTFnRXNkbUZwakZqWElZa3lVdnBqelVMbThvR1Q5XzNPNzJNSjRLT2daTThUMDdldUxFRGhMc2pKZlJEcldBYVU0ZC1kRWPSAZ8BQVVfeXFMT2s5Y3Z6QVUzc1pDc0M5X0xBMlNibHB1MktnX29TRjg4NFdKVXBJNEtEMTRFbk94c3hPdmVnR04tMHpsTmkxcVN6ZnQyZ1phUGg4UEstRWJ3b0UxZ0VzZG1GcGpGalhJWWt5VXZwanpVTG04b0dUOV8zTzcyTUo0S09nWk04VDA3ZXVMRURoTHNqSmZSRHJXQWFVNGQtZEVj?oc=5",
+      "fecha": "2023-07-28T07:00:00.000Z",
+      "fuente": "El Magallánico",
+      "tipo": "prensa",
+      "imagen": "https://elmagallanico.com/wp-content/uploads/2023/07/2023-07-28-gobernadora-cruz-de-leones-1000x600.jpg"
+    },
+    {
       "titulo": "Ley declara el 24 de abril como el Día del Leonismo Chileno",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMimgFBVV95cUxONzhrNllSYkFSTjk4SE5ERXVDT1ozazZoZkg3RTA5U0xSV0ozdmN1ekdTZVN2bXNWbzBNdU9kUnFjbnQ0U2FyeG9XVWVFYkZwWTB2eERUa1lQOWs0MHRVNkVKc2VVQ3lYa0JPSkZsekdxbTJONGdkM2x4LTFCVjdkVkJNaDJZelhFSlJ5Z3ozSjV3Mm9HbGZPMHdR?oc=5",
@@ -228,13 +237,13 @@
       "imagen": "https://actualidadjuridica.doe.cl/wp-content/uploads/2022/07/shutterstock_1607267161.jpg"
     },
     {
-      "titulo": "Club de Leones Temuco donó televisión para la Rifa Monumental",
+      "titulo": "A ley Día Nacional del Leonismo Chileno",
       "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQRFpBcHhBYzIzWW1kU1JGYmxqVmdfWUl0R2JwbjNfd0JCbGpUdGl0ZjNzazEzbFBFbFVmTDloVGJIMThMT2d4bXRXRHd0VkQ0MjBjR1BfUEpPNGxCRm4zYVl4V2xCeF94MkRIemJnMWdQSldkV0REbU0tMzRzV1ZKOXZUdFZXYkNsTjg3WWhUaEhnSy1wSXFB?oc=5",
-      "fecha": "2015-08-27T07:00:00.000Z",
-      "fuente": "Bomberos Temuco",
+      "enlace": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPSEZudHBLSzdYTlhZbTdFdHEyQm5TQVJzX3NacldKUEpKaEtaOTlpUHpheG5fQWNkOFQwb2tjdW43ZkRtSkgtRWZpQnp4WE96UUFtNi1tbWtMV1JzSHRZN2JVS1dEZ2VpSU11OGJ2c25BUkcyNFRIRnRSZ3Y4UzdzdmJYRTVDUnMtc2Yw?oc=5",
+      "fecha": "2022-06-09T07:00:00.000Z",
+      "fuente": "Senado República de Chile",
       "tipo": "prensa",
-      "imagen": "https://www.bomberostemuco.cl/wp-content/uploads/2015/11/donacion-leones.jpg"
+      "imagen": "assets/img/noticias-respaldo.jpg"
     }
   ]
 }
