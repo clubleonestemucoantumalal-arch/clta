@@ -572,3 +572,11 @@ input::placeholder,textarea::placeholder{ color:#80868B }
 /* El interruptor dentro de un campo debe seguir siendo una fila (si no, el botón se aplasta) */
 .campo > label.switch{ display:flex; font-size:inherit; font-weight:inherit; margin-bottom:0 }
 .switch__pista{ display:block }
+
+/* Botón "Seleccionar archivo" con el estilo del panel */
+input[type=file]{ font-size:.92rem; color:var(--g-suave); max-width:100% }
+input[type=file]::file-selector-button{
+  margin-right:12px; padding:9px 20px; border-radius:999px; cursor:pointer;
+  border:1px solid var(--g-borde); background:#fff; color:var(--azul); font:500 .92rem var(--texto);
+}
+input[type=file]::file-selector-button:hover{ background:#F1F6FE; border-color:var(--azul-claro) }
