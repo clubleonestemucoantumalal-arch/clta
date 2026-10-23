@@ -1026,7 +1026,7 @@
 
     { id: 'proyectos', grupo: 'Contenido de la página', nombre: 'Proyectos', ico: ICO.grid,
       titulo: 'Proyectos',
-      bajada: 'Las tarjetas con foto de "Lo que hacemos en terreno". En la portada se ven las primeras 8; todas quedan en la página de archivo por mes (trabajo-en-terreno.html), así no se pierde el trabajo de meses pasados.',
+      bajada: 'Las tarjetas con foto de "Lo que hacemos en terreno". En la portada se ven las primeras 4; todas quedan en la página de archivo por mes (trabajo-en-terreno.html), así no se pierde el trabajo de meses pasados.',
       tarjetas: [
         { pintar: pintarImportadorLions },
         { titulo: 'Encabezado', campos: [
@@ -1040,7 +1040,7 @@
           nuevo: { tag: '', titulo: 'Nuevo proyecto', texto: '', fecha: '', cuerpo: '', lugar: '', personas: '', imagen: 'assets/img/fotos/proyecto-1.svg', enlace: '', ancho: false },
           campos: [
             { tipo: 'texto', ruta: 'titulo', etiqueta: 'Nombre del proyecto' },
-            { tipo: 'fecha', ruta: 'fecha', etiqueta: 'Fecha de la actividad', ayuda: 'Sirve para ordenar el archivo histórico por mes. El carrusel de la portada muestra los primeros de esta lista; <b>los demás no se pierden</b>: quedan en la página «Trabajo en terreno».' },
+            { tipo: 'fecha', ruta: 'fecha', etiqueta: 'Fecha de la actividad', ayuda: 'Sirve para ordenar el archivo histórico por mes. El carrusel de la portada muestra los 4 primeros de esta lista; <b>los demás no se pierden</b>: quedan en la página «Trabajo en terreno».' },
             { tipo: 'texto', ruta: 'tag', etiqueta: 'Etiqueta', ayuda: 'La palabra chica sobre el título: "Salud visual", "Invierno"…' },
             { tipo: 'area', ruta: 'texto', etiqueta: 'Descripción', filas: 3 },
             { tipo: 'imagen', ruta: 'imagen', etiqueta: 'Foto', clave: 'proyecto', ancho: 1400,
@@ -1061,8 +1061,8 @@
           ] } }
       ] },
 
-    { id: 'articulos', grupo: 'Contenido de la página', nombre: 'Artículos', ico: ICO.diario,
-      titulo: 'Artículos',
+    { id: 'articulos', grupo: 'Contenido de la página', nombre: 'Blog', ico: ICO.diario,
+      titulo: 'Blog Leones Antumalal',
       bajada: 'Textos más largos del club: entrevistas, testimonios y reflexiones. Cada artículo puede llevar un video de YouTube. Se ven en la portada y tienen su propia página.',
       tarjetas: [
         { titulo: 'Encabezado', campos: [
