@@ -346,7 +346,7 @@
         </div>
         <div class="proy__vista" data-cursor="Arrastra">
           <div class="proy__pista" id="proyPista">
-            ${(D.proyectos || []).slice(0, 8).map((p, i) => {
+            ${(D.proyectos || []).slice(0, 4).map((p, i) => {
               const foto = fotoReal(p.imagen);
               return `
               <article class="pcard${p.ancho ? ' pcard--ancho' : ''}${foto ? '' : ' pcard--sinfoto'}" data-tilt style="--h:${(i * 47) % 360}">
