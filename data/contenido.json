@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-10-21T15:49:28.831Z",
+  "actualizado": "2026-10-23T01:29:00.445Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -84,8 +84,8 @@
     "email": "info@clta.cl"
   },
   "agenda": {
-    "auto": true,
-    "maximo": 20,
+    "auto": false,
+    "maximo": 40,
     "hora": "20:30 h",
     "lugar": "Centro de reuniones quincho Martin Lutero, Temuco.",
     "tituloSegundo": "Sesión ordinaria",
@@ -157,7 +157,7 @@
     "agendaSec": {
       "eyebrow": "Agenda",
       "titulo": "Próximas actividades",
-      "lead": "Sesionamos el <strong>2° y 4° lunes de cada mes a las 20:30 h</strong> en el Centro de reuniones quincho Martin Lutero. Las actividades abiertas están marcadas."
+      "lead": ""
     },
     "directivaSec": {
       "eyebrow": "Quiénes lideran",
@@ -553,6 +553,18 @@
       "video": "jAiuTOvlSq8",
       "videoCredito": "Video: Multi Verso Medios, publicado el 26 de mayo de 2024.",
       "cuerpo": "El canal Multi Verso Medios publicó, el 26 de mayo de 2024, un video de 14 minutos y 39 segundos dedicado al Club de Leones Temuco Antumalal. La pieza reúne los testimonios de integrantes de la institución y de profesionales que colaboran con ella, quienes describen la labor social que desarrolla el club.\n\nEl urólogo y socio del club, doctor Mario Gorena, expone la misión de la institución y explica su trabajo en operativos médicos y en actividades vinculadas al medio ambiente.\n\nEl gastroenterólogo Edmundo Hofmann se refiere a las labores de ayuda práctica que desarrolla el club, entre ellas la construcción de viviendas para familias que lo necesitan.\n\nEl oftalmólogo y actual presidente del club, doctor Sergio Echeverría, destaca el énfasis de la institución en la salud visual y en la prevención de enfermedades como la diabetes.\n\nLa kinesióloga Norma Carvajal, directora del Hogar de Adultos Mayores, agradece el apoyo permanente que reciben del club, que incluye acompañamiento en festividades y entrega de suministros básicos.\n\nEntre los minutos 5:45 y 9:08, el video recoge los testimonios del equipo de la unidad de hematoncología pediátrica del Hospital Hernán Henríquez Aravena. La enfermera Bárbara Silva, el psicólogo Manuel Castaño y la enfermera Carol Esperguel describen el efecto positivo que la ayuda del Club de Leones tiene en el ánimo al interior de la unidad.\n\nLos testimonios dan cuenta de un trabajo que se realiza de manera concreta en ámbitos diversos: la salud, el cuidado de las personas mayores, la vivienda y el medio ambiente.\n\nQuienes deseen conocer más sobre la labor del club o incorporarse a ella pueden comunicarse a través del formulario de contacto de este sitio."
+    },
+    {
+      "tag": "Artículo",
+      "titulo": "Nuevo artículo",
+      "texto": "",
+      "fecha": "",
+      "autor": "",
+      "imagen": "",
+      "video": "",
+      "videoCredito": "",
+      "cuerpo": "",
+      "cita": ""
     }
   ]
 }
