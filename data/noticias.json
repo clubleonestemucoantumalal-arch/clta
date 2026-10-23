@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-23T11:25:53.086Z",
+  "generado": "2026-10-23T23:20:19.602Z",
   "total": 24,
   "fuentes": [
     {
@@ -30,13 +30,22 @@
   ],
   "noticias": [
     {
-      "titulo": "Pianista Roberto Bravo ofrecerá concierto en el Club de Leones Temuco Antumalal",
+      "titulo": "Roberto Bravo ofrecerá concierto en apoyo a la obra social del Club de Leones Temuco Antumalal",
       "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQS0M1NkdxeEJNamt1UDBhWEFfVE05MmtHNUhGZVRSQzVpWWFXMUhyNmVqOExtVjhHWEFmdWE4UXFvMFpqTGdYN0Z1OEtVTnhyZG9MWUtXY3ZuQjM4MXhoN2FjRTJKWUpXem5ZZ2l6X2ZmT0x2aWxReXZyMlBmcTczTzBRYnBjZ0NXTElPMzFrSjI2RDFkQkxvTVdLLXhJTmtncDZDUEh1TjFpLUNVQnc?oc=5",
-      "fecha": "2026-10-22T10:11:50.000Z",
-      "fuente": "Radio Temuco",
+      "enlace": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQVlB6Z01YbHlxQmVxejJ1ZkpxbWFKZ1E1eG9hRGJlVlY3ODlMTC1oeHpjYXAtMkU4aDREREk2anZBMFZtVll1VEliejB3ZmNlZDY2ZV96Uk4zTkxiLWlmdVJzMUR3SEVQWExSMnJuNHpGdEwySTl2bW93TU1nVXVlMWtqbHRLTjY5Ql9LbzRiZXFpMG95TmV2b21NREJaN0dSUTQ3ZjBrRkRwazFncDloYjdwSmItZjZKV0ZOWk4xcmM5V1phMEZrX0lyYnlzOFV2T19DRllyVjJ0Rms?oc=5",
+      "fecha": "2026-10-23T15:29:55.000Z",
+      "fuente": "lavozdepucon",
       "tipo": "prensa",
-      "imagen": "https://radiotemuco.com/home/wp-content/uploads/2026/10/Captura-de-pantalla-2026-10-22-060147.png"
+      "imagen": "https://us-mia-1.linodeobjects.com/lavozdepucon/2026/10/ggOY42eK-roberto_bravo-986x600.png"
+    },
+    {
+      "titulo": "Pianista Roberto Bravo ofrecerá concierto en apoyo a la obra social del Club de Leones Temuco Antumalal",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQa0szeGpDVjU5S25NWlY0eGVYZnc2VEJrcC1WME5mZ2FxZWp5OEIwQ1FTRjk0cEZlamZwMXN1MFhDSndJcEEyLVFwSGZIcy1NLVBXNVdQQy1pTl9kOWozc0lTbmxxb3g5R2YwSFA1eXNFMG1CV3FKT21zcVNxMS1seFZKRm1fSUx4UGlzUGFhRTFsN2J3U0J1S2VGdUhJeVBISTIwaFpzRTVmNVV5bkNmaFljYTdHZDJjRklLV2g3VUjSAbgBQVVfeXFMUG9kMnZ2M2NVR0ozdFdPbllFVkdOUklWLXVfRXlYaWdjS1hnZ2RpaWRXZEI5ZmZVc0RiQ05CM3lSc2VueXRSMEFSS1IzMV9GQS1fWjhCdHpFbkVLN0U1OGlZMnFwSE8tbnBPVGtUTVNUZmtOaGg5bG1jcTlOdTZkUnptd0tPQ3pLbUxRWW5sYlF0RUZBUUx2SnNhb0xWU01hZHNFeHlZdWgxWG9aSE9VV1dpQXBhZlpfLQ?oc=5",
+      "fecha": "2026-10-23T10:27:00.000Z",
+      "fuente": "Araucanía Diario",
+      "tipo": "prensa",
+      "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
       "titulo": "El Club de Leones Puerto Varas Los Colonos recibió a la Gobernadora del Distrito T-4, León Claudia Brulé Puentes, en una instancia que destacó el compromiso institucional, la trayectoria de sus integrantes y el aporte solidario a la comunidad. En el ámbito",
@@ -94,7 +103,7 @@
     },
     {
       "titulo": "LCIF’s Rapid Response to Ebola",
-      "resumen": "The Democratic Republic of the Congo (DRC) is facing the fastest-growing Ebola outbreak ever recorded. As of July 28, thousands of cases have been confirmed, including over 1,500 deaths. The outbreak is caused by the rare Bundibug",
+      "resumen": "La República Democrática del Congo (RDC) se enfrenta al brote de ébola de más rápido crecimiento jamás registrado. Hasta el 28 de julio, se han confirmado miles de casos, incluidas más de 1.500 muertes. El brote es causado por la ",
       "enlace": "https://lionmagazine.org/articles/lcifs-rapid-response-to-ebola/",
       "fecha": "2026-09-18T14:00:25.000Z",
       "fuente": "LION Magazine",
@@ -174,15 +183,6 @@
       "imagen": "https://supermercadoaldia.newenworks.com/media/noticia/foto_noticia_33912_1.jpg"
     },
     {
-      "titulo": "El mejor Regalo para mamá: Leones presentan a Roberto Bravo en el Municipal",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNM3k1SGc3U1hLaHVic295WGlmQ21UME1GS3A0QUFJM0dsV1hNODZKbVc0bV8xZkFXYl9zbmZQU3dBUFFmTzF6UVFSZVhsRTI1M3dKa0x3a1hfdGdMVHhDc0U2UFN6eFRBdVpvUnlSNmpTbHNqVHlXSFlMVG1aY1RfT0RoclRHUjhKZzlkbURfN3dEUm9LX0MzbFkyS1VZUmpjcmZUbWw4Qkllc0xoZUZYbjZvLTY3Z3Rz0gGwAUFVX3lxTE56NkVFRXNLanFPRnVLWHpCdHRTSTQxU0VlcXdYRkhWbDJCbktSQm5YeDdzOXVjZGNPaGxpaGRSVGM2ZW90X0RPYXJwalR1dW5xQ3I3aG1pZnBTSDdFa0pWRHdQR1d5d1JLMXRrYXRBLXBuUDZjdGdOcjJ3clctWGFaUUlCSHpKa0hFZ0FsTXN5TjlzS3RsNzBnS3YwWUp0VUpkVGhvOXVNUmtVU2ZoSEdj?oc=5",
-      "fecha": "2026-05-08T07:00:00.000Z",
-      "fuente": "Araucanía Diario",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
-    },
-    {
       "titulo": "UFRO fortalece vínculos con organizaciones sociales tras visita protocolar del Club de Leones Temuco Antumalal",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPX1cxbkI1anVfcjBMV0Z1QTZFQVFWY05ybEpxQjFKdjUyNkFkdHRXWUdkN2V2TXFObVVYZ3VEMTZPekdxcXhqWnRSLUdERF8xVmtiMmctZjFKX0YxbWtDRFpCLUtBNGdaMG1haGFPT2xaOUJhUS1zcXRnaHlYY1l6dEJiYTNnXy0wMkZDcXZBVHpfQmpJeTdlaHRVRENNVDNHRF9MOVc4eFV5RHBxak1ibXhmS3JvUnZRZld2b3hUTmRNY0FJejdic3lFNVlrVnNlWFJqbGpNWHBnUmc?oc=5",
@@ -190,15 +190,6 @@
       "fuente": "Universidad de La Frontera",
       "tipo": "prensa",
       "imagen": "https://www.ufro.cl/wp-content/uploads/2026/05/UFRO-Club-Leones.webp"
-    },
-    {
-      "titulo": "«Escuela Especial Club de Leones Cruz del Sur celebró con éxito una nueva edición de su tradicional Corricaminata».",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNWUJFa3pNYnZYTGVZazA3dmJUUlIzOVg3cHprV1NRQ2NrVjdBeUpaZ05JUXNESTF6c3FmMkFHaTNlSnJPXzJMT0NyTWh6cTRxYVp2NjhuOUppYlBVYmwxaFMxRVFndy1QTUFJemNMRndZY0tkNFRmMkRvUFJwa0JMMlo4RzVwZVdYS2VyUzlyZkZxTFc3M0tBT1VqbDFqNDNYWlFIZW1NVW9mcFRrTjdXcDZPaUFtU3FyQUdTYkVOclM0VGN3bW0yZ1I5dDRpQmNfZ0dzY2JLRQ?oc=5",
-      "fecha": "2026-05-01T07:00:00.000Z",
-      "fuente": "Radio Magallanes",
-      "tipo": "prensa",
-      "imagen": "https://radiomagallanes.cl/wp-content/uploads/2026/04/IMG_6571.jpg"
     },
     {
       "titulo": "Club de Leones Temuco Antumalal trae al pianista Roberto Bravo",
@@ -212,11 +203,11 @@
     {
       "titulo": "75 años del Leonismo en Uruguay: una historia de servicio que trascendió fronteras",
       "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQenh4TmRIVnZJdHZuTHVETUI2VC0xdFhDTTZEU2xnbDBOUWdxQUg4bC1WUU4zTVBQV2lTd05oNS1TWk5XWFBJZVVGMGtzSGlTZDdvcmlDS0xWX1ZOLUFNbTh5SlE3aGptYnFqMXJabEF5UTdSMGlWMUg0b1ZSaUpkOFJuYzdiY3NvTFRRQjZoUnQxeW5wdi1FbFFLSHF1eXg3SG1vckJMVFdWdC1ZUk03SWNR?oc=5",
+      "enlace": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPV0FjaHJMUDBQRFhLeXlaR01oSmhIa21ueWRCUDhDcE8wU0l0WWFGSjV1bWowTFY4aUVqd0JHTFNNZm1nOHJlZVJQU19vYXI5dGo4eUp4cUdLVVZCMTdFYzRvam1IZHl4U2JINThaNmN4QkNvdERLcExpTkM5MnhVa2d6UmxJWWl2Qm9wejg1NUZyQ01GUl9EcVFMZjh1NktQOVQ0MTRRUUdmVE0?oc=5",
       "fecha": "2026-04-03T07:00:00.000Z",
-      "fuente": "Radio Libertadores",
+      "fuente": "10minutos.com.uy",
       "tipo": "prensa",
-      "imagen": "https://radiolibertadores.com/wp-content/uploads/IMG-20260403-WA0001-1.jpg"
+      "imagen": "https://10minutos.com.uy/wp-content/uploads/2026/04/IMG-20260403-WA0001.jpg"
     },
     {
       "titulo": "Conoce la labor de los Clubes de Leones y lo que trae la próxima convención nacional",
@@ -228,15 +219,6 @@
       "imagen": "https://media.canal9.cl/2025/05/CLUB-DE-LEONES-768x432.jpeg"
     },
     {
-      "titulo": "Magallánica fue elegida como Gobernadora de Clubes de Leones",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPazljdnpBVTNzWkNzQzlfTEEyU2JscHUyS2dfb1NGODg0V0pVcEk0S0QxNEVuT3hzeE92ZWdHTi0wemxOaTFxU3pmdDJnWmFQaDhQSy1FYndvRTFnRXNkbUZwakZqWElZa3lVdnBqelVMbThvR1Q5XzNPNzJNSjRLT2daTThUMDdldUxFRGhMc2pKZlJEcldBYVU0ZC1kRWPSAZ8BQVVfeXFMT2s5Y3Z6QVUzc1pDc0M5X0xBMlNibHB1MktnX29TRjg4NFdKVXBJNEtEMTRFbk94c3hPdmVnR04tMHpsTmkxcVN6ZnQyZ1phUGg4UEstRWJ3b0UxZ0VzZG1GcGpGalhJWWt5VXZwanpVTG04b0dUOV8zTzcyTUo0S09nWk04VDA3ZXVMRURoTHNqSmZSRHJXQWFVNGQtZEVj?oc=5",
-      "fecha": "2023-07-28T07:00:00.000Z",
-      "fuente": "El Magallánico",
-      "tipo": "prensa",
-      "imagen": "https://elmagallanico.com/wp-content/uploads/2023/07/2023-07-28-gobernadora-cruz-de-leones-1000x600.jpg"
-    },
-    {
       "titulo": "Ley declara el 24 de abril como el Día del Leonismo Chileno",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMimgFBVV95cUxONzhrNllSYkFSTjk4SE5ERXVDT1ozazZoZkg3RTA5U0xSV0ozdmN1ekdTZVN2bXNWbzBNdU9kUnFjbnQ0U2FyeG9XVWVFYkZwWTB2eERUa1lQOWs0MHRVNkVKc2VVQ3lYa0JPSkZsekdxbTJONGdkM2x4LTFCVjdkVkJNaDJZelhFSlJ5Z3ozSjV3Mm9HbGZPMHdR?oc=5",
@@ -244,6 +226,24 @@
       "fuente": "home.doe.cl",
       "tipo": "prensa",
       "imagen": "https://actualidadjuridica.doe.cl/wp-content/uploads/2022/07/shutterstock_1607267161.jpg"
+    },
+    {
+      "titulo": "A ley Día Nacional del Leonismo Chileno",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPSEZudHBLSzdYTlhZbTdFdHEyQm5TQVJzX3NacldKUEpKaEtaOTlpUHpheG5fQWNkOFQwb2tjdW43ZkRtSkgtRWZpQnp4WE96UUFtNi1tbWtMV1JzSHRZN2JVS1dEZ2VpSU11OGJ2c25BUkcyNFRIRnRSZ3Y4UzdzdmJYRTVDUnMtc2Yw?oc=5",
+      "fecha": "2022-06-09T07:00:00.000Z",
+      "fuente": "Senado República de Chile",
+      "tipo": "prensa",
+      "imagen": "assets/img/noticias-respaldo.jpg"
+    },
+    {
+      "titulo": "Sede Puerto Montt: Centro Clínico y Comunitario de la UACh recibió a gobernador distrital del Leonismo",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNUTZITmpjY1FTME9XakZWN1ZTN2tfMkY1NkdNY0xjeXR0TE5IaDlKVEJ2UTNPZ0N2a3dRMDI2d3hUN2J3bzdJLXV4azBGcEpkUkhENTMyOHFxUzByeTZ5aHBaTlZrM0NJMGxNNkJTVU1TX2tIdy1PYVNlbWhuNW1oLVZyQUY3YVYzRGR0MHRVTW00azIteUNoOU5CQmNNaGREUEhmc3hremNHWVlaSlU5anI2eFVYV2QwOEk4RHhoTDdyTmM?oc=5",
+      "fecha": "2021-11-30T08:00:00.000Z",
+      "fuente": "Universidad Austral de Chile",
+      "tipo": "prensa",
+      "imagen": "assets/img/noticias-respaldo.jpg"
     }
   ]
 }
