@@ -535,11 +535,11 @@
     <section class="sec sec--papel dona" id="dona" data-nav>
       <div class="wrap">
         ${cabecera(DO.eyebrow || 'Colabora', DO.titulo || '', DO.lead)}
-        ${(D.donaEventos || []).length ? `
+        ${(D.donaEventos || []).filter((e) => e.visible !== false).length ? `
         <div class="gala" data-rev>
           <div class="gala__cab"><h3>${limpiar(DO.eventosTitulo || 'Actividades que hacemos cada año')}</h3>${DO.eventosLead ? `<p>${limpiar(DO.eventosLead)}</p>` : ''}</div>
           <div class="gala__grid">
-            ${D.donaEventos.map((e) => {
+            ${D.donaEventos.filter((e) => e.visible !== false).map((e) => {
               const afiche = fotoReal(e.imagen);
               const enlExt = /^https?:/i.test(e.enlace || '');
               const detalles = [e.lugar, e.precio].filter((x) => texto(x).trim());

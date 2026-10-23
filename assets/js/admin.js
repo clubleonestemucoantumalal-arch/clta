@@ -757,13 +757,24 @@
         const el = document.createElement('div');
         el.className = 'item' + (i === abierto ? ' abierto' : '');
         const titulo = def.titulo ? def.titulo(it, i) : ('Ficha ' + (i + 1));
+        const visible = def.visible ? it[def.visible] !== false : true;
+        if (!visible) el.className += ' item--oculto';
         el.innerHTML = `
-          <button type="button" class="item__cab">
-            <span class="item__n">${i + 1}</span>
-            <span class="item__t">${titulo ? esc(titulo) : '<em>Sin título</em>'}</span>
-            <svg class="item__flecha" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
-          </button>
+          <div class="item__fila">
+            <button type="button" class="item__cab">
+              <span class="item__n">${i + 1}</span>
+              <span class="item__t">${titulo ? esc(titulo) : '<em>Sin título</em>'}</span>
+              <svg class="item__flecha" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+            </button>
+            ${def.visible ? `<label class="item__ver" title="Marcado: se ve en la página. Desmarcado: queda guardada pero oculta."><input type="checkbox" ${visible ? 'checked' : ''}><span>${visible ? 'En la página' : 'Oculta'}</span></label>` : ''}
+          </div>
           <div class="item__cuerpo"></div>`;
+        if (def.visible) {
+          $('.item__ver input', el).addEventListener('change', (ev) => {
+            asignar(`${def.ruta}.${i}.${def.visible}`, ev.target.checked);
+            pintar();
+          });
+        }
 
         const cuerpo = $('.item__cuerpo', el);
         if (i === abierto) {
@@ -1191,7 +1202,8 @@
         ] },
         { repetidor: {
           ruta: 'donaEventos', etiqueta: 'Actividades solidarias (bingo, paella…)', textoNuevo: 'Agregar actividad',
-          ayuda: 'Cuando una actividad salga a la venta: activa "Ya está a la venta", pon la fecha, el lugar, el precio, el enlace para comprar y el afiche. Aparece destacada en el sitio.',
+          visible: 'visible',
+          ayuda: 'Marca el cuadrado «En la página» para mostrarla y desmárcalo para ocultarla sin borrarla. Cuando una actividad salga a la venta: activa "Ya está a la venta", pon la fecha, el lugar, el precio, el enlace para comprar y el afiche. Aparece destacada en el sitio.',
           titulo: (it) => (it.venta ? '● ' : '') + (it.titulo || ''),
           nuevo: { icono: 'estrella', mes: '', titulo: 'Nueva actividad', texto: '', venta: false, lugar: '', precio: '', enlace: '', enlaceTexto: '', imagen: '' },
           campos: [

@@ -587,3 +587,16 @@ html[data-tema="oscuro"] img,
 html[data-tema="oscuro"] video,
 html[data-tema="oscuro"] iframe,
 html[data-tema="oscuro"] .lateral__marca svg{ filter:invert(1) hue-rotate(180deg) }
+
+/* Casilla «En la página» de las fichas que se pueden ocultar */
+.item__fila{ display:flex; align-items:stretch }
+.item__fila .item__cab{ flex:1; min-width:0; width:auto }
+.item__ver{
+  display:flex; align-items:center; gap:8px; flex:none; cursor:pointer;
+  padding:0 16px; border-left:1px solid var(--gris-200); background:var(--blanco);
+  font-size:.82rem; font-weight:600; color:var(--azul);
+}
+.item__ver input{ width:20px; height:20px; accent-color:var(--azul); cursor:pointer }
+.item--oculto .item__ver{ color:var(--gris) }
+.item--oculto .item__n,
+.item--oculto .item__t{ opacity:.5 }
