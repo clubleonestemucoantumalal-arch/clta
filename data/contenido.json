@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-10-23T01:56:54.697Z",
+  "actualizado": "2026-10-23T01:57:51.683Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -106,20 +106,6 @@
         "abierto": true,
         "enlace": "https://www.passline.com/eventos-plano/roberto-bravo-con-musica-de-peliculas",
         "enlaceTexto": "Comprar entradas"
-      },
-      {
-        "fecha": "2026-10-26",
-        "titulo": "Reunión Socios ",
-        "texto": "",
-        "hora": "20:30",
-        "abierto": true
-      },
-      {
-        "fecha": "",
-        "titulo": "",
-        "texto": "",
-        "hora": "",
-        "abierto": true
       }
     ]
   },
