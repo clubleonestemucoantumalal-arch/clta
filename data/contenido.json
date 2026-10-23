@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-10-23T01:29:00.445Z",
+  "actualizado": "2026-10-23T01:31:22.470Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -37,7 +37,7 @@
   },
   "noticias": {
     "archivoLocal": "data/noticias.json",
-    "maximo": 9,
+    "maximo": 12,
     "actualizarEnVivo": false,
     "proxyCors": ""
   },
