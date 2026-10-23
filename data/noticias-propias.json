@@ -2,6 +2,15 @@
   "_comentario": "Noticias escritas por el club. Este archivo NO lo toca el robot automático: se muestran siempre primero. Para quitar una, bórrala de la lista.",
   "noticias": [
     {
+      "titulo": "Descuentos preferenciales para el concierto “Música de Películas”",
+      "resumen": "Socias y socios pueden acceder a entradas con descuento para el concierto del Maestro Roberto Bravo y la soprano Andrea Cárdenas: por compra directa en passline.cl o por planilla. Sábado 24 de octubre, 19:00 h, Teatro Municipal de Temuco.",
+      "enlace": "assets/img/eventos/descuentos-musica-de-peliculas.webp",
+      "fecha": "2026-10-22T12:00:00.000Z",
+      "fuente": "Comunicado",
+      "tipo": "oficial",
+      "imagen": "assets/img/eventos/descuentos-musica-de-peliculas.webp"
+    },
+    {
       "titulo": "Música de películas: concierto del Maestro Roberto Bravo y la soprano Andrea Cárdenas",
       "resumen": "Un homenaje emotivo a las grandes bandas sonoras de la historia del séptimo arte. Sábado 24 de octubre, 19:00 h, en el Teatro Municipal de Temuco. Entradas disponibles en passline.cl. Auspicia el Club de Leones Temuco Antumalal.",
       "enlace": "evento-musica-de-peliculas.html",

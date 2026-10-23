@@ -385,7 +385,7 @@
 
     /* ── NOTICIAS ── */
     const NO = T.noticiasSec || {};
-    const maxN = Math.min(6, (D.noticias && D.noticias.maximo) || 6);
+    const maxN = 4;
     const notasHtml = noticias.slice(0, maxN).map((n, i) => {
       const f = n.fecha ? new Date(n.fecha) : null;
       const cuando = f && !isNaN(f) ? `${f.getDate()} ${MES3[f.getMonth()]} ${f.getFullYear()}` : '';
@@ -403,7 +403,8 @@
     <section class="sec sec--papel noticias" id="noticias" data-nav>
       <div class="wrap">
         ${cabecera(NO.eyebrow || 'Actualidad', NO.titulo || '', NO.lead)}
-        ${notasHtml ? `<div class="notas">${notasHtml}</div>` : '<p class="vacio">Pronto publicaremos novedades.</p>'}
+        ${notasHtml ? `<div class="notas">${notasHtml}</div>
+        ${noticias.length > maxN ? `<div class="notas__todo"><a class="btn btn--oro mag" href="noticias.html"><span>Ver todas las noticias</span>${flecha(16)}</a></div>` : ''}` : '<p class="vacio">Pronto publicaremos novedades.</p>'}
       </div>
     </section>`;
 

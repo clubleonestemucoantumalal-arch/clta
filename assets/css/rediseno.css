@@ -1058,3 +1058,6 @@ a.op--link:hover .op__go svg { transform: translateX(5px); }
 .nota__play { position: absolute; left: 50%; top: 50%; z-index: 2; width: 62px; height: 62px; margin: -31px 0 0 -31px; border-radius: 50%; background: rgba(255, 205, 0, .94); box-shadow: 0 10px 30px rgba(0, 0, 0, .45); transition: transform .4s var(--ease); }
 .nota__play::before { content: ''; position: absolute; left: 25px; top: 19px; border-style: solid; border-width: 12px 0 12px 19px; border-color: transparent transparent transparent var(--noche); }
 .nota:hover .nota__play { transform: scale(1.12); }
+
+/* noticias: botón a la lista completa */
+.notas__todo { display: flex; justify-content: center; margin-top: clamp(1.2rem, 3vh, 2rem); }
