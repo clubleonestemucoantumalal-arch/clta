@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-10-23T01:31:22.470Z",
+  "actualizado": "2026-10-23T01:56:54.697Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -37,7 +37,7 @@
   },
   "noticias": {
     "archivoLocal": "data/noticias.json",
-    "maximo": 12,
+    "maximo": 5,
     "actualizarEnVivo": false,
     "proxyCors": ""
   },
@@ -84,8 +84,8 @@
     "email": "info@clta.cl"
   },
   "agenda": {
-    "auto": false,
-    "maximo": 40,
+    "auto": true,
+    "maximo": 20,
     "hora": "20:30 h",
     "lugar": "Centro de reuniones quincho Martin Lutero, Temuco.",
     "tituloSegundo": "Sesión ordinaria",
@@ -106,6 +106,20 @@
         "abierto": true,
         "enlace": "https://www.passline.com/eventos-plano/roberto-bravo-con-musica-de-peliculas",
         "enlaceTexto": "Comprar entradas"
+      },
+      {
+        "fecha": "2026-10-26",
+        "titulo": "Reunión Socios ",
+        "texto": "",
+        "hora": "20:30",
+        "abierto": true
+      },
+      {
+        "fecha": "",
+        "titulo": "",
+        "texto": "",
+        "hora": "",
+        "abierto": true
       }
     ]
   },
@@ -157,7 +171,7 @@
     "agendaSec": {
       "eyebrow": "Agenda",
       "titulo": "Próximas actividades",
-      "lead": ""
+      "lead": "Sesionamos el <strong>2° y 4° lunes de cada mes a las 20:30 h</strong> en el Centro de reuniones quincho Martin Lutero. Las actividades abiertas están marcadas."
     },
     "directivaSec": {
       "eyebrow": "Quiénes lideran",
@@ -212,7 +226,7 @@
     ],
     "articulosSec": {
       "eyebrow": "Para leer",
-      "titulo": "Blog Leones Antumalal",
+      "titulo": "Artículos.",
       "lead": "Historias, entrevistas y reflexiones sobre el servicio del club."
     }
   },
