@@ -553,7 +553,7 @@ input::placeholder,textarea::placeholder{ color:#80868B }
 .sesion__fecha span{ display:block; font-size:.78rem; color:var(--g-suave); margin-top:6px; line-height:1.3 }
 .sesion__campos{ display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)) }
 .sesion__campos .campo{ margin:0 }
-.sesion__campos .campo:first-child, .sesion__campos .campo:last-child{ grid-column:1 / -1 }
+.sesion__campos .campo:first-child, .sesion__campos .campo:nth-child(n+4){ grid-column:1 / -1 }
 .tarjeta--plegable > summary{ cursor:pointer; list-style:none; margin:0; padding:0; border:0 }
 .tarjeta--plegable > summary::-webkit-details-marker{ display:none }
 .tarjeta--plegable > summary::after{ content:'▾'; margin-left:auto; color:var(--g-suave); font-size:1.1rem; transition:transform .18s }

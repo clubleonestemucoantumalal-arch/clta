@@ -1471,10 +1471,23 @@
       const cont = fila.querySelector('.sesion__campos');
       [
         { tipo: 'switch', ruta: base + 'realiza', etiqueta: 'Se realiza esta sesión', pordefecto: true },
+        { tipo: 'fecha', ruta: base + 'fecha', etiqueta: 'Fecha', ayuda: 'Déjela vacía si es el lunes de siempre. Si se adelanta o atrasa (por ejemplo por un feriado), elija el día nuevo.' },
+        { tipo: 'texto', ruta: base + 'hora', etiqueta: 'Hora', marca: obtener('agenda.hora', '') || '20:30 h', ayuda: 'Escriba solo si cambia.' },
         { tipo: 'texto', ruta: base + 'titulo', etiqueta: 'Nombre', marca: defTitulo },
-        { tipo: 'texto', ruta: base + 'hora', etiqueta: 'Hora', marca: obtener('agenda.hora', '') || '20:30 h' },
         { tipo: 'texto', ruta: base + 'lugar', etiqueta: 'Lugar', marca: obtener('agenda.lugar', '') }
       ].forEach((c) => cont.appendChild(campo(c)));
+      const entradaFecha = cont.querySelector('input[type=date]');
+      if (entradaFecha) {
+        const pintarFecha = () => {
+          const v = entradaFecha.value ? new Date(entradaFecha.value + 'T12:00:00') : f;
+          if (isNaN(v)) return;
+          fila.querySelector('.sesion__fecha b').textContent = v.getDate();
+          fila.querySelector('.sesion__fecha span').textContent = `${DIAS_L[v.getDay()]} · ${MESES_L[v.getMonth()]} ${v.getFullYear()}`;
+        };
+        entradaFecha.addEventListener('input', pintarFecha);
+        entradaFecha.addEventListener('change', pintarFecha);
+        pintarFecha();
+      }
       prox.appendChild(fila);
     });
     lienzo.appendChild(prox);

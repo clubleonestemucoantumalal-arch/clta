@@ -98,11 +98,14 @@
       for (let m = 0; m < 12 && items.length < 200; m++) {
         const b = new Date(hoy.getFullYear(), hoy.getMonth() + m, 1);
         for (const cual of [2, 4]) {
-          const f = lunes(b.getFullYear(), b.getMonth(), cual);
-          if (f < hoy) continue;
-          const iso = `${f.getFullYear()}-${String(f.getMonth() + 1).padStart(2, '0')}-${String(f.getDate()).padStart(2, '0')}`;
+          const f0 = lunes(b.getFullYear(), b.getMonth(), cual);
+          const iso = `${f0.getFullYear()}-${String(f0.getMonth() + 1).padStart(2, '0')}-${String(f0.getDate()).padStart(2, '0')}`;
           const ex = (cfg.excepciones && cfg.excepciones[iso]) || {};
           if (ex.realiza === false) continue;
+          let f = f0;
+          const pf = texto(ex.fecha).split('-').map(Number);
+          if (pf.length === 3 && pf[0]) { const nf = new Date(pf[0], pf[1] - 1, pf[2]); if (!isNaN(nf)) f = nf; }
+          if (f < hoy) continue;
           items.push({
             f, hora: ex.hora || hora, texto: ex.lugar || lugar, abierto: false,
             titulo: ex.titulo || (cual === 2 ? (cfg.tituloSegundo || 'Sesión ordinaria') : (cfg.tituloCuarto || 'Sesión ordinaria y trabajo de comisiones'))
