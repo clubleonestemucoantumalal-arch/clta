@@ -597,6 +597,7 @@
         <div class="contacto__grid">
           <div class="datos" data-rev>
             ${C.email ? `<a class="dato" href="mailto:${esc(C.email)}"><span>Correo</span><b>${esc(C.email)}</b></a>` : ''}
+            ${R.instagram ? `<a class="dato" href="${esc(R.instagram)}" target="_blank" rel="noopener"><span>Instagram</span><b>@${esc(R.instagramUser || 'leonestemuco_antumalal')}</b></a>` : ''}
           </div>
           <form class="form" id="form" novalidate data-rev>
             <div class="campo"><input id="fNombre" name="nombre" required autocomplete="name" placeholder=" "><label for="fNombre">Tu nombre</label><i></i></div>
