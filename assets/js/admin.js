@@ -1354,6 +1354,32 @@
     const d = ESTADO.datos;
     const fotosSubidas = Object.keys(ESTADO.imagenes).length;
 
+    /* Guía de uso: va primero, para quien administra el sitio */
+    const ayuda = document.createElement('div');
+    ayuda.className = 'tarjeta';
+    ayuda.innerHTML = `
+      <div class="tarjeta__cab"><div>
+        <h3>Cómo usar este panel</h3>
+        <p>Cuatro pasos, siempre los mismos.</p>
+      </div></div>
+      <div class="paso"><span class="paso__n">1</span><div class="paso__txt">
+        <b>Elige qué quieres cambiar</b>En el menú de la izquierda toca la sección
+        (por ejemplo <em>Proyectos</em> o <em>Agenda</em>).</div></div>
+      <div class="paso"><span class="paso__n">2</span><div class="paso__txt">
+        <b>Escribe o agrega</b>Cambia los textos y las fotos. Para algo nuevo usa el botón
+        <em>Agregar</em>, que está arriba de cada lista. Lo que ya no quieras mostrar,
+        desmárcalo en <em>En la página</em> o elimínalo.</div></div>
+      <div class="paso"><span class="paso__n">3</span><div class="paso__txt">
+        <b>Mira cómo queda</b>Toca <em>Vista previa</em> (arriba a la derecha). Se abre el sitio
+        con tus cambios, <u>solo para ti</u>: nadie más los ve todavía.</div></div>
+      <div class="paso"><span class="paso__n">4</span><div class="paso__txt">
+        <b>Publica</b>Si todo se ve bien, toca el botón amarillo <em>Publicar</em>.
+        Recién ahí los cambios se ven en la página del club, para todos.</div></div>
+      <div class="aviso aviso--info" style="margin-top:12px"><div><b>Tranquilidad:</b>
+        mientras no publiques, la página no cambia. Tus cambios se guardan solos en este
+        computador, y si te equivocas puedes descartarlos desde <em>Publicar y respaldos</em>.</div></div>`;
+    lienzo.appendChild(ayuda);
+
     const resumen = document.createElement('div');
     resumen.className = 'resumen';
     resumen.innerHTML = [
@@ -1416,19 +1442,6 @@
     });
     lienzo.appendChild(tarjeta);
 
-    const ayuda = document.createElement('div');
-    ayuda.className = 'tarjeta';
-    ayuda.innerHTML = `
-      <div class="tarjeta__cab"><div><h3>Cómo funciona esto</h3></div></div>
-      <div class="paso"><span class="paso__n">1</span><div class="paso__txt">
-        <b>Editas</b>Elige una sección en el menú de la izquierda y escribe. Se va guardando
-        solo en este computador mientras trabajas.</div></div>
-      <div class="paso"><span class="paso__n">2</span><div class="paso__txt">
-        <b>Revisas</b>El botón <em>Vista previa</em> abre el sitio con tus cambios, tal como
-        se verá. Nadie más los ve todavía.</div></div>
-      <div class="paso"><span class="paso__n">3</span><div class="paso__txt">
-        <b>Publicas</b>El botón amarillo <em>Publicar</em> deja los cambios en línea, para todos.</div></div>`;
-    lienzo.appendChild(ayuda);
   }
 
   /* ─── Agenda ─── */
