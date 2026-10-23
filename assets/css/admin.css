@@ -580,3 +580,10 @@ input[type=file]::file-selector-button{
   border:1px solid var(--g-borde); background:#fff; color:var(--azul); font:500 .92rem var(--texto);
 }
 input[type=file]::file-selector-button:hover{ background:#F1F6FE; border-color:var(--azul-claro) }
+
+/* Tema oscuro: se invierte la página y se devuelven a su color las imágenes */
+html[data-tema="oscuro"]{ filter:invert(.92) hue-rotate(180deg); background:#fff }
+html[data-tema="oscuro"] img,
+html[data-tema="oscuro"] video,
+html[data-tema="oscuro"] iframe,
+html[data-tema="oscuro"] .lateral__marca svg{ filter:invert(1) hue-rotate(180deg) }

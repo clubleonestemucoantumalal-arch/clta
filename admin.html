@@ -13,7 +13,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin.css?v=4">
+<link rel="stylesheet" href="assets/css/admin.css?v=5">
+<script>try{if(localStorage.getItem("clta-tema")==="oscuro")document.documentElement.setAttribute("data-tema","oscuro")}catch(e){}</script>
 </head>
 <body>
 
@@ -71,6 +72,10 @@
       </span>
 
       <div class="barra__acc">
+        <button class="btn btn--linea" id="btnTema" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Tema claro / oscuro">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <span>Tema</span>
+        </button>
         <a class="btn btn--linea" id="btnVista" href="index.html?borrador=1" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
           <span>Vista previa</span>
@@ -227,6 +232,7 @@
 <script src="assets/js/iconos.js?v=1"></script>
 <script src="assets/js/almacen.js?v=1"></script>
 <script src="assets/js/config.js?v=3"></script>
+<script>document.getElementById("btnTema").addEventListener("click",function(){var h=document.documentElement,o=h.getAttribute("data-tema")!=="oscuro";if(o)h.setAttribute("data-tema","oscuro");else h.removeAttribute("data-tema");try{localStorage.setItem("clta-tema",o?"oscuro":"claro")}catch(e){}});</script>
 <script src="assets/js/admin.js?v=17"></script>
 </body>
 </html>
