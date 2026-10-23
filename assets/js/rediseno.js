@@ -83,6 +83,7 @@
 
   /* Próximas actividades: sesiones fijas (2° y 4° lunes) + las cargadas en el panel
      + el calendario del Distrito T4 (data/agenda-distrito.json, se actualiza solo). */
+  const MESES_ATRAS = 12; /* cuántos meses atrás se pueden ver en el calendario */
   function calcularAgenda(D, distrito) {
     const cfg = D.agenda || {};
     const lugar = cfg.lugar || 'Centro de reuniones quincho Martin Lutero, Temuco.';
@@ -95,7 +96,7 @@
       return new Date(a, m, 1 + ((8 - d.getDay()) % 7) + (cual === 2 ? 7 : 21));
     };
     if (cfg.auto !== false) {
-      for (let m = 0; m < 12 && items.length < 200; m++) {
+      for (let m = -MESES_ATRAS; m < 12 && items.length < 300; m++) {
         const b = new Date(hoy.getFullYear(), hoy.getMonth() + m, 1);
         for (const cual of [2, 4]) {
           const f0 = lunes(b.getFullYear(), b.getMonth(), cual);
@@ -105,9 +106,8 @@
           let f = f0;
           const pf = texto(ex.fecha).split('-').map(Number);
           if (pf.length === 3 && pf[0]) { const nf = new Date(pf[0], pf[1] - 1, pf[2]); if (!isNaN(nf)) f = nf; }
-          if (f < hoy) continue;
           items.push({
-            f, hora: ex.hora || hora, texto: ex.lugar || lugar, abierto: false,
+            f, pasado: f < hoy, hora: ex.hora || hora, texto: ex.lugar || lugar, abierto: false,
             titulo: ex.titulo || (cual === 2 ? (cfg.tituloSegundo || 'Sesión ordinaria') : (cfg.tituloCuarto || 'Sesión ordinaria y trabajo de comisiones'))
           });
         }
@@ -118,19 +118,19 @@
       const p = texto(e.fecha).split('-').map(Number);
       if (p.length < 3 || !p[0]) return;
       const f = new Date(p[0], p[1] - 1, p[2]);
-      if (isNaN(f) || f < hoy) return;
-      items.push({ f, titulo: e.titulo || 'Actividad del club', texto: e.texto || lugar, hora: e.hora || hora, abierto: e.abierto !== false, enlace: texto(e.enlace), enlaceTexto: texto(e.enlaceTexto) });
+      if (isNaN(f)) return;
+      items.push({ f, pasado: f < hoy, titulo: e.titulo || 'Actividad del club', texto: e.texto || lugar, hora: e.hora || hora, abierto: e.abierto !== false, enlace: texto(e.enlace), enlaceTexto: texto(e.enlaceTexto) });
     });
     (Array.isArray(distrito) ? distrito : []).forEach((e) => {
       if (!e || !e.fecha) return;
       const p = texto(e.fecha).split('-').map(Number);
       if (p.length < 3 || !p[0]) return;
       const f = new Date(p[0], p[1] - 1, p[2]);
-      if (isNaN(f) || f < hoy) return;
-      items.push({ f, titulo: e.titulo || 'Distrito T4', texto: e.texto || 'Distrito T4', hora: e.hora || '', abierto: false, distrito: true, internacional: e.ambito === 'internacional' });
+      if (isNaN(f)) return;
+      items.push({ f, pasado: f < hoy, titulo: e.titulo || 'Distrito T4', texto: e.texto || 'Distrito T4', hora: e.hora || '', abierto: false, distrito: true, internacional: e.ambito === 'internacional' });
     });
     const orden = items.sort((a, b) => a.f - b.f);
-    const visibles = orden.slice(0, cupo);
+    const visibles = orden.filter((e) => !e.pasado).slice(0, cupo);
     visibles.todos = orden;
     return visibles;
   }
@@ -176,7 +176,7 @@
         ? ver.map(htmlEvento).join('') + (resto > 0 ? `<li class="evento evento--mas">y ${resto} actividad${resto === 1 ? '' : 'es'} más este mes</li>` : '')
         : `<li class="evento evento--vacio">No hay actividades registradas en ${MESES[est.m]}.</li>`;
       const dist = (est.a - base.a) * 12 + est.m - base.m;
-      $('[data-dir="-1"]', cont).disabled = dist <= 0;
+      $('[data-dir="-1"]', cont).disabled = dist <= -MESES_ATRAS;
       $('[data-dir="1"]', cont).disabled = dist >= MAX;
     };
     cont.addEventListener('click', (ev) => {
