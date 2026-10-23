@@ -729,11 +729,11 @@
         </div>
         <span class="cuenta"></span>
       </div>
-      <div class="lista"></div>
-      <button type="button" class="btn btn--linea btn--sm" data-nuevo style="margin-top:10px">
+      <button type="button" class="btn btn--linea btn--sm" data-nuevo style="margin-bottom:12px">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         ${esc(def.textoNuevo || 'Agregar')}
-      </button>`;
+      </button>
+      <div class="lista"></div>`;
 
     const lista = $('.lista', caja);
     const cuenta = $('.cuenta', caja);
@@ -1429,7 +1429,7 @@
       { tipo: 'texto', ruta: 'textos.agendaSec.titulo', etiqueta: 'Título' },
       { tipo: 'rico', ruta: 'textos.agendaSec.lead', etiqueta: 'Bajada', filas: 3 }
     ].forEach((c) => cab.appendChild(campo(c)));
-    lienzo.appendChild(cab);
+    const apilarCab = () => lienzo.appendChild(cab); /* el encabezado va al final */
 
     /* Próximas 3 sesiones fijas: se pueden renombrar, cambiar de hora/lugar o suspender una sola fecha */
     const MESES_L = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
@@ -1508,7 +1508,6 @@
       { tipo: 'numero', ruta: 'agenda.maximo', etiqueta: 'Cuántas fechas mostrar en total' }
     ].forEach((c) => fijas.appendChild(campo(c)));
     lienzo.appendChild(fijas);
-
     lienzo.appendChild(repetidor({
       ruta: 'agenda.eventos', etiqueta: 'Actividades puntuales',
       ayuda: 'Operativos, cenas, aniversarios. Se ordenan por fecha junto a las sesiones y <b>desaparecen solas cuando pasan</b>.',
@@ -1526,6 +1525,7 @@
         { tipo: 'texto', ruta: 'enlaceTexto', etiqueta: 'Texto del enlace', marca: 'Comprar entradas' }
       ]
     }));
+    apilarCab();
   }
 
   /* ─── Publicar y respaldos ─── */
@@ -1665,7 +1665,9 @@
 
     if (s.pintar) { s.pintar(panel); return; }
 
-    (s.tarjetas || []).forEach((t) => {
+    /* Lo que se edita a diario va primero; el encabezado de la sección queda al final */
+    const rango = (t) => (['Encabezado', 'Textos'].includes(t.titulo) ? 2 : t.repetidor ? 0 : 1);
+    [...(s.tarjetas || [])].sort((a, b) => rango(a) - rango(b)).forEach((t) => {
       if (t.repetidor) { panel.appendChild(repetidor(t.repetidor)); return; }
 
       if (t.pintar) {
