@@ -136,7 +136,7 @@
                 <div class="evento__f"><b>${String(e.f.getDate()).padStart(2, '0')}</b><span>${MES3[e.f.getMonth()]} ${e.f.getFullYear()}</span></div>
                 <div class="evento__c"><h3>${limpiar(e.titulo)}</h3><p>${limpiar(e.texto)}</p>${e.enlace ? `<a class="evento__go" href="${esc(e.enlace)}"${/^https?:/i.test(e.enlace) ? ' target="_blank" rel="noopener"' : ''}>${limpiar(e.enlaceTexto || 'Más información')} ${flecha(14)}</a>` : ''}</div>
                 <div class="evento__h"><span>${DIAS[e.f.getDay()]}</span><b>${esc(e.hora)}</b></div>
-                <span class="evento__tag ${e.abierto ? 'abierto' : ''}">${e.internacional ? 'Internacional' : e.distrito ? 'Distrito T4' : (e.abierto ? 'Abierta a la comunidad' : 'Socios')}</span>
+                <span class="evento__tag ${e.abierto ? 'abierto' : ''}">${e.internacional ? 'Internacional' : e.distrito ? 'Distrito T4' : (e.abierto ? 'Abierta a la comunidad' : 'Solo socios')}</span>
               </li>`;
   const htmlDias = (todos, anio, mes, sel) => {
     const hoy = new Date(); hoy.setHours(0, 0, 0, 0);

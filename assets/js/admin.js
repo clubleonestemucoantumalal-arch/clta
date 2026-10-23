@@ -1458,11 +1458,11 @@
       campos: [
         { tipo: 'fecha', ruta: 'fecha', etiqueta: 'Fecha' },
         { tipo: 'texto', ruta: 'titulo', etiqueta: 'Nombre de la actividad' },
+        { tipo: 'switch', ruta: 'abierto', etiqueta: 'Abierta a la comunidad', pordefecto: true, ayuda: '<b>Encendido:</b> puede venir cualquier persona (operativos, cenas). En la página dice «Abierta a la comunidad». <b>Apagado:</b> es una sesión solo para socios y en la página dice «Solo socios».' },
         { tipo: 'area', ruta: 'texto', etiqueta: 'Detalle', filas: 2, ayuda: 'Dónde es, qué hay que llevar. Si lo dejas vacío usa el lugar de las sesiones.' },
         { tipo: 'texto', ruta: 'hora', etiqueta: 'Hora', marca: '10:00 h' },
         { tipo: 'texto', ruta: 'enlace', etiqueta: 'Enlace (opcional)', ayuda: 'Por ejemplo el link para comprar entradas o inscribirse. Dirección web completa (https://…).' },
-        { tipo: 'texto', ruta: 'enlaceTexto', etiqueta: 'Texto del enlace', marca: 'Comprar entradas' },
-        { tipo: 'switch', ruta: 'abierto', etiqueta: 'Abierta a la comunidad', pordefecto: true }
+        { tipo: 'texto', ruta: 'enlaceTexto', etiqueta: 'Texto del enlace', marca: 'Comprar entradas' }
       ]
     }));
   }
