@@ -212,7 +212,7 @@ window.RESPALDO = {
   ],
   "articulosSec": {
    "eyebrow": "Para leer",
-   "titulo": "Artículos",
+   "titulo": "Blog Leones Antumalal",
    "lead": "Historias, entrevistas y reflexiones sobre el servicio del club."
   }
  },

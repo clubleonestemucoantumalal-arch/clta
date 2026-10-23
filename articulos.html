@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Artículos | Club de Leones Temuco Antumalal</title>
+<title>Blog Leones Antumalal | Club de Leones Temuco Antumalal</title>
 <meta name="description" content="Artículos, entrevistas y testimonios del Club de Leones Temuco Antumalal.">
 <link rel="canonical" href="https://clta.cl/articulos.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://clta.cl/articulos.html">
 <meta property="og:site_name" content="Club de Leones Temuco Antumalal">
 <meta property="og:locale" content="es_CL">
-<meta property="og:title" content="Artículos · Club de Leones Temuco Antumalal">
+<meta property="og:title" content="Blog Leones Antumalal · Club de Leones Temuco Antumalal">
 <meta property="og:description" content="Auspicia el Club de Leones Temuco Antumalal para sus causas. Artículos y testimonios sobre su labor social.">
 <meta property="og:image" content="https://clta.cl/assets/img/compartir.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -162,13 +162,13 @@
     var cab = el('section', 'lista-cab wrap');
     var chips = el('div', 'chips'); chips.appendChild(el('span', 'chip', plano(S.eyebrow) || 'Para leer'));
     cab.appendChild(chips);
-    cab.appendChild(el('h1', null, plano(S.titulo) || 'Artículos'));
+    cab.appendChild(el('h1', null, plano(S.titulo) || 'Blog Leones Antumalal'));
     cab.appendChild(el('p', null, plano(S.lead) || 'Historias, entrevistas y reflexiones sobre el servicio del club.'));
     main.appendChild(cab);
 
     var sec = el('section', 'lista'), w = el('div', 'wrap');
     if (!lista.length) {
-      w.appendChild(el('p', 'vacio', 'Pronto publicaremos artículos.'));
+      w.appendChild(el('p', 'vacio', 'Pronto publicaremos nuevas entradas.'));
     } else {
       var rej = el('div', 'mas__rej');
       lista.forEach(function (o) {

@@ -189,7 +189,7 @@
   /* ═══════════════ PLANTILLAS ═══════════════ */
   const NAV = [
     ['club', 'El Club'], ['causas', 'Causas'], ['proyectos', 'Proyectos'], ['noticias', 'Noticias'],
-    ['agenda', 'Agenda'], ['dona', 'Colabora'], ['contacto', 'Contacto'], ['articulos', 'Artículos']
+    ['agenda', 'Agenda'], ['dona', 'Colabora'], ['contacto', 'Contacto'], ['articulos', 'Blog']
   ];
   // «Artículos» no está en la portada: el menú abre su página propia
   const destinoNav = (id) => (id === 'articulos' ? 'articulos.html' : '#' + id);
@@ -428,7 +428,7 @@
     const articulosSec = arts.length ? `
     <section class="sec sec--noche articulos" id="articulos" data-nav>
       <div class="wrap">
-        ${cabecera(AR.eyebrow || 'Para leer', AR.titulo || 'Artículos', AR.lead)}
+        ${cabecera(AR.eyebrow || 'Para leer', AR.titulo || 'Blog Leones Antumalal', AR.lead)}
         <div class="notas">${articulosHtml}</div>
       </div>
     </section>` : '';

@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Artículos | Club de Leones Temuco Antumalal</title>
+<title>Blog Leones Antumalal | Club de Leones Temuco Antumalal</title>
 <meta name="description" content="Artículos del Club de Leones Temuco Antumalal.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Club de Leones Temuco Antumalal">
 <meta property="og:locale" content="es_CL">
-<meta property="og:title" content="Artículos · Club de Leones Temuco Antumalal">
+<meta property="og:title" content="Blog Leones Antumalal · Club de Leones Temuco Antumalal">
 <meta property="og:description" content="Auspicia el Club de Leones Temuco Antumalal para sus causas. Artículos y testimonios sobre su labor social.">
 <meta property="og:image" content="https://clta.cl/assets/img/compartir.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -120,7 +120,7 @@
   <a class="barra__marca" href="index.html" aria-label="Club de Leones Temuco Antumalal, inicio">
     <img src="assets/img/lions-international.png" alt="" width="48" height="48"><span>Leones Temuco Antumalal</span>
   </a>
-  <a class="pill" href="articulos.html">&larr; Todos los artículos</a>
+  <a class="pill" href="articulos.html">&larr; Blog Leones Antumalal</a>
 </header>
 
 <main id="historia"><div class="nada"><p>Cargando…</p></div></main>
@@ -155,7 +155,7 @@
     if (i < 0) {
       main.innerHTML = '';
       var n = el('div', 'nada estrecho'); n.appendChild(el('h1', null, 'No encontramos este artículo'));
-      var a = el('a', 'btn', 'Ver los artículos'); a.href = 'articulos.html'; n.appendChild(a); main.appendChild(n); return;
+      var a = el('a', 'btn', 'Ver el blog'); a.href = 'articulos.html'; n.appendChild(a); main.appendChild(n); return;
     }
     var p = lista[i];
     var titulo = plano(p.titulo);
@@ -216,7 +216,7 @@
 
     var otros = lista.filter(function (_, k) { return k !== i; }).slice(0, 3);
     if (otros.length) {
-      var mas = el('section', 'mas'), mw = el('div', 'wrap'); mw.appendChild(el('h2', null, 'Más artículos'));
+      var mas = el('section', 'mas'), mw = el('div', 'wrap'); mw.appendChild(el('h2', null, 'Más del blog'));
       var mr = el('div', 'mas__rej');
       otros.forEach(function (o) {
         var a2 = el('a', 'mini'); a2.href = 'articulo.html?id=' + encodeURIComponent(idDe(o));
