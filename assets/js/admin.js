@@ -1902,6 +1902,8 @@
         $('#cuentaCorreo').textContent = ' como ' + j.email;
         $('#pestanaCuenta').classList.remove('oculto');
         $('#pestanaCuenta').click();
+        const pg = document.querySelector('#pestanasPublicar [data-tab="github"]');
+        if (pg) pg.classList.add('oculto');
       })
       .catch(() => { /* sin sesión: quedan los otros métodos */ });
     $('#btnCuentaPublicar').addEventListener('click', publicarConCuenta);
