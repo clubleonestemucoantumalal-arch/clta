@@ -581,12 +581,42 @@ input[type=file]::file-selector-button{
 }
 input[type=file]::file-selector-button:hover{ background:#F1F6FE; border-color:var(--azul-claro) }
 
-/* Tema oscuro: se invierte la página y se devuelven a su color las imágenes */
-html[data-tema="oscuro"]{ filter:invert(.92) hue-rotate(180deg); background:#fff }
-html[data-tema="oscuro"] img,
-html[data-tema="oscuro"] video,
-html[data-tema="oscuro"] iframe,
-html[data-tema="oscuro"] .lateral__marca svg{ filter:invert(1) hue-rotate(180deg) }
+/* Tema azul marino (color del club) */
+html[data-tema="oscuro"]{
+  color-scheme: dark;
+  --tinta:#E9EEFA; --gris:#A5B1CE; --gris-400:#7F8CAE;
+  --gris-200:#223A72; --gris-100:#12295C; --blanco:#0F2250; --borde:rgba(190,205,240,.18);
+  --g-borde:#2B4686; --g-texto:#E9EEFA; --g-suave:#A5B1CE; --g-fondo:#081A42;
+  --g-activo:#1D3A7C; --g-hover:#152F6B;
+  --azul:#6D9BFF; --azul-claro:#8DB1FF; --azul-900:#E9EEFA;
+  --verde-100:#0F3B34; --rojo-100:#4A1D2E; --ambar-100:#4A3A12;
+  --sombra:0 1px 2px rgba(0,0,0,.3);
+}
+html[data-tema="oscuro"] body{ background:#081A42; color:#E9EEFA }
+html[data-tema="oscuro"] .lateral,
+html[data-tema="oscuro"] .barra,
+html[data-tema="oscuro"] .vacio,
+html[data-tema="oscuro"] .btn--linea,
+html[data-tema="oscuro"] input[type=file]::file-selector-button{ background:#0F2250 }
+html[data-tema="oscuro"] .lateral__marca b{ color:#fff }
+html[data-tema="oscuro"] .tarjeta__cab,
+html[data-tema="oscuro"] .item__cuerpo,
+html[data-tema="oscuro"] .item__pie,
+html[data-tema="oscuro"] .sesion,
+html[data-tema="oscuro"] .tarjeta--plegable[open] > summary{ border-color:#223A72 }
+html[data-tema="oscuro"] .item__n,
+html[data-tema="oscuro"] .iconos__b.activo{ background:#2F5FD0; color:#fff }
+html[data-tema="oscuro"] .btn--linea:hover,
+html[data-tema="oscuro"] .btn--fantasma:hover,
+html[data-tema="oscuro"] input[type=file]::file-selector-button:hover{ background:#1A3677 }
+html[data-tema="oscuro"] .aviso--info{ background:#14306E; color:#C9D8FF }
+html[data-tema="oscuro"] input::placeholder,
+html[data-tema="oscuro"] textarea::placeholder{ color:#7F8CAE }
+html[data-tema="oscuro"] input,
+html[data-tema="oscuro"] textarea,
+html[data-tema="oscuro"] select{ border-color:#3A5799; color:#E9EEFA }
+html[data-tema="oscuro"] .item__ver{ color:#8DB1FF }
+html[data-tema="oscuro"] .item--oculto .item__ver{ color:#A5B1CE }
 
 /* Casilla «En la página» de las fichas que se pueden ocultar */
 .item__fila{ display:flex; align-items:stretch }
