@@ -21,3 +21,6 @@ worker/node_modules/
 
 # Manual con la clave del correo del club: no subir a GitHub (el repo es publico)
 privado/
+
+# Carpeta entregable (copia reutilizable del panel)
+entregable/
