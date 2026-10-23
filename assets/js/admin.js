@@ -1431,13 +1431,61 @@
     ].forEach((c) => cab.appendChild(campo(c)));
     lienzo.appendChild(cab);
 
-    const fijas = document.createElement('div');
-    fijas.className = 'tarjeta';
-    fijas.innerHTML = `
+    /* Próximas 3 sesiones fijas: se pueden renombrar, cambiar de hora/lugar o suspender una sola fecha */
+    const MESES_L = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+    const DIAS_L = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    const lunesDe = (a, m, cual) => {
+      const d = new Date(a, m, 1);
+      return new Date(a, m, 1 + ((8 - d.getDay()) % 7) + (cual === 2 ? 7 : 21));
+    };
+    const hoyL = new Date(); hoyL.setHours(0, 0, 0, 0);
+    const proximas = [];
+    for (let m = 0; m < 12 && proximas.length < 3; m++) {
+      const b0 = new Date(hoyL.getFullYear(), hoyL.getMonth() + m, 1);
+      [2, 4].forEach((cual) => {
+        const f = lunesDe(b0.getFullYear(), b0.getMonth(), cual);
+        if (f >= hoyL && proximas.length < 3) proximas.push({ f, cual });
+      });
+    }
+    const prox = document.createElement('div');
+    prox.className = 'tarjeta';
+    prox.innerHTML = `
       <div class="tarjeta__cab"><div>
-        <h3>Sesiones fijas</h3>
-        <p>Se calculan solas: el 2° y 4° lunes de cada mes. Nunca aparecen fechas vencidas.</p>
+        <h3>Próximas sesiones del club</h3>
+        <p>Cambia solo lo que haga falta. Si una sesión no se hace, apaga «Se realiza esta sesión».</p>
       </div></div>`;
+    if (obtener('agenda.auto', true) === false) {
+      const av = document.createElement('div');
+      av.className = 'aviso aviso--ojo';
+      av.innerHTML = '<div><b>Las sesiones fijas están ocultas en la página.</b>Para mostrarlas, activa «Mostrar las sesiones automáticas» en los ajustes de abajo.</div>';
+      prox.appendChild(av);
+    }
+    proximas.forEach(({ f, cual }) => {
+      const iso = `${f.getFullYear()}-${String(f.getMonth() + 1).padStart(2, '0')}-${String(f.getDate()).padStart(2, '0')}`;
+      const base = 'agenda.excepciones.' + iso + '.';
+      const defTitulo = cual === 2 ? (obtener('agenda.tituloSegundo', '') || 'Sesión ordinaria')
+                                   : (obtener('agenda.tituloCuarto', '') || 'Sesión ordinaria y trabajo de comisiones');
+      const fila = document.createElement('div');
+      fila.className = 'sesion';
+      fila.innerHTML = `<div class="sesion__fecha"><b>${f.getDate()}</b><span>${DIAS_L[f.getDay()]} · ${MESES_L[f.getMonth()]} ${f.getFullYear()}</span></div><div class="sesion__campos"></div>`;
+      const cont = fila.querySelector('.sesion__campos');
+      [
+        { tipo: 'switch', ruta: base + 'realiza', etiqueta: 'Se realiza esta sesión', pordefecto: true },
+        { tipo: 'texto', ruta: base + 'titulo', etiqueta: 'Nombre', marca: defTitulo },
+        { tipo: 'texto', ruta: base + 'hora', etiqueta: 'Hora', marca: obtener('agenda.hora', '') || '20:30 h' },
+        { tipo: 'texto', ruta: base + 'lugar', etiqueta: 'Lugar', marca: obtener('agenda.lugar', '') }
+      ].forEach((c) => cont.appendChild(campo(c)));
+      prox.appendChild(fila);
+    });
+    lienzo.appendChild(prox);
+
+    const fijas = document.createElement('details');
+    fijas.className = 'tarjeta tarjeta--plegable';
+    fijas.innerHTML = `
+      <summary class="tarjeta__cab"><div>
+        <h3>Ajustes de todas las sesiones fijas</h3>
+        <p>Solo si quiere cambiar el nombre, la hora o el lugar de TODAS las sesiones del 2° y 4° lunes.</p>
+      </div></summary>`;
     [
       { tipo: 'switch', ruta: 'agenda.auto', etiqueta: 'Mostrar las sesiones automáticas', pordefecto: true },
       { tipo: 'texto', ruta: 'agenda.hora', etiqueta: 'Hora', marca: '20:30 h' },

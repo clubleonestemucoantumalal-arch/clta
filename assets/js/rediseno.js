@@ -100,9 +100,12 @@
         for (const cual of [2, 4]) {
           const f = lunes(b.getFullYear(), b.getMonth(), cual);
           if (f < hoy) continue;
+          const iso = `${f.getFullYear()}-${String(f.getMonth() + 1).padStart(2, '0')}-${String(f.getDate()).padStart(2, '0')}`;
+          const ex = (cfg.excepciones && cfg.excepciones[iso]) || {};
+          if (ex.realiza === false) continue;
           items.push({
-            f, hora, texto: lugar, abierto: false,
-            titulo: cual === 2 ? (cfg.tituloSegundo || 'Sesión ordinaria') : (cfg.tituloCuarto || 'Sesión ordinaria y trabajo de comisiones')
+            f, hora: ex.hora || hora, texto: ex.lugar || lugar, abierto: false,
+            titulo: ex.titulo || (cual === 2 ? (cfg.tituloSegundo || 'Sesión ordinaria') : (cfg.tituloCuarto || 'Sesión ordinaria y trabajo de comisiones'))
           });
         }
       }
