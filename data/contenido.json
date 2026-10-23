@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-10-23T01:57:51.683Z",
+  "actualizado": "2026-10-23T02:13:38.367Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -157,7 +157,7 @@
     "agendaSec": {
       "eyebrow": "Agenda",
       "titulo": "Próximas actividades",
-      "lead": "Sesionamos el <strong>2° y 4° lunes de cada mes a las 20:30 h</strong> en el Centro de reuniones quincho Martin Lutero. Las actividades abiertas están marcadas."
+      "lead": ""
     },
     "directivaSec": {
       "eyebrow": "Quiénes lideran",
