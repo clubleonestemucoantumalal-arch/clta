@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-10-23T02:36:57.667Z",
+  "actualizado": "2026-10-23T02:45:02.337Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -514,14 +514,14 @@
       "mes": "Mayo o junio",
       "titulo": "Bingo solidario",
       "texto": "Cada año, entre mayo y junio, reunimos a la comunidad en un bingo para recaudar fondos. Puedes ayudar participando y compartiendo la información en tus redes sociales.",
-      "visible": true
+      "visible": false
     },
     {
       "icono": "corazon",
       "mes": "Octubre o noviembre",
       "titulo": "Paella solidaria",
       "texto": "Entre octubre y noviembre organizamos una paella a beneficio. Puedes ayudar comprando tu porción y compartiendo la información en tus redes sociales.",
-      "visible": true
+      "visible": false
     }
   ],
   "donaOps": [
