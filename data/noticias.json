@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-23T23:20:19.602Z",
+  "generado": "2026-10-24T11:20:06.050Z",
   "total": 24,
   "fuentes": [
     {
@@ -103,7 +103,7 @@
     },
     {
       "titulo": "LCIF’s Rapid Response to Ebola",
-      "resumen": "La República Democrática del Congo (RDC) se enfrenta al brote de ébola de más rápido crecimiento jamás registrado. Hasta el 28 de julio, se han confirmado miles de casos, incluidas más de 1.500 muertes. El brote es causado por la ",
+      "resumen": "The Democratic Republic of the Congo (DRC) is facing the fastest-growing Ebola outbreak ever recorded. As of July 28, thousands of cases have been confirmed, including over 1,500 deaths. The outbreak is caused by the rare Bundibug",
       "enlace": "https://lionmagazine.org/articles/lcifs-rapid-response-to-ebola/",
       "fecha": "2026-09-18T14:00:25.000Z",
       "fuente": "LION Magazine",
@@ -183,6 +183,15 @@
       "imagen": "https://supermercadoaldia.newenworks.com/media/noticia/foto_noticia_33912_1.jpg"
     },
     {
+      "titulo": "SE CUMPLEN 109 AÑOS DESDE LA FUNDACION DE LIONS INTERNATIONAL",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNaFQydERzN3RiVjdTVFFyeTlNdFVndzVHby1najZ0aEVWVVpLTlI3UFhBdjUwd3pacmtwNEczWWJqeWk5TkVUdW4wUFlCSGdycHd5LXEwMzd0NU9oTWRqT2EwbWNManFwWnVqS3BXTzBGaFlXdUNGV2g4ejJRMG5fNDQtQTRSa2w5TXpMeHBCUV9VM2ZtNkw4WEF6dVNIVm8?oc=5",
+      "fecha": "2026-06-07T07:00:00.000Z",
+      "fuente": "Radio Viaducto Collipulli",
+      "tipo": "prensa",
+      "imagen": "assets/img/noticias-respaldo.jpg"
+    },
+    {
       "titulo": "UFRO fortalece vínculos con organizaciones sociales tras visita protocolar del Club de Leones Temuco Antumalal",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPX1cxbkI1anVfcjBMV0Z1QTZFQVFWY05ybEpxQjFKdjUyNkFkdHRXWUdkN2V2TXFObVVYZ3VEMTZPekdxcXhqWnRSLUdERF8xVmtiMmctZjFKX0YxbWtDRFpCLUtBNGdaMG1haGFPT2xaOUJhUS1zcXRnaHlYY1l6dEJiYTNnXy0wMkZDcXZBVHpfQmpJeTdlaHRVRENNVDNHRF9MOVc4eFV5RHBxak1ibXhmS3JvUnZRZld2b3hUTmRNY0FJejdic3lFNVlrVnNlWFJqbGpNWHBnUmc?oc=5",
@@ -233,15 +242,6 @@
       "enlace": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPSEZudHBLSzdYTlhZbTdFdHEyQm5TQVJzX3NacldKUEpKaEtaOTlpUHpheG5fQWNkOFQwb2tjdW43ZkRtSkgtRWZpQnp4WE96UUFtNi1tbWtMV1JzSHRZN2JVS1dEZ2VpSU11OGJ2c25BUkcyNFRIRnRSZ3Y4UzdzdmJYRTVDUnMtc2Yw?oc=5",
       "fecha": "2022-06-09T07:00:00.000Z",
       "fuente": "Senado República de Chile",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
-    },
-    {
-      "titulo": "Sede Puerto Montt: Centro Clínico y Comunitario de la UACh recibió a gobernador distrital del Leonismo",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNUTZITmpjY1FTME9XakZWN1ZTN2tfMkY1NkdNY0xjeXR0TE5IaDlKVEJ2UTNPZ0N2a3dRMDI2d3hUN2J3bzdJLXV4azBGcEpkUkhENTMyOHFxUzByeTZ5aHBaTlZrM0NJMGxNNkJTVU1TX2tIdy1PYVNlbWhuNW1oLVZyQUY3YVYzRGR0MHRVTW00azIteUNoOU5CQmNNaGREUEhmc3hremNHWVlaSlU5anI2eFVYV2QwOEk4RHhoTDdyTmM?oc=5",
-      "fecha": "2021-11-30T08:00:00.000Z",
-      "fuente": "Universidad Austral de Chile",
       "tipo": "prensa",
       "imagen": "assets/img/noticias-respaldo.jpg"
     }
