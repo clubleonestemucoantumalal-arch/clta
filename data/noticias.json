@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-01T11:25:49.563Z",
+  "generado": "2026-11-01T23:27:58.992Z",
   "total": 24,
   "fuentes": [
     {
@@ -75,6 +75,24 @@
       "imagen": "https://lionmagazine.org/wp-content/uploads/2026/10/WhatsApp-Image-2026-04-28-at-10.13.47-AM-169x300.jpeg"
     },
     {
+      "titulo": "Club de Leones Punta Arenas donó 30 frazadas para usuarios de la Unidad de Emergencia del Hospital Clínico de Magallanes.",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxQZlR5aVNPXzM4Sjhmd3dmbWJvbWprWllTeGlIZS0xMXhEVHh2Z0dvSXZ2Z3dpdXh2T1hvaThnRlZDcUE4NTd3NWFxSzRCWnhCOG1yaEZ4cENxeGRHVS0yRk93Nmd5ZzNZcmluMDhaUkpsVWdpYWJXRkItSjFuVXR2R1RUcWw5SGhmeUZ6QVJSQ0FnZ1VHamEwOVk4Q1I2WW55OVNXLXRjQnZIdnQ2QXU2eE5jWmMzNGlCUlZwZVRaNFhPc3RyLURCVTRhZW5XZS1xMXgtdDVNZjNaeHJfZEY2cW9YWXpqWFJLUXZwamd1TXJOQQ?oc=5",
+      "fecha": "2026-10-10T07:00:00.000Z",
+      "fuente": "OvejeroNoticias",
+      "tipo": "prensa",
+      "imagen": "https://www.ovejeronoticias.cl/wp-content/uploads/2026/10/donacionfrazadas.jpg"
+    },
+    {
+      "titulo": "Donación en Osorno: Club de Leones Pilmaiquén apoya a Comedor Solidario",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9SQnNDNlB5OW43eEZMSkM1OEF0am9aQ3BVeEJDY2NvS2JGQ0MxOEV2djQ4UUdPdlB3czhQSmh0M19uaVhKaXdWanExU19FVnlhZTYtbG1GUEhzUkFUaWNXNWcwbXNRNS1vOE5EZzVDYm1jZWFraUxyQ1BR?oc=5",
+      "fecha": "2026-10-05T07:00:00.000Z",
+      "fuente": "Paislobo Prensa",
+      "tipo": "prensa",
+      "imagen": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLsgdtXAVDgp3m7G9BoG_HORA9sNRy7mUlsYoAuFpiyAtdqB68bzeK5ava9FlkIabIbyZ9gvITdkURP6NToTPEWRtTxa6tMVd6zi6nHcOKE7GhkVTT3YLFc_T4iKZf_WAAVwOObNFUrfpJmfX9arixI9UD3sSCE9OJEDswwTy_JhLtinROKhmSz0SMi_0/s1600/PL_Prensa_01.jpg"
+    },
+    {
       "titulo": "Con profundo pesar despedimos al león César Sánchez Neira",
       "resumen": "Hoy despedimos a quien dejó una huella imborrable entre quienes tuvieron la dicha de conocerlo. Su recuerdo, sus enseñanzas y el cariño compartido permanecerán siempre en nuestros corazones.",
       "enlace": "https://leonest4.cl/noticias/con-profundo-pesar-despedimos-al-leon-cesar-sanchez-neira",
@@ -138,13 +156,13 @@
       "imagen": "https://leonest4.cl/uploads/publicaciones/noticia-de-prueba_20260722132001.jpg"
     },
     {
-      "titulo": "En una emotiva y solemne ceremonia, realizada el viernes 10 de julio, el Club de Leones Puerto Varas efectuó el tradicional Cambio de Mando de su Directorio para el período leonístico 2026–2027, dando inicio a una nueva etapa de servicio en beneficio d",
+      "titulo": "Club de Leones de La Unión conmemoró 70 años de trayectoria al servicio de la comunidad",
       "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9aNDNpTTRhZV8xRDFFbGlNbW9tbDdROHJnUGUxbWNWeTBjMnYyMmVlZkxqNmlKX3hmV21fM3VZWkxNV0c4dTJxNmVpS2lyZEY4S0E?oc=5",
-      "fecha": "2026-07-16T07:00:00.000Z",
-      "fuente": "Instagram",
+      "enlace": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQSjY1aFU3cS1qbDdYT183RzFCMnM3TUR2YVJZeDZXUTRZX3JsRzNWcXlFUXkwQUc1MHMzdm5GTXp1TW9yWDJRUXBCSmU3Wld3MTNyMXM3czRHckdmdDM5ZXA3Zk5VM1VMcVBvTWhLS1lQdDB6azg2Rm5fdFFocFl1bmdvZTZoekVteTV0VGp4NUR2UkU?oc=5",
+      "fecha": "2026-07-22T07:00:00.000Z",
+      "fuente": "SoyChile",
       "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
+      "imagen": "https://img.soy-chile.cl/Fotos/2026/07/22/file_20260722101432.jpeg"
     },
     {
       "titulo": "Club de Leones de Collipulli realizó ceremonia de transmisión de mando",
@@ -154,15 +172,6 @@
       "fuente": "Araucanía Noticias Temuco",
       "tipo": "prensa",
       "imagen": "https://araucanianoticias.cl/wp-content/uploads/2026/07/luchin-3-thumb.jpg"
-    },
-    {
-      "titulo": "El pasado 17 de junio, el Comité de Damas del Club de Leones de Puerto Varas realizó el cambio de mando de la institución la cual quedó para el período 2026-2027 en manos de Vivianne Pape, quien recibió el cargo de parte de Patricia Hausdorf. “El Com",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9qbW1qc3NJNVRpWnJoU3NwelFZNzdCMHlTUEZsaEIxejFFZE1oQkpYUVVGcDdXNHNXQWZOVDllR3FodVU1QkIwdHVvQVlRanZhdnc?oc=5",
-      "fecha": "2026-07-08T07:00:00.000Z",
-      "fuente": "Instagram",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
       "titulo": "En una emotiva ceremonia de Transmisión de Mando, el Club de Leones Puerto Varas Los Colonos dio término al período leonístico 2025–2026, ocasión en la que la León Verónica Carvajal entregó la Presidencia destacando un año de intenso trabajo y ser",
@@ -192,15 +201,6 @@
       "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
-      "titulo": "Club de Leones Río Negro tendrá rama juvenil",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5tUW5MYXlBZ2s5TS0yVU1PbG93RVI1Y0hmMHRRcWJpZXF3Q0RlYzFNRVhRR3ZpOVh1cDltUTZXWi11ZXRQd3hTVHZOQ0JsSW1pRHZhTTRhTnNCMWpEMFVmbmRnMVhEbzlUZmU2bFIzWlJxNXh0UVZmSF9TYW4tdw?oc=5",
-      "fecha": "2026-05-06T07:00:00.000Z",
-      "fuente": "Paislobo Prensa",
-      "tipo": "prensa",
-      "imagen": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLui7FLKbxkSGK0-Ctbym6j6TJGX_113Lg5UZhWP0U6BI4IL8p-CO-HTNGRU7QjTl5lYEed9w2Wz1BzyA4cUIAr-mqaq4MX7AQyRyCieeY5Oog7GBVTrPVTpcTaod8pdMdmPnuOEeu5yewnWjgM00Zz18r49NOaH_otdXJVhmLMlaEYvYQiwhutm2TdzY/s16000/PL_Prensa_02.jpg"
-    },
-    {
       "titulo": "UFRO fortalece vínculos con organizaciones sociales tras visita protocolar del Club de Leones Temuco Antumalal",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPX1cxbkI1anVfcjBMV0Z1QTZFQVFWY05ybEpxQjFKdjUyNkFkdHRXWUdkN2V2TXFObVVYZ3VEMTZPekdxcXhqWnRSLUdERF8xVmtiMmctZjFKX0YxbWtDRFpCLUtBNGdaMG1haGFPT2xaOUJhUS1zcXRnaHlYY1l6dEJiYTNnXy0wMkZDcXZBVHpfQmpJeTdlaHRVRENNVDNHRF9MOVc4eFV5RHBxak1ibXhmS3JvUnZRZld2b3hUTmRNY0FJejdic3lFNVlrVnNlWFJqbGpNWHBnUmc?oc=5",
@@ -208,15 +208,6 @@
       "fuente": "Universidad de La Frontera",
       "tipo": "prensa",
       "imagen": "https://www.ufro.cl/wp-content/uploads/2026/05/UFRO-Club-Leones.webp"
-    },
-    {
-      "titulo": "Club de Leones de Los Ángeles inicia nuevo periodo con emotivo cambio de mando y balance de alto impacto social",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxPeEVvVUJWVVk2aHZkMmtpVjg1WGtFNC0xXzIwYXNDdGpsX0RrQ3ZITXdjaEJPSnN0WEg4elpzWnRMUDR4dW9pRzhuU2o5c3dGSjlGc1JXVHowTFVPWXBZNzU5MzVQS01oLTI3bllXa0xPWkh5Ymx6NllEU2s3d19HcDVKOHg4SmZaemg1Z0hET3YyT1VCNjQtUlhabzBPVzNJSkhKT3FsOHBNY3Zub1poN2NRam1vVEhVdzB6Y3R6azFSamNXVHpDY25kOEk5b2wtSzlDcGpoaUw1LVpnMGR3VklqNGpuVWxZZjJDbWpFNjhoaElsU29kYjBUQXdTX2fSAYcCQVVfeXFMT1dVaVgxel9Pb0xfeGgycS1jNmlzeVFiU080aHJRMW1xZ0diSGVTak9HTjFqeS1mYzN2dXBXWDQxQUxaQjI3UHFhd3NScUxrNmI1OFlpdy1xdTJEbE1MOWtXb1owYXh6UDJrc2RQbXE0eDgyX01DS0t5Qkcxbi1OcGF2S0RVQ2ZXUkJzRU82bHF5WGIwSnJ0dkhnbGJJZk5MenpCOElrbVR0eFBRZGlyQTZjRXA2RDRJaWQ4aGZCNFZUX04yc1F5akhXSjVvU1RCLXl5NjZoSjFqcVY3UUxObGdacF9PamRleUp2YnBYS3NwMXUyMURUMUJjTkdIdEtEcU9fSFVlWEk?oc=5",
-      "fecha": "2025-08-06T07:00:00.000Z",
-      "fuente": "La Tribuna",
-      "tipo": "prensa",
-      "imagen": "https://img.latribuna.cl/upload/2025/08/17161D514C434C6D15100F56514946741F171618524345711710-2000x1125.jpg"
     },
     {
       "titulo": "El viernes 27 de junio, en la sede del Club de Leones de Puerto Varas, se llevó a cabo la transmisión de mando del Club de Leones de Puerto Varas donde hizo entrega del mando el León Osvaldo Emhart Vicencio al nuevo presidente periodo 2025- 2026 L",
@@ -244,6 +235,15 @@
       "fuente": "Radio Viaducto Collipulli",
       "tipo": "prensa",
       "imagen": "assets/img/noticias-respaldo.jpg"
+    },
+    {
+      "titulo": "Ley declara el 24 de abril como el Día del Leonismo Chileno",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMimgFBVV95cUxONzhrNllSYkFSTjk4SE5ERXVDT1ozazZoZkg3RTA5U0xSV0ozdmN1ekdTZVN2bXNWbzBNdU9kUnFjbnQ0U2FyeG9XVWVFYkZwWTB2eERUa1lQOWs0MHRVNkVKc2VVQ3lYa0JPSkZsekdxbTJONGdkM2x4LTFCVjdkVkJNaDJZelhFSlJ5Z3ozSjV3Mm9HbGZPMHdR?oc=5",
+      "fecha": "2022-07-04T17:31:59.000Z",
+      "fuente": "home.doe.cl",
+      "tipo": "prensa",
+      "imagen": "https://actualidadjuridica.doe.cl/wp-content/uploads/2022/07/shutterstock_1607267161.jpg"
     }
   ]
 }
