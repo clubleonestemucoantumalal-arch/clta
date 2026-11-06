@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-05T23:38:38.328Z",
+  "generado": "2026-11-06T11:44:55.276Z",
   "total": 24,
   "fuentes": [
     {
@@ -29,6 +29,15 @@
     }
   ],
   "noticias": [
+    {
+      "titulo": "CARTEL DE LA PAZ, UN CONCURSO INSIGNIA PARA LOS CLUBES DE LEONES",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5fOTZiYnJWT3MxTDlWVGZibDBpN1J1RGFOTWdRVFY5MWlkLTZ5ZGQwTE5CUldmdmxGTzhKSEF5azRJMmZFcV9fZUppWDhQUnpYY2RLN0Z6djlQWFBudXFSSVdvWHFRai1yaVJMX2xlOVhuR1NPSnpjSw?oc=5",
+      "fecha": "2026-11-03T07:00:00.000Z",
+      "fuente": "Radio Polar",
+      "tipo": "prensa",
+      "imagen": "https://s3-mspro.nyc3.cdn.digitaloceanspaces.com/tenant/658d9f90f0909def6c18fa2c/mediaLibrary/photo/91d66238-9d09-4b81-be6a-cc58055ebdb2-extra-large-standard-q100.jpeg?v=1793661701"
+    },
     {
       "titulo": "Roberto Bravo ofrecerá concierto en apoyo a la obra social del Club de Leones Temuco Antumalal",
       "resumen": "",
@@ -228,22 +237,13 @@
       "imagen": "https://www.ufro.cl/wp-content/uploads/2026/05/UFRO-Club-Leones.webp"
     },
     {
-      "titulo": "El mejor Regalo para mamá: Leones presentan a Roberto Bravo en el Municipal",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPZ1plbEJTTmFwdHFBWExuVUZqTzgybTZxYTRweURQTHUxakR4N09Md2pPdGFZSktna2l3d3NNbnhieHFNMWZSd25OZjBKanZhSUUxek5xY2liWlMwVFpCc0FTNVBlUVJYb2NyYXpQNmRQOGtmWDl1QnNsLWhpX0JjSTlHTWdnUEdMOWFhVkJsRy13YU04ZzNnV2toQm1CU0ZfVkZCQ2ZkMA?oc=5",
-      "fecha": "2026-04-26T07:00:00.000Z",
-      "fuente": "Radio Temuco",
-      "tipo": "prensa",
-      "imagen": "https://radiotemuco.com/home/wp-content/uploads/2026/04/Captura-de-pantalla-2026-04-26-a-las-11.32.48.png"
-    },
-    {
       "titulo": "75 años del Leonismo en Uruguay: una historia de servicio que trascendió fronteras",
       "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPV0FjaHJMUDBQRFhLeXlaR01oSmhIa21ueWRCUDhDcE8wU0l0WWFGSjV1bWowTFY4aUVqd0JHTFNNZm1nOHJlZVJQU19vYXI5dGo4eUp4cUdLVVZCMTdFYzRvam1IZHl4U2JINThaNmN4QkNvdERLcExpTkM5MnhVa2d6UmxJWWl2Qm9wejg1NUZyQ01GUl9EcVFMZjh1NktQOVQ0MTRRUUdmVE0?oc=5",
+      "enlace": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQenh4TmRIVnZJdHZuTHVETUI2VC0xdFhDTTZEU2xnbDBOUWdxQUg4bC1WUU4zTVBQV2lTd05oNS1TWk5XWFBJZVVGMGtzSGlTZDdvcmlDS0xWX1ZOLUFNbTh5SlE3aGptYnFqMXJabEF5UTdSMGlWMUg0b1ZSaUpkOFJuYzdiY3NvTFRRQjZoUnQxeW5wdi1FbFFLSHF1eXg3SG1vckJMVFdWdC1ZUk03SWNR?oc=5",
       "fecha": "2026-04-03T07:00:00.000Z",
-      "fuente": "10minutos.com.uy",
+      "fuente": "Radio Libertadores",
       "tipo": "prensa",
-      "imagen": "https://10minutos.com.uy/wp-content/uploads/2026/04/IMG-20260403-WA0001.jpg"
+      "imagen": "https://radiolibertadores.com/wp-content/uploads/IMG-20260403-WA0001-1.jpg"
     }
   ]
 }
