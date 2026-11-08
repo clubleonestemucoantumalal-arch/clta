@@ -301,16 +301,6 @@
       "foto2": "img:terreno-mw7eu91v"
     },
     {
-      "idLions": "SA-10460139",
-      "tag": "Juventud",
-      "titulo": "Lions Quest en el Liceo Gabriela Mistral · octubre",
-      "texto": "Seguimos acompañando a cerca de 800 estudiantes del Liceo Gabriela Mistral con Lions Quest, el programa que fortalece sus habilidades personales y de liderazgo. Los profesores lo trabajan una hora a la semana en cada curso, desde prekínder hasta cuarto medio.",
-      "imagen": "img:proyecto-mw7ewppq",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-10-30"
-    },
-    {
       "idLions": "SA-10482725",
       "tag": "Juventud",
       "titulo": "Cartel de la Paz: la paz vista por los estudiantes",
@@ -339,16 +329,6 @@
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-10-20"
-    },
-    {
-      "idLions": "SA-10450771",
-      "tag": "Visión",
-      "titulo": "Operativo médico en el Hospital de Pitrufquén",
-      "texto": "Junto al Club de Leones de Pitrufquén llevamos oftalmología, urología y endoscopia digestiva al hospital de la comuna. La meta fue acercar atención de especialistas y ayudar a reducir las listas de espera.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-10-17"
     },
     {
       "idLions": "SA-10497547",
@@ -381,16 +361,6 @@
       "fecha": "2026-10-07"
     },
     {
-      "idLions": "SA-10325999",
-      "tag": "Servicio humanitario",
-      "titulo": "Jornada contra el cáncer de mama",
-      "texto": "Acompañamos a las Damas en el Hospital Regional con un desayuno saludable, en una jornada de difusión sobre la prevención y la detección temprana del cáncer de mama. Llegamos a cerca de 100 personas.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-10-01"
-    },
-    {
       "idLions": "SA-10314688",
       "tag": "Cáncer infantil",
       "titulo": "Kits dentales para niños con cáncer",
@@ -399,26 +369,6 @@
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-09-30"
-    },
-    {
-      "idLions": "SA-10325960",
-      "tag": "Juventud",
-      "titulo": "Lions Quest en el Liceo Gabriela Mistral · septiembre",
-      "texto": "Un mes más con Lions Quest en el Liceo Gabriela Mistral: cerca de 800 estudiantes trabajan en clases el liderazgo y las habilidades para la vida, con el apoyo de 27 docentes.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-30"
-    },
-    {
-      "idLions": "SA-10274653",
-      "tag": "Juventud",
-      "titulo": "Spelling Bee en el Liceo Gabriela Mistral",
-      "texto": "Apoyamos el concurso de ortografía hablada «Spelling Bee», que reunió a unos 60 estudiantes del liceo. El León Gabriel Luza tuvo una destacada participación en la organización del evento.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-23"
     },
     {
       "idLions": "SA-10268886",
@@ -431,16 +381,6 @@
       "fecha": "2026-09-23"
     },
     {
-      "idLions": "SA-10274616",
-      "tag": "Juventud",
-      "titulo": "Formación de Lideresas Mistralianas",
-      "texto": "Estuvimos en el Liceo Gabriela Mistral en la actividad «Formación de Lideresas Mistralianas», inspirada en los ideales de nuestra Premio Nobel. Participaron unas 150 alumnas.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-22"
-    },
-    {
       "idLions": "SA-10314768",
       "tag": "Servicio humanitario",
       "titulo": "Preparando el concierto del Maestro Roberto Bravo",
@@ -449,16 +389,6 @@
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-09-21"
-    },
-    {
-      "idLions": "SA-10274739",
-      "tag": "Visión",
-      "titulo": "Entrega de lentes",
-      "texto": "Junto al Comité de Damas entregamos lentes a dos personas que los necesitaban. Un gesto sencillo, pero que mejora su calidad de vida y alivia la economía de sus familias.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-17"
     },
     {
       "idLions": "SA-10268841",
@@ -471,16 +401,6 @@
       "fecha": "2026-09-14"
     },
     {
-      "idLions": "SA-10269918",
-      "tag": "Servicio humanitario",
-      "titulo": "Una tarde de fiesta en el Hogar San Vicente de Paul",
-      "texto": "Compartimos con los adultos mayores del hogar una tarde con «esquinazo», una presentación folclórica a cargo de un grupo de la escuela San Juan. Hubo gran participación de Leones y Damas, y cerca de 64 personas disfrutaron la jornada.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-12"
-    },
-    {
       "idLions": "SA-10268927",
       "tag": "Servicio humanitario",
       "titulo": "Acompañamiento a una persona con enfermedad terminal",
@@ -489,66 +409,6 @@
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-09-11"
-    },
-    {
-      "idLions": "SA-10268714",
-      "tag": "Cáncer infantil",
-      "titulo": "Cajas de alimentos para 10 instituciones",
-      "texto": "Entregamos cajas de alimentos a diez instituciones de ayuda social —parroquias, el Hogar de Cristo y un hogar de ancianos, entre otras—, llegando a unas 200 personas. Contamos con la ayuda de 42 voluntarios.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-11"
-    },
-    {
-      "idLions": "SA-10269910",
-      "tag": "Hambre",
-      "titulo": "Cajas de alimentos para adultos mayores de Pueblo Nuevo y Amanecer",
-      "texto": "Con 8 voluntarios entregamos 10 cajas de alimentos a familias de adultos mayores de los sectores de Pueblo Nuevo y Amanecer. En total, la ayuda llegó a unas 30 personas.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-10"
-    },
-    {
-      "idLions": "SA-10268798",
-      "tag": "Servicio humanitario",
-      "titulo": "Frazadas para adultos mayores",
-      "texto": "Entregamos frazadas a adultos mayores en situación vulnerable, detectados por la asistente social del hospital. Con ellas esperan enfrentar mejor el frío.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-10"
-    },
-    {
-      "idLions": "SA-10268659",
-      "tag": "Cáncer infantil",
-      "titulo": "Alimentos para dos familias de oncología infantil",
-      "texto": "Llevamos cajas de alimentos a dos familias de pacientes de oncología infantil en situación vulnerable, ayudando a ocho personas.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-08"
-    },
-    {
-      "idLions": "SA-10157773",
-      "tag": "Cáncer infantil",
-      "titulo": "Una mano para una familia de oncología infantil",
-      "texto": "Entregamos una caja de alimentos, una gift card de 50 dólares y un vale de gas a una familia de oncología infantil en situación vulnerable. La ayuda alcanzó a cinco personas.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-03"
-    },
-    {
-      "idLions": "SA-10124909",
-      "tag": "Juventud",
-      "titulo": "Lions Quest en el Liceo Gabriela Mistral · agosto",
-      "texto": "Continuamos con Lions Quest en el Liceo Gabriela Mistral, un programa permanente que llega a cerca de 800 estudiantes desde prekínder a cuarto medio.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-08-31"
     },
     {
       "idLions": "SA-10152888",
@@ -609,16 +469,6 @@
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-08-21"
-    },
-    {
-      "idLions": "SA-10124930",
-      "tag": "Juventud",
-      "titulo": "Lions Quest en el Liceo Gabriela Mistral · julio",
-      "texto": "En el Liceo Gabriela Mistral, Lions Quest sigue llegando a cerca de 800 estudiantes. Es una actividad permanente: 27 docentes dedican una hora semanal a trabajarlo en el aula.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-07-31"
     },
     {
       "idLions": "SA-09927131",
