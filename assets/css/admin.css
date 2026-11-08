@@ -630,3 +630,16 @@ html[data-tema="oscuro"] .item--oculto .item__ver{ color:#A5B1CE }
 .item--oculto .item__ver{ color:var(--gris) }
 .item--oculto .item__n,
 .item--oculto .item__t{ opacity:.5 }
+
+/* Menú en dos bloques plegables (Administración e informes / Mi página web) */
+.bloque + .bloque{ margin-top:10px; padding-top:4px; border-top:1px solid var(--g-borde, rgba(255,255,255,.15)) }
+.bloque__cab{
+  display:flex; justify-content:space-between; align-items:center; width:100%; text-align:left;
+  padding:12px 14px 6px; border-radius:10px; cursor:pointer;
+  font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--oro-600, #b8860b);
+}
+.bloque__cab:hover{ background:var(--g-hover, rgba(255,255,255,.08)) }
+.bloque__cab:focus-visible{ outline:3px solid var(--oro, #f2b705); outline-offset:2px }
+.bloque__cab i{ font-style:normal; font-size:.9rem; transition:transform .15s }
+.bloque.cerrado .bloque__cab i{ transform:rotate(-90deg) }
+.bloque.cerrado .bloque__cuerpo{ display:none }

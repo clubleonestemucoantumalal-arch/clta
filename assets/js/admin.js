@@ -861,10 +861,20 @@
   const SECCIONES = [
 
     /* ───────────────────────────── INICIO ───────────────────────────── */
-    { id: 'inicio', grupo: 'Sitio', nombre: 'Inicio', ico: ICO.inicio,
-      titulo: 'Inicio',
-      bajada: 'Un vistazo rápido a cómo está el sitio y qué falta por completar.',
+    { id: 'inicio', grupo: 'Administración', nombre: 'Resumen', ico: ICO.inicio,
+      titulo: 'Resumen del club',
+      bajada: 'Un vistazo rápido al club, a la página y a lo que falta por completar.',
       pintar: panelInicio },
+
+    { id: 'informes', grupo: 'Administración', nombre: 'Informes', ico: ICO.diario,
+      titulo: 'Informes y descargas',
+      bajada: 'Informe del club listo para imprimir o guardar en PDF, y listados para abrir en Excel.',
+      pintar: panelInformes },
+
+    { id: 'ayuda', grupo: 'Administración', nombre: 'Ayuda', ico: ICO.duda,
+      titulo: 'Cómo usar este panel',
+      bajada: 'Cuatro pasos, siempre los mismos.',
+      pintar: panelAyuda },
 
     /* ─────────────────────── DATOS DEL CLUB ─────────────────────── */
     { id: 'club-datos', grupo: 'Datos del club', nombre: 'Identidad', ico: ICO.club,
@@ -1339,7 +1349,7 @@
       ] },
 
     /* ──────────────────────────── PANEL ──────────────────────────── */
-    { id: 'publicar', grupo: 'Panel', nombre: 'Publicar y respaldos', ico: ICO.subir,
+    { id: 'publicar', grupo: 'Administración', nombre: 'Publicar y respaldos', ico: ICO.subir,
       titulo: 'Publicar, respaldar y restaurar',
       bajada: 'Aquí se publican los cambios, se guarda una copia de seguridad y se cambia la clave del panel.',
       pintar: panelPublicar }
@@ -1350,10 +1360,7 @@
      ═══════════════════════════════════════════════════════════════ */
 
   /* ─── Inicio: revisión de pendientes ─── */
-  function panelInicio(lienzo) {
-    const d = ESTADO.datos;
-    const fotosSubidas = Object.keys(ESTADO.imagenes).length;
-
+  function panelAyuda(lienzo) {
     /* Guía de uso: va primero, para quien administra el sitio */
     const ayuda = document.createElement('div');
     ayuda.className = 'tarjeta';
@@ -1379,17 +1386,54 @@
         mientras no publiques, la página no cambia. Tus cambios se guardan solos en este
         computador, y si te equivocas puedes descartarlos desde <em>Publicar y respaldos</em>.</div></div>`;
     lienzo.appendChild(ayuda);
+  }
 
+  function panelInicio(lienzo) {
+    const d = ESTADO.datos;
+    const fotosSubidas = Object.keys(ESTADO.imagenes).length;
+
+    const cifra = (et) => { const c = (d.impacto || []).find((x) => new RegExp(et, 'i').test(x.etiqueta || '')); return c ? c.valor : '—'; };
+    const hoyR = new Date(); hoyR.setHours(0, 0, 0, 0);
+    const prox = ((d.agenda && d.agenda.eventos) || []).filter((e) => e.fecha && new Date(e.fecha + 'T00:00') >= hoyR)
+      .sort((a, b) => a.fecha.localeCompare(b.fecha));
     const resumen = document.createElement('div');
     resumen.className = 'resumen';
     resumen.innerHTML = [
-      [d.proyectos.length, 'Proyectos'],
-      [d.directiva.length, 'En el directorio'],
-      [d.faq.length, 'Preguntas frecuentes'],
-      [(d.agenda && d.agenda.eventos ? d.agenda.eventos.length : 0), 'Actividades en agenda'],
+      [cifra('socios'), 'Socios activos'],
+      [cifra('operativos'), 'Operativos en el año'],
+      [cifra('beneficiad'), 'Personas beneficiadas'],
+      [d.proyectos.length, 'Proyectos en la página'],
+      [prox.length, 'Actividades próximas'],
       [fotosSubidas, 'Fotos propias']
-    ].map(([n, t]) => `<div class="resumen__caja"><b>${n}</b><span>${t}</span></div>`).join('');
+    ].map(([n, t]) => `<div class="resumen__caja"><b>${esc(String(n))}</b><span>${t}</span></div>`).join('');
     lienzo.appendChild(resumen);
+
+    /* Próximas actividades + últimas noticias */
+    const fechaCorta = (iso) => { const f = new Date(iso + 'T00:00'); return isNaN(f) ? iso : f.toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' }); };
+    const act = document.createElement('div');
+    act.className = 'tarjeta';
+    act.innerHTML = `
+      <div class="tarjeta__cab"><div><h3>Lo que viene y lo último publicado</h3>
+        <p>Sesiones ordinarias: 2.º y 4.º lunes de cada mes, 20:30 h.</p></div>
+        <button type="button" class="btn btn--linea btn--sm" data-ir="agenda">Ir a la agenda</button></div>
+      <ul class="chequeo">${prox.length ? prox.slice(0, 5).map((e) => `
+        <li><span class="marca" data-ok="si">📅</span>
+          <span class="txt"><b>${esc(e.titulo)}</b><span>${esc(fechaCorta(e.fecha))}${e.hora ? ' · ' + esc(e.hora) : ''}</span></span></li>`).join('')
+        : '<li><span class="txt"><span>No hay actividades puntuales cargadas en la agenda.</span></span></li>'}</ul>
+      <div id="resNoticias"><span class="txt">Cargando noticias…</span></div>`;
+    act.addEventListener('click', (e) => { const b = e.target.closest('[data-ir]'); if (b) ir(b.dataset.ir); });
+    lienzo.appendChild(act);
+    Promise.all(['data/noticias-propias.json', 'data/noticias.json'].map((u) => fetch(u, { cache: 'no-store' }).then((r) => r.json()).catch(() => null)))
+      .then(([pro, aut]) => {
+        const nPro = (pro && pro.noticias) || [], nAut = (aut && aut.noticias) || [];
+        const lista = [...nPro, ...nAut].sort((a, b) => new Date(b.fecha || 0) - new Date(a.fecha || 0));
+        const caja = act.querySelector('#resNoticias');
+        if (!caja) return;
+        caja.innerHTML = lista.length
+          ? `<p style="margin:14px 0 6px"><b>${lista.length}</b> noticias en la página (del club: ${nPro.length}, de prensa: ${nAut.length}). Las más recientes:</p>`
+            + `<ul class="chequeo">${lista.slice(0, 3).map((n) => `<li><span class="marca" data-ok="si">📰</span><span class="txt"><b>${esc(n.titulo)}</b><span>${esc(n.fuente || '')}${n.fecha ? ' · ' + esc(fechaCorta(String(n.fecha).slice(0, 10))) : ''}</span></span></li>`).join('')}</ul>`
+          : '<p style="margin:14px 0 0">Aún no hay noticias cargadas.</p>';
+      });
 
     /* Revisiones: cada una dice si está lista y a qué sección ir. */
     const ficticio = (v, malos) => malos.some((m) => String(v || '').includes(m));
@@ -1442,6 +1486,55 @@
     });
     lienzo.appendChild(tarjeta);
 
+  }
+
+  /* ─── Informes ─── */
+  function panelInformes(lienzo) {
+    const d = ESTADO.datos;
+    const hoyIso = new Date().toISOString().slice(0, 10);
+    const fcorta = (iso) => { const f = new Date(String(iso).slice(0, 10) + 'T00:00'); return isNaN(f) ? (iso || '') : f.toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric' }); };
+    const quitaHtml = (t) => String(t == null ? '' : t).replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
+    const csv = (cab, filas) => '﻿' + [cab, ...filas].map((f) => f.map((c) => '"' + quitaHtml(c).replace(/"/g, '""') + '"').join(';')).join('\r\n');
+    const eventos = () => [...((d.agenda && d.agenda.eventos) || [])].sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
+
+    const informe = () => {
+      const w = window.open('', '_blank');
+      if (!w) { aviso('El navegador bloqueó la ventana. Permite las ventanas emergentes para este sitio y vuelve a intentar.', 'error'); return; }
+      const fila = (a, b) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`;
+      const proyectos = [...(d.proyectos || [])].sort((a, b) => String(b.fecha || '').localeCompare(String(a.fecha || '')));
+      w.document.write(`<!doctype html><html lang="es"><meta charset="utf-8"><title>Informe ${esc(d.identidad.nombre)}</title>
+<style>body{font:14px/1.5 system-ui,Segoe UI,sans-serif;color:#14213d;max-width:820px;margin:30px auto;padding:0 20px}
+h1{font-size:24px;margin:14px 0 0}h2{font-size:16px;border-bottom:2px solid #f2b705;padding-bottom:4px;margin:26px 0 8px}
+.k{display:flex;gap:10px;flex-wrap:wrap}.k div{flex:1;min-width:120px;border:1px solid #d7dbe5;border-radius:10px;padding:10px}.k b{display:block;font-size:22px}
+table{width:100%;border-collapse:collapse}td{padding:5px 6px;border-bottom:1px solid #e5e8ef;vertical-align:top}td:first-child{width:34%;font-weight:600}
+small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;background:#f2b705;font-weight:700;cursor:pointer}@media print{button{display:none}}</style>
+<button onclick="print()">Imprimir / guardar como PDF</button>
+<h1>${esc(d.identidad.nombre)}</h1><small>${esc(d.identidad.distrito || '')} · Informe generado el ${esc(fcorta(hoyIso))}</small>
+<h2>Cifras del club</h2><div class="k">${(d.impacto || []).map((c) => `<div><b>${esc(String(c.valor))}${esc(c.sufijo || '')}</b>${esc(c.etiqueta)}</div>`).join('')}</div>
+<h2>Directorio</h2><table>${(d.directiva || []).map((m) => fila(m.cargo, m.nombre)).join('')}</table>
+<h2>Actividades de la agenda</h2><table>${eventos().map((e) => fila(fcorta(e.fecha) + (e.hora ? ' · ' + e.hora : ''), quitaHtml(e.titulo))).join('') || fila('—', 'Sin actividades cargadas')}</table>
+<h2>Proyectos y trabajo realizado</h2><table>${proyectos.map((p) => fila(p.fecha ? fcorta(p.fecha) : (p.tag || ''), quitaHtml(p.titulo))).join('')}</table>
+<h2>Contacto</h2><table>${fila('Correo', d.contacto.email || '—')}${fila('Teléfono', d.contacto.telefono || '—')}${fila('Sede', d.contacto.direccion || '—')}</table>
+</html>`);
+      w.document.close();
+    };
+
+    const items = [
+      { t: 'Informe del club', p: 'Cifras, directorio, actividades y proyectos en una hoja lista para imprimir o guardar como PDF.', b: 'Abrir informe', f: informe },
+      { t: 'Actividades (Excel)', p: 'Todas las actividades de la agenda con fecha, hora y detalle.', b: 'Descargar',
+        f: () => descargar('actividades-' + hoyIso + '.csv', csv(['Fecha', 'Hora', 'Actividad', 'Detalle'], eventos().map((e) => [e.fecha, e.hora || '', e.titulo, e.texto || ''])), 'text/csv;charset=utf-8') },
+      { t: 'Proyectos (Excel)', p: 'Los proyectos y el trabajo en terreno publicados en la página.', b: 'Descargar',
+        f: () => descargar('proyectos-' + hoyIso + '.csv', csv(['Fecha', 'Categoría', 'Proyecto', 'Descripción'], (d.proyectos || []).map((p) => [p.fecha || '', p.tag || '', p.titulo, p.texto || ''])), 'text/csv;charset=utf-8') },
+      { t: 'Directorio (Excel)', p: 'Cargos y nombres del directorio actual.', b: 'Descargar',
+        f: () => descargar('directorio-' + hoyIso + '.csv', csv(['Cargo', 'Nombre'], (d.directiva || []).map((m) => [m.cargo, m.nombre])), 'text/csv;charset=utf-8') }
+    ];
+    const tarjeta = document.createElement('div');
+    tarjeta.className = 'tarjeta';
+    tarjeta.innerHTML = `<div class="tarjeta__cab"><div><h3>Qué quieres sacar</h3><p>Los archivos .csv se abren directo en Excel.</p></div></div>
+      <ul class="chequeo">${items.map((x, i) => `<li><span class="txt"><b>${esc(x.t)}</b><span>${esc(x.p)}</span></span>
+        <button type="button" class="btn btn--linea btn--sm" data-inf="${i}">${esc(x.b)}</button></li>`).join('')}</ul>`;
+    tarjeta.addEventListener('click', (e) => { const b = e.target.closest('[data-inf]'); if (b) items[+b.dataset.inf].f(); });
+    lienzo.appendChild(tarjeta);
   }
 
   /* ─── Agenda ─── */
@@ -1641,26 +1734,63 @@
      8. NAVEGACIÓN Y PINTADO
      ═══════════════════════════════════════════════════════════════ */
 
+  /* El menú tiene dos bloques plegables: uno para administrar e informarse y otro para cambiar la página */
+  const BLOQUES = [
+    { id: 'admin', titulo: 'Administración e informes', grupos: ['Administración'] },
+    { id: 'web',   titulo: 'Mi página web', grupos: ['Datos del club', 'Contenido de la página', 'Conexiones'] }
+  ];
+
+  function abrirBloque(el, abrir) {
+    el.classList.toggle('cerrado', !abrir);
+    const h = el.querySelector('.bloque__cab');
+    if (h) h.setAttribute('aria-expanded', String(abrir));
+    try { localStorage.setItem('antumalal.bloque.' + el.dataset.bloque, abrir ? '1' : '0'); } catch { /* sin almacenamiento */ }
+  }
+
   function pintarNav() {
     const nav = $('#nav');
     nav.innerHTML = '';
-    let grupoActual = '';
-    SECCIONES.forEach((s) => {
-      if (s.grupo !== grupoActual) {
-        grupoActual = s.grupo;
-        const g = document.createElement('div');
-        g.className = 'lateral__grupo';
-        g.textContent = grupoActual;
-        nav.appendChild(g);
-      }
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'nav__b' + (s.id === ESTADO.seccion ? ' activo' : '');
-      b.dataset.ir = s.id;
-      b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
-        stroke-linecap="round" stroke-linejoin="round">${s.ico}</svg><span>${esc(s.nombre)}</span>`;
-      b.addEventListener('click', () => ir(s.id));
-      nav.appendChild(b);
+    BLOQUES.forEach((bl) => {
+      const secs = SECCIONES.filter((s) => bl.grupos.includes(s.grupo));
+      if (!secs.length) return;
+      const caja = document.createElement('div');
+      caja.className = 'bloque';
+      caja.dataset.bloque = bl.id;
+      const cab = document.createElement('button');
+      cab.type = 'button';
+      cab.className = 'bloque__cab';
+      cab.innerHTML = `<span>${esc(bl.titulo)}</span><i aria-hidden="true">▾</i>`;
+      cab.addEventListener('click', () => abrirBloque(caja, caja.classList.contains('cerrado')));
+      caja.appendChild(cab);
+
+      const cuerpo = document.createElement('div');
+      cuerpo.className = 'bloque__cuerpo';
+      let grupoActual = '';
+      secs.forEach((s) => {
+        /* los subtítulos solo se muestran cuando el bloque tiene varios grupos */
+        if (bl.grupos.length > 1 && s.grupo !== grupoActual) {
+          grupoActual = s.grupo;
+          const g = document.createElement('div');
+          g.className = 'lateral__grupo';
+          g.textContent = grupoActual;
+          cuerpo.appendChild(g);
+        }
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'nav__b' + (s.id === ESTADO.seccion ? ' activo' : '');
+        b.dataset.ir = s.id;
+        b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+          stroke-linecap="round" stroke-linejoin="round">${s.ico}</svg><span>${esc(s.nombre)}</span>`;
+        b.addEventListener('click', () => ir(s.id));
+        cuerpo.appendChild(b);
+      });
+      caja.appendChild(cuerpo);
+      nav.appendChild(caja);
+
+      let guardado = null;
+      try { guardado = localStorage.getItem('antumalal.bloque.' + bl.id); } catch { /* ignorar */ }
+      const conActivo = secs.some((s) => s.id === ESTADO.seccion);
+      abrirBloque(caja, conActivo || guardado !== '0');
     });
   }
 
@@ -1668,6 +1798,7 @@
     ESTADO.seccion = id;
     document.body.classList.remove('menu-abierto');
     $$('.nav__b').forEach((b) => b.classList.toggle('activo', b.dataset.ir === id));
+    const bl = document.querySelector('.nav__b.activo'); const caja = bl && bl.closest('.bloque'); if (caja && caja.classList.contains('cerrado')) abrirBloque(caja, true);
     pintarSeccion();
     window.scrollTo({ top: 0 });
     try { history.replaceState(null, '', '#' + id); } catch { /* file:// no siempre deja */ }
