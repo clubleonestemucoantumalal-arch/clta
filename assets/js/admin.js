@@ -1406,9 +1406,6 @@
   }
 
   function panelInicio(lienzo) {
-    const d = ESTADO.datos;
-    const fotosSubidas = Object.keys(ESTADO.imagenes).length;
-
     /* Accesos grandes para lo que más se hace: pensado para quien usa poco el computador */
     const rapido = document.createElement('div');
     rapido.className = 'tarjeta';
@@ -1432,100 +1429,6 @@
     });
     lienzo.appendChild(rapido);
     tarjetaVisitas(lienzo);
-    const cifra = (et) => { const c = (d.impacto || []).find((x) => new RegExp(et, 'i').test(x.etiqueta || '')); return c ? c.valor : '—'; };
-    const hoyR = new Date(); hoyR.setHours(0, 0, 0, 0);
-    const prox = ((d.agenda && d.agenda.eventos) || []).filter((e) => e.fecha && new Date(e.fecha + 'T00:00') >= hoyR)
-      .sort((a, b) => a.fecha.localeCompare(b.fecha));
-    const resumen = document.createElement('div');
-    resumen.className = 'resumen';
-    resumen.innerHTML = [
-      [cifra('socios'), 'Socios activos'],
-      [cifra('operativos'), 'Operativos en el año'],
-      [cifra('beneficiad'), 'Personas beneficiadas'],
-      [d.proyectos.length, 'Proyectos en la página'],
-      [prox.length, 'Actividades próximas'],
-      [fotosSubidas, 'Fotos propias']
-    ].map(([n, t]) => `<div class="resumen__caja"><b>${esc(String(n))}</b><span>${t}</span></div>`).join('');
-    lienzo.appendChild(resumen);
-
-    /* Próximas actividades + últimas noticias */
-    const fechaCorta = (iso) => { const f = new Date(iso + 'T00:00'); return isNaN(f) ? iso : f.toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' }); };
-    const act = document.createElement('div');
-    act.className = 'tarjeta';
-    act.innerHTML = `
-      <div class="tarjeta__cab"><div><h3>Lo que viene y lo último publicado</h3>
-        <p>Sesiones ordinarias: 2.º y 4.º lunes de cada mes, 20:30 h.</p></div>
-        <button type="button" class="btn btn--linea btn--sm" data-ir="agenda">Ir a la agenda</button></div>
-      <ul class="chequeo">${prox.length ? prox.slice(0, 5).map((e) => `
-        <li><span class="marca" data-ok="si">📅</span>
-          <span class="txt"><b>${esc(e.titulo)}</b><span>${esc(fechaCorta(e.fecha))}${e.hora ? ' · ' + esc(e.hora) : ''}</span></span></li>`).join('')
-        : '<li><span class="txt"><span>No hay actividades puntuales cargadas en la agenda.</span></span></li>'}</ul>
-      <div id="resNoticias"><span class="txt">Cargando noticias…</span></div>`;
-    act.addEventListener('click', (e) => { const b = e.target.closest('[data-ir]'); if (b) ir(b.dataset.ir); });
-    lienzo.appendChild(act);
-    Promise.all(['data/noticias-propias.json', 'data/noticias.json'].map((u) => fetch(u, { cache: 'no-store' }).then((r) => r.json()).catch(() => null)))
-      .then(([pro, aut]) => {
-        const nPro = (pro && pro.noticias) || [], nAut = (aut && aut.noticias) || [];
-        const lista = [...nPro, ...nAut].sort((a, b) => new Date(b.fecha || 0) - new Date(a.fecha || 0));
-        const caja = act.querySelector('#resNoticias');
-        if (!caja) return;
-        caja.innerHTML = lista.length
-          ? `<p style="margin:14px 0 6px"><b>${lista.length}</b> noticias en la página (del club: ${nPro.length}, de prensa: ${nAut.length}). Las más recientes:</p>`
-            + `<ul class="chequeo">${lista.slice(0, 3).map((n) => `<li><span class="marca" data-ok="si">📰</span><span class="txt"><b>${esc(n.titulo)}</b><span>${esc(n.fuente || '')}${n.fecha ? ' · ' + esc(fechaCorta(String(n.fecha).slice(0, 10))) : ''}</span></span></li>`).join('')}</ul>`
-          : '<p style="margin:14px 0 0">Aún no hay noticias cargadas.</p>';
-      });
-
-    /* Revisiones: cada una dice si está lista y a qué sección ir. */
-    const ficticio = (v, malos) => malos.some((m) => String(v || '').includes(m));
-    const revisiones = [
-      { ok: !ficticio(d.contacto.telefono, ['0000']) && !!d.contacto.telefono,
-        t: 'Teléfono real del club', s: 'contacto',
-        d: 'Hoy dice ' + (d.contacto.telefono || 'nada') + '.' },
-      { ok: !ficticio(d.contacto.whatsapp, ['00000']) && !!d.contacto.whatsapp,
-        t: 'WhatsApp real', s: 'contacto',
-        d: 'Es el botón verde flotante y el destino del formulario.' },
-      { ok: !ficticio(d.contacto.email, ['ejemplo']) && !!d.contacto.email,
-        t: 'Correo de contacto', s: 'contacto', d: '' },
-      { ok: !ficticio(d.donaciones.numero, ['000000']) && !ficticio(d.donaciones.rut, ['00.000']),
-        t: 'Datos bancarios reales', s: 'donaciones',
-        d: 'Mientras sean de ejemplo, nadie puede transferir.' },
-      { ok: !d.directiva.some((m) => /nombre apellido/i.test(m.nombre || '')),
-        t: 'Nombres del directorio', s: 'directiva',
-        d: 'Todavía hay fichas que dicen "Nombre Apellido".' },
-      { ok: !!(obtener('imagenClaves.hero', '') || '').startsWith('img:'),
-        t: 'Foto de portada propia', s: 'portada',
-        d: 'Hoy se ve una imagen de relleno con los colores del club.' },
-      { ok: d.proyectos.some((p) => String(p.imagen || '').startsWith('img:')),
-        t: 'Fotos reales en los proyectos', s: 'proyectos', d: '' },
-      { ok: !!d.contacto.mapaEmbed && !/q=Temuco,\+La/.test(d.contacto.mapaEmbed),
-        t: 'Mapa apuntando a la sede exacta', s: 'contacto',
-        d: 'El mapa muestra Temuco en general, no el quincho Martin Lutero.' }
-    ];
-
-    const listos = revisiones.filter((r) => r.ok).length;
-
-    const tarjeta = document.createElement('div');
-    tarjeta.className = 'tarjeta';
-    tarjeta.innerHTML = `
-      <div class="tarjeta__cab">
-        <div>
-          <h3>Antes de mostrar el sitio</h3>
-          <p>Lo que conviene completar para que la página deje de tener datos de ejemplo.</p>
-        </div>
-        <span class="cuenta">${listos} de ${revisiones.length}</span>
-      </div>
-      <ul class="chequeo">${revisiones.map((r) => `
-        <li>
-          <span class="marca" data-ok="${r.ok ? 'si' : 'no'}">${r.ok ? '✓' : '!'}</span>
-          <span class="txt"><b>${esc(r.t)}</b>${r.ok ? '' : `<span>${esc(r.d)}</span>`}</span>
-          ${r.ok ? '' : `<button type="button" class="btn btn--linea btn--sm" data-ir="${r.s}">Completar</button>`}
-        </li>`).join('')}</ul>`;
-    tarjeta.addEventListener('click', (e) => {
-      const b = e.target.closest('[data-ir]');
-      if (b) ir(b.dataset.ir);
-    });
-    lienzo.appendChild(tarjeta);
-
   }
 
   /* ═══════════════════════════════════════════════════════════════
