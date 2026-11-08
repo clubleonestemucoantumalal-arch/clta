@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-10-23T02:45:02.337Z",
+  "actualizado": "2026-11-08T05:42:16.470Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -290,6 +290,446 @@
   ],
   "proyectos": [
     {
+      "idLions": "SA-10528131",
+      "tag": "Otro servicio humanitario",
+      "titulo": "CORRIDA SALUDABLE",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-11-01"
+    },
+    {
+      "idLions": "SA-10460139",
+      "tag": "Juventud",
+      "titulo": "Acción de Lion Quest en liceo Gabriela Mistral de Temuco",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-30"
+    },
+    {
+      "idLions": "SA-10497480",
+      "tag": "Cáncer infantil",
+      "titulo": "ALOJAMIENTO PARA PAPA DE PACIENTE DE ONCOLOGIA INFANTIL EN SITUACION VULNERABLE",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-30"
+    },
+    {
+      "idLions": "SA-10482725",
+      "tag": "Juventud",
+      "titulo": "Cartel de la Paz. Actividades  de promoción en colegios, recepción de trabajos y seleciión por jurado",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-28"
+    },
+    {
+      "idLions": "SA-10528193",
+      "tag": "Cáncer infantil",
+      "titulo": "ADOLESCENTE CON CANCER, DONAR FARMACO",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-21"
+    },
+    {
+      "idLions": "SA-10528173",
+      "tag": "Otro servicio humanitario",
+      "titulo": "ATENCIÓN MATRONAS ONCOLOGÍA MAMARIA",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-21"
+    },
+    {
+      "idLions": "SA-10497323",
+      "tag": "Cáncer infantil",
+      "titulo": "AYUDA A PACIENTE DE ONCOLOGIA INFANTIL",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-20"
+    },
+    {
+      "idLions": "SA-10450771",
+      "tag": "Visión",
+      "titulo": "Operativo médico en hospital de Pitrufquén, Oftalmología, Urología y Endoscopia digestiva",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-17"
+    },
+    {
+      "idLions": "SA-10497547",
+      "tag": "Cáncer infantil",
+      "titulo": "CAJA DE ALIMENTO PARA PACIENTE DE ONCOLOGIA INFANTIL",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-15"
+    },
+    {
+      "idLions": "SA-10450586",
+      "tag": "Juventud",
+      "titulo": "Acciones que inspiran",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-09"
+    },
+    {
+      "idLions": "SA-10497220",
+      "tag": "Hambre",
+      "titulo": "AYUDA INTEGRAL A FAMILIA EN SITUACION VULNERABLE",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-07"
+    },
+    {
+      "idLions": "SA-10325999",
+      "tag": "Otro servicio humanitario",
+      "titulo": "Jornada de  difusión orientada a la lucha contra el cáncer de mama",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-10-01"
+    },
+    {
+      "idLions": "SA-10314688",
+      "tag": "Cáncer infantil",
+      "titulo": "Entrega de kits dentales a niños con cáncer en el Hospital Regional de Temuco.",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-30"
+    },
+    {
+      "idLions": "SA-10325960",
+      "tag": "Juventud",
+      "titulo": "Acción de Lion Quest en liceo Gabriela Mistral de Temuco",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-30"
+    },
+    {
+      "idLions": "SA-10274653",
+      "tag": "Juventud",
+      "titulo": "concurso denominado \"Spelling bee\" (Ortografía hablada)",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-23"
+    },
+    {
+      "idLions": "SA-10268886",
+      "tag": "Auxilio en casos de desastre",
+      "titulo": "AYUDA A PERSONA QUE SUFRIO INUNDACION DE SU VIVIENDA",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-23"
+    },
+    {
+      "idLions": "SA-10274616",
+      "tag": "Juventud",
+      "titulo": "Formación de Liderezas Mistralianas",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-22"
+    },
+    {
+      "idLions": "SA-10314768",
+      "tag": "Otro servicio humanitario",
+      "titulo": "Concierto piano Maestro Roberto Bravo",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-21"
+    },
+    {
+      "idLions": "SA-10274739",
+      "tag": "Visión",
+      "titulo": "Entrega Lentes",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-17"
+    },
+    {
+      "idLions": "SA-10268841",
+      "tag": "Otro servicio humanitario",
+      "titulo": "ENTREGA DE PLANCHAS A MADRE CON RECIEN NACIDO EN SITUACION CALLE",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-14"
+    },
+    {
+      "idLions": "SA-10269918",
+      "tag": "Otro servicio humanitario",
+      "titulo": "Actividad en el Hogar San Vicente de Paul",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-12"
+    },
+    {
+      "idLions": "SA-10268927",
+      "tag": "Otro servicio humanitario",
+      "titulo": "VISITA A ENFERMO TERMINAL",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-11"
+    },
+    {
+      "idLions": "SA-10268714",
+      "tag": "Cáncer infantil",
+      "titulo": "ENTREGA DE CAJAS DE ALIMENTO A 10 INSTITUCIONES DE AYUDA SOCIAL",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-11"
+    },
+    {
+      "idLions": "SA-10269910",
+      "tag": "Hambre",
+      "titulo": "Operativo de entrega de 10 cajas de alimentos",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-10"
+    },
+    {
+      "idLions": "SA-10268798",
+      "tag": "Otro servicio humanitario",
+      "titulo": "ENTREGA DE FRAZADAS A ADULTOS MAYORES EN SITUACION VULNERABLE",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-10"
+    },
+    {
+      "idLions": "SA-10268659",
+      "tag": "Cáncer infantil",
+      "titulo": "AYUDA A DOS FAMILIAS DE PACIENTES DE ONCOLOGIA INFANTIL",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-08"
+    },
+    {
+      "idLions": "SA-10157773",
+      "tag": "Cáncer infantil",
+      "titulo": "AYUDA A PACIENTE DE ONCOLOGIA INFANTIL",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-09-03"
+    },
+    {
+      "idLions": "SA-10124909",
+      "tag": "Juventud",
+      "titulo": "Acción de Lion Quest en liceo Gabriela Mistral de Temuco",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-08-31"
+    },
+    {
+      "idLions": "SA-10152888",
+      "tag": "Juventud",
+      "titulo": "IMPLEMENTACION DE BIBLIOTECA A ESCUELA RUPAYAN DE MALLOHUE",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-08-28"
+    },
+    {
+      "idLions": "SA-10133588",
+      "tag": "Hambre",
+      "titulo": "Entrega de cajas de alimentos a  adultos mayores",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-08-28"
+    },
+    {
+      "idLions": "SA-10111527",
+      "tag": "Auxilio en casos de desastre",
+      "titulo": "REUNION con el Director Emergencias de la Municipalidad de Temuco",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-08-27"
+    },
+    {
+      "idLions": "SA-10111467",
+      "tag": "Juventud",
+      "titulo": "Reunión y Donación a Centro padres Liceo Gabriela Mistral",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-08-24"
+    },
+    {
+      "idLions": "SA-10152961",
+      "tag": "Hambre",
+      "titulo": "ENTREGA DE CAJA DE ALIMENTO A FAMILIA VENEZOLANA",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-08-22"
+    },
+    {
+      "idLions": "SA-10152801",
+      "tag": "Hambre",
+      "titulo": "APOYO INTEGRAL A HOGAR DE ANCIANOS EDEN",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-08-21"
+    },
+    {
+      "idLions": "SA-10124930",
+      "tag": "Juventud",
+      "titulo": "Acción de Lion Quest en liceo Gabriela Mistral de Temuco",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-31"
+    },
+    {
+      "idLions": "SA-09927131",
+      "tag": "Otro servicio humanitario",
+      "titulo": "Donación Insumos Comite Damas a Familia de necesitados",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-29"
+    },
+    {
+      "idLions": "SA-09986512",
+      "tag": "Otro servicio humanitario",
+      "titulo": "AYUDA A NIÑO EN SITUACION VULNERABLE",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-27"
+    },
+    {
+      "idLions": "SA-09919359",
+      "tag": "Otro servicio humanitario",
+      "titulo": "CAMPAÑA DE INVIERNO FAMILIAS VULNERABLES",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-26"
+    },
+    {
+      "idLions": "SA-09986463",
+      "tag": "Hambre",
+      "titulo": "AYUDA A FAMILIA SIN INGRESOS CON 5 HIJOS EN SITUACION VULNERABLE",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-25"
+    },
+    {
+      "idLions": "SA-09986487",
+      "tag": "Hambre",
+      "titulo": "AYUDA A BEBE GABRIEL HIJO DE MADRE EN SITUACION CALLE",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-25"
+    },
+    {
+      "idLions": "SA-09927344",
+      "tag": "Visión",
+      "titulo": "Donación Camara de flujo Laminar",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-22"
+    },
+    {
+      "idLions": "SA-09986443",
+      "tag": "Auxilio en casos de desastre",
+      "titulo": "AYUDA A FAMILIA QUE PERDIO SU HOGAR EN UN INCENDIO",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-22"
+    },
+    {
+      "idLions": "SA-09950442",
+      "tag": "Otro servicio humanitario",
+      "titulo": "APOYO A PERSONA MAYOR",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-21"
+    },
+    {
+      "idLions": "SA-09927227",
+      "tag": "Otro servicio humanitario",
+      "titulo": "Capacitación Héctor 1",
+      "texto": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-07-01"
+    },
+    {
       "tag": "Octubre · Salud",
       "titulo": "Operativo médico en Pitrufquén",
       "texto": "Junto al Club de Leones de Pitrufquén y con apoyo del Servicio de Salud Araucanía Sur, atendimos a pacientes del hospital de Pitrufquén para ayudar a reducir su lista de espera.",
@@ -391,6 +831,42 @@
       "personas": "2",
       "cuerpo": "Una acción sencilla, pero muy significativa. El 17 de septiembre la presidenta del Comité de Damas Temuco Antumalal acompañó la entrega de lentes a dos personas que requerían este importante apoyo.\n\nUnos lentes a tiempo cambian el día a día: se lee, se trabaja y se camina con más seguridad. Y representan además un alivio para la economía familiar.\n\nLa visión es la causa histórica de los Leones desde que Helen Keller les pidió, en 1925, ser «caballeros de los ciegos en la cruzada contra la oscuridad». Hasta hoy, cada par de lentes entregado en Temuco continúa esa historia.",
       "foto2": "assets/img/proyectos/galeria/lentes-1.jpg"
+    },
+    {
+      "tag": "",
+      "titulo": "Nuevo proyecto",
+      "texto": "",
+      "fecha": "",
+      "cuerpo": "",
+      "lugar": "",
+      "personas": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "",
+      "ancho": false
+    },
+    {
+      "tag": "",
+      "titulo": "Nuevo proyecto",
+      "texto": "",
+      "fecha": "2026-11-08",
+      "cuerpo": "",
+      "lugar": "",
+      "personas": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "",
+      "ancho": false
+    },
+    {
+      "tag": "",
+      "titulo": "Nuevo proyecto",
+      "texto": "",
+      "fecha": "2026-11-08",
+      "cuerpo": "",
+      "lugar": "",
+      "personas": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "",
+      "ancho": false
     }
   ],
   "valores": [
@@ -565,7 +1041,7 @@
       "tag": "Artículo",
       "titulo": "Nuevo artículo",
       "texto": "",
-      "fecha": "",
+      "fecha": "2026-11-08",
       "autor": "",
       "imagen": "",
       "video": "",
