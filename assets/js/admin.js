@@ -1542,17 +1542,21 @@
   }
 
   /* ─── Mensajes del formulario de contacto ─── */
-  const ETIQUETAS = ['Quiero ser socio', 'Donación', 'Consulta', 'Prensa', 'Urgente', 'Respondido'];
+  /* Etiquetas con color: [texto, fondo] */
+  const ETQ = { 'Pendiente': ['#9A4A00', '#FFE8C2'], 'En seguimiento': ['#1D4ED8', '#DCE8FF'], 'Respondido': ['#0B6B45', '#D4F3E4'], 'Urgente': ['#B42318', '#FFD9D5'],
+    'Quiero ser socio': ['#6D28D9', '#EBE3FF'], 'Donación': ['#8A5A00', '#FFF0B3'], 'Consulta': ['#374151', '#E5E7EB'], 'Prensa': ['#0E7490', '#CDF2FA'] };
+  const ETIQUETAS = Object.keys(ETQ);
+  const chipEtq = (t, solido) => { const c = ETQ[t] || ['#374151', '#E5E7EB']; return solido ? `background:${c[0]};color:#fff;border-color:${c[0]}` : `background:${c[1]};color:${c[0]};border-color:${c[0]}`; };
   async function panelMensajes(lienzo) {
     const caja = document.createElement('div');
     lienzo.appendChild(caja);
     caja.innerHTML = '<p class="nota-res">Cargando mensajes…</p>';
     const [r] = await Promise.all([api('/api/mensajes'), cargarAjustes(), cargarSocios()]);
     if (!r) { caja.innerHTML = SIN_CONEXION; return; }
-    let todos = r.mensajes, filtro = 'activos', abierto = null;
+    let todos = r.mensajes, filtro = 'activos', abierto = null, filtroEtq = '';
 
     const pintar = () => {
-      const lista = todos.filter((m) => filtro === 'todos' ? true : filtro === 'archivados' ? m.estado === 'archivado' : m.estado !== 'archivado');
+      const lista = todos.filter((m) => (filtro === 'todos' ? true : filtro === 'archivados' ? m.estado === 'archivado' : m.estado !== 'archivado') && (!filtroEtq || m.etiqueta === filtroEtq));
       const nuevos = todos.filter((m) => m.estado === 'nuevo').length;
       pintarInsignia(nuevos);
       caja.innerHTML = `
@@ -1560,17 +1564,18 @@
           <div class="tarjeta__cab"><div><h3>${nuevos ? `Tienes ${nuevos} mensaje${nuevos === 1 ? '' : 's'} sin leer` : 'No tienes mensajes sin leer'}</h3>
             <p>Son los que la gente escribe en el cuadro «Contáctanos» de la página. También llegan al correo del club.</p></div>
             <button class="btn btn--linea" id="msgExcel" type="button">⬇ Descargar en Excel</button></div>
-          <div class="filtros">${[['activos', 'Por atender'], ['archivados', 'Archivados'], ['todos', 'Todos']].map(([k, n]) => `<button type="button" class="btn ${filtro === k ? '' : 'btn--linea'} btn--sm" data-f="${k}">${n}</button>`).join('')}</div>
+          <div class="filtros">${[['activos', 'Por atender'], ['archivados', 'Archivados'], ['todos', 'Todos']].map(([k, n]) => `<button type="button" class="btn ${filtro === k ? '' : 'btn--linea'} btn--sm" data-f="${k}">${n}</button>`).join('')}
+            <select id="msgFiltroEtq" aria-label="Filtrar por etiqueta" style="padding:8px 12px;border:1px solid var(--g-borde);border-radius:10px;font:inherit"><option value="">Todas las etiquetas</option>${ETIQUETAS.map((t) => `<option ${filtroEtq === t ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select></div>
         </div>
         ${lista.length ? lista.map((m) => `
         <div class="tarjeta msg ${m.estado === 'nuevo' ? 'msg--nuevo' : ''}" data-id="${m.id}">
-          <div class="msg__cab"><b>${esc(m.nombre)}</b>${m.estado === 'nuevo' ? '<span class="etq etq--nuevo">Nuevo</span>' : ''}${m.etiqueta ? `<span class="etq etq--tag">🏷 ${esc(m.etiqueta)}</span>` : ''}${m.estado === 'archivado' ? '<span class="etq">Archivado</span>' : ''}<span class="msg__fecha">${esc(fechaHora(m.t))}</span></div>
+          <div class="msg__cab"><b>${esc(m.nombre)}</b>${m.estado === 'nuevo' ? '<span class="etq etq--nuevo">Nuevo</span>' : ''}${m.etiqueta ? `<span class="etq etq--tag" style="${chipEtq(m.etiqueta, true)}">● ${esc(m.etiqueta)}</span>` : ''}${m.estado === 'archivado' ? '<span class="etq">Archivado</span>' : ''}<span class="msg__fecha">${esc(fechaHora(m.t))}</span></div>
           <div class="msg__datos">${m.motivo ? `<span>📌 ${esc(m.motivo)}</span>` : ''}<span>✉ <a href="mailto:${esc(m.email)}">${esc(m.email)}</a></span>${m.telefono ? `<span>📞 <a href="tel:${esc(m.telefono)}">${esc(m.telefono)}</a></span>` : ''}${m.origen ? `<span>🔎 Nos conoció por: ${esc(m.origen)}</span>` : ''}</div>
           <p class="msg__texto">${esc(m.mensaje).replace(/\n/g, '<br>')}</p>
           ${m.nota ? `<div class="msg__nota">💬 <b>Comentario:</b> ${esc(m.nota).replace(/\n/g, '<br>')}</div>` : ''}
           ${abierto === m.id ? `<div class="msg__etq">
             <b>Etiqueta</b>
-            <div class="opc">${ETIQUETAS.map((t) => `<button type="button" class="btn btn--sm ${m.etiqueta === t ? '' : 'btn--linea'}" data-tag="${esc(t)}">${esc(t)}</button>`).join('')}${m.etiqueta ? '<button type="button" class="btn btn--linea btn--sm" data-tag="">✕ Quitar etiqueta</button>' : ''}</div>
+            <div class="opc">${ETIQUETAS.map((t) => `<button type="button" class="chip-etq${m.etiqueta === t ? ' on' : ''}" style="${chipEtq(t, m.etiqueta === t)}" data-tag="${esc(t)}">${m.etiqueta === t ? '✓ ' : ''}${esc(t)}</button>`).join('')}${m.etiqueta ? '<button type="button" class="btn btn--linea btn--sm" data-tag="">✕ Quitar etiqueta</button>' : ''}</div>
             <label class="campo__et">Comentario (solo lo ve quien entra al panel)<textarea id="msgNota" rows="2" placeholder="Ej.: Llamé a la persona el lunes; quedó de venir a la sesión.">${esc(m.nota || '')}</textarea></label>
             <div class="msg__acc"><button class="btn btn--sm" data-a="guardarnota" type="button">💾 Guardar comentario</button><button class="btn btn--linea btn--sm" data-a="cerrarcl" type="button">Cerrar</button></div>
           </div>` : ''}
@@ -1593,6 +1598,7 @@
       return !!ok;
     };
 
+    caja.addEventListener('change', (e) => { if (e.target.id === 'msgFiltroEtq') { filtroEtq = e.target.value; pintar(); } });
     caja.addEventListener('click', async (e) => {
       const f = e.target.closest('[data-f]');
       if (f) { filtro = f.dataset.f; pintar(); return; }
@@ -1626,9 +1632,18 @@
         if (!confirm('¿Borrar este mensaje para siempre?\n\nSi solo quieres sacarlo de la lista, mejor usa «Archivar».')) return;
         if (await cambiar(m, 'borrar')) { todos = todos.filter((x) => x !== m); pintar(); }
       } else if (a === 'reenviar') {
-        ventanaReenviar(m, async (para, comentario) => {
+        ventanaReenviar(m, async (para, comentario, seguir) => {
           await cambiar(m, 'reenvio', { para, comentario });
-          m.reenvios.push({ t: Date.now(), para, comentario }); if (m.estado === 'nuevo') m.estado = 'leido'; pintar();
+          m.reenvios.push({ t: Date.now(), para, comentario }); if (m.estado === 'nuevo') m.estado = 'leido';
+          if (seguir) {
+            /* queda anotado en el comentario a quién se envió y para qué, y se marca «En seguimiento» */
+            const fecha = new Date().toLocaleDateString('es-CL', { day: 'numeric', month: 'short' });
+            const linea = '↪ ' + fecha + ': se envió a ' + para + (comentario ? ' — ' + comentario.replace(/[.\s]+$/, '') : '') + '.';
+            const nota = (m.nota ? m.nota + '\n' : '') + linea;
+            if (await cambiar(m, 'nota', { nota })) m.nota = nota;
+            if (m.etiqueta !== 'Respondido' && m.etiqueta !== 'Urgente' && await cambiar(m, 'etiqueta', { etiqueta: 'En seguimiento' })) m.etiqueta = 'En seguimiento';
+          }
+          pintar();
         });
       }
     });
@@ -1648,6 +1663,7 @@
       <label class="campo__et">Otro correo (opcional)<input type="email" id="rvOtro" placeholder="nombre@correo.cl"></label>
       <p class="nota-res" style="margin-top:12px">2. Escribe un comentario para quien lo recibe (opcional).</p>
       <textarea id="rvCom" rows="3" placeholder="Ej.: Hector, ¿puedes responderle a esta persona esta semana?"></textarea>
+      <label class="chk"><input type="checkbox" id="rvSeg" checked> <span><b>Dejar anotado el seguimiento</b><small>Pone la etiqueta «En seguimiento» y escribe en el comentario a quién se lo enviaste.</small></span></label>
       <p class="nota-res">3. Elige cómo enviarlo. Se abrirá tu correo o WhatsApp con todo escrito; tú solo das «Enviar».</p>
       <div class="msg__acc">
         <button class="btn" id="rvMail" type="button">✉ Abrir en mi correo</button>
@@ -1665,7 +1681,7 @@
         'Fecha: ' + fechaHora(m.t) + '\n\n' + m.mensaje + (AJ.firma ? '\n\n' + AJ.firma : '');
     };
     const cerrar = () => v.remove();
-    const registrar = () => alTerminar(correos().join(', '), v.querySelector('#rvCom').value.trim());
+    const registrar = () => alTerminar(correos().join(', '), v.querySelector('#rvCom').value.trim(), v.querySelector('#rvSeg').checked);
     const hay = () => { if (!correos().length) { aviso('Marca al menos a una persona o escribe un correo.', 'mal'); return false; } return true; };
     v.addEventListener('click', async (e) => {
       if (e.target === v || e.target.id === 'rvCerrar') return cerrar();
@@ -1675,7 +1691,7 @@
         await registrar(); cerrar();
       } else if (e.target.id === 'rvWa') {
         window.open('https://wa.me/?text=' + encodeURIComponent(texto()), '_blank', 'noopener');
-        await alTerminar('WhatsApp', v.querySelector('#rvCom').value.trim()); cerrar();
+        await alTerminar([...elegidos().map((x) => x.nombre)].join(', ') || 'un socio (WhatsApp)', v.querySelector('#rvCom').value.trim(), v.querySelector('#rvSeg').checked); cerrar();
       } else if (e.target.id === 'rvCopiar') {
         try { await navigator.clipboard.writeText(texto()); aviso('Texto copiado. Pégalo donde quieras.', 'ok'); } catch { aviso('No se pudo copiar.', 'mal'); }
       }

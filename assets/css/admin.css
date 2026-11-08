@@ -826,3 +826,8 @@ html[data-tema="oscuro"] .dos-c input, html[data-tema="oscuro"] .modalx input[ty
 .msg__nota{ background:#FFF8DB; border-left:4px solid var(--oro-600); border-radius:8px; padding:8px 12px; margin:8px 0; font-size:.92rem; color:#3B3000 }
 .msg__etq{ border:1px dashed var(--g-borde); border-radius:12px; padding:12px; margin:10px 0 }
 html[data-tema="oscuro"] .msg__nota{ background:#3A3110; color:#FFE9A0 }
+
+.chip-etq{ all:unset; box-sizing:border-box; cursor:pointer; padding:7px 14px; border-radius:999px; border:2px solid; font-weight:700; font-size:.88rem; min-height:38px; display:inline-flex; align-items:center }
+.chip-etq:hover{ filter:brightness(.95) } .chip-etq:focus-visible{ outline:3px solid var(--azul-claro); outline-offset:2px }
+.etq--tag{ border:1px solid; font-size:.78rem !important }
+.msg__nota{ white-space:normal }
