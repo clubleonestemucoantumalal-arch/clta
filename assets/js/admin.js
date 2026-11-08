@@ -623,13 +623,31 @@
     return filas.filter((f) => f.length > 1 || f[0] !== '');
   }
 
+  /* Redacción en la línea del club: crónica en primera persona, como la cuenta un socio.
+     Convierte lo que viene del reporte de Lions («ENTREGA DE CAJAS…», «Se realiza…») en un borrador legible. */
+  function oracion(t) {
+    t = String(t || '').replace(/\s+/g, ' ').replace(/^[\s"',]+|[\s"',]+$/g, '');
+    const letras = t.replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ]/g, '');
+    const mayus = letras.length > 6 && (t.replace(/[^A-ZÁÉÍÓÚÑ]/g, '').length / letras.length) > 0.6;
+    if (mayus) t = t.toLowerCase();
+    return t.charAt(0).toUpperCase() + t.slice(1);
+  }
+  function enPrimeraPersona(t) {
+    return oracion(t)
+      .replace(/^Se hace entrega de /i, 'Entregamos ').replace(/^Se hace entrega a /i, 'Entregamos a ').replace(/^Se hacen entrega /i, 'Entregamos ')
+      .replace(/^Se entrega(n)?/i, 'Entregamos').replace(/^Se realiza(n)?/i, 'Realizamos')
+      .replace(/^Se efectúa(n)?/i, 'Realizamos').replace(/^Entrega de /i, 'Entregamos ')
+      .replace(/^Se dona(n)?/i, 'Donamos').replace(/^Donación de/i, 'Donamos');
+  }
+
   function leerActividadesLions(textoCSV) {
     const filas = analizarCSV(textoCSV);
     if (filas.length < 2) return { validas: [], ignoradas: 0 };
     const enc = filas[0].map((h) => h.trim().toLowerCase());
     const col = (pista) => enc.findIndex((h) => h.includes(pista));
     const iId = col('identifica'), iTitulo = col('tulo'), iFin = col('finaliz'),
-          iTipo = col('actividades de servicio'), iCausa = col('causa');
+          iTipo = col('actividades de servicio'), iCausa = col('causa'),
+          iDesc = col('descrip'), iBenef = col('beneficiad'), iOrg = col('organizaci');
 
     const validas = [];
     let ignoradas = 0;
@@ -641,11 +659,16 @@
       if ((tipo !== 'donation' && tipo !== 'service_project') || !causaEs) { ignoradas++; return; }
       const titulo = f[iTitulo].replace(/^[\s",]+|[\s",]+$/g, '');
       if (!titulo) { ignoradas++; return; }
+      const desc = iDesc >= 0 ? (f[iDesc] || '').trim() : '';
+      const benef = iBenef >= 0 ? parseInt(f[iBenef], 10) : NaN;
+      const org = iOrg >= 0 ? (f[iOrg] || '').trim() : '';
       validas.push({
         idLions: (f[iId] || '').trim(),
         tag: causaEs,
-        titulo,
-        texto: '',
+        titulo: oracion(titulo),
+        texto: desc ? enPrimeraPersona(desc).slice(0, 260) : '',
+        lugar: org && org.length <= 60 && !/^[\d.]+$/.test(org) ? oracion(org) : '',
+        personas: benef > 0 ? String(benef) : '',
         imagen: 'assets/img/fotos/proyecto-1.svg',
         enlace: '#contacto',
         ancho: false,
@@ -710,7 +733,9 @@
       pendientes.forEach((v) => {
         if (v.idLions && porId.has(v.idLions)) {
           const i = porId.get(v.idLions);
-          resultado[i] = Object.assign({}, resultado[i], { titulo: v.titulo, tag: v.tag, fecha: v.fecha });
+          const ya = resultado[i];
+          const editada = !!(ya.cuerpo || ya.texto);      /* lo ya redactado a mano no se toca */
+          resultado[i] = Object.assign({}, ya, editada ? { fecha: v.fecha } : { titulo: v.titulo, tag: v.tag, fecha: v.fecha });
           actualizados++;
         } else {
           nuevas.push(v);
