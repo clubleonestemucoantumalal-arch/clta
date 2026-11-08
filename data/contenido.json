@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-11-08T05:52:54.857Z",
+  "actualizado": "2026-11-08T05:54:27.534Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -355,7 +355,7 @@
       "tag": "Cáncer infantil",
       "titulo": "CAJA DE ALIMENTO PARA PACIENTE DE ONCOLOGIA INFANTIL",
       "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "imagen": "img:proyecto-mw7f3227",
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-10-15"
