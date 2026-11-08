@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-11-08T05:42:16.470Z",
+  "actualizado": "2026-11-08T05:47:26.540Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -294,10 +294,11 @@
       "tag": "Otro servicio humanitario",
       "titulo": "CORRIDA SALUDABLE",
       "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "imagen": "img:proyecto-mw7etyhf",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-11-01"
+      "fecha": "2026-11-01",
+      "foto2": "img:terreno-mw7eu91v"
     },
     {
       "idLions": "SA-10460139",
@@ -720,16 +721,6 @@
       "fecha": "2026-07-21"
     },
     {
-      "idLions": "SA-09927227",
-      "tag": "Otro servicio humanitario",
-      "titulo": "Capacitación Héctor 1",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-07-01"
-    },
-    {
       "tag": "Octubre · Salud",
       "titulo": "Operativo médico en Pitrufquén",
       "texto": "Junto al Club de Leones de Pitrufquén y con apoyo del Servicio de Salud Araucanía Sur, atendimos a pacientes del hospital de Pitrufquén para ayudar a reducir su lista de espera.",
@@ -831,42 +822,6 @@
       "personas": "2",
       "cuerpo": "Una acción sencilla, pero muy significativa. El 17 de septiembre la presidenta del Comité de Damas Temuco Antumalal acompañó la entrega de lentes a dos personas que requerían este importante apoyo.\n\nUnos lentes a tiempo cambian el día a día: se lee, se trabaja y se camina con más seguridad. Y representan además un alivio para la economía familiar.\n\nLa visión es la causa histórica de los Leones desde que Helen Keller les pidió, en 1925, ser «caballeros de los ciegos en la cruzada contra la oscuridad». Hasta hoy, cada par de lentes entregado en Temuco continúa esa historia.",
       "foto2": "assets/img/proyectos/galeria/lentes-1.jpg"
-    },
-    {
-      "tag": "",
-      "titulo": "Nuevo proyecto",
-      "texto": "",
-      "fecha": "",
-      "cuerpo": "",
-      "lugar": "",
-      "personas": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "",
-      "ancho": false
-    },
-    {
-      "tag": "",
-      "titulo": "Nuevo proyecto",
-      "texto": "",
-      "fecha": "2026-11-08",
-      "cuerpo": "",
-      "lugar": "",
-      "personas": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "",
-      "ancho": false
-    },
-    {
-      "tag": "",
-      "titulo": "Nuevo proyecto",
-      "texto": "",
-      "fecha": "2026-11-08",
-      "cuerpo": "",
-      "lugar": "",
-      "personas": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "",
-      "ancho": false
     }
   ],
   "valores": [
