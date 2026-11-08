@@ -743,7 +743,31 @@
 
     function guardar(nuevos) { asignar(def.ruta, nuevos); }
 
+    /* Las listas con fecha (proyectos, artículos, actividades) quedan siempre ordenadas por fecha.
+       Proyectos y artículos: lo más reciente primero. Actividades: lo más próximo primero. */
+    const porFecha = !!(def.nuevo && 'fecha' in def.nuevo);
+    const ascendente = def.ruta === 'agenda.eventos';
+    const MES3 = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+    const fechaBonita = (f) => { const m = String(f || '').match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? (+m[3]) + ' ' + MES3[+m[2] - 1] + ' ' + m[1] : 'sin fecha'; };
+    function ordenarPorFecha() {
+      if (!porFecha) return;
+      const ds = datos();
+      const clave = (x) => String((x && x.fecha) || '');
+      const orden = ds.map((x, i) => [x, i]).sort((a, b) => {
+        const ka = clave(a[0]), kb = clave(b[0]);
+        if (ka === kb) return a[1] - b[1];
+        if (!ka) return -1; if (!kb) return 1;           /* sin fecha, arriba, para que se vea y se complete */
+        return ascendente ? (ka < kb ? -1 : 1) : (ka < kb ? 1 : -1);
+      });
+      if (!orden.some(([, i], k) => i !== k)) return;
+      const abiertoObj = abierto >= 0 ? ds[abierto] : null;
+      const nuevos = orden.map(([x]) => x);
+      abierto = abiertoObj ? nuevos.indexOf(abiertoObj) : -1;
+      guardar(nuevos);
+    }
+
     function pintar() {
+      ordenarPorFecha();
       const items = datos();
       cuenta.textContent = items.length + (items.length === 1 ? ' ficha' : ' fichas');
       lista.innerHTML = '';
@@ -763,6 +787,7 @@
           <div class="item__fila">
             <button type="button" class="item__cab">
               <span class="item__n">${i + 1}</span>
+              ${porFecha ? `<span class="item__f${it.fecha ? '' : ' item__f--falta'}">${esc(fechaBonita(it.fecha))}</span>` : ''}
               <span class="item__t">${titulo ? esc(titulo) : '<em>Sin título</em>'}</span>
               <svg class="item__flecha" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
             </button>
@@ -785,8 +810,8 @@
           const pie = document.createElement('div');
           pie.className = 'item__pie';
           pie.innerHTML = `
-            <button type="button" class="btn btn--linea" data-mover="-1" ${i === 0 ? 'disabled' : ''}>↑ Subir</button>
-            <button type="button" class="btn btn--linea" data-mover="1" ${i === items.length - 1 ? 'disabled' : ''}>↓ Bajar</button>
+            ${porFecha ? '<span class="item__orden">Se ordena sola por la fecha</span>' : `<button type="button" class="btn btn--linea" data-mover="-1" ${i === 0 ? 'disabled' : ''}>↑ Subir</button>
+            <button type="button" class="btn btn--linea" data-mover="1" ${i === items.length - 1 ? 'disabled' : ''}>↓ Bajar</button>`}
             <button type="button" class="btn btn--linea" data-duplicar>Duplicar</button>
             <button type="button" class="btn btn--peligro" data-borrar style="margin-left:auto">Eliminar</button>`;
           cuerpo.appendChild(pie);
@@ -830,7 +855,8 @@
       l.push(nuevo);
       abierto = l.length - 1;
       guardar(l); pintar();
-      lista.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const ab = lista.querySelector('.item.abierto') || lista.lastElementChild;
+      if (ab) ab.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
     pintar();
