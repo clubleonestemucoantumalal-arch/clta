@@ -170,11 +170,14 @@ async function rutaPanel(req, env, url) {
 
   if (ruta === '/api/resumen' && req.method === 'GET') {
     const hoy = hoyChile();
-    const desde = (d) => hoyChile(Date.now() - d * 86400000);
     const q = async (sql, ...p) => (await env.DB.prepare(sql).bind(...p).all()).results || [];
+    /* El contador se puede «reiniciar» sin borrar nada: solo se cuenta desde ese día. El historial completo queda guardado. */
+    const fila = await env.DB.prepare("SELECT valor FROM ajustes WHERE clave = 'visitas_desde'").first();
+    const base = (fila && fila.valor) || '0000-00-00';
+    const desde = (d) => { const x = hoyChile(Date.now() - d * 86400000); return x > base ? x : base; };
     const V = "tipo = 'v'";
-    const [tot, d30, d7, dh, uni, porDia, porHora, porSemana, paginas, secciones, origenes, ultimas, nuevos] = await Promise.all([
-      q(`SELECT COUNT(*) AS n FROM visitas WHERE ${V}`),
+    const [tot, d30, d7, dh, uni, porDia, porHora, porSemana, paginas, secciones, origenes, ultimas, nuevos, histTot, histMes, reinicios] = await Promise.all([
+      q(`SELECT COUNT(*) AS n FROM visitas WHERE ${V} AND dia >= ?`, base),
       q(`SELECT COUNT(*) AS n FROM visitas WHERE ${V} AND dia >= ?`, desde(29)),
       q(`SELECT COUNT(*) AS n FROM visitas WHERE ${V} AND dia >= ?`, desde(6)),
       q(`SELECT COUNT(*) AS n FROM visitas WHERE ${V} AND dia = ?`, hoy),
@@ -185,12 +188,16 @@ async function rutaPanel(req, env, url) {
       q("SELECT ruta, COUNT(*) AS n FROM visitas WHERE tipo = 'p' AND dia >= ? GROUP BY ruta ORDER BY n DESC LIMIT 8", desde(29)),
       q("SELECT ruta, COUNT(*) AS n FROM visitas WHERE tipo = 's' AND dia >= ? GROUP BY ruta ORDER BY n DESC LIMIT 14", desde(29)),
       q(`SELECT ref, COUNT(*) AS n FROM visitas WHERE ${V} AND dia >= ? AND ref != '' GROUP BY ref ORDER BY n DESC LIMIT 6`, desde(29)),
-      q(`SELECT t, dia, hora, ruta, ref FROM visitas WHERE ${V} ORDER BY t DESC LIMIT 15`),
-      q("SELECT COUNT(*) AS n FROM mensajes WHERE estado = 'nuevo'")
+      q(`SELECT t, dia, hora, ruta, ref FROM visitas WHERE ${V} AND dia >= ? ORDER BY t DESC LIMIT 15`, base),
+      q("SELECT COUNT(*) AS n FROM mensajes WHERE estado = 'nuevo'"),
+      q(`SELECT COUNT(*) AS n, MIN(dia) AS primera FROM visitas WHERE ${V}`),
+      q(`SELECT substr(dia, 1, 7) AS mes, COUNT(*) AS n FROM visitas WHERE ${V} GROUP BY mes ORDER BY mes`),
+      q("SELECT valor FROM ajustes WHERE clave = 'visitas_reinicios'")
     ]);
+    let lista = []; try { lista = JSON.parse((reinicios[0] && reinicios[0].valor) || '[]'); } catch { lista = []; }
     const semana = [0, 0, 0, 0, 0, 0, 0]; /* lunes a domingo */
     porSemana.forEach((r) => { const d = new Date(r.dia + 'T12:00:00Z').getUTCDay(); semana[(d + 6) % 7]++; });
-    return json({ ok: true, hoy, total: tot[0].n, d30: d30[0].n, d7: d7[0].n, hoyN: dh[0].n, unicos30: uni[0].n, porDia, porHora, semana, paginas, secciones, origenes, ultimas, nuevos: nuevos[0].n });
+    return json({ ok: true, hoy, total: tot[0].n, d30: d30[0].n, d7: d7[0].n, hoyN: dh[0].n, unicos30: uni[0].n, desdeDia: base === '0000-00-00' ? '' : base, historico: { total: histTot[0].n, primera: histTot[0].primera || '', porMes: histMes, reinicios: lista }, porDia, porHora, semana, paginas, secciones, origenes, ultimas, nuevos: nuevos[0].n });
   }
 
   if (ruta === '/api/mensajes' && req.method === 'GET') {
@@ -232,6 +239,31 @@ async function rutaPanel(req, env, url) {
     const limpio = c.socios.map((x) => ({ id: recorta(x.id, 20), n: recorta(x.n, 80), a: recorta(x.a, 80), c: recorta(x.c, 160), m: recorta(x.m, 30), t: recorta(x.t, 30), f: recorta(x.f, 12), i: recorta(x.i, 12), e: recorta(x.e, 40), p: recorta(x.p, 40) }));
     await env.DB.prepare("INSERT INTO ajustes (clave, valor) VALUES ('socios', ?) ON CONFLICT(clave) DO UPDATE SET valor = excluded.valor").bind(JSON.stringify(limpio)).run();
     return json({ ok: true });
+  }
+
+  if (ruta === '/api/reiniciar' && req.method === 'POST') {
+    const correo = await identificar(req, env);
+    const c = await req.json().catch(() => null);
+    const que = c && Array.isArray(c.que) ? c.que : [];
+    if (que.includes('visitas')) {
+      const hoyDia = hoyChile();
+      const prev = await env.DB.prepare("SELECT valor FROM ajustes WHERE clave = 'visitas_reinicios'").first();
+      let lista = []; try { lista = JSON.parse((prev && prev.valor) || '[]'); } catch { lista = []; }
+      lista.push({ dia: hoyDia, por: correo });
+      await env.DB.batch([
+        env.DB.prepare("INSERT INTO ajustes (clave, valor) VALUES ('visitas_desde', ?) ON CONFLICT(clave) DO UPDATE SET valor = excluded.valor").bind(hoyDia),
+        env.DB.prepare("INSERT INTO ajustes (clave, valor) VALUES ('visitas_reinicios', ?) ON CONFLICT(clave) DO UPDATE SET valor = excluded.valor").bind(JSON.stringify(lista.slice(-50)))
+      ]);
+    }
+    const sentencias = {
+      mensajes: "UPDATE mensajes SET estado = 'archivado'",
+      socios: "DELETE FROM ajustes WHERE clave = 'socios'",
+      ajustes: "DELETE FROM ajustes WHERE clave = 'panel'"
+    };
+    const validas = que.filter((k) => sentencias[k]);
+    if (!validas.length && !que.includes('visitas')) return json({ error: 'No hay nada que reiniciar.' }, 400);
+    if (validas.length) await env.DB.batch(validas.map((k) => env.DB.prepare(sentencias[k])));
+    return json({ ok: true, reiniciado: que, por: correo });
   }
 
   if (ruta === '/api/ajustes' && req.method === 'GET') {

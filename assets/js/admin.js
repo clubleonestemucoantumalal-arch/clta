@@ -1576,6 +1576,7 @@
       const semTop = sem.reduce((a, b) => (b[1] > a[1] ? b : a), ['—', 0]);
       const fh = (t) => new Date(t).toLocaleString('es-CL', { timeZone: 'America/Santiago', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
       c.innerHTML = `
+        ${r.desdeDia ? `<p class="nota-res">🔄 El contador está <b>en cero desde el ${esc(fechaLarga(r.desdeDia))}</b>. El historial anterior sigue guardado (abajo, en «Historial completo»).</p>` : ''}
         <p class="nota-res">Cada dispositivo (celular o computador) cuenta <b>una sola vez al día</b>, aunque vuelva a entrar o recargue la página.</p>
         <div class="resumen">
           <div class="resumen__caja"><b>${r.hoyN}</b><span>Visitas hoy</span></div>
@@ -1597,6 +1598,14 @@
           <div><h4 class="vis-t">📄 Páginas más abiertas</h4>${hbar(r.paginas, (x) => nomRuta(x.ruta))}
             <h4 class="vis-t" style="margin-top:16px">🔗 De dónde llegan</h4>${hbar(r.origenes, (x) => x.ref)}</div>
         </div>
+        <details class="vis-hist"><summary>📚 Historial completo (desde el primer día)</summary>
+          ${r.historico && r.historico.total ? `
+          <p class="nota-res"><b>${r.historico.total}</b> visitas en total${r.historico.primera ? ' desde el ' + esc(fechaLarga(r.historico.primera)) : ''}.
+          ${(r.historico.reinicios || []).length ? 'El contador se reinició ' + r.historico.reinicios.map((x) => 'el ' + esc(fechaLarga(x.dia))).join(', ') + '.' : ''}</p>
+          ${barras(r.historico.porMes.map((x) => [x.mes, x.n]), r.historico.porMes.length > 1 ? '<span>' + esc(r.historico.porMes[0].mes) + '</span><span>' + esc(r.historico.porMes[r.historico.porMes.length - 1].mes) + '</span>' : '<span>' + esc((r.historico.porMes[0] || {}).mes || '') + '</span>', 'Visitas por mes, historial completo')}
+          <div class="tabla-vis" style="margin-top:10px"><div class="fv fv--cab"><span>Mes</span><span>Visitas</span><span></span></div>${r.historico.porMes.slice().reverse().map((x) => `<div class="fv"><span>${esc(x.mes)}</span><span>${x.n}</span><span></span></div>`).join('')}</div>`
+          : '<p class="nota-res">Aún no hay historial.</p>'}
+        </details>
         <h4 class="vis-t">🕒 Últimas visitas</h4>
         ${r.ultimas.length ? `<div class="tabla-vis"><div class="fv fv--cab"><span>Fecha y hora</span><span>Entró a</span><span>Llegó desde</span></div>${r.ultimas.map((x) => `<div class="fv"><span>${esc(fh(x.t))}</span><span>${esc(nomRuta(x.ruta))}</span><span>${esc(x.ref || 'Directo / sin dato')}</span></div>`).join('')}</div>` : '<p class="nota-res">Aún no hay visitas registradas.</p>'}`;
     });
@@ -1608,6 +1617,7 @@
     'Quiero ser socio': ['#6D28D9', '#EBE3FF'], 'Donación': ['#8A5A00', '#FFF0B3'], 'Consulta': ['#374151', '#E5E7EB'], 'Prensa': ['#0E7490', '#CDF2FA'] };
   const ETIQUETAS = Object.keys(ETQ);
   const chipEtq = (t, solido) => { const c = ETQ[t] || ['#374151', '#E5E7EB']; return solido ? `background:${c[0]};color:#fff;border-color:${c[0]}` : `background:${c[1]};color:${c[0]};border-color:${c[0]}`; };
+  const fechaLarga = (iso) => { const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/); const ML = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']; return m ? (+m[3]) + ' de ' + ML[+m[2] - 1] + ' de ' + m[1] : String(iso || ''); };
   async function panelMensajes(lienzo) {
     const caja = document.createElement('div');
     lienzo.appendChild(caja);
@@ -2108,6 +2118,37 @@
       <button class="btn btn--linea" type="button" id="irPub">Ir a «Publicar y respaldos»</button></div>`;
     mas.querySelector('#irPub').addEventListener('click', () => ir('publicar'));
     lienzo.appendChild(mas);
+
+    /* Reiniciar: dejar el contador y los datos en cero, por ejemplo al entregar el panel */
+    const rei = document.createElement('div');
+    rei.className = 'tarjeta tarjeta--peligro';
+    rei.innerHTML = `
+      <div class="tarjeta__cab"><div><h3>🧹 Reiniciar datos del panel</h3>
+        <p>Sirve para empezar de cero, por ejemplo cuando se entrega el panel al club. <b>No toca la página</b> (textos, fotos, proyectos, agenda) y <b>el historial de visitas y mensajes se conserva</b> para las estadísticas.</p></div></div>
+      <label class="chk"><input type="checkbox" data-rei="visitas"> <span><b>Contador de visitas (poner en cero desde hoy)</b><small>El contador y los gráficos parten de cero, pero <b>el historial completo se guarda</b> y se puede ver en «Historial completo».</small></span></label>
+      <label class="chk"><input type="checkbox" data-rei="mensajes"> <span><b>Mensajes recibidos (archivar todos)</b><small>Los deja en «Archivados». No se borra nada: siguen ahí, con sus etiquetas y comentarios.</small></span></label>
+      <label class="chk"><input type="checkbox" data-rei="socios"> <span><b>Lista de socios</b><small>Borra el listado que subiste desde el Excel de MyLCI.</small></span></label>
+      <label class="chk"><input type="checkbox" data-rei="ajustes"> <span><b>Socios para reenviar y firma</b><small>Borra la lista de correos de Ajustes y la firma de los reenvíos.</small></span></label>
+      <label class="chk"><input type="checkbox" data-rei="apariencia"> <span><b>Apariencia de este computador</b><small>Letra, color y demás preferencias vuelven a como venían.</small></span></label>
+      <div class="msg__acc"><button class="btn btn--peligro" id="reiBtn" type="button">Reiniciar lo marcado</button></div>
+      <p class="nota-res">La lista de socios y los correos de Ajustes sí se borran por completo; si los quieres guardar, descarga antes el Excel desde Socios.</p>`;
+    lienzo.appendChild(rei);
+    rei.querySelector('#reiBtn').addEventListener('click', async () => {
+      const que = [...rei.querySelectorAll('[data-rei]:checked')].map((c) => c.dataset.rei);
+      if (!que.length) { aviso('Marca primero lo que quieres reiniciar.', 'mal'); return; }
+      const nombres = { visitas: 'el contador de visitas (queda en cero desde hoy; el historial se guarda)', mensajes: 'todos los mensajes (se archivan, no se borran)', socios: 'la lista de socios', ajustes: 'los socios para reenviar y la firma', apariencia: 'la apariencia de este computador' };
+      const lista = que.map((k) => '• ' + nombres[k]).join(String.fromCharCode(10));
+      if (!confirm('Vas a reiniciar:' + String.fromCharCode(10) + lista + String.fromCharCode(10) + String.fromCharCode(10) + '¿Seguir?')) return;
+      const servidor = que.filter((k) => k !== 'apariencia');
+      let ok = true;
+      if (servidor.length) ok = !!(await api('/api/reiniciar', { que: servidor }));
+      if (que.includes('socios')) { SOCIOS = []; try { localStorage.removeItem('antumalal.socios'); } catch { /* ignorar */ } }
+      if (que.includes('ajustes')) { AJ = { miembros: [], firma: '' }; try { localStorage.removeItem('antumalal.aj'); } catch { /* ignorar */ } }
+      if (que.includes('apariencia')) { guardarPref(Object.assign({}, PREF0)); aplicarPref(); }
+      if (que.includes('mensajes')) pintarInsignia(0);
+      aviso(ok ? 'Listo: se reinició lo que marcaste.' : 'Se limpió en este computador, pero el servidor no respondió. Inténtalo de nuevo.', ok ? 'ok' : 'mal');
+      pintarSeccion();
+    });
   }
 
   /* ═══════════════════════════════════════════════════════════════

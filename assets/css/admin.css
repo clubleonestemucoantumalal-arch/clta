@@ -835,3 +835,6 @@ html[data-tema="oscuro"] .msg__nota{ background:#3A3110; color:#FFE9A0 }
 .item__f{ flex:none; font-size:.8rem; font-weight:700; padding:3px 10px; border-radius:999px; background:var(--g-activo); color:var(--azul); white-space:nowrap }
 .item__f--falta{ background:#FFE8C2; color:#9A4A00 }
 .item__orden{ font-size:.82rem; color:var(--g-suave); align-self:center }
+
+.vis-hist{ margin:14px 0; border:1px solid var(--g-borde); border-radius:12px; padding:10px 14px }
+.vis-hist summary{ cursor:pointer; font-weight:700 }
