@@ -4,8 +4,17 @@ compatibility_date = "2026-10-01"
 
 # Solo responde en clta.cl/api/*. Esa ruta debe estar protegida por Cloudflare Access.
 routes = [
-  { pattern = "clta.cl/api/*", zone_name = "clta.cl" }
+  { pattern = "clta.cl/api/*", zone_name = "clta.cl" },
+  # Rutas públicas (visitas y mensajes del formulario). NO deben estar dentro de Cloudflare Access.
+  { pattern = "clta.cl/p/*", zone_name = "clta.cl" }
 ]
+
+# Base de datos de visitas y mensajes. Crear con:  npx wrangler d1 create clta-datos
+# y pegar aquí el database_id que entrega. Ver docs/VISITAS-Y-MENSAJES.md
+[[d1_databases]]
+binding = "DB"
+database_name = "clta-datos"
+database_id = "PEGAR-AQUI-EL-ID"
 
 [vars]
 GH_USUARIO = "clubleonestemucoantumalal-arch"

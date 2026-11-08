@@ -643,3 +643,79 @@ html[data-tema="oscuro"] .item--oculto .item__ver{ color:#A5B1CE }
 .bloque__cab i{ font-style:normal; font-size:.9rem; transition:transform .15s }
 .bloque.cerrado .bloque__cab i{ transform:rotate(-90deg) }
 .bloque.cerrado .bloque__cuerpo{ display:none }
+
+/* Vista previa en vivo (panel lateral) */
+.vtab{ position:fixed; right:0; top:42%; z-index:60; background:var(--azul, #0b2e83); color:#fff; border:0; border-radius:12px 0 0 12px;
+  padding:14px 9px; writing-mode:vertical-rl; font-weight:700; font-size:.82rem; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,.2) }
+.vtab:hover{ filter:brightness(1.12) }
+.vtab[hidden], .vivo[hidden]{ display:none }
+.vivo{ position:fixed; top:0; right:0; bottom:0; width:min(46vw,640px); background:#fff; border-left:1px solid var(--g-borde, #dde2ee);
+  z-index:70; display:flex; flex-direction:column; box-shadow:-6px 0 24px rgba(0,0,0,.08) }
+.vbar{ display:flex; align-items:center; gap:8px; padding:8px 12px; border-bottom:1px solid var(--g-borde, #dde2ee); font-size:.85rem; flex-wrap:wrap }
+.vauto{ display:flex; align-items:center; gap:5px; font-size:.78rem; color:var(--g-suave, #5b6478); cursor:pointer }
+.vmarco{ flex:1; min-height:0; background:#e9ecf3; display:flex; justify-content:center; overflow:hidden }
+.vmarco iframe{ width:100%; height:100%; border:0; background:#fff }
+.vmarco.movil iframe{ width:390px; max-width:100%; border-left:1px solid #cfd5e3; border-right:1px solid #cfd5e3 }
+body.conVivo .app{ margin-right:min(46vw,640px) }
+@media (max-width:1099px){ .vivo{ width:100%; z-index:90 } body.conVivo .app{ margin-right:0 } .vtab{ top:auto; bottom:80px } }
+.ved{ border-top:2px solid var(--oro, #f2b705); background:#fff; padding:10px 12px 12px; box-shadow:0 -6px 18px rgba(0,0,0,.08) }
+.ved[hidden]{ display:none }
+.vedh{ display:flex; align-items:center; gap:8px; margin-bottom:6px }
+.vedh small{ flex:1; color:var(--g-suave, #5b6478); font-size:.72rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+.ved textarea{ width:100%; resize:vertical; min-height:84px; padding:10px; border:1px solid var(--g-borde, #cfd5e3); border-radius:10px; font:inherit; font-size:1rem }
+.vedn{ margin:6px 0 0; font-size:.76rem; color:var(--g-suave, #5b6478) }
+.vundo{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 12px; background:#14213d; color:#fff; font-size:.85rem }
+.vundo[hidden]{ display:none }
+.vundo .btn{ color:#fff; border-color:rgba(255,255,255,.4) }
+
+/* ── Visitas, mensajes y ajustes ── */
+.nota-res{ color:var(--g-suave); font-size:.9rem; margin:8px 0 }
+.barras{ display:flex; align-items:flex-end; gap:3px; height:110px; margin:14px 0 4px; padding:0 2px; border-bottom:1px solid var(--g-borde) }
+.barras i{ flex:1; background:var(--azul); border-radius:3px 3px 0 0; min-height:3px; opacity:.85 }
+.barras i:last-child{ background:var(--oro-600); opacity:1 }
+.dos{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:12px }
+.dos h4{ font-size:.95rem; margin:0 0 6px }
+@media (max-width:760px){ .dos{ grid-template-columns:1fr } }
+.lista-simple{ list-style:none; padding:0; margin:0 }
+.lista-simple li{ display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-bottom:1px solid var(--g-borde); font-size:.95rem }
+.filtros{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px }
+.msg--nuevo{ border-left:5px solid var(--oro-600) }
+.msg__cab{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:1.05rem }
+.msg__fecha{ margin-left:auto; color:var(--g-suave); font-size:.85rem }
+.msg__datos{ display:flex; flex-wrap:wrap; gap:6px 18px; margin:8px 0; font-size:.92rem; color:var(--g-suave) }
+.msg__texto{ background:var(--g-fondo); border-radius:10px; padding:12px 14px; margin:8px 0; font-size:1rem; line-height:1.55 }
+.msg__rev{ font-size:.85rem; color:var(--g-suave); margin:6px 0; padding-left:10px; border-left:3px solid var(--g-borde) }
+.msg__acc{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px }
+.etq{ font-size:.72rem; font-weight:700; padding:2px 9px; border-radius:999px; background:var(--g-hover); color:var(--g-suave) }
+.etq--nuevo{ background:var(--oro); color:var(--azul-900) }
+.insignia{ margin-left:auto; font-style:normal; font-size:.72rem; font-weight:700; min-width:22px; text-align:center; padding:2px 7px; border-radius:999px; background:var(--oro); color:var(--azul-900) }
+.modalx{ position:fixed; inset:0; z-index:200; background:rgba(10,20,50,.55); display:flex; align-items:center; justify-content:center; padding:16px }
+.modalx__caja{ background:#fff; border-radius:16px; padding:22px; width:min(560px,100%); max-height:92vh; overflow:auto; box-shadow:0 20px 60px rgba(0,0,0,.35) }
+.modalx__caja h3{ margin:0 0 8px; font-size:1.15rem }
+.modalx textarea, .modalx input[type=email], .ajuste input[type=text], .ajuste select, .fila-socio input, #soFirma{
+  width:100%; padding:10px 12px; border:1px solid var(--g-borde); border-radius:10px; font:inherit; font-size:1rem; background:#fff; color:inherit }
+.chk{ display:flex; align-items:flex-start; gap:12px; padding:10px 4px; cursor:pointer; font-size:1rem }
+.chk input{ width:22px; height:22px; margin-top:2px; flex:none }
+.chk small{ display:block; color:var(--g-suave); font-size:.82rem; font-weight:400 }
+.campo__et{ display:block; font-weight:600; font-size:.92rem; margin-top:10px }
+.campo__et input, .campo__et textarea{ margin-top:5px; font-weight:400 }
+.ajuste{ padding:12px 0; border-bottom:1px solid var(--g-borde) }
+.ajuste > b{ display:block; margin-bottom:8px }
+.opc{ display:flex; gap:8px; flex-wrap:wrap }
+.color{ width:44px; height:44px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 0 2px var(--g-borde); color:#fff; font-weight:700; cursor:pointer }
+.color.on{ box-shadow:0 0 0 3px var(--oro-600) }
+.fila-socio{ display:grid; grid-template-columns:1fr 1fr 1.3fr auto; gap:8px; margin:8px 0 }
+@media (max-width:760px){ .fila-socio{ grid-template-columns:1fr } }
+.compacto .nav__b{ padding-top:6px; padding-bottom:6px }
+.compacto .lateral__grupo{ padding-top:10px }
+
+/* Pensado para personas mayores: botones grandes, buen contraste y foco visible */
+.rapidos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin-top:8px }
+.rapido{ display:flex; align-items:center; gap:14px; text-align:left; padding:16px 18px; min-height:76px; border:2px solid var(--g-borde); border-radius:14px; background:#fff; cursor:pointer; font:inherit; color:var(--g-texto) }
+.rapido span{ font-size:1.9rem }
+.rapido b{ font-size:1.02rem; font-weight:600; line-height:1.3 }
+.rapido:hover{ border-color:var(--azul); background:var(--g-activo) }
+.btn--sm{ min-height:40px !important; font-size:.92rem !important; padding:8px 16px !important }
+.bloque__cab{ color:#7A5A00 !important; font-size:.76rem }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{ outline:3px solid var(--azul-claro); outline-offset:2px }
+.nav__b{ min-height:44px }

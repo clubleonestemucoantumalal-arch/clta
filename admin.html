@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/admin.css?v=8">
+<link rel="stylesheet" href="assets/css/admin.css?v=13">
 <script>try{if(localStorage.getItem("clta-tema")==="oscuro")document.documentElement.setAttribute("data-tema","oscuro")}catch(e){}</script>
 </head>
 <body>
@@ -229,10 +229,30 @@
 
 <div class="tostadas" id="tostadas" aria-live="polite"></div>
 
+<!-- Vista previa en vivo: se muestra solo en las secciones de «Mi página web» -->
+<button id="vTab" class="vtab" type="button" hidden aria-expanded="false" title="Ver tu página mientras la editas">👁 Vista previa</button>
+<aside id="vivo" class="vivo" hidden aria-label="Vista previa en vivo de la página">
+  <div class="vbar">
+    <b>👁 Vista previa</b><span style="flex:1"></span>
+    <label class="vauto" title="Toca un texto de la página para cambiarlo aquí mismo"><input type="checkbox" id="vEditar" checked> Tocar para editar</label>
+    <label class="vauto"><input type="checkbox" id="vAuto" checked> Automática</label>
+    <button class="btn btn--linea btn--sm" id="vAct" type="button" title="Actualizar ahora">⟳</button>
+    <button class="btn btn--linea btn--sm" id="vDisp" type="button" title="Ver como en celular">📱</button>
+    <button class="btn btn--linea btn--sm" id="vOcul" type="button" title="Plegar al borde">Cerrar ▸</button>
+  </div>
+  <div class="vmarco" id="vMarco"><iframe id="vFrame" title="Tu página web"></iframe></div>
+  <div class="vundo" id="vUndo" hidden>Tarjeta quitada. <button class="btn btn--linea btn--sm" id="vUndoBtn" type="button">↶ Deshacer</button></div>
+  <div class="ved" id="vEd" hidden>
+    <div class="vedh"><b>Editar texto</b><small id="vEdRuta"></small><button class="btn btn--linea btn--sm" id="vEdCerrar" type="button">Listo ✓</button></div>
+    <textarea id="vEdTexto" rows="4" aria-label="Texto"></textarea>
+    <p class="vedn">Se guarda solo y se ve al instante. Cuando termines, toca <b>Publicar</b> arriba.</p>
+  </div>
+</aside>
+
 <script src="assets/js/iconos.js?v=1"></script>
 <script src="assets/js/almacen.js?v=1"></script>
 <script src="assets/js/config.js?v=3"></script>
 <script>document.getElementById("btnTema").addEventListener("click",function(){var h=document.documentElement,o=h.getAttribute("data-tema")!=="oscuro";if(o)h.setAttribute("data-tema","oscuro");else h.removeAttribute("data-tema");try{localStorage.setItem("clta-tema",o?"oscuro":"claro")}catch(e){}});</script>
-<script src="assets/js/admin.js?v=20"></script>
+<script src="assets/js/admin.js?v=28"></script>
 </body>
 </html>

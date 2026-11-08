@@ -126,7 +126,7 @@
       if (!ok) aviso('No se pudo guardar el borrador en este navegador.', 'mal');
       ALMACEN.guardar('imagenes', ESTADO.imagenes).catch(() => {
         aviso('Las fotos no cupieron en el borrador. Publica pronto.', 'mal');
-      });
+      }).then(() => { if (typeof refrescarVivo === 'function') refrescarVivo(); });
     }, 420);
   }
 
@@ -866,6 +866,11 @@
       bajada: 'Un vistazo rápido al club, a la página y a lo que falta por completar.',
       pintar: panelInicio },
 
+    { id: 'mensajes', grupo: 'Administración', nombre: 'Mensajes', ico: ICO.tel,
+      titulo: 'Mensajes de la página',
+      bajada: 'Lo que la gente escribe en el cuadro de contacto. Puedes reenviarlo a un socio, responder o descargarlo en Excel.',
+      pintar: panelMensajes },
+
     { id: 'informes', grupo: 'Administración', nombre: 'Informes', ico: ICO.diario,
       titulo: 'Informes y descargas',
       bajada: 'Informe del club listo para imprimir o guardar en PDF, y listados para abrir en Excel.',
@@ -875,6 +880,11 @@
       titulo: 'Cómo usar este panel',
       bajada: 'Cuatro pasos, siempre los mismos.',
       pintar: panelAyuda },
+
+    { id: 'ajustes', grupo: 'Administración', nombre: 'Ajustes', ico: ICO.club,
+      titulo: 'Ajustes',
+      bajada: 'Deja el panel a tu gusto: letras más grandes, otros colores y la lista de socios para reenviar mensajes.',
+      pintar: panelAjustes },
 
     /* ─────────────────────── DATOS DEL CLUB ─────────────────────── */
     { id: 'club-datos', grupo: 'Datos del club', nombre: 'Identidad', ico: ICO.club,
@@ -1132,10 +1142,10 @@
         ] }
       ] },
 
-    { id: 'agenda', grupo: 'Contenido de la página', nombre: 'Agenda', ico: ICO.cal,
+    { id: 'agenda', grupo: 'Administración', nombre: 'Agenda', ico: ICO.cal,
       titulo: 'Agenda',
       bajada: 'Las sesiones fijas se calculan solas y nunca quedan vencidas. Aquí puedes agregar además las actividades puntuales.',
-      pintar: panelAgenda },
+      pintar: panelAgendaAdmin },
 
     { id: 'directiva', grupo: 'Contenido de la página', nombre: 'Directorio', ico: ICO.gente,
       titulo: 'Directorio del club',
@@ -1392,6 +1402,22 @@
     const d = ESTADO.datos;
     const fotosSubidas = Object.keys(ESTADO.imagenes).length;
 
+    /* Accesos grandes para lo que más se hace: pensado para quien usa poco el computador */
+    const rapido = document.createElement('div');
+    rapido.className = 'tarjeta';
+    rapido.innerHTML = `<div class="tarjeta__cab"><div><h3>¿Qué quieres hacer hoy?</h3><p>Toca una opción. Siempre puedes volver aquí con «Resumen» en el menú.</p></div></div>
+      <div class="rapidos">
+        <button type="button" class="rapido" data-ir="portada"><span>✏️</span><b>Cambiar un texto o una foto de la página</b></button>
+        <button type="button" class="rapido" data-ir="agenda"><span>📅</span><b>Agregar o cambiar una actividad</b></button>
+        <button type="button" class="rapido" data-ir="mensajes"><span>✉️</span><b>Leer los mensajes que llegaron</b></button>
+        <button type="button" class="rapido" data-pub="1"><span>🚀</span><b>Publicar mis cambios en la página</b></button>
+      </div>`;
+    rapido.addEventListener('click', (e) => {
+      const b = e.target.closest('.rapido'); if (!b) return;
+      if (b.dataset.pub) abrirPublicar(); else ir(b.dataset.ir);
+    });
+    lienzo.appendChild(rapido);
+    tarjetaVisitas(lienzo);
     const cifra = (et) => { const c = (d.impacto || []).find((x) => new RegExp(et, 'i').test(x.etiqueta || '')); return c ? c.valor : '—'; };
     const hoyR = new Date(); hoyR.setHours(0, 0, 0, 0);
     const prox = ((d.agenda && d.agenda.eventos) || []).filter((e) => e.fecha && new Date(e.fecha + 'T00:00') >= hoyR)
@@ -1486,6 +1512,324 @@
     });
     lienzo.appendChild(tarjeta);
 
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     VISITAS, MENSAJES Y AJUSTES (usan la base de datos del publicador)
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Llama al publicador. Devuelve null si todavía no está conectado (por ejemplo, al probar en el computador). */
+  async function api(ruta, cuerpo) {
+    try {
+      const r = await fetch(ruta, cuerpo === undefined ? { cache: 'no-store' }
+        : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cuerpo) });
+      if (!r.ok) return null;
+      const j = await r.json();
+      return j && j.ok ? j : null;
+    } catch { return null; }
+  }
+  const SIN_CONEXION = `<div class="aviso aviso--info"><div><b>Esta parte todavía no está conectada.</b>
+    Para ver las visitas y los mensajes hay que activar la base de datos del sitio (se hace una sola vez, ver
+    <code>docs/VISITAS-Y-MENSAJES.md</code>). Mientras tanto, los mensajes siguen llegando al correo del club como siempre.</div></div>`;
+
+  const fechaHora = (t) => new Date(t).toLocaleString('es-CL', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const csvCelda = (c) => '"' + String(c == null ? '' : c).replace(/<[^>]*>/g, '').replace(/"/g, '""') + '"';
+  const bajarCsv = (nombre, cab, filas) => descargar(nombre, '﻿' + [cab, ...filas].map((f) => f.map(csvCelda).join(';')).join('\r\n'), 'text/csv;charset=utf-8');
+
+  /* ─── Preferencias de este computador (apariencia del panel) ─── */
+  const ACENTOS = {
+    azul:    ['Azul León', '#00338D', '#1E56B3'],
+    verde:   ['Verde', '#1B6B43', '#2E8B5A'],
+    granate: ['Granate', '#8A1F3D', '#B03455'],
+    violeta: ['Violeta', '#55307F', '#7447A8'],
+    grafito: ['Gris oscuro', '#2F3A4A', '#4A586C']
+  };
+  const PREF0 = { acento: 'azul', letra: 100, compacto: false, inicio: 'inicio', nombre: '', vivo: false, pasos: true };
+  const leerPref = () => { try { return Object.assign({}, PREF0, JSON.parse(localStorage.getItem('antumalal.pref') || '{}')); } catch { return Object.assign({}, PREF0); } };
+  const guardarPref = (p) => { try { localStorage.setItem('antumalal.pref', JSON.stringify(p)); } catch { /* ignorar */ } };
+  function aplicarPref() {
+    const p = leerPref(), raiz = document.documentElement;
+    const a = ACENTOS[p.acento] || ACENTOS.azul;
+    raiz.style.setProperty('--azul', a[1]);
+    raiz.style.setProperty('--azul-claro', a[2]);
+    raiz.style.zoom = p.letra === 100 ? '' : String(p.letra / 100);
+    document.body.classList.toggle('compacto', !!p.compacto);
+    const nom = document.querySelector('.lateral__marca b');
+    if (nom) nom.textContent = p.nombre || 'Leones Temuco Antumalal';
+  }
+
+  /* ─── Ajustes guardados en el servidor: miembros para reenviar mensajes ─── */
+  let AJ = { miembros: [], firma: '' };
+  async function cargarAjustes() {
+    const r = await api('/api/ajustes');
+    if (r && r.ajustes) AJ = Object.assign({ miembros: [], firma: '' }, r.ajustes);
+    else { try { AJ = Object.assign(AJ, JSON.parse(localStorage.getItem('antumalal.aj') || '{}')); } catch { /* ignorar */ } }
+    return !!r;
+  }
+  async function guardarAjustes() {
+    try { localStorage.setItem('antumalal.aj', JSON.stringify(AJ)); } catch { /* ignorar */ }
+    return !!(await api('/api/ajustes', { ajustes: AJ }));
+  }
+
+  /* ─── Contador de visitas (arriba del Resumen) ─── */
+  function tarjetaVisitas(lienzo) {
+    const t = document.createElement('div');
+    t.className = 'tarjeta';
+    t.innerHTML = '<div class="tarjeta__cab"><div><h3>👁 Visitas a la página</h3><p>Cuánta gente entra a la página del club.</p></div></div><div id="visBody"><p class="nota-res">Cargando…</p></div>';
+    lienzo.appendChild(t);
+    api('/api/resumen').then((r) => {
+      const c = t.querySelector('#visBody');
+      if (!r) { c.innerHTML = SIN_CONEXION; return; }
+      const max = Math.max(1, ...r.porDia.map((x) => x.n));
+      const mapa = Object.fromEntries(r.porDia.map((x) => [x.dia, x.n]));
+      const dias = [];
+      for (let i = 29; i >= 0; i--) { const dia = new Date(Date.now() - i * 86400000).toLocaleDateString('en-CA', { timeZone: 'America/Santiago' }); dias.push([dia, mapa[dia] || 0]); }
+      const nomRuta = (x) => { if (x === '/' || /index/.test(x)) return 'Portada'; const t = x.replace(/^\//, '').replace(/\.html$/, '').replace(/-/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); };
+      c.innerHTML = `
+        <div class="resumen">
+          <div class="resumen__caja"><b>${r.hoyN}</b><span>Hoy</span></div>
+          <div class="resumen__caja"><b>${r.d7}</b><span>Últimos 7 días</span></div>
+          <div class="resumen__caja"><b>${r.d30}</b><span>Últimos 30 días</span></div>
+          <div class="resumen__caja"><b>${r.unicos30}</b><span>Personas distintas (30 días)</span></div>
+          <div class="resumen__caja"><b>${r.total}</b><span>Visitas desde el inicio</span></div>
+        </div>
+        <div class="barras" role="img" aria-label="Visitas por día, últimos 30 días">${dias.map(([d, n]) => `<i style="height:${Math.max(3, Math.round(n / max * 100))}%" title="${d}: ${n}"></i>`).join('')}</div>
+        <p class="nota-res" style="text-align:center">Cada barra es un día (los últimos 30). La última es hoy.</p>
+        <div class="dos">
+          <div><h4>Páginas más vistas</h4><ul class="lista-simple">${r.paginas.map((x) => `<li><span>${esc(nomRuta(x.ruta))}</span><b>${x.n}</b></li>`).join('') || '<li>Aún no hay datos.</li>'}</ul></div>
+          <div><h4>De dónde llegan</h4><ul class="lista-simple">${r.origenes.map((x) => `<li><span>${esc(x.ref)}</span><b>${x.n}</b></li>`).join('') || '<li>Sin datos todavía (entran directo).</li>'}</ul></div>
+        </div>`;
+    });
+  }
+
+  /* ─── Mensajes del formulario de contacto ─── */
+  async function panelMensajes(lienzo) {
+    const caja = document.createElement('div');
+    lienzo.appendChild(caja);
+    caja.innerHTML = '<p class="nota-res">Cargando mensajes…</p>';
+    const [r] = await Promise.all([api('/api/mensajes'), cargarAjustes()]);
+    if (!r) { caja.innerHTML = SIN_CONEXION; return; }
+    let todos = r.mensajes, filtro = 'activos';
+
+    const pintar = () => {
+      const lista = todos.filter((m) => filtro === 'todos' ? true : filtro === 'archivados' ? m.estado === 'archivado' : m.estado !== 'archivado');
+      const nuevos = todos.filter((m) => m.estado === 'nuevo').length;
+      pintarInsignia(nuevos);
+      caja.innerHTML = `
+        <div class="tarjeta">
+          <div class="tarjeta__cab"><div><h3>${nuevos ? `Tienes ${nuevos} mensaje${nuevos === 1 ? '' : 's'} sin leer` : 'No tienes mensajes sin leer'}</h3>
+            <p>Son los que la gente escribe en el cuadro «Contáctanos» de la página. También llegan al correo del club.</p></div>
+            <button class="btn btn--linea" id="msgExcel" type="button">⬇ Descargar en Excel</button></div>
+          <div class="filtros">${[['activos', 'Por atender'], ['archivados', 'Archivados'], ['todos', 'Todos']].map(([k, n]) => `<button type="button" class="btn ${filtro === k ? '' : 'btn--linea'} btn--sm" data-f="${k}">${n}</button>`).join('')}</div>
+        </div>
+        ${lista.length ? lista.map((m) => `
+        <div class="tarjeta msg ${m.estado === 'nuevo' ? 'msg--nuevo' : ''}" data-id="${m.id}">
+          <div class="msg__cab"><b>${esc(m.nombre)}</b>${m.estado === 'nuevo' ? '<span class="etq etq--nuevo">Nuevo</span>' : ''}${m.estado === 'archivado' ? '<span class="etq">Archivado</span>' : ''}<span class="msg__fecha">${esc(fechaHora(m.t))}</span></div>
+          <div class="msg__datos">${m.motivo ? `<span>📌 ${esc(m.motivo)}</span>` : ''}<span>✉ <a href="mailto:${esc(m.email)}">${esc(m.email)}</a></span>${m.telefono ? `<span>📞 <a href="tel:${esc(m.telefono)}">${esc(m.telefono)}</a></span>` : ''}${m.origen ? `<span>🔎 Nos conoció por: ${esc(m.origen)}</span>` : ''}</div>
+          <p class="msg__texto">${esc(m.mensaje).replace(/\n/g, '<br>')}</p>
+          ${m.reenvios.length ? `<div class="msg__rev">${m.reenvios.map((x) => `↪ Reenviado el ${esc(fechaHora(x.t))} a ${esc(x.para)}${x.comentario ? ` — «${esc(x.comentario)}»` : ''}`).join('<br>')}</div>` : ''}
+          <div class="msg__acc">
+            <button class="btn btn--sm" data-a="reenviar" type="button">↪ Reenviar a un socio</button>
+            <a class="btn btn--linea btn--sm" href="mailto:${esc(m.email)}?subject=${encodeURIComponent('Re: ' + (m.motivo || 'Tu mensaje al Club de Leones'))}">✉ Responder</a>
+            ${m.estado === 'nuevo' ? '<button class="btn btn--linea btn--sm" data-a="leido" type="button">✓ Marcar como leído</button>' : ''}
+            ${m.estado !== 'archivado' ? '<button class="btn btn--linea btn--sm" data-a="archivar" type="button">🗂 Archivar</button>' : '<button class="btn btn--linea btn--sm" data-a="desarchivar" type="button">↩ Volver a Por atender</button>'}
+            <button class="btn btn--linea btn--sm" data-a="borrar" type="button">🗑 Borrar</button>
+          </div>
+        </div>`).join('') : '<div class="tarjeta"><p class="nota-res">No hay mensajes en esta lista.</p></div>'}`;
+    };
+    pintar();
+
+    const cambiar = async (m, accion, extra) => {
+      const ok = await api('/api/mensajes', Object.assign({ id: m.id, accion }, extra || {}));
+      if (!ok) aviso('No se pudo guardar. Revisa tu conexión e inténtalo otra vez.', 'mal');
+      return !!ok;
+    };
+
+    caja.addEventListener('click', async (e) => {
+      const f = e.target.closest('[data-f]');
+      if (f) { filtro = f.dataset.f; pintar(); return; }
+      if (e.target.closest('#msgExcel')) {
+        bajarCsv('mensajes-' + new Date().toISOString().slice(0, 10) + '.csv',
+          ['Fecha', 'Nombre', 'Correo', 'Teléfono', 'Motivo', 'Mensaje', 'Cómo nos conoció', 'Estado', 'Reenviado a / comentario'],
+          todos.map((m) => [fechaHora(m.t), m.nombre, m.email, m.telefono, m.motivo, m.mensaje, m.origen, m.estado,
+            m.reenvios.map((x) => x.para + (x.comentario ? ' (' + x.comentario + ')' : '')).join(' | ')]));
+        return;
+      }
+      const b = e.target.closest('[data-a]'); if (!b) return;
+      const m = todos.find((x) => x.id === +b.closest('.msg').dataset.id); if (!m) return;
+      const a = b.dataset.a;
+      if (a === 'leido' && await cambiar(m, 'estado', { estado: 'leido' })) { m.estado = 'leido'; pintar(); }
+      else if (a === 'archivar' && await cambiar(m, 'estado', { estado: 'archivado' })) { m.estado = 'archivado'; pintar(); }
+      else if (a === 'desarchivar' && await cambiar(m, 'estado', { estado: 'leido' })) { m.estado = 'leido'; pintar(); }
+      else if (a === 'borrar') {
+        if (!confirm('¿Borrar este mensaje para siempre?\n\nSi solo quieres sacarlo de la lista, mejor usa «Archivar».')) return;
+        if (await cambiar(m, 'borrar')) { todos = todos.filter((x) => x !== m); pintar(); }
+      } else if (a === 'reenviar') {
+        ventanaReenviar(m, async (para, comentario) => {
+          await cambiar(m, 'reenvio', { para, comentario });
+          m.reenvios.push({ t: Date.now(), para, comentario }); if (m.estado === 'nuevo') m.estado = 'leido'; pintar();
+        });
+      }
+    });
+  }
+
+  /* Ventana para reenviar un mensaje a uno o varios socios, con un comentario */
+  function ventanaReenviar(m, alTerminar) {
+    const v = document.createElement('div');
+    v.className = 'modalx';
+    const miembros = (AJ.miembros || []).filter((x) => x.correo);
+    v.innerHTML = `<div class="modalx__caja" role="dialog" aria-modal="true" aria-label="Reenviar mensaje">
+      <h3>Reenviar el mensaje de ${esc(m.nombre)}</h3>
+      <p class="nota-res">1. Marca a quién se lo quieres mandar.</p>
+      ${miembros.length ? miembros.map((x, i) => `<label class="chk"><input type="checkbox" data-i="${i}"> <span><b>${esc(x.nombre)}</b>${x.cargo ? ' · ' + esc(x.cargo) : ''}<small>${esc(x.correo)}</small></span></label>`).join('')
+        : '<p class="aviso aviso--info" style="margin:6px 0">Todavía no hay socios guardados. Agrégalos en <b>Ajustes</b>, o escribe un correo aquí abajo.</p>'}
+      <label class="campo__et">Otro correo (opcional)<input type="email" id="rvOtro" placeholder="nombre@correo.cl"></label>
+      <p class="nota-res" style="margin-top:12px">2. Escribe un comentario para quien lo recibe (opcional).</p>
+      <textarea id="rvCom" rows="3" placeholder="Ej.: Hector, ¿puedes responderle a esta persona esta semana?"></textarea>
+      <p class="nota-res">3. Elige cómo enviarlo. Se abrirá tu correo o WhatsApp con todo escrito; tú solo das «Enviar».</p>
+      <div class="msg__acc">
+        <button class="btn" id="rvMail" type="button">✉ Abrir en mi correo</button>
+        <button class="btn btn--linea" id="rvWa" type="button">💬 Enviar por WhatsApp</button>
+        <button class="btn btn--linea" id="rvCopiar" type="button">📋 Copiar el texto</button>
+        <button class="btn btn--linea" id="rvCerrar" type="button">Cancelar</button>
+      </div></div>`;
+    document.body.appendChild(v);
+    const elegidos = () => [...v.querySelectorAll('[data-i]:checked')].map((c) => miembros[+c.dataset.i]);
+    const correos = () => [...elegidos().map((x) => x.correo), ...(v.querySelector('#rvOtro').value.trim() ? [v.querySelector('#rvOtro').value.trim()] : [])];
+    const texto = () => {
+      const com = v.querySelector('#rvCom').value.trim();
+      return (com ? com + '\n\n' : '') + '— Mensaje recibido en la página del club —\n' +
+        'De: ' + m.nombre + ' (' + m.email + (m.telefono ? ', ' + m.telefono : '') + ')\n' + (m.motivo ? 'Motivo: ' + m.motivo + '\n' : '') +
+        'Fecha: ' + fechaHora(m.t) + '\n\n' + m.mensaje + (AJ.firma ? '\n\n' + AJ.firma : '');
+    };
+    const cerrar = () => v.remove();
+    const registrar = () => alTerminar(correos().join(', '), v.querySelector('#rvCom').value.trim());
+    const hay = () => { if (!correos().length) { aviso('Marca al menos a una persona o escribe un correo.', 'mal'); return false; } return true; };
+    v.addEventListener('click', async (e) => {
+      if (e.target === v || e.target.id === 'rvCerrar') return cerrar();
+      if (e.target.id === 'rvMail' && hay()) {
+        const asunto = 'Mensaje de ' + m.nombre + ' desde la página del Club';
+        window.location.href = 'mailto:' + correos().join(',') + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(texto());
+        await registrar(); cerrar();
+      } else if (e.target.id === 'rvWa') {
+        window.open('https://wa.me/?text=' + encodeURIComponent(texto()), '_blank', 'noopener');
+        await alTerminar('WhatsApp', v.querySelector('#rvCom').value.trim()); cerrar();
+      } else if (e.target.id === 'rvCopiar') {
+        try { await navigator.clipboard.writeText(texto()); aviso('Texto copiado. Pégalo donde quieras.', 'ok'); } catch { aviso('No se pudo copiar.', 'mal'); }
+      }
+    });
+  }
+
+  /* Numerito de mensajes sin leer junto a «Mensajes» en el menú */
+  function pintarInsignia(n) {
+    const b = document.querySelector('.nav__b[data-ir="mensajes"]');
+    if (!b) return;
+    let i = b.querySelector('.insignia');
+    if (!n) { if (i) i.remove(); return; }
+    if (!i) { i = document.createElement('em'); i.className = 'insignia'; b.appendChild(i); }
+    i.textContent = n > 99 ? '99+' : n;
+  }
+  function revisarMensajesNuevos() { api('/api/resumen').then((r) => { if (r) pintarInsignia(r.nuevos); }); }
+
+  /* ─── Agenda: la misma de la página, editable aquí ─── */
+  function panelAgendaAdmin(lienzo) {
+    const nota = document.createElement('div');
+    nota.className = 'aviso aviso--info';
+    nota.innerHTML = `<div><p style="margin:0"><b>Es la misma agenda que se ve en la página.</b> Cambia lo que necesites, mira cómo queda en la
+      <b>Vista previa</b> (a la derecha) y cuando esté bien toca <b>Publicar</b>: la página se actualiza sola en uno o dos minutos.</p>
+      <p style="margin:10px 0 0"><button class="btn" type="button" id="agPub">↑ Publicar la agenda ahora</button></p></div>`;
+    lienzo.appendChild(nota);
+    nota.querySelector('#agPub').addEventListener('click', abrirPublicar);
+    panelAgenda(lienzo);
+  }
+
+  /* ─── Ajustes y personalización ─── */
+  async function panelAjustes(lienzo) {
+    const p = leerPref();
+    const conectado = await cargarAjustes();
+
+    const apariencia = document.createElement('div');
+    apariencia.className = 'tarjeta';
+    apariencia.innerHTML = `
+      <div class="tarjeta__cab"><div><h3>🎨 Cómo se ve el panel</h3><p>Estos cambios son solo para este computador. No modifican la página del club.</p></div></div>
+      <div class="ajuste"><b>Tamaño de las letras</b>
+        <div class="opc">${[[100, 'Normal'], [115, 'Grande'], [130, 'Muy grande']].map(([v, n]) => `<button type="button" class="btn ${p.letra === v ? '' : 'btn--linea'}" data-letra="${v}">${n}</button>`).join('')}</div></div>
+      <div class="ajuste"><b>Color del panel</b>
+        <div class="opc">${Object.entries(ACENTOS).map(([k, a]) => `<button type="button" class="color ${p.acento === k ? 'on' : ''}" data-acento="${k}" style="background:${a[1]}" aria-label="${a[0]}" title="${a[0]}">${p.acento === k ? '✓' : ''}</button>`).join('')}</div></div>
+      <div class="ajuste"><b>Claro u oscuro</b>
+        <div class="opc"><button type="button" class="btn btn--linea" data-tema="claro">☀ Claro</button><button type="button" class="btn btn--linea" data-tema="oscuro">🌙 Oscuro</button></div></div>
+      <div class="ajuste"><b>Nombre que aparece arriba del menú</b>
+        <input type="text" id="pfNombre" value="${esc(p.nombre)}" placeholder="Leones Temuco Antumalal"></div>
+      <label class="chk"><input type="checkbox" id="pfCompacto" ${p.compacto ? 'checked' : ''}> <span><b>Menú más compacto</b><small>Botones del menú más juntos, para ver más opciones sin bajar.</small></span></label>
+      <label class="chk"><input type="checkbox" id="pfVivo" ${p.vivo ? 'checked' : ''}> <span><b>Abrir la vista previa al entrar</b><small>Se mostrará sola cuando edites la página.</small></span></label>
+      <div class="ajuste"><b>Sección con la que se abre el panel</b>
+        <select id="pfInicio">${SECCIONES.map((s) => `<option value="${s.id}" ${p.inicio === s.id ? 'selected' : ''}>${esc(s.nombre)}</option>`).join('')}</select></div>
+      <div class="msg__acc"><button class="btn btn--linea" id="pfReset" type="button">↺ Volver a como venía</button></div>`;
+    lienzo.appendChild(apariencia);
+
+    const cambiarPref = (cambio) => { const n = Object.assign(leerPref(), cambio); guardarPref(n); aplicarPref(); return n; };
+    apariencia.addEventListener('click', (e) => {
+      const l = e.target.closest('[data-letra]'), a = e.target.closest('[data-acento]'), t = e.target.closest('[data-tema]');
+      if (l) { cambiarPref({ letra: +l.dataset.letra }); panelAjustesRepintar(); }
+      if (a) { cambiarPref({ acento: a.dataset.acento }); panelAjustesRepintar(); }
+      if (t) { if ((document.documentElement.getAttribute('data-tema') === 'oscuro') !== (t.dataset.tema === 'oscuro')) $('#btnTema').click(); }
+      if (e.target.id === 'pfReset' && confirm('¿Volver el panel a como venía de fábrica?')) { guardarPref(Object.assign({}, PREF0)); aplicarPref(); panelAjustesRepintar(); }
+    });
+    apariencia.querySelector('#pfNombre').addEventListener('input', (e) => cambiarPref({ nombre: e.target.value.trim() }));
+    apariencia.querySelector('#pfCompacto').addEventListener('change', (e) => cambiarPref({ compacto: e.target.checked }));
+    apariencia.querySelector('#pfVivo').addEventListener('change', (e) => { cambiarPref({ vivo: e.target.checked }); lsVivo.poner(e.target.checked); });
+    apariencia.querySelector('#pfInicio').addEventListener('change', (e) => cambiarPref({ inicio: e.target.value }));
+    const panelAjustesRepintar = () => pintarSeccion();
+
+    /* Socios para reenviar mensajes */
+    const socios = document.createElement('div');
+    socios.className = 'tarjeta';
+    const pintarSocios = () => {
+      socios.innerHTML = `
+        <div class="tarjeta__cab"><div><h3>👥 Socios para reenviar mensajes</h3>
+          <p>Los mensajes de la página se pueden reenviar a estos correos con un clic. ${conectado ? 'Se guardan en el servidor, solo los ve quien entra al panel.' : 'Por ahora se guardan en este computador.'}</p></div></div>
+        ${(AJ.miembros || []).map((x, i) => `
+        <div class="fila-socio" data-i="${i}">
+          <input type="text" data-k="nombre" value="${esc(x.nombre)}" placeholder="Nombre" aria-label="Nombre">
+          <input type="text" data-k="cargo" value="${esc(x.cargo || '')}" placeholder="Cargo (opcional)" aria-label="Cargo">
+          <input type="email" data-k="correo" value="${esc(x.correo)}" placeholder="correo@ejemplo.cl" aria-label="Correo">
+          <button class="btn btn--linea btn--sm" data-q="${i}" type="button" aria-label="Quitar">✕ Quitar</button>
+        </div>`).join('') || '<p class="nota-res">Aún no hay socios en la lista.</p>'}
+        <div class="msg__acc">
+          <button class="btn btn--linea" id="soAgregar" type="button">＋ Agregar un socio</button>
+          <button class="btn btn--linea" id="soDirectiva" type="button">Traer nombres del directorio</button>
+        </div>
+        <label class="campo__et" style="margin-top:14px">Firma al final de los mensajes reenviados (opcional)
+          <textarea id="soFirma" rows="2" placeholder="Ej.: Club de Leones Temuco Antumalal · info@clta.cl">${esc(AJ.firma || '')}</textarea></label>
+        <div class="msg__acc"><button class="btn" id="soGuardar" type="button">💾 Guardar socios</button></div>`;
+    };
+    pintarSocios();
+    lienzo.appendChild(socios);
+    const leerFilas = () => { AJ.miembros = [...socios.querySelectorAll('.fila-socio')].map((f) => ({ nombre: f.querySelector('[data-k=nombre]').value.trim(), cargo: f.querySelector('[data-k=cargo]').value.trim(), correo: f.querySelector('[data-k=correo]').value.trim() })); AJ.firma = (socios.querySelector('#soFirma') || {}).value || ''; };
+    socios.addEventListener('click', async (e) => {
+      if (e.target.id === 'soAgregar') { leerFilas(); AJ.miembros.push({ nombre: '', cargo: '', correo: '' }); pintarSocios(); }
+      else if (e.target.id === 'soDirectiva') {
+        leerFilas();
+        (ESTADO.datos.directiva || []).forEach((d) => { if (d.nombre && !AJ.miembros.some((x) => x.nombre === d.nombre)) AJ.miembros.push({ nombre: d.nombre, cargo: d.cargo || '', correo: '' }); });
+        pintarSocios(); aviso('Se agregaron los nombres. Falta escribir el correo de cada uno.', 'ok');
+      } else if (e.target.dataset.q !== undefined) { leerFilas(); AJ.miembros.splice(+e.target.dataset.q, 1); pintarSocios(); }
+      else if (e.target.id === 'soGuardar') {
+        leerFilas();
+        const mal = AJ.miembros.find((x) => x.correo && !/^\S+@\S+\.\S+$/.test(x.correo));
+        if (mal) { aviso('El correo de «' + (mal.nombre || 'una fila') + '» no parece válido.', 'mal'); return; }
+        AJ.miembros = AJ.miembros.filter((x) => x.nombre || x.correo);
+        const ok = await guardarAjustes(); pintarSocios();
+        aviso(ok ? 'Listo, socios guardados.' : 'Se guardaron en este computador (el servidor aún no está conectado).', ok ? 'ok' : 'mal');
+      }
+    });
+
+    /* Enlace a cambiar la clave / respaldos */
+    const mas = document.createElement('div');
+    mas.className = 'tarjeta';
+    mas.innerHTML = `<div class="tarjeta__cab"><div><h3>🔐 Clave, copias de seguridad y publicación</h3><p>Está todo junto en una sola sección.</p></div>
+      <button class="btn btn--linea" type="button" id="irPub">Ir a «Publicar y respaldos»</button></div>`;
+    mas.querySelector('#irPub').addEventListener('click', () => ir('publicar'));
+    lienzo.appendChild(mas);
   }
 
   /* ─── Informes ─── */
@@ -1736,7 +2080,8 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
 
   /* El menú tiene dos bloques plegables: uno para administrar e informarse y otro para cambiar la página */
   const BLOQUES = [
-    { id: 'admin', titulo: 'Administración e informes', grupos: ['Administración'] },
+    { id: 'admin', titulo: 'Administración e informes', grupos: ['Administración'],
+      orden: ['inicio', 'mensajes', 'agenda', 'informes', 'ayuda', 'ajustes', 'publicar'] },
     { id: 'web',   titulo: 'Mi página web', grupos: ['Datos del club', 'Contenido de la página', 'Conexiones'] }
   ];
 
@@ -1751,7 +2096,8 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     const nav = $('#nav');
     nav.innerHTML = '';
     BLOQUES.forEach((bl) => {
-      const secs = SECCIONES.filter((s) => bl.grupos.includes(s.grupo));
+      let secs = SECCIONES.filter((s) => bl.grupos.includes(s.grupo));
+      if (bl.orden) secs = bl.orden.map((id) => secs.find((s) => s.id === id)).filter(Boolean);
       if (!secs.length) return;
       const caja = document.createElement('div');
       caja.className = 'bloque';
@@ -1802,6 +2148,236 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     pintarSeccion();
     window.scrollTo({ top: 0 });
     try { history.replaceState(null, '', '#' + id); } catch { /* file:// no siempre deja */ }
+    actualizarVivoVista();
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     VISTA PREVIA EN VIVO (panel lateral con la página, como en Caramelo Alegre)
+     Solo aparece en las secciones de «Mi página web». Se actualiza sola al editar.
+     ═══════════════════════════════════════════════════════════════ */
+  const ANCLAS = { portada: 'inicio', quienes: 'club', causas: 'causas', impacto: 'impacto', proyectos: 'proyectos',
+    articulos: 'articulos', agenda: 'agenda', directiva: 'directorio', testimonios: 'testimonios', unete: 'unete',
+    aportar: 'dona', donaciones: 'dona', faq: 'faq', 'contacto-sec': 'contacto', contacto: 'contacto', noticias: 'noticias' };
+  const lsVivo = { leer() { try { return localStorage.getItem('antumalal.vivo') === '1'; } catch { return false; } },
+                   poner(v) { try { localStorage.setItem('antumalal.vivo', v ? '1' : '0'); } catch { /* ignorar */ } } };
+  let vivoAbierto = false, vivoAncla = null, vivoInicializado = false;
+
+  function seccionEsWeb() {
+    const s = SECCIONES.find((x) => x.id === ESTADO.seccion);
+    return !!s && (s.grupo !== 'Administración' || s.id === 'agenda');
+  }
+  function cargarVivo(conservar) {
+    const f = $('#vFrame');
+    if (!f) return;
+    let y = 0;
+    if (conservar && vivoAncla === ESTADO.seccion) { try { y = f.contentWindow.scrollY || 0; } catch { /* otra página */ } }
+    vivoAncla = ESTADO.seccion;
+    const ancla = ANCLAS[ESTADO.seccion];
+    /* La página arma su contenido con JavaScript: se espera a que exista la sección antes de ir a ella */
+    f.onload = () => {
+      engancharEdicion(f);
+      let intentos = 0;
+      const ir = () => {
+        try {
+          const w = f.contentWindow;
+          if (y) { w.scrollTo(0, y); return; }
+          const el = ancla && w.document.getElementById(ancla);
+          if (el) { w.scrollTo(0, el.getBoundingClientRect().top + w.scrollY - 70); return; }
+        } catch { return; }
+        if (++intentos < 20) setTimeout(ir, 200);
+      };
+      ir();
+    };
+    f.src = 'index.html?borrador=1&vivo=' + Date.now() + (!conservar && ancla ? '#' + ancla : '');
+  }
+  function pintarVivo() {
+    const web = seccionEsWeb();
+    $('#vivo').hidden = !(web && vivoAbierto);
+    $('#vTab').hidden = !web || vivoAbierto;
+    $('#vTab').setAttribute('aria-expanded', String(vivoAbierto));
+    document.body.classList.toggle('conVivo', web && vivoAbierto);
+  }
+  function actualizarVivoVista() {
+    pintarVivo();
+    if (vivoAbierto && seccionEsWeb() && vivoAncla !== ESTADO.seccion) cargarVivo(false);
+  }
+  let tVivo = null;
+  function refrescarVivo() {
+    if (!vivoAbierto || !seccionEsWeb() || !$('#vAuto').checked || edicionAbierta()) return;
+    clearTimeout(tVivo);
+    tVivo = setTimeout(() => cargarVivo(true), 250);
+  }
+  /* ── Tocar un texto de la vista previa para editarlo ahí mismo ── */
+  const normTxt = (t) => String(t == null ? '' : t).replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/[*_]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+  const OMITIR = /^(imagen|imagenes|imagenClaves|enlace|foto|icono|ico|id|fecha|mapaEmbed|endpoint|metodo|actualizado|version)$/i;
+  function buscarTexto(objeto, ruta, buscado, salida) {
+    if (salida.length > 3 || objeto == null) return;
+    if (typeof objeto === 'string') {
+      if (objeto.length >= 2 && objeto.length <= 800 && normTxt(objeto) === buscado) salida.push(ruta);
+      return;
+    }
+    if (typeof objeto !== 'object') return;
+    Object.keys(objeto).forEach((k) => { if (!OMITIR.test(k)) buscarTexto(objeto[k], ruta ? ruta + '.' + k : k, buscado, salida); });
+  }
+  /* Quitar / agregar una tarjeta de una lista (proyectos, causas, directorio…) */
+  let deshacerTarjeta = null, tDeshacer = null;
+  function accionTarjeta(accion, it) {
+    const lista = obtener(it.arr, null);
+    if (!Array.isArray(lista) || !lista[it.idx] && lista[it.idx] !== '') return;
+    const copia = clonar(lista);
+    if (accion === 'quitar') {
+      const quitado = copia.splice(it.idx, 1)[0];
+      asignar(it.arr, copia);
+      deshacerTarjeta = { arr: it.arr, idx: it.idx, quitado };
+      $('#vUndo').hidden = false;
+      clearTimeout(tDeshacer); tDeshacer = setTimeout(() => { $('#vUndo').hidden = true; deshacerTarjeta = null; }, 9000);
+    } else {
+      const nuevo = clonar(copia[it.idx]);
+      if (nuevo && typeof nuevo === 'object') {
+        ['titulo', 'nombre', 'pregunta'].forEach((k) => { if (typeof nuevo[k] === 'string') nuevo[k] += ' (nuevo)'; });
+        if (nuevo.id) nuevo.id = 'n' + Date.now().toString(36);
+      }
+      copia.splice(it.idx + 1, 0, nuevo);
+      asignar(it.arr, copia);
+      aviso('Se agregó una tarjeta copia. Tócala en la vista previa para cambiar sus textos.', 'ok');
+    }
+    cargarVivo(true);
+  }
+  function deshacerQuitar() {
+    if (!deshacerTarjeta) return;
+    const { arr, idx, quitado } = deshacerTarjeta;
+    const copia = clonar(obtener(arr, []));
+    copia.splice(idx, 0, quitado);
+    asignar(arr, copia);
+    deshacerTarjeta = null; $('#vUndo').hidden = true;
+    cargarVivo(true);
+  }
+
+  let edicion = null; /* { ruta, el } */
+  const edicionAbierta = () => !!edicion;
+
+  function cerrarEdicion() {
+    if (!edicion) return;
+    const el = edicion.el;
+    try { el.removeAttribute('data-ed-sel'); } catch { /* ignorar */ }
+    edicion = null;
+    $('#vEd').hidden = true;
+    refrescarVivo();
+  }
+  function abrirEdicion(ruta, el) {
+    if (edicion) { try { edicion.el.removeAttribute('data-ed-sel'); } catch { /* ignorar */ } }
+    edicion = { ruta, el };
+    el.setAttribute('data-ed-sel', '1');
+    const caja = $('#vEdTexto');
+    caja.value = String(obtener(ruta, ''));
+    $('#vEdRuta').textContent = ruta.replace(/\./g, ' › ');
+    $('#vEd').hidden = false;
+    caja.focus();
+  }
+  function engancharEdicion(f) {
+    let d;
+    try { d = f.contentDocument; } catch { return; }
+    if (!d || !d.head || d.__edEnganchado) return;
+    d.__edEnganchado = true;
+    const est = d.createElement('style');
+    est.textContent = 'body.ed-on h1:hover,body.ed-on h2:hover,body.ed-on h3:hover,body.ed-on h4:hover,body.ed-on p:hover,body.ed-on blockquote:hover,body.ed-on li:hover,body.ed-on .btn:hover,body.ed-on footer span:hover{outline:2px dashed #f2b705!important;outline-offset:3px;cursor:text!important}[data-ed-sel]{outline:3px solid #0b2e83!important;outline-offset:3px;background:rgba(242,183,5,.18)!important}';
+    d.head.appendChild(est);
+    const marcar = () => d.body && d.body.classList.toggle('ed-on', $('#vEditar').checked);
+    marcar();
+    /* Barra flotante sobre cada tarjeta repetida: quitar o agregar con un clic */
+    const barra = d.createElement('div');
+    barra.id = 'ed-barra';
+    barra.style.cssText = 'position:absolute;z-index:99999;display:none;gap:6px;font:600 13px system-ui,sans-serif';
+    barra.innerHTML = '<button data-a="quitar" style="all:unset;cursor:pointer;background:#b42318;color:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.3)">✕ Quitar</button>'
+      + '<button data-a="agregar" style="all:unset;cursor:pointer;background:#0b2e83;color:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.3)">＋ Agregar otro</button>';
+    d.body.appendChild(barra);
+    let actual = null;
+    const firma = (n) => n.tagName + '.' + (typeof n.className === 'string' ? n.className.split(/\s+/)[0] : '');
+    const cajaDe = (el) => {
+      for (let n = el, i = 0; n && n !== d.body && i < 9; n = n.parentElement, i++) {
+        if (n.tagName === 'SECTION' || !n.parentElement) break;
+        const hermanos = [...n.parentElement.children].filter((h) => firma(h) === firma(n));
+        if (hermanos.length >= 2) return n;
+      }
+      return null;
+    };
+    const itemDe = (caja) => {
+      for (const t of caja.querySelectorAll('h1,h2,h3,h4,p,span,b,strong,figcaption,small')) {
+        const buscado = normTxt(t.textContent);
+        if (!buscado) continue;
+        const hallados = [];
+        buscarTexto(ESTADO.datos, '', buscado, hallados);
+        for (const ruta of hallados) {
+          const partes = ruta.split('.');
+          let i = partes.length - 1;
+          while (i >= 0 && !/^\d+$/.test(partes[i])) i--;
+          if (i > 0) return { arr: partes.slice(0, i).join('.'), idx: parseInt(partes[i], 10) };
+        }
+      }
+      return null;
+    };
+    d.addEventListener('mouseover', (e) => {
+      if (!$('#vEditar').checked) { barra.style.display = 'none'; return; }
+      if (e.target.closest && e.target.closest('#ed-barra')) return;
+      const caja = e.target.nodeType === 1 ? cajaDe(e.target) : null;
+      const it = caja && itemDe(caja);
+      if (!it) { barra.style.display = 'none'; actual = null; return; }
+      actual = it;
+      const r = caja.getBoundingClientRect();
+      barra.style.display = 'flex';
+      barra.style.top = (r.top + d.defaultView.scrollY + 8) + 'px';
+      barra.style.left = Math.max(4, r.right + d.defaultView.scrollX - barra.offsetWidth - 8) + 'px';
+    });
+    d.addEventListener('click', (e) => {
+      const bt = e.target.closest && e.target.closest('#ed-barra button');
+      if (!bt) return;
+      e.preventDefault(); e.stopPropagation();
+      barra.style.display = 'none';
+      if (actual) accionTarjeta(bt.dataset.a, actual);
+    }, true);
+    d.addEventListener('click', (e) => {
+      if (e.target.closest && e.target.closest('#ed-barra')) return;
+      if (!$('#vEditar').checked) return;
+      e.preventDefault(); e.stopPropagation();
+      let el = e.target.nodeType === 1 ? e.target : e.target.parentElement;
+      for (let i = 0; el && i < 5 && el !== d.body; i++, el = el.parentElement) {
+        const buscado = normTxt(el.textContent);
+        if (!buscado) continue;
+        const hallados = [];
+        buscarTexto(ESTADO.datos, '', buscado, hallados);
+        if (hallados.length) { abrirEdicion(hallados[0], el); return; }
+      }
+      /* No es un texto editable directo: se lleva a la sección que corresponde */
+      const sec = (e.target.closest && e.target.closest('section[id]')) || null;
+      const id = sec && Object.keys(ANCLAS).find((k) => ANCLAS[k] === sec.id);
+      cerrarEdicion();
+      if (id) { aviso('Eso se cambia en la sección «' + SECCIONES.find((x) => x.id === id).nombre + '» del menú.', 'ok'); ir(id); }
+      else aviso('Eso no se puede editar tocándolo. Búscalo en el menú de la izquierda.', 'ok');
+    }, true);
+    $('#vEditar')._marcar = marcar;
+  }
+
+  function iniciarVivo() {
+    if (vivoInicializado || !$('#vTab')) return;
+    vivoInicializado = true;
+    vivoAbierto = window.innerWidth >= 1100 && lsVivo.leer();
+    $('#vTab').addEventListener('click', () => { vivoAbierto = true; if (window.innerWidth >= 1100) lsVivo.poner(true); pintarVivo(); cargarVivo(false); });
+    $('#vOcul').addEventListener('click', () => { cerrarEdicion(); vivoAbierto = false; lsVivo.poner(false); pintarVivo(); });
+    $('#vAct').addEventListener('click', () => { guardarBorrador(); cargarVivo(true); });
+    $('#vDisp').addEventListener('click', () => $('#vMarco').classList.toggle('movil'));
+    $('#vEditar').addEventListener('change', () => { try { $('#vFrame').contentDocument.body.classList.toggle('ed-on', $('#vEditar').checked); } catch { /* ignorar */ } if (!$('#vEditar').checked) cerrarEdicion(); });
+    $('#vEdTexto').addEventListener('input', () => {
+      if (!edicion) return;
+      const v = $('#vEdTexto').value;
+      asignar(edicion.ruta, v);                     /* queda en el borrador */
+      try { edicion.el.textContent = v.replace(/<[^>]*>/g, '').replace(/[*]/g, ''); } catch { /* ignorar */ } /* se ve al instante */
+    });
+    $('#vEdCerrar').addEventListener('click', cerrarEdicion);
+    $('#vUndoBtn').addEventListener('click', deshacerQuitar);
+    $('#vEdTexto').addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); cerrarEdicion(); } });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && vivoAbierto && window.innerWidth < 1100) { vivoAbierto = false; pintarVivo(); } });
+    pintarVivo();
+    if (vivoAbierto && seccionEsWeb()) cargarVivo(false);
   }
 
   function pintarSeccion() {
@@ -2094,11 +2670,16 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     /* imagenClaves guarda las fotos fijas del HTML (portada, El Club). */
     if (!ESTADO.datos.imagenClaves) ESTADO.datos.imagenClaves = {};
 
-    pintarNav();
+    aplicarPref();
+    const prefs = leerPref();
     const desdeUrl = location.hash.slice(1);
     if (desdeUrl && SECCIONES.some((s) => s.id === desdeUrl)) ESTADO.seccion = desdeUrl;
+    else if (SECCIONES.some((x) => x.id === prefs.inicio)) ESTADO.seccion = prefs.inicio;
+    pintarNav();
+    revisarMensajesNuevos();
     pintarSeccion();
     pintarEstado();
+    iniciarVivo();
 
     $('#btnPublicar').addEventListener('click', abrirPublicar);
     $('#btnMenu').addEventListener('click', () => document.body.classList.toggle('menu-abierto'));

@@ -1232,8 +1232,11 @@
       const endpoint = D.formulario && D.formulario.endpoint;
       if (endpoint) {
         try {
-          const r = await fetch(endpoint, { method: (D.formulario.metodo || 'POST'), headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.assign({ _subject: "Nuevo mensaje desde clta.cl", _template: "table" }, datos)) });
-          if (!r.ok) throw new Error();
+          /* Se manda al correo del club y también al panel (Mensajes). Basta con que llegue a uno. */
+          const aPanel = fetch('/p/mensaje', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ web: (f.elements.web && f.elements.web.value) || '' }, datos)) }).then((x) => x.ok).catch(() => false);
+          const aCorreo = fetch(endpoint, { method: (D.formulario.metodo || 'POST'), headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.assign({ _subject: "Nuevo mensaje desde clta.cl", _template: "table" }, datos)) }).then((x) => x.ok).catch(() => false);
+          const [okP, okC] = await Promise.all([aPanel, aCorreo]);
+          if (!okP && !okC) throw new Error();
           msg.textContent = '¡Gracias! Recibimos tu mensaje y te responderemos pronto.'; msg.classList.add('bien'); f.reset();
         } catch { msg.textContent = 'No pudimos enviarlo. Escríbenos al correo info@clta.cl.'; msg.classList.add('mal'); }
       } else {

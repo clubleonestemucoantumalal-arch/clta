@@ -7,6 +7,32 @@ se entra en **`leonesantumalal.cl/admin.html`**.
 
 ---
 
+## Cómo está organizado
+
+El menú tiene **dos bloques plegables**:
+
+**Administración e informes** — *Resumen* (contador de visitas, accesos rápidos, pendientes),
+*Mensajes* (lo que llega por el cuadro de contacto: reenviar a socios con comentario, responder,
+archivar, descargar en Excel), *Agenda* (la misma de la página, con vista previa), *Informes*
+(PDF para imprimir y Excel), *Ayuda*, *Ajustes* (letra grande, colores, socios para reenviar)
+y *Publicar y respaldos*.
+
+**Mi página web** — todas las secciones que se editan: datos del club, contenido de la página y conexiones.
+
+### Vista previa en vivo
+
+En las secciones de *Mi página web* y en *Agenda* hay una pestaña **Vista previa** al borde derecho. Muestra la
+página con los cambios aún sin publicar, salta a la sección que se está editando y se actualiza sola.
+Con **Tocar para editar** activo, se toca un texto de la vista para cambiarlo ahí mismo, y sobre las tarjetas
+(proyectos, causas, directorio…) aparecen **✕ Quitar** y **＋ Agregar otro**, con **Deshacer**.
+
+### Visitas y mensajes
+
+Usan una base de datos de Cloudflare (D1) que se activa una sola vez: ver
+[VISITAS-Y-MENSAJES.md](VISITAS-Y-MENSAJES.md). Sin ella el panel funciona igual y esas dos partes avisan que no están conectadas.
+
+---
+
 ## 1. Entrar por primera vez
 
 1. Abre `admin.html` en el navegador.
@@ -55,7 +81,7 @@ queda guardado: al volver a entrar sigue donde ibas.
 - *Causas*, *Sello de trabajo*, *Valores* — tarjetas con ícono, título y texto.
 - *Cifras de impacto* — los números grandes que se animan.
 - *Proyectos* — tarjetas con foto.
-- *Agenda* — ver punto 5.
+- *Agenda* — ahora está en el bloque *Administración e informes*; ver punto 5.
 - *Directorio* — nombres, cargos y fotos.
 - *Testimonios* — el carrusel.
 - *Hazte socio*, *Formas de aportar*, *Preguntas frecuentes*, *Sección contacto*, *Pie de página*.
