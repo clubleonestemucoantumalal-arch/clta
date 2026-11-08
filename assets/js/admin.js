@@ -1151,7 +1151,7 @@
 
     { id: 'agenda', grupo: 'Administración', nombre: 'Agenda', ico: ICO.cal,
       titulo: 'Agenda',
-      bajada: 'Las sesiones fijas se calculan solas y nunca quedan vencidas. Aquí puedes agregar además las actividades puntuales.',
+      bajada: 'Como un calendario: toca un día para agregar una actividad y toca una actividad para cambiarla.',
       pintar: panelAgendaAdmin },
 
     { id: 'directiva', grupo: 'Contenido de la página', nombre: 'Directorio', ico: ICO.gente,
@@ -1746,16 +1746,255 @@
   }
   function revisarMensajesNuevos() { api('/api/resumen').then((r) => { if (r) pintarInsignia(r.nuevos); }); }
 
-  /* ─── Agenda: la misma de la página, editable aquí ─── */
+  /* ─── Agenda como calendario (estilo Google Calendar) ─── */
   function panelAgendaAdmin(lienzo) {
-    const nota = document.createElement('div');
-    nota.className = 'aviso aviso--info';
-    nota.innerHTML = `<div><p style="margin:0"><b>Es la misma agenda que se ve en la página.</b> Cambia lo que necesites, mira cómo queda en la
-      <b>Vista previa</b> (a la derecha) y cuando esté bien toca <b>Publicar</b>: la página se actualiza sola en uno o dos minutos.</p>
-      <p style="margin:10px 0 0"><button class="btn" type="button" id="agPub">↑ Publicar la agenda ahora</button></p></div>`;
-    lienzo.appendChild(nota);
-    nota.querySelector('#agPub').addEventListener('click', abrirPublicar);
-    panelAgenda(lienzo);
+    const DIAS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+    const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    const p2 = (n) => String(n).padStart(2, '0');
+    const isoDe = (f) => f.getFullYear() + '-' + p2(f.getMonth() + 1) + '-' + p2(f.getDate());
+    const deIso = (iso) => { const x = String(iso || '').split('-').map(Number); return x.length === 3 && x[0] ? new Date(x[0], x[1] - 1, x[2]) : null; };
+    const cfg = () => { if (!ESTADO.datos.agenda) ESTADO.datos.agenda = {}; return ESTADO.datos.agenda; };
+    const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    let vista = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+    let distrito = [];
+
+    const lunes = (a, m, cual) => { const d = new Date(a, m, 1); return new Date(a, m, 1 + ((8 - d.getDay()) % 7) + (cual === 2 ? 7 : 21)); };
+    const sesionesDelMes = (anio, mes) => {
+      const c = cfg(), out = [];
+      if (c.auto === false) return out;
+      for (let k = -1; k <= 1; k++) {
+        const b = new Date(anio, mes + k, 1);
+        [2, 4].forEach((cual) => {
+          const f0 = lunes(b.getFullYear(), b.getMonth(), cual), iso = isoDe(f0);
+          const ex = (c.excepciones && c.excepciones[iso]) || {};
+          let f = f0; const nf = deIso(ex.fecha); if (nf) f = nf;
+          if (f.getFullYear() !== anio || f.getMonth() !== mes) return;
+          out.push({ tipo: 'sesion', iso, f, suspendida: ex.realiza === false, hora: ex.hora || c.hora || '20:30 h', lugar: ex.lugar || c.lugar || '',
+            titulo: ex.titulo || (cual === 2 ? (c.tituloSegundo || 'Sesión ordinaria') : (c.tituloCuarto || 'Sesión ordinaria y trabajo de comisiones')) });
+        });
+      }
+      return out;
+    };
+    const itemsDelMes = (anio, mes) => {
+      const out = sesionesDelMes(anio, mes);
+      (cfg().eventos || []).forEach((e, i) => { const f = deIso(e.fecha); if (f && f.getFullYear() === anio && f.getMonth() === mes) out.push({ tipo: 'evento', idx: i, f, titulo: e.titulo || 'Actividad', hora: e.hora || '', detalle: e.texto || '', abierto: e.abierto }); });
+      distrito.forEach((e) => { const f = deIso(e.fecha); if (f && f.getFullYear() === anio && f.getMonth() === mes) out.push({ tipo: 'distrito', f, titulo: e.titulo || 'Distrito T4', hora: e.hora || '' }); });
+      return out;
+    };
+    const horaCorta = (h) => { const m = String(h || '').match(/(\d{1,2}:\d{2})/); return m ? m[1] : ''; };
+
+    /* ── estructura: igual a la agenda de la página (calendario redondo a la izquierda, actividades a la derecha) ── */
+    const MES3 = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+    const DIA_L = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    let diaSel = null;
+    const marco = document.createElement('div');
+    marco.className = 'ag';
+    marco.innerHTML = `
+      <div class="ag__barra">
+        <button type="button" class="ag__btn ag__btn--oro" data-c="nuevo">＋ Agregar actividad</button>
+        <button type="button" class="ag__btn" data-c="ics" title="Para abrirlo en Google Calendar u otro calendario">⬇ Bajar calendario</button>
+        <button type="button" class="ag__btn" data-c="pub">↑ Publicar</button>
+      </div>
+      <div class="ag__grid">
+        <div class="ag__cal">
+          <div class="ag__cab">
+            <button type="button" class="ag__nav" data-c="ant" aria-label="Mes anterior">‹</button>
+            <h3 id="calMes"></h3>
+            <button type="button" class="ag__nav" data-c="sig" aria-label="Mes siguiente">›</button>
+          </div>
+          <div class="ag__sem"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+          <div class="ag__dias" id="calGrid"></div>
+          <p class="ag__nota"><i></i> Día con actividades. Toca un día vacío para agregar algo ahí.</p>
+          <button type="button" class="ag__btn" data-c="hoy" style="margin-top:6px">Ir a hoy</button>
+        </div>
+        <ul class="ag__lista" id="agLista"></ul>
+      </div>`;
+    lienzo.appendChild(marco);
+
+    const pintar = () => {
+      const anio = vista.getFullYear(), mes = vista.getMonth();
+      marco.querySelector('#calMes').textContent = MESES[mes] + ' ' + anio;
+      const items = itemsDelMes(anio, mes).sort((a, b) => (a.f - b.f) || horaCorta(a.hora).localeCompare(horaCorta(b.hora)));
+      const con = new Set(items.map((x) => x.f.getDate()));
+      const n = new Date(anio, mes + 1, 0).getDate(), off = (vista.getDay() + 6) % 7;
+      let h = '<span></span>'.repeat(off);
+      for (let d = 1; d <= n; d++) {
+        const f = new Date(anio, mes, d), cls = [f.getTime() === hoy.getTime() ? 'hoy' : '', con.has(d) ? 'con' : '', diaSel === d ? 'sel' : ''].join(' ').trim();
+        h += `<button type="button" class="${cls}" data-dia="${isoDe(f)}" data-n="${d}" aria-label="${d} de ${MESES[mes]}${con.has(d) ? ': ver actividades' : ': agregar actividad'}">${d}</button>`;
+      }
+      marco.querySelector('#calGrid').innerHTML = h;
+
+      const lista = diaSel ? items.filter((x) => x.f.getDate() === diaSel) : items;
+      marco.querySelector('#agLista').innerHTML = lista.length ? lista.map((x) => {
+        const tipo = x.tipo === 'sesion' ? 'Sesión del club' : x.tipo === 'distrito' ? 'Distrito T4' : (x.abierto === false ? 'Solo socios' : 'Abierta a la comunidad');
+        const detalle = x.tipo === 'sesion' ? x.lugar : (x.detalle || '');
+        return `<li class="ag__ev${x.suspendida ? ' susp' : ''}" data-t="${x.tipo}" data-i="${x.tipo === 'evento' ? x.idx : x.iso || ''}" tabindex="0" role="button" aria-label="${esc(x.titulo)}: cambiar">
+          <div class="ag__f"><b>${p2(x.f.getDate())}</b><span>${MES3[x.f.getMonth()]} ${x.f.getFullYear()}</span></div>
+          <div class="ag__c"><h4>${esc(x.titulo)}${x.suspendida ? ' <em>(suspendida)</em>' : ''}</h4>${detalle ? `<p>${esc(detalle)}</p>` : ''}
+            <div class="ag__h"><span>${DIA_L[x.f.getDay()]}</span>${x.hora ? `<b>${esc(x.hora)}</b>` : ''}</div>
+            <span class="ag__tag${x.tipo === 'evento' && x.abierto !== false ? ' abierto' : ''}">${tipo}</span></div>
+          <span class="ag__ed">${x.tipo === 'distrito' ? '' : 'Cambiar ›'}</span>
+        </li>`;
+      }).join('') : `<li class="ag__vacio">${diaSel ? 'No hay actividades ese día.' : 'No hay actividades registradas en ' + MESES[mes] + '.'}<br><button type="button" class="ag__btn ag__btn--oro" data-c="nuevo" style="margin-top:12px">＋ Agregar una actividad</button></li>`;
+    };
+    pintar();
+
+    /* La agenda del Distrito T4 también se ve en la página; aquí es solo de lectura */
+    fetch('data/agenda-distrito.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).then((j) => { if (j && Array.isArray(j.eventos)) { distrito = j.eventos; pintar(); } }).catch(() => {});
+
+    /* ── ventana para agregar / cambiar ── */
+    const ventana = (html) => {
+      const v = document.createElement('div');
+      v.className = 'modalx';
+      v.innerHTML = `<div class="modalx__caja" role="dialog" aria-modal="true">${html}</div>`;
+      document.body.appendChild(v);
+      v.addEventListener('click', (e) => { if (e.target === v || e.target.dataset.x === 'cerrar') v.remove(); });
+      return v;
+    };
+    const rangoHora = (h) => { const m = String(h || '').match(/(\d{1,2}:\d{2})(?:\s*a\s*(\d{1,2}:\d{2}))?/); return m ? [m[1].padStart(5, '0'), (m[2] || '').padStart(m[2] ? 5 : 0, '0')] : ['', '']; };
+    const armarHora = (d, a) => (d ? (a ? d + ' a ' + a + ' h' : d + ' h') : '');
+    const urlGoogle = (t, iso, hora, lugar, detalle) => {
+      const [d, a] = rangoHora(hora), dia = iso.replace(/-/g, '');
+      let fechas;
+      if (d) { const fin = a || (p2(Math.min(23, +d.slice(0, 2) + 2)) + d.slice(2)); fechas = dia + 'T' + d.replace(':', '') + '00/' + dia + 'T' + fin.replace(':', '') + '00'; }
+      else { const sig = deIso(iso); sig.setDate(sig.getDate() + 1); fechas = dia + '/' + isoDe(sig).replace(/-/g, ''); }
+      return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(t) + '&dates=' + fechas + '&location=' + encodeURIComponent(lugar || '') + '&details=' + encodeURIComponent(detalle || '') + '&ctz=America/Santiago';
+    };
+
+    const formEvento = (idx, isoInicial) => {
+      const lista = cfg().eventos || [];
+      const e = idx >= 0 ? lista[idx] : { fecha: isoInicial, titulo: '', texto: '', hora: '', abierto: true, enlace: '', enlaceTexto: '' };
+      const [hd, ha] = rangoHora(e.hora);
+      const v = ventana(`
+        <h3>${idx >= 0 ? 'Cambiar la actividad' : 'Nueva actividad'}</h3>
+        <label class="campo__et">¿Qué se hace?<input type="text" id="evT" value="${esc(e.titulo)}" placeholder="Ej.: Operativo médico, Cena aniversario" style="width:100%"></label>
+        <div class="dos-c">
+          <label class="campo__et">Día<input type="date" id="evF" value="${esc(e.fecha)}"></label>
+          <label class="campo__et">Desde las<input type="time" id="evD" value="${esc(hd)}"></label>
+          <label class="campo__et">Hasta las (opcional)<input type="time" id="evA" value="${esc(ha)}"></label>
+        </div>
+        <label class="campo__et">¿Dónde y de qué se trata? (opcional)<textarea id="evX" rows="3" placeholder="Lugar y una breve descripción">${esc(e.texto || '')}</textarea></label>
+        <label class="chk"><input type="checkbox" id="evO" ${e.abierto !== false ? 'checked' : ''}> <span><b>Abierta a la comunidad</b><small>Si no la marcas, aparece como «Solo socios».</small></span></label>
+        <details style="margin:6px 0"><summary style="cursor:pointer;font-weight:600">Agregar un enlace (opcional)</summary>
+          <label class="campo__et">Dirección del enlace<input type="text" id="evL" value="${esc(e.enlace || '')}" placeholder="https://…"></label>
+          <label class="campo__et">Texto del botón<input type="text" id="evLT" value="${esc(e.enlaceTexto || '')}" placeholder="Ej.: Comprar entradas"></label></details>
+        <div class="msg__acc">
+          <button class="btn" data-x="guardar" type="button">💾 Guardar</button>
+          ${idx >= 0 ? '<a class="btn btn--linea" data-x="google" target="_blank" rel="noopener" href="#">📅 Agregar a mi Google Calendar</a><button class="btn btn--linea" data-x="borrar" type="button">🗑 Borrar</button>' : ''}
+          <button class="btn btn--linea" data-x="cerrar" type="button">Cancelar</button>
+        </div>`);
+      const leer = () => ({ titulo: v.querySelector('#evT').value.trim(), fecha: v.querySelector('#evF').value, hora: armarHora(v.querySelector('#evD').value, v.querySelector('#evA').value),
+        texto: v.querySelector('#evX').value.trim(), abierto: v.querySelector('#evO').checked, enlace: v.querySelector('#evL').value.trim(), enlaceTexto: v.querySelector('#evLT').value.trim() });
+      const g = v.querySelector('[data-x=google]');
+      if (g) g.addEventListener('mouseenter', () => { const d = leer(); g.href = urlGoogle(d.titulo || 'Actividad del club', d.fecha || e.fecha, d.hora, d.texto, 'Club de Leones Temuco Antumalal'); });
+      v.addEventListener('click', (ev) => {
+        const a = ev.target.dataset.x;
+        if (a === 'guardar') {
+          const d = leer();
+          if (!d.titulo) { aviso('Escribe qué actividad es.', 'mal'); return; }
+          if (!deIso(d.fecha)) { aviso('Elige el día.', 'mal'); return; }
+          const l = clonar(cfg().eventos || []);
+          if (idx >= 0) l[idx] = Object.assign({}, l[idx], d); else l.push(d);
+          asignar('agenda.eventos', l);
+          const f = deIso(d.fecha); vista = new Date(f.getFullYear(), f.getMonth(), 1);
+          v.remove(); pintar(); aviso('Actividad guardada. Toca «Publicar» cuando quieras que se vea en la página.', 'ok');
+        } else if (a === 'borrar' && confirm('¿Borrar esta actividad?')) {
+          const l = clonar(cfg().eventos || []); l.splice(idx, 1); asignar('agenda.eventos', l); v.remove(); pintar();
+        }
+      });
+    };
+
+    const formSesion = (iso) => {
+      const c = cfg(), ex = (c.excepciones && c.excepciones[iso]) || {};
+      const base = sesionesDelMes(deIso(ex.fecha || iso).getFullYear(), deIso(ex.fecha || iso).getMonth()).find((s) => s.iso === iso);
+      if (!base) return;
+      const [hd] = rangoHora(base.hora);
+      const v = ventana(`
+        <h3>${esc(base.titulo)}</h3>
+        <p class="nota-res">Sesión que se repite sola (2.º y 4.º lunes de cada mes). Aquí cambias solo esta fecha; las demás no se tocan.</p>
+        <label class="chk"><input type="checkbox" id="seR" ${base.suspendida ? '' : 'checked'}> <span><b>Se realiza esta sesión</b><small>Desmárcala si se suspende (feriado, por ejemplo).</small></span></label>
+        <div class="dos-c">
+          <label class="campo__et">Día<input type="date" id="seF" value="${esc(isoDe(base.f))}"></label>
+          <label class="campo__et">Hora<input type="time" id="seH" value="${esc(hd)}"></label>
+        </div>
+        <label class="campo__et">Lugar<input type="text" id="seL" value="${esc(base.lugar)}" style="width:100%"></label>
+        <div class="msg__acc">
+          <button class="btn" data-x="guardar" type="button">💾 Guardar</button>
+          <button class="btn btn--linea" data-x="reset" type="button">↺ Dejarla como siempre</button>
+          <button class="btn btn--linea" data-x="cerrar" type="button">Cancelar</button>
+        </div>`);
+      v.addEventListener('click', (ev) => {
+        const a = ev.target.dataset.x;
+        if (a !== 'guardar' && a !== 'reset') return;
+        const exc = clonar(c.excepciones || {});
+        if (a === 'reset') delete exc[iso];
+        else {
+          const n = {}; const realiza = v.querySelector('#seR').checked, f = v.querySelector('#seF').value, hh = v.querySelector('#seH').value, l = v.querySelector('#seL').value.trim();
+          if (!realiza) n.realiza = false;
+          if (f && f !== iso) n.fecha = f;
+          if (hh && armarHora(hh, '') !== (c.hora || '20:30 h')) n.hora = armarHora(hh, '');
+          if (l && l !== (c.lugar || '')) n.lugar = l;
+          if (Object.keys(n).length) exc[iso] = n; else delete exc[iso];
+        }
+        asignar('agenda.excepciones', exc); v.remove(); pintar();
+      });
+    };
+
+    /* ── clics del calendario ── */
+    marco.addEventListener('click', (e) => {
+      const c = e.target.closest('[data-c]');
+      if (c) {
+        const a = c.dataset.c;
+        if (a === 'hoy') { vista = new Date(hoy.getFullYear(), hoy.getMonth(), 1); diaSel = null; }
+        else if (a === 'ant') { vista = new Date(vista.getFullYear(), vista.getMonth() - 1, 1); diaSel = null; }
+        else if (a === 'sig') { vista = new Date(vista.getFullYear(), vista.getMonth() + 1, 1); diaSel = null; }
+        else if (a === 'nuevo') return formEvento(-1, diaSel ? isoDe(new Date(vista.getFullYear(), vista.getMonth(), diaSel)) : isoDe(hoy));
+        else if (a === 'pub') return abrirPublicar();
+        else if (a === 'ics') return bajarIcs();
+        return pintar();
+      }
+      const fila = e.target.closest('.ag__ev');
+      if (fila) {
+        if (fila.dataset.t === 'evento') formEvento(+fila.dataset.i);
+        else if (fila.dataset.t === 'sesion') formSesion(fila.dataset.i);
+        else aviso('Esta actividad viene del calendario del Distrito T4 y se actualiza sola.', 'ok');
+        return;
+      }
+      const dia = e.target.closest('[data-dia]');
+      if (dia) {
+        const n = +dia.dataset.n;
+        if (dia.classList.contains('con')) { diaSel = diaSel === n ? null : n; pintar(); }
+        else formEvento(-1, dia.dataset.dia);
+      }
+    });
+    marco.addEventListener('keydown', (e) => { const f = e.target.closest && e.target.closest('.ag__ev'); if (f && e.target === f && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); f.click(); } });
+
+    /* ── calendario para Google Calendar (archivo .ics) ── */
+    const bajarIcs = () => {
+      const esc2 = (t) => String(t || '').replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/[,;]/g, (m) => '\\' + m);
+      const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Club de Leones Temuco Antumalal//Agenda//ES', 'CALSCALE:GREGORIAN', 'X-WR-CALNAME:Club de Leones Temuco Antumalal'];
+      const agregar = (uid, titulo, iso, hora, lugar, detalle) => {
+        const [d, a] = rangoHora(hora), dia = iso.replace(/-/g, '');
+        L.push('BEGIN:VEVENT', 'UID:' + uid + '@clta.cl', 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z', 'SUMMARY:' + esc2(titulo));
+        if (d) { const fin = a || (p2(Math.min(23, +d.slice(0, 2) + 2)) + d.slice(2)); L.push('DTSTART;TZID=America/Santiago:' + dia + 'T' + d.replace(':', '') + '00', 'DTEND;TZID=America/Santiago:' + dia + 'T' + fin.replace(':', '') + '00'); }
+        else { const s = deIso(iso); s.setDate(s.getDate() + 1); L.push('DTSTART;VALUE=DATE:' + dia, 'DTEND;VALUE=DATE:' + isoDe(s).replace(/-/g, '')); }
+        if (lugar) L.push('LOCATION:' + esc2(lugar));
+        if (detalle) L.push('DESCRIPTION:' + esc2(detalle));
+        L.push('END:VEVENT');
+      };
+      (cfg().eventos || []).forEach((e, i) => { if (deIso(e.fecha)) agregar('evento-' + i + '-' + e.fecha, e.titulo || 'Actividad', e.fecha, e.hora, e.texto, ''); });
+      for (let k = 0; k < 12; k++) { const b = new Date(hoy.getFullYear(), hoy.getMonth() + k, 1); sesionesDelMes(b.getFullYear(), b.getMonth()).filter((s) => !s.suspendida).forEach((s) => agregar('sesion-' + s.iso, s.titulo, isoDe(s.f), s.hora, s.lugar, '')); }
+      L.push('END:VCALENDAR');
+      descargar('agenda-club-leones.ics', L.join('\r\n'), 'text/calendar;charset=utf-8');
+      aviso('Calendario descargado. En Google Calendar: Configuración → Importar y exportar → Importar.', 'ok');
+    };
+
+    /* ── opciones avanzadas (encabezado, lista, sesiones) ── */
+    const mas = document.createElement('details');
+    mas.className = 'tarjeta';
+    mas.innerHTML = '<summary style="cursor:pointer;font-weight:600;font-size:1.05rem">⚙ Más opciones de la agenda (títulos, hora y lugar de las sesiones, lista)</summary><div id="agMas" style="margin-top:14px"></div>';
+    lienzo.appendChild(mas);
+    mas.addEventListener('toggle', () => { if (mas.open) { const c = mas.querySelector('#agMas'); c.innerHTML = ''; panelAgenda(c); } else pintar(); });
   }
 
   /* ─── Ajustes y personalización ─── */

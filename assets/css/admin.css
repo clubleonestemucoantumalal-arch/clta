@@ -744,3 +744,68 @@ html[data-tema="oscuro"] .ajuste input[type=text], html[data-tema="oscuro"] .aju
 html[data-tema="oscuro"] .fila-socio input, html[data-tema="oscuro"] #soFirma, html[data-tema="oscuro"] .ved textarea,
 html[data-tema="oscuro"] .filtros input[type=search], html[data-tema="oscuro"] .filtros select{ background:#081A42; color:#E9EEFA; border-color:#2B4686 }
 html[data-tema="oscuro"] .color{ border-color:#0F2250 }
+
+/* Calendario de la agenda */
+.cal__top{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:10px }
+.cal__nav{ display:flex; align-items:center; gap:8px; flex-wrap:wrap }
+.cal__mes{ margin:0 0 0 8px; font-size:1.3rem; text-transform:capitalize }
+.cal__acc{ display:flex; gap:8px; flex-wrap:wrap }
+.cal__leyenda{ display:flex; gap:16px; flex-wrap:wrap; font-size:.82rem; color:var(--g-suave); margin-bottom:10px; align-items:center }
+.cal__leyenda i{ display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:5px; vertical-align:-1px }
+.cal__tip{ margin-left:auto }
+.k-ses{ background:#1E56B3 } .k-evt{ background:#C98F00 } .k-dis{ background:#6B7488 }
+.cal__grid{ display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); border-top:1px solid var(--g-borde); border-left:1px solid var(--g-borde) }
+.cal__dh{ padding:6px; text-align:center; font-size:.78rem; font-weight:700; color:var(--g-suave); border-right:1px solid var(--g-borde); border-bottom:1px solid var(--g-borde); background:var(--g-fondo) }
+.cal__d, .cal__v{ min-height:104px; padding:4px; border-right:1px solid var(--g-borde); border-bottom:1px solid var(--g-borde); display:flex; flex-direction:column; gap:3px; overflow:hidden }
+.cal__d{ cursor:pointer } .cal__d:hover{ background:var(--g-hover) }
+.cal__d.pas .cal__n{ color:var(--g-suave) }
+.cal__n{ font-size:.85rem; font-weight:600; width:26px; height:26px; display:flex; align-items:center; justify-content:center; border-radius:50% }
+.cal__d.hoy .cal__n{ background:var(--azul); color:#fff }
+.cal__e{ all:unset; box-sizing:border-box; display:block; width:100%; cursor:pointer; color:#fff; border-radius:5px; padding:2px 6px; font-size:.74rem; line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.cal__e:hover{ filter:brightness(1.12) }
+.cal__e:focus-visible{ outline:3px solid var(--azul-claro); outline-offset:1px }
+.cal__e.susp{ opacity:.55; text-decoration:line-through }
+.dos-c{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:10px }
+.dos-c input{ width:100%; padding:10px 12px; border:1px solid var(--g-borde); border-radius:10px; font:inherit; background:#fff }
+.modalx input[type=text], .modalx input[type=date], .modalx input[type=time]{ padding:10px 12px; border:1px solid var(--g-borde); border-radius:10px; font:inherit; background:#fff; color:inherit }
+@media (max-width:760px){ .cal__d,.cal__v{ min-height:64px } .cal__e b{ display:none } .cal__tip{ margin-left:0 } .dos-c{ grid-template-columns:1fr } }
+html[data-tema="oscuro"] .dos-c input, html[data-tema="oscuro"] .modalx input[type=text], html[data-tema="oscuro"] .modalx input[type=date], html[data-tema="oscuro"] .modalx input[type=time]{ background:#081A42; color:#E9EEFA; border-color:#2B4686 }
+
+/* Agenda con el mismo aspecto que en la página: fondo azul noche, dorado y números grandes */
+.ag{ background:linear-gradient(160deg,#030C22,#0A1F52); color:#fff; border-radius:20px; padding:clamp(16px,3vw,28px); margin-bottom:18px }
+.ag__barra{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px }
+.ag__btn{ all:unset; box-sizing:border-box; cursor:pointer; padding:10px 18px; border-radius:99px; border:1px solid rgba(255,255,255,.28); font-weight:700; font-size:.9rem; color:#fff; min-height:44px; display:inline-flex; align-items:center }
+.ag__btn:hover{ background:rgba(255,255,255,.1) }
+.ag__btn:focus-visible, .ag__nav:focus-visible, .ag__dias button:focus-visible, .ag__ev:focus-visible{ outline:3px solid #FFCD00; outline-offset:2px }
+.ag__btn--oro{ background:#FFCD00; border-color:#FFCD00; color:#030C22 } .ag__btn--oro:hover{ background:#ffd93a }
+.ag__grid{ display:grid; grid-template-columns:minmax(260px,330px) 1fr; gap:26px; align-items:start }
+@media (max-width:900px){ .ag__grid{ grid-template-columns:1fr } }
+.ag__cal{ padding:20px; border:1px solid rgba(255,255,255,.16); border-radius:22px; background:rgba(255,255,255,.04) }
+.ag__cab{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:14px }
+.ag__cab h3{ margin:0; flex:1; text-align:center; font:400 1.3rem/1.15 Georgia,'Times New Roman',serif; color:#fff; text-transform:capitalize }
+.ag__nav{ all:unset; box-sizing:border-box; width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.28); background:rgba(255,255,255,.06); color:#fff; font-size:1.6rem; display:grid; place-items:center; cursor:pointer }
+.ag__nav:hover{ background:#FFCD00; color:#030C22; border-color:#FFCD00 }
+.ag__sem, .ag__dias{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px }
+.ag__sem span{ text-align:center; font-weight:700; font-size:.7rem; letter-spacing:.08em; color:rgba(255,255,255,.6); padding-bottom:8px }
+.ag__dias button{ all:unset; box-sizing:border-box; display:grid; place-items:center; aspect-ratio:1; border-radius:50%; font-weight:600; font-size:.9rem; color:rgba(255,255,255,.85); cursor:pointer; position:relative }
+.ag__dias button:hover{ background:rgba(255,255,255,.14) }
+.ag__dias button.con{ color:#FFCD00; font-weight:800; background:rgba(255,205,0,.1); border:1px solid rgba(255,205,0,.4) }
+.ag__dias button.con:hover{ background:#FFCD00; color:#030C22 }
+.ag__dias button.hoy{ background:#FFCD00; color:#030C22; border-color:#FFCD00; font-weight:800 }
+.ag__dias button.sel{ background:#fff; color:#030C22; border-color:#fff }
+.ag__nota{ display:flex; align-items:center; gap:8px; margin:14px 0 6px; font-size:.78rem; color:rgba(255,255,255,.65) }
+.ag__nota i{ width:9px; height:9px; border-radius:50%; background:#FFCD00; flex:none }
+.ag__lista{ list-style:none; margin:0; padding:0; border-top:1px solid rgba(255,255,255,.16) }
+.ag__ev{ display:grid; grid-template-columns:auto 1fr auto; gap:6px 22px; align-items:center; padding:20px 8px; border-bottom:1px solid rgba(255,255,255,.16); cursor:pointer; transition:background .2s }
+.ag__ev:hover{ background:linear-gradient(90deg,rgba(255,205,0,.14),transparent) }
+.ag__ev.susp{ opacity:.55 } .ag__ev.susp h4{ text-decoration:line-through }
+.ag__f{ min-width:110px } .ag__f b{ display:block; font:300 clamp(2.6rem,5vw,3.8rem)/1 Georgia,'Times New Roman',serif; color:#FFCD00; letter-spacing:-.03em }
+.ag__f span{ font-weight:700; font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.65) }
+.ag__c h4{ margin:0; font:400 clamp(1.15rem,2vw,1.5rem)/1.2 Georgia,'Times New Roman',serif; color:#fff } .ag__c h4 em{ font-size:.8rem; font-style:normal; color:#FFCD00 }
+.ag__c p{ margin:4px 0 0; font-size:.92rem; color:rgba(255,255,255,.72) }
+.ag__h{ display:flex; gap:8px; margin-top:6px; font-size:.88rem; color:rgba(255,255,255,.7) } .ag__h b{ color:#fff } .ag__h span{ text-transform:capitalize }
+.ag__tag{ display:inline-block; margin-top:8px; padding:5px 12px; border-radius:99px; border:1px solid rgba(255,255,255,.28); font-weight:700; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.75) }
+.ag__tag.abierto{ background:#FFCD00; border-color:#FFCD00; color:#030C22 }
+.ag__ed{ font-weight:700; font-size:.85rem; color:#FFCD00; white-space:nowrap }
+.ag__vacio{ padding:28px 8px; color:rgba(255,255,255,.7); font-style:italic }
+@media (max-width:560px){ .ag__ev{ grid-template-columns:auto 1fr } .ag__ed{ grid-column:2 } }
