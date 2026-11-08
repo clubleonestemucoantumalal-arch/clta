@@ -69,7 +69,13 @@
       bajar('data/noticias-propias.json').then((r) => r || window.RESPALDO_NOTICIAS_PROPIAS)
     ]);
     IMGS = imgs || {};
-    return { D, noticias: [...((propias && propias.noticias) || []), ...((noti && noti.noticias) || [])], distrito: (dist && dist.eventos) || [] };
+    /* Las más recientes primero; las antiguas van quedando atrás. Sin fecha válida, al final. */
+    const tiempo = (n) => { const t = n && n.fecha ? new Date(n.fecha).getTime() : NaN; return isNaN(t) ? -Infinity : t; };
+    const todas = [...((propias && propias.noticias) || []), ...((noti && noti.noticias) || [])]
+      .map((n, i) => ({ n, i }))
+      .sort((a, b) => (tiempo(b.n) - tiempo(a.n)) || (a.i - b.i))
+      .map((o) => o.n);
+    return { D, noticias: todas, distrito: (dist && dist.eventos) || [] };
   }
 
   /* Imagen real (ruta o foto subida al panel). Los marcadores SVG cuentan como "sin foto". */
