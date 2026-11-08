@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-11-08T05:47:26.540Z",
+  "actualizado": "2026-11-08T05:49:19.409Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -305,7 +305,7 @@
       "tag": "Juventud",
       "titulo": "Acción de Lion Quest en liceo Gabriela Mistral de Temuco",
       "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "imagen": "img:proyecto-mw7ewppq",
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-10-30"
