@@ -1,0 +1,41 @@
+name: Páginas de terreno (Google)
+
+# Cada vez que el panel publica, se regeneran las páginas de «Lo que hacemos en terreno»
+# (una página real por historia) y el sitemap, para que Google las lea bien.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/contenido.json'
+      - 'data/imagenes.json'
+      - 'scripts/generar-terrenos.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generar páginas y sitemap
+        run: node scripts/generar-terrenos.mjs
+
+      - name: Publicar cambios
+        run: |
+          if [[ -z "$(git status --porcelain terreno sitemap.xml assets/img/proyectos/gen)" ]]; then
+            echo "Sin cambios en las páginas de terreno."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add terreno sitemap.xml assets/img/proyectos/gen
+          git commit -m "Páginas de terreno y sitemap actualizados"
+          git pull --rebase
+          git push

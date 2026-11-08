@@ -372,11 +372,11 @@
                   <span class="chip">${limpiar(p.tag)}</span>
                   <h3>${limpiar(p.titulo)}</h3>
                   <p>${limpiar(p.texto)}</p>
-                  <a class="link-f" href="${esc(p.enlace && p.enlace !== '#contacto' ? p.enlace : 'trabajo.html?id=' + encodeURIComponent(p.id || slugDe(p.titulo)))}">${p.enlace && p.enlace !== '#contacto' ? 'Quiero saber más' : 'Leer la historia'} ${flecha(15)}</a>
+                  <a class="link-f" href="${esc(p.enlace && p.enlace !== '#contacto' ? p.enlace : 'terreno/' + (p.id || slugDe(p.titulo)) + '.html')}">${p.enlace && p.enlace !== '#contacto' ? 'Quiero saber más' : 'Leer la historia'} ${flecha(15)}</a>
                 </div>
               </article>`;
             }).join('')}
-            <div class="pcard pcard--fin"><b>Hay mucho más en terreno</b><a class="btn btn--oro mag" href="trabajo-en-terreno.html"><span>Ver más trabajo en terreno</span>${flecha(16)}</a></div>
+            <div class="pcard pcard--fin"><b>Hay mucho más en terreno</b><a class="btn btn--oro mag" href="terreno/"><span>Ver más trabajo en terreno</span>${flecha(16)}</a></div>
           </div>
         </div>
         <div class="proy__pie wrap"><div class="proy__barra"><i id="proyBarra"></i></div><span class="proy__ayuda">Recorre los proyectos</span></div>
