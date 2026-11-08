@@ -291,64 +291,49 @@
   "proyectos": [
     {
       "idLions": "SA-10528131",
-      "tag": "Otro servicio humanitario",
-      "titulo": "CORRIDA SALUDABLE",
-      "texto": "",
+      "tag": "Servicio humanitario",
+      "titulo": "Corrida Saludable",
+      "texto": "Nos sumamos a la Corrida Saludable, una jornada pensada para promover la vida sana y la actividad física en familia. Estar junto a la comunidad en actividades como esta también es una forma de servir.",
       "imagen": "img:proyecto-mw7etyhf",
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-11-01",
-      "foto2": "img:terreno-mw7eu91v"
-    },
-    {
-      "idLions": "SA-10460139",
-      "tag": "Juventud",
-      "titulo": "Acción de Lion Quest en liceo Gabriela Mistral de Temuco",
-      "texto": "",
-      "imagen": "img:proyecto-mw7ewppq",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-10-30"
+      "foto2": "img:terreno-mw7eu91v",
+      "cuerpo": "El 1 de noviembre nos sumamos a la Corrida Saludable, una jornada para promover la vida sana y el movimiento en familia.\n\nComo club, nos gusta estar donde la comunidad se reúne. Esta fue una buena ocasión para compartir con quienes cuidan su salud y la de los suyos."
     },
     {
       "idLions": "SA-10482725",
       "tag": "Juventud",
-      "titulo": "Cartel de la Paz. Actividades  de promoción en colegios, recepción de trabajos y seleciión por jurado",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "titulo": "Cartel de la Paz: la paz vista por los estudiantes",
+      "texto": "Llevamos el concurso Cartel de la Paz a los colegios de la zona. Los estudiantes expresaron en sus dibujos lo que significa la paz para ellos, y un jurado recibió y seleccionó los trabajos.",
+      "imagen": "assets/img/proyectos/cartel-de-la-paz-1.jpg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-10-28"
+      "fecha": "2026-10-28",
+      "foto2": "assets/img/proyectos/cartel-de-la-paz-2.jpg",
+      "cuerpo": "A fines de octubre llevamos el concurso Cartel de la Paz a los colegios de la zona. Los estudiantes pusieron en sus dibujos lo que significa la paz para ellos, entregaron sus trabajos y un jurado los evaluó.\n\nEs un programa de Lions International que invita a niños y jóvenes a pensar y expresar la paz. Para nosotros fue una alegría ver tanta creatividad."
     },
     {
       "idLions": "SA-10528173",
-      "tag": "Otro servicio humanitario",
-      "titulo": "ATENCIÓN MATRONAS ONCOLOGÍA MAMARIA",
-      "texto": "",
+      "tag": "Servicio humanitario",
+      "titulo": "Atención de matronas en oncología mamaria",
+      "texto": "Colaboramos en una jornada de atención con matronas especializadas en oncología mamaria, orientada a la prevención y al cuidado de la salud de las mujeres.",
       "imagen": "img:proyecto-mw7fsukw",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-10-21"
+      "fecha": "2026-10-21",
+      "cuerpo": "El 21 de octubre colaboramos en una jornada de atención con matronas especializadas en oncología mamaria, orientada a la prevención y al cuidado de la salud de las mujeres.\n\nOctubre es el mes de la prevención del cáncer de mama, una causa que acompañamos de cerca junto a nuestras Damas."
     },
     {
       "idLions": "SA-10497323",
       "tag": "Cáncer infantil",
-      "titulo": "AYUDA A PACIENTE DE ONCOLOGIA INFANTIL",
-      "texto": "",
+      "titulo": "Apoyo a un paciente de oncología infantil",
+      "texto": "Acudimos en ayuda de un niño en tratamiento oncológico que vive una situación vulnerable, para aliviar las necesidades de su familia mientras enfrenta la enfermedad.",
       "imagen": "img:proyecto-mw7f1etn",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-10-20"
-    },
-    {
-      "idLions": "SA-10450771",
-      "tag": "Visión",
-      "titulo": "Operativo médico en hospital de Pitrufquén, Oftalmología, Urología y Endoscopia digestiva",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-10-17"
+      "fecha": "2026-10-20",
+      "cuerpo": "El 20 de octubre acudimos en ayuda de un niño en tratamiento oncológico que vive una situación vulnerable.\n\nEn medio de una enfermedad tan exigente, aliviar las necesidades de la familia es una forma de acompañar. Seguiremos atentos a las familias de oncología infantil del Hospital Regional."
     },
     {
       "tag": "Octubre · Salud",
@@ -367,42 +352,35 @@
     {
       "idLions": "SA-10497547",
       "tag": "Cáncer infantil",
-      "titulo": "CAJA DE ALIMENTO PARA PACIENTE DE ONCOLOGIA INFANTIL",
-      "texto": "",
+      "titulo": "Una caja de alimentos para un niño con cáncer",
+      "texto": "Entregamos una caja de alimentos a la familia de un paciente de oncología infantil en situación vulnerable. Es una ayuda sencilla que, en medio del tratamiento, marca la diferencia en la mesa de un hogar.",
       "imagen": "img:proyecto-mw7f3227",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-10-15"
+      "fecha": "2026-10-15",
+      "cuerpo": "El 15 de octubre llevamos una caja de alimentos a la familia de un paciente de oncología infantil que atraviesa una situación vulnerable.\n\nEs una ayuda sencilla que, en plena etapa de tratamiento, marca la diferencia en la mesa de un hogar."
     },
     {
       "idLions": "SA-10450586",
       "tag": "Juventud",
       "titulo": "Acciones que inspiran",
-      "texto": "",
+      "texto": "Dedicamos una jornada a la juventud, con actividades pensadas para inspirar a las nuevas generaciones a servir a su comunidad.",
       "imagen": "img:proyecto-mw7fpsi4",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-10-09"
+      "fecha": "2026-10-09",
+      "cuerpo": "Dedicamos una jornada a la juventud con acciones pensadas para inspirar a las nuevas generaciones a servir a su comunidad.\n\nCreemos que el servicio se aprende viéndolo y haciéndolo, y por eso nos importa que niños y jóvenes tengan cerca buenos ejemplos."
     },
     {
       "idLions": "SA-10497220",
       "tag": "Hambre",
-      "titulo": "AYUDA INTEGRAL A FAMILIA EN SITUACION VULNERABLE",
-      "texto": "",
+      "titulo": "Ayuda integral a una familia vulnerable",
+      "texto": "Acompañamos a una familia en situación vulnerable con una ayuda integral, para cubrir sus necesidades más urgentes y darle un respiro.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-10-07"
-    },
-    {
-      "idLions": "SA-10325999",
-      "tag": "Otro servicio humanitario",
-      "titulo": "Jornada de  difusión orientada a la lucha contra el cáncer de mama",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-10-01"
+      "fecha": "2026-10-07",
+      "cuerpo": "El 7 de octubre acompañamos a una familia en situación vulnerable con una ayuda integral, para cubrir sus necesidades más urgentes.\n\nCada caso nos llega de la mano de personas que conocen de cerca a las familias, y eso nos permite ayudar donde hace falta."
     },
     {
       "tag": "Octubre · Salud",
@@ -422,48 +400,33 @@
     {
       "idLions": "SA-10314688",
       "tag": "Cáncer infantil",
-      "titulo": "Entrega de kits dentales a niños con cáncer en el Hospital Regional de Temuco.",
-      "texto": "",
+      "titulo": "Kits dentales para niños con cáncer",
+      "texto": "En el Hospital Regional de Temuco entregamos kits de higiene dental a 20 niños y niñas que enfrentan el cáncer. Es parte de la causa global de cáncer infantil que impulsa Lions International en todo el mundo.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-09-30"
-    },
-    {
-      "idLions": "SA-10325960",
-      "tag": "Juventud",
-      "titulo": "Acción de Lion Quest en liceo Gabriela Mistral de Temuco",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-30"
-    },
-    {
-      "idLions": "SA-10274653",
-      "tag": "Juventud",
-      "titulo": "concurso denominado \"Spelling bee\" (Ortografía hablada)",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-23"
+      "fecha": "2026-09-30",
+      "lugar": "Hospital Regional de Temuco",
+      "personas": "20",
+      "cuerpo": "El 30 de septiembre entregamos kits de higiene dental a 20 niños y niñas con cáncer que se atienden en el Hospital Regional de Temuco. En la actividad participaron 13 voluntarios.\n\nLa iniciativa forma parte de la causa global de cáncer infantil que Lions International impulsa en el mundo. Un gesto pequeño, pero que cuida la salud de quienes enfrentan un tratamiento largo y exigente."
     },
     {
       "idLions": "SA-10268886",
-      "tag": "Auxilio en casos de desastre",
-      "titulo": "AYUDA A PERSONA QUE SUFRIO INUNDACION DE SU VIVIENDA",
-      "texto": "",
+      "tag": "Emergencias",
+      "titulo": "Orientación para una familia afectada por una inundación",
+      "texto": "A una persona cuya vivienda se inundó la orientamos para que pudiera acceder a un beneficio económico que desconocía. Muchas veces la ayuda más valiosa es saber a qué puerta golpear.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-09-23"
+      "fecha": "2026-09-23",
+      "personas": "4",
+      "cuerpo": "A fines de septiembre orientamos a una persona cuya vivienda se había inundado, tanto que debieron sacar el agua con una motobomba. Ella desconocía que existía un beneficio económico al que podía acceder.\n\nLe explicamos cómo hacerlo. A veces la ayuda más valiosa no es un objeto, sino saber a qué puerta golpear."
     },
     {
       "tag": "Agosto y septiembre · Educación",
       "titulo": "Con el Liceo Gabriela Mistral",
       "texto": "Lions Quest llega a cerca de 800 estudiantes del liceo. Además apoyamos la formación de lideresas mistralianas y el concurso de ortografía Spelling Bee.",
-      "imagen": "assets/img/proyectos/liceo-mistral.jpg",
+      "imagen": "img:proyecto-mw7ewppq",
       "fecha": "2026-09-23",
       "enlace": "",
       "ancho": false,
@@ -475,34 +438,16 @@
       "foto3": "assets/img/proyectos/galeria/liceo-mistral-2.jpg"
     },
     {
-      "idLions": "SA-10274616",
-      "tag": "Juventud",
-      "titulo": "Formación de Liderezas Mistralianas",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-22"
-    },
-    {
       "idLions": "SA-10314768",
-      "tag": "Otro servicio humanitario",
-      "titulo": "Concierto piano Maestro Roberto Bravo",
-      "texto": "",
+      "tag": "Servicio humanitario",
+      "titulo": "Preparando el concierto del Maestro Roberto Bravo",
+      "texto": "Nos reunimos para coordinar el concierto de piano del Maestro Roberto Bravo, el 24 de octubre. Con él esperamos reunir fondos para continuar con nuestra obra solidaria.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-09-21"
-    },
-    {
-      "idLions": "SA-10274739",
-      "tag": "Visión",
-      "titulo": "Entrega Lentes",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-17"
+      "fecha": "2026-09-21",
+      "lugar": "Teatro Municipal de Temuco",
+      "cuerpo": "El 21 de septiembre nos reunimos para coordinar el concierto de piano del Maestro Roberto Bravo, programado para el 24 de octubre en el Teatro Municipal de Temuco.\n\nCon esta actividad esperamos reunir fondos para continuar con nuestra obra solidaria, junto a la comunidad."
     },
     {
       "tag": "Septiembre · Salud visual",
@@ -520,63 +465,27 @@
     },
     {
       "idLions": "SA-10268841",
-      "tag": "Otro servicio humanitario",
-      "titulo": "ENTREGA DE PLANCHAS A MADRE CON RECIEN NACIDO EN SITUACION CALLE",
-      "texto": "",
+      "tag": "Servicio humanitario",
+      "titulo": "Abrigo para una madre y su recién nacido",
+      "texto": "Entregamos planchas para forrar y abrigar el espacio precario donde vive una joven madre con su bebé recién nacido. Una familia la había acogido mientras estaba en situación de calle y pasaba mucho frío.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-09-14"
-    },
-    {
-      "idLions": "SA-10269918",
-      "tag": "Otro servicio humanitario",
-      "titulo": "Actividad en el Hogar San Vicente de Paul",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-12"
+      "fecha": "2026-09-14",
+      "personas": "5",
+      "cuerpo": "El 14 de septiembre entregamos planchas para forrar y abrigar el espacio donde vive una joven madre con su bebé recién nacido. Estaba en situación de calle y una familia la había acogido, facilitándole un lugar muy precario donde pasaba mucho frío.\n\nQue un recién nacido pase sus primeros días con algo más de abrigo es, para nosotros, una razón más para seguir."
     },
     {
       "idLions": "SA-10268927",
-      "tag": "Otro servicio humanitario",
-      "titulo": "VISITA A ENFERMO TERMINAL",
-      "texto": "",
+      "tag": "Servicio humanitario",
+      "titulo": "Acompañamiento a una persona con enfermedad terminal",
+      "texto": "Visitamos a una persona con enfermedad terminal y gestionamos sus exámenes y procedimientos, para darle compañía y dignidad en sus últimos días.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-09-11"
-    },
-    {
-      "idLions": "SA-10268714",
-      "tag": "Cáncer infantil",
-      "titulo": "ENTREGA DE CAJAS DE ALIMENTO A 10 INSTITUCIONES DE AYUDA SOCIAL",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-11"
-    },
-    {
-      "idLions": "SA-10269910",
-      "tag": "Hambre",
-      "titulo": "Operativo de entrega de 10 cajas de alimentos",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-10"
-    },
-    {
-      "idLions": "SA-10268798",
-      "tag": "Otro servicio humanitario",
-      "titulo": "ENTREGA DE FRAZADAS A ADULTOS MAYORES EN SITUACION VULNERABLE",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-10"
+      "fecha": "2026-09-11",
+      "personas": "1",
+      "cuerpo": "A comienzos de septiembre visitamos a una persona con una enfermedad terminal y gestionamos sus exámenes y procedimientos.\n\nQuisimos darle compañía y dignidad en sus últimos días. Acompañar también es servir."
     },
     {
       "tag": "Agosto y septiembre · Adulto mayor",
@@ -594,16 +503,6 @@
       "foto3": "assets/img/proyectos/galeria/adultos-mayores-2.jpg"
     },
     {
-      "idLions": "SA-10268659",
-      "tag": "Cáncer infantil",
-      "titulo": "AYUDA A DOS FAMILIAS DE PACIENTES DE ONCOLOGIA INFANTIL",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-08"
-    },
-    {
       "tag": "Septiembre · Cáncer infantil",
       "titulo": "Apoyo a familias de oncología infantil",
       "texto": "Cajas de alimentos, una gift card y un vale de gas para familias de pacientes de oncología infantil en situación vulnerable.",
@@ -617,16 +516,6 @@
       "cuerpo": "Cuando un niño o una niña está en tratamiento oncológico, toda la familia entra en tratamiento con él o ella. Por eso, en septiembre el club acompañó a familias de pacientes de oncología infantil que atraviesan una situación vulnerable.\n\nEl 3 de septiembre entregamos una caja de alimentos, una gift card por 50 dólares y un vale de gas de 15 kilos para un paciente y su familia. El 8 de septiembre sumamos cajas de alimentos para otras dos familias.\n\nEn total, trece personas —pacientes y sus familias— recibieron este apoyo durante el mes.\n\nCáncer infantil es una de las causas prioritarias de Lions en el mundo, y la que más nos mueve a seguir presentes.",
       "foto2": "assets/img/proyectos/galeria/oncologia-infantil-1.jpg",
       "foto3": "assets/img/proyectos/galeria/oncologia-infantil-2.jpg"
-    },
-    {
-      "idLions": "SA-10157773",
-      "tag": "Cáncer infantil",
-      "titulo": "AYUDA A PACIENTE DE ONCOLOGIA INFANTIL",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-03"
     },
     {
       "tag": "Septiembre · Alimentos",
@@ -644,164 +533,179 @@
       "foto3": "assets/img/proyectos/galeria/instituciones-2.jpg"
     },
     {
-      "idLions": "SA-10124909",
-      "tag": "Juventud",
-      "titulo": "Acción de Lion Quest en liceo Gabriela Mistral de Temuco",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-08-31"
-    },
-    {
       "idLions": "SA-10152888",
       "tag": "Juventud",
-      "titulo": "IMPLEMENTACION DE BIBLIOTECA A ESCUELA RUPAYAN DE MALLOHUE",
-      "texto": "",
+      "titulo": "Una biblioteca para la escuela rural Rupayán de Mallohue",
+      "texto": "Entregamos libros para armar una biblioteca en la escuela rural Rupayán de Mallohue, en beneficio de unos 20 estudiantes. Para ellos, cada libro es una ventana nueva.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-08-28"
+      "fecha": "2026-08-28",
+      "lugar": "Escuela Rupayán de Mallohue",
+      "personas": "20",
+      "cuerpo": "A fines de agosto entregamos libros para armar una biblioteca en la escuela rural Rupayán de Mallohue, en beneficio de unos 20 estudiantes. Cinco voluntarios participaron en la entrega.\n\nPara niños que viven lejos de la ciudad, cada libro es una ventana nueva."
     },
     {
       "idLions": "SA-10133588",
       "tag": "Hambre",
-      "titulo": "Entrega de cajas de alimentos a  adultos mayores",
-      "texto": "",
+      "titulo": "Cajas de alimentos para adultos mayores",
+      "texto": "Acompañamos la entrega de cajas de alimentos a adultos mayores de Temuco que viven en situación de pobreza. La actividad se realizó durante la tarde.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-08-28"
+      "fecha": "2026-08-28",
+      "lugar": "Temuco",
+      "personas": "2",
+      "cuerpo": "El 28 de agosto acompañamos la entrega de cajas de alimentos a adultos mayores de Temuco que viven en situación de pobreza. La actividad se realizó entre las 15:00 y las 17:00 horas.\n\nLa visita fue tan importante como la caja: muchos adultos mayores pasan buena parte del día solos."
     },
     {
       "idLions": "SA-10111527",
-      "tag": "Auxilio en casos de desastre",
-      "titulo": "REUNION con el Director Emergencias de la Municipalidad de Temuco",
-      "texto": "",
+      "tag": "Emergencias",
+      "titulo": "Reunión con el Director de Emergencias de la Municipalidad de Temuco",
+      "texto": "Los Leones Héctor Jara y Luis Villalobos se reunieron con el director de Emergencias municipal, Armin Llanos, para coordinar el uso de los fondos del proyecto LCIF destinado a adquirir equipos DEA, que ayudan a salvar vidas en una emergencia cardíaca.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-08-27"
+      "fecha": "2026-08-27",
+      "lugar": "Municipalidad de Temuco",
+      "cuerpo": "Los Leones Héctor Jara y Luis Villalobos asistieron el 27 de agosto a una reunión con el director de Emergencias de la Municipalidad de Temuco, Armin Llanos.\n\nSe coordinaron los fondos del proyecto LCIF para adquirir equipos DEA, desfibriladores que pueden salvar vidas ante una emergencia cardíaca."
     },
     {
       "idLions": "SA-10111467",
       "tag": "Juventud",
-      "titulo": "Reunión y Donación a Centro padres Liceo Gabriela Mistral",
-      "texto": "",
+      "titulo": "Premios para la rifa del Liceo Gabriela Mistral",
+      "texto": "A petición del Centro General de Padres, donamos premios para la rifa del 121.º aniversario del liceo: una plancha a vapor y una batidora, entre otros. Con esa rifa, las familias reúnen fondos para el establecimiento.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-08-24"
+      "fecha": "2026-08-24",
+      "lugar": "Liceo Gabriela Mistral, Temuco",
+      "personas": "800",
+      "cuerpo": "El Centro General de Padres del Liceo Emblemático Gabriela Mistral nos pidió colaborar con premios para la rifa que realiza con motivo del 121.º aniversario del establecimiento. Entregamos una plancha a vapor y una batidora, entre otros.\n\nCon lo que se junta en esa rifa, las familias apoyan al liceo. Nos alegra aportar a una comunidad con la que trabajamos todo el año."
     },
     {
       "idLions": "SA-10152961",
       "tag": "Hambre",
-      "titulo": "ENTREGA DE CAJA DE ALIMENTO A FAMILIA VENEZOLANA",
-      "texto": "",
+      "titulo": "Una caja de alimentos para una familia de siete personas",
+      "texto": "Entregamos una caja de alimentos a una familia venezolana con cinco hijos, ayudando a las siete personas que la forman.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-08-22"
+      "fecha": "2026-08-22",
+      "personas": "7",
+      "cuerpo": "El 22 de agosto entregamos una caja de alimentos a una familia venezolana con cinco hijos. La ayuda llegó a las siete personas del hogar."
     },
     {
       "idLions": "SA-10152801",
       "tag": "Hambre",
-      "titulo": "APOYO INTEGRAL A HOGAR DE ANCIANOS EDEN",
-      "texto": "",
+      "titulo": "Apoyo integral al Hogar de Ancianos Edén",
+      "texto": "Llevamos alimentos, leña, útiles de aseo y de limpieza personal, pañales, una lavadora y una secadora al Hogar de Ancianos Edén, que acoge a unos 25 adultos mayores.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-08-21"
-    },
-    {
-      "idLions": "SA-10124930",
-      "tag": "Juventud",
-      "titulo": "Acción de Lion Quest en liceo Gabriela Mistral de Temuco",
-      "texto": "",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-07-31"
+      "fecha": "2026-08-21",
+      "lugar": "Hogar de Ancianos Edén",
+      "personas": "25",
+      "cuerpo": "El 21 de agosto llevamos al Hogar de Ancianos Edén alimentos, leña, útiles de aseo y de limpieza personal, pañales, una lavadora y una secadora. Cuatro voluntarios participaron en la entrega.\n\nLa ayuda beneficia a unos 25 adultos mayores que viven en el hogar y que hoy cuentan con más comodidad para su día a día."
     },
     {
       "idLions": "SA-09927131",
-      "tag": "Otro servicio humanitario",
-      "titulo": "Donación Insumos Comite Damas a Familia de necesitados",
-      "texto": "",
+      "tag": "Servicio humanitario",
+      "titulo": "Insumos para una familia vulnerable",
+      "texto": "Junto al Comité de Damas donamos insumos a una familia de personas mayores en situación vulnerable, ayudando a cuatro personas.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-07-29"
+      "fecha": "2026-07-29",
+      "personas": "4",
+      "cuerpo": "A fines de julio, junto al Comité de Damas, donamos insumos a una familia de personas mayores en situación vulnerable. La ayuda llegó a cuatro personas.\n\nEs una muestra del trabajo conjunto entre Leones y Damas, que tantas veces permite llegar a más hogares."
     },
     {
       "idLions": "SA-09986512",
-      "tag": "Otro servicio humanitario",
-      "titulo": "AYUDA A NIÑO EN SITUACION VULNERABLE",
-      "texto": "",
+      "tag": "Servicio humanitario",
+      "titulo": "Una cama para un niño que dormía en el suelo",
+      "texto": "Entregamos una cama de plaza y media, con colchón y base, a un niño que dormía en el suelo. El caso nos llegó a través de la asistente social del consultorio de Padre Las Casas.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-07-27"
+      "fecha": "2026-07-27",
+      "lugar": "Padre Las Casas",
+      "personas": "1",
+      "cuerpo": "El 27 de julio entregamos una cama de plaza y media, con colchón y base, a un niño que dormía en el suelo. El caso nos llegó a través de la asistente social del consultorio de Padre Las Casas.\n\nCuatro voluntarios participamos en la entrega. Que un niño duerma bien es lo mínimo que le debemos."
     },
     {
       "idLions": "SA-09919359",
-      "tag": "Otro servicio humanitario",
-      "titulo": "CAMPAÑA DE INVIERNO FAMILIAS VULNERABLES",
-      "texto": "",
+      "tag": "Servicio humanitario",
+      "titulo": "Campaña de invierno para familias vulnerables",
+      "texto": "Entregamos leña, pellets o gas para asegurar un mes de calefacción a unas 500 personas en situación vulnerable. Fueron detectadas por asistentes sociales del Hospital Dr. Hernán Henríquez Aravena, entre ellas familias de niños con cáncer.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-07-26"
+      "fecha": "2026-07-26",
+      "lugar": "Temuco y alrededores",
+      "personas": "500",
+      "cuerpo": "En pleno invierno entregamos leña, pellets o gas para asegurar un mes de calefacción a unas 500 personas en situación vulnerable. Las familias fueron detectadas por asistentes sociales del Hospital Dr. Hernán Henríquez Aravena, e incluyen a familias de niños con cáncer.\n\nDiez voluntarios trabajamos en la campaña. Para muchos hogares, tener con qué calefaccionarse hace la diferencia entre pasar el invierno con frío o con un poco de calor."
     },
     {
       "idLions": "SA-09986463",
       "tag": "Hambre",
-      "titulo": "AYUDA A FAMILIA SIN INGRESOS CON 5 HIJOS EN SITUACION VULNERABLE",
-      "texto": "",
+      "titulo": "Ayuda a una familia sin ingresos con cinco hijos",
+      "texto": "Entregamos una canasta de alimentos, cinco frazadas, ropa y zapatos para los siete integrantes de la familia, además de juguetes para los niños.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-07-25"
+      "fecha": "2026-07-25",
+      "personas": "7",
+      "cuerpo": "El 25 de julio llevamos ayuda a una familia sin ingresos que vive con cinco hijos. Entregamos una canasta de alimentos, cinco frazadas, ropa y zapatos para los siete integrantes, y juguetes para los niños.\n\nCinco voluntarios participamos en la visita. Los juguetes, quizás lo más pequeño de la ayuda, fueron lo que más sonrisas dejó."
     },
     {
       "idLions": "SA-09986487",
       "tag": "Hambre",
-      "titulo": "AYUDA A BEBE GABRIEL HIJO DE MADRE EN SITUACION CALLE",
-      "texto": "",
+      "titulo": "Un hogar más cálido para un bebé y su joven madre",
+      "texto": "Apoyamos a una madre de 18 años en situación de calle y a su bebé recién nacido con una canasta de alimentos, pañales, una bañera, una mecedora y ropa.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-07-25"
+      "fecha": "2026-07-25",
+      "personas": "2",
+      "cuerpo": "Ese mismo 25 de julio apoyamos a una joven de 18 años en situación de calle, que acababa de ser madre. Le entregamos una canasta de alimentos, pañales, una bañera, una mecedora y ropa para su bebé.\n\nSeis voluntarios participamos en la entrega. Ningún recién nacido debería comenzar su vida sin lo básico."
     },
     {
       "idLions": "SA-09927344",
       "tag": "Visión",
-      "titulo": "Donación Camara de flujo Laminar",
-      "texto": "",
+      "titulo": "Cámara de flujo laminar para Oftalmología",
+      "texto": "Donamos una cámara de flujo laminar al servicio de Oftalmología del Hospital Regional de Temuco, un equipo que podrá beneficiar a cerca de mil pacientes.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-07-22"
+      "fecha": "2026-07-22",
+      "lugar": "Hospital Regional de Temuco",
+      "personas": "1000",
+      "cuerpo": "El 22 de julio donamos una cámara de flujo laminar al servicio de Oftalmología del Hospital Regional de Temuco. Seis voluntarios participamos en la entrega.\n\nSe trata de un equipo que podrá beneficiar a cerca de mil pacientes y que contribuye a la seguridad de los procedimientos del servicio."
     },
     {
       "idLions": "SA-09986443",
-      "tag": "Auxilio en casos de desastre",
-      "titulo": "AYUDA A FAMILIA QUE PERDIO SU HOGAR EN UN INCENDIO",
-      "texto": "",
+      "tag": "Emergencias",
+      "titulo": "Una cama para una familia que perdió su hogar en un incendio",
+      "texto": "Entregamos una cama de dos plazas, con base y colchón, a una familia que perdió su hogar en un lamentable incendio.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-07-22"
+      "fecha": "2026-07-22",
+      "personas": "5",
+      "cuerpo": "Ese día también llevamos una cama de dos plazas, con base y colchón, a una familia que perdió su hogar en un lamentable incendio.\n\nCinco voluntarios participamos en la entrega. Comenzar de nuevo es más fácil cuando hay un lugar donde descansar."
     },
     {
       "idLions": "SA-09950442",
-      "tag": "Otro servicio humanitario",
-      "titulo": "APOYO A PERSONA MAYOR",
-      "texto": "",
+      "tag": "Servicio humanitario",
+      "titulo": "Apoyo a un adulto mayor postrado",
+      "texto": "Entregamos tres paquetes de pañales y uno de sabanillas a un adulto mayor de 97 años, postrado y en situación vulnerable.",
       "imagen": "assets/img/fotos/proyecto-1.svg",
       "enlace": "#contacto",
       "ancho": false,
-      "fecha": "2026-07-21"
+      "fecha": "2026-07-21",
+      "personas": "1",
+      "cuerpo": "El 21 de julio entregamos tres paquetes de pañales y uno de sabanillas a un adulto mayor de 97 años que está postrado y en situación vulnerable.\n\nSon insumos de uso diario que, para una familia que cuida a una persona postrada, pesan mucho en el presupuesto."
     }
   ],
   "valores": [

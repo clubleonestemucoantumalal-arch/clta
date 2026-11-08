@@ -235,7 +235,17 @@
     ESTADO.huellaPublicada = huella();
 
     // ¿Quedó trabajo a medio hacer la última vez?
-    const b = ALMACEN.leerChico('borrador', null);
+    let b = ALMACEN.leerChico('borrador', null);
+    /* Protección: si el sitio se publicó desde otro lugar (o por otra persona) DESPUÉS de empezar este borrador,
+       publicar el borrador viejo pisaría esos cambios. Se avisa y se recomienda usar lo publicado. */
+    if (b) {
+      const igual = JSON.stringify(Object.assign({}, normalizar(clonar(b)), { actualizado: null })) === JSON.stringify(Object.assign({}, ESTADO.datos, { actualizado: null }));
+      const viejo = String(b.actualizado || '') !== String(contenido.actualizado || '');
+      if (!igual && viejo) {
+        const usarPublicado = confirm(['Ojo: la página se publicó con cambios más nuevos que el borrador guardado en este computador.', '', 'Si sigues con el borrador viejo y publicas, esos cambios nuevos se perderían.', '', 'Aceptar = abrir lo que está publicado (recomendado).', 'Cancelar = seguir con mi borrador viejo.'].join(String.fromCharCode(10)));
+        if (usarPublicado) { olvidarBorrador(); b = null; }
+      }
+    }
     if (b) {
       const bIg = ALMACEN.leerChico('borradorIg', null);
       const bImg = await ALMACEN.leer('imagenes');
