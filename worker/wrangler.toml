@@ -14,7 +14,7 @@ routes = [
 [[d1_databases]]
 binding = "DB"
 database_name = "clta-datos"
-database_id = "PEGAR-AQUI-EL-ID"
+database_id = "28c36370-1619-4f88-90a4-11e24bb51865"
 
 [vars]
 GH_USUARIO = "clubleonestemucoantumalal-arch"

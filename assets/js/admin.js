@@ -1594,25 +1594,47 @@
     api('/api/resumen').then((r) => {
       const c = t.querySelector('#visBody');
       if (!r) { c.innerHTML = SIN_CONEXION; return; }
-      const max = Math.max(1, ...r.porDia.map((x) => x.n));
+      const SEC = { '#club': 'El Club', '#impacto': 'Cifras de impacto', '#causas': 'Causas', '#proyectos': 'Proyectos', '#noticias': 'Noticias', '#agenda': 'Agenda',
+        '#directorio': 'Directorio', '#testimonios': 'Testimonios', '#unete': 'Hazte socio', '#dona': 'Colabora y dona', '#faq': 'Preguntas frecuentes', '#contacto': 'Contacto' };
+      const nomRuta = (x) => { if (x === '/' || /index/.test(x)) return 'Portada'; const t = x.replace(/^\//, '').replace(/\.html$/, '').replace(/-/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); };
+      /* barras verticales con etiqueta */
+      const barras = (vals, etq, tit) => { const m = Math.max(1, ...vals.map((v) => v[1])); return `<div class="barras" role="img" aria-label="${tit}">${vals.map(([k, n]) => `<i style="height:${Math.max(3, Math.round(n / m * 100))}%" title="${esc(k)}: ${n}"></i>`).join('')}</div><div class="barras__et">${etq}</div>`; };
+      /* barras horizontales (secciones, páginas, orígenes) */
+      const hbar = (lista, nombre) => { const m = Math.max(1, ...lista.map((x) => x.n)); return lista.length ? `<ul class="hbar">${lista.map((x) => `<li><span>${esc(nombre(x))}</span><i style="width:${Math.max(4, Math.round(x.n / m * 100))}%"></i><b>${x.n}</b></li>`).join('')}</ul>` : '<p class="nota-res">Aún no hay datos.</p>'; };
+
       const mapa = Object.fromEntries(r.porDia.map((x) => [x.dia, x.n]));
       const dias = [];
       for (let i = 29; i >= 0; i--) { const dia = new Date(Date.now() - i * 86400000).toLocaleDateString('en-CA', { timeZone: 'America/Santiago' }); dias.push([dia, mapa[dia] || 0]); }
-      const nomRuta = (x) => { if (x === '/' || /index/.test(x)) return 'Portada'; const t = x.replace(/^\//, '').replace(/\.html$/, '').replace(/-/g, ' '); return t.charAt(0).toUpperCase() + t.slice(1); };
+      const horas = Array.from({ length: 24 }, (_, h) => [h + ':00', (r.porHora.find((x) => x.hora === h) || {}).n || 0]);
+      const horaTop = horas.reduce((a, b) => (b[1] > a[1] ? b : a), ['—', 0]);
+      const NSEM = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+      const sem = r.semana.map((n, i) => [NSEM[i], n]);
+      const semTop = sem.reduce((a, b) => (b[1] > a[1] ? b : a), ['—', 0]);
+      const fh = (t) => new Date(t).toLocaleString('es-CL', { timeZone: 'America/Santiago', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
       c.innerHTML = `
+        <p class="nota-res">Cada dispositivo (celular o computador) cuenta <b>una sola vez al día</b>, aunque vuelva a entrar o recargue la página.</p>
         <div class="resumen">
-          <div class="resumen__caja"><b>${r.hoyN}</b><span>Hoy</span></div>
+          <div class="resumen__caja"><b>${r.hoyN}</b><span>Visitas hoy</span></div>
           <div class="resumen__caja"><b>${r.d7}</b><span>Últimos 7 días</span></div>
           <div class="resumen__caja"><b>${r.d30}</b><span>Últimos 30 días</span></div>
-          <div class="resumen__caja"><b>${r.unicos30}</b><span>Personas distintas (30 días)</span></div>
+          <div class="resumen__caja"><b>${r.unicos30}</b><span>Dispositivos distintos (30 días)</span></div>
           <div class="resumen__caja"><b>${r.total}</b><span>Visitas desde el inicio</span></div>
         </div>
-        <div class="barras" role="img" aria-label="Visitas por día, últimos 30 días">${dias.map(([d, n]) => `<i style="height:${Math.max(3, Math.round(n / max * 100))}%" title="${d}: ${n}"></i>`).join('')}</div>
-        <p class="nota-res" style="text-align:center">Cada barra es un día (los últimos 30). La última es hoy.</p>
+        <h4 class="vis-t">Visitas por día (últimos 30 días)</h4>
+        ${barras(dias, '<span>hace 30 días</span><span>hoy</span>', 'Visitas por día')}
         <div class="dos">
-          <div><h4>Páginas más vistas</h4><ul class="lista-simple">${r.paginas.map((x) => `<li><span>${esc(nomRuta(x.ruta))}</span><b>${x.n}</b></li>`).join('') || '<li>Aún no hay datos.</li>'}</ul></div>
-          <div><h4>De dónde llegan</h4><ul class="lista-simple">${r.origenes.map((x) => `<li><span>${esc(x.ref)}</span><b>${x.n}</b></li>`).join('') || '<li>Sin datos todavía (entran directo).</li>'}</ul></div>
-        </div>`;
+          <div><h4 class="vis-t">⏰ A qué hora entra la gente</h4>${barras(horas, '<span>0 h</span><span>6 h</span><span>12 h</span><span>18 h</span><span>23 h</span>', 'Visitas por hora')}
+            <p class="nota-res">${horaTop[1] ? 'La hora con más visitas es las <b>' + horaTop[0] + '</b> (hora de Chile).' : 'Aún no hay datos.'}</p></div>
+          <div><h4 class="vis-t">📅 Qué día de la semana</h4>${barras(sem, '<span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>', 'Visitas por día de la semana')}
+            <p class="nota-res">${semTop[1] ? 'Se visita más los <b>' + semTop[0].toLowerCase() + '</b> (últimos 90 días).' : 'Aún no hay datos.'}</p></div>
+        </div>
+        <div class="dos">
+          <div><h4 class="vis-t">📍 Qué parte de la página se mira más</h4>${hbar(r.secciones, (x) => SEC[x.ruta] || x.ruta)}</div>
+          <div><h4 class="vis-t">📄 Páginas más abiertas</h4>${hbar(r.paginas, (x) => nomRuta(x.ruta))}
+            <h4 class="vis-t" style="margin-top:16px">🔗 De dónde llegan</h4>${hbar(r.origenes, (x) => x.ref)}</div>
+        </div>
+        <h4 class="vis-t">🕒 Últimas visitas</h4>
+        ${r.ultimas.length ? `<div class="tabla-vis"><div class="fv fv--cab"><span>Fecha y hora</span><span>Entró a</span><span>Llegó desde</span></div>${r.ultimas.map((x) => `<div class="fv"><span>${esc(fh(x.t))}</span><span>${esc(nomRuta(x.ruta))}</span><span>${esc(x.ref || 'Directo / sin dato')}</span></div>`).join('')}</div>` : '<p class="nota-res">Aún no hay visitas registradas.</p>'}`;
     });
   }
 
@@ -2098,9 +2120,13 @@
   /* Número chileno para wa.me: 56 + 9 dígitos. Acepta «56-9-92633932», «+56 9 …», «9 …» */
   function numWa(t) {
     let n = soloNum(t);
+    if (n.startsWith('560')) n = '56' + n.slice(3);           /* «56-09-9978…» trae un 0 de más */
+    else if (n.startsWith('0')) n = n.replace(/^0+/, '');
     if (n.length === 9 && n[0] === '9') n = '56' + n;
     return /^569\d{8}$/.test(n) ? n : '';
   }
+  /* Por qué un número no sirve para WhatsApp, en palabras simples */
+  const motivoSinWa = (s) => (!soloNum(s.m) ? 'no tiene celular en la lista' : 'el celular «' + s.m + '» está incompleto o mal escrito');
   async function cargarSocios() {
     const r = await api('/api/socios');
     if (r && Array.isArray(r.socios)) SOCIOS = r.socios;
@@ -2136,6 +2162,7 @@
   }
   /* «dd-mm-aaaa» → { d, m } */
   const cumple = (s) => { const x = String(s.f || '').match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/); return x ? { d: +x[1], m: +x[2] } : null; };
+  const textoCumple = (s) => '¡Feliz cumpleaños, ' + ((s.n || '').split(' ')[0] || 'amigo León') + '! Te saludamos de parte de todo el Club de Leones Temuco Antumalal. Que tengas un día muy lindo. 🦁';
   const MES_L = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
   async function panelSocios(lienzo) {
@@ -2168,10 +2195,12 @@
       ${SOCIOS.length ? `
       <div class="tarjeta">
         <div class="tarjeta__cab"><div><h3>🎂 Cumpleaños de ${MES_L[mes - 1]}</h3><p>Un saludo a tiempo hace mucho por el club.</p></div></div>
-        ${cumples.length ? `<ul class="chequeo">${cumples.map((s) => { const c = cumple(s), esHoy = c.d === hoy.getDate();
+        ${cumples.length ? `<div class="msg__acc" style="margin:0 0 8px"><button class="btn" id="soSaludarTodos" type="button">🎉 Saludar a todos (${cumples.length})</button></div>
+        <ul class="chequeo">${cumples.map((s) => { const c = cumple(s), esHoy = c.d === hoy.getDate();
           const wa = numWa(s.m);
-          return `<li><span class="marca" data-ok="si">${esHoy ? '🎉' : '🎂'}</span><span class="txt"><b>${esc(nombreSocio(s))}</b><span>${c.d} de ${MES_L[mes - 1]}${esHoy ? ' · ¡es hoy!' : ''}</span></span>
-            ${wa ? `<a class="btn btn--linea btn--sm" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent('¡Feliz cumpleaños, ' + (s.n.split(' ')[0] || 'amigo León') + '! Te saludamos de parte de todo el Club de Leones Temuco Antumalal. Que tengas un día muy lindo. 🦁')}">💬 Saludar</a>` : ''}</li>`; }).join('')}</ul>` : '<p class="nota-res">Nadie cumple años este mes.</p>'}
+          return `<li><span class="marca" data-ok="si">${esHoy ? '🎉' : '🎂'}</span><span class="txt"><b>${esc(nombreSocio(s))}</b><span>${c.d} de ${MES_L[mes - 1]}${esHoy ? ' · ¡es hoy!' : ''}${wa ? '' : ' · <em>sin WhatsApp: ' + esc(motivoSinWa(s)) + '</em>'}</span></span>
+            ${wa ? `<a class="btn btn--linea btn--sm" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent(textoCumple(s))}">💬 Saludar</a>`
+              : (s.c ? `<a class="btn btn--linea btn--sm" href="mailto:${esc(s.c)}?subject=${encodeURIComponent('¡Feliz cumpleaños!')}&body=${encodeURIComponent(textoCumple(s))}">✉ Saludar por correo</a>` : '')}</li>`; }).join('')}</ul>` : '<p class="nota-res">Nadie cumple años este mes.</p>'}
       </div>
       <div class="tarjeta">
         <div class="tarjeta__cab"><div><h3>✉ Escribir a los socios</h3><p>Marca a quién (o usa «Marcar todos los que se ven») y elige cómo enviarlo.</p></div></div>
@@ -2216,7 +2245,8 @@
     caja.addEventListener('input', (e) => { if (e.target.id === 'soBuscar') { buscar = e.target.value; const pos = e.target.selectionStart; pintar(); const n = caja.querySelector('#soBuscar'); n.focus(); n.setSelectionRange(pos, pos); } });
     caja.addEventListener('click', (e) => {
       const id = e.target.id;
-      if (id === 'soTodos') { visibles().forEach((s) => sel.add(s.id || nombreSocio(s))); pintar(); }
+      if (id === 'soSaludarTodos') { const m = new Date().getMonth() + 1; ventanaWhatsApp(SOCIOS.filter((s) => { const c = cumple(s); return c && c.m === m; }).sort((a, b) => cumple(a).d - cumple(b).d), '¡Feliz cumpleaños, {nombre}! Te saludamos de parte de todo el Club de Leones Temuco Antumalal. Que tengas un día muy lindo. 🦁'); }
+      else if (id === 'soTodos') { visibles().forEach((s) => sel.add(s.id || nombreSocio(s))); pintar(); }
       else if (id === 'soNinguno') { sel.clear(); pintar(); }
       else if (id === 'soBajar') bajarCsv('socios-' + new Date().toISOString().slice(0, 10) + '.csv', ['Nombre', 'Apellidos', 'Correo', 'Móvil', 'Teléfono', 'Cumpleaños', 'Ingreso', 'Estado', 'Tipo'], SOCIOS.map((s) => [s.n, s.a, s.c, s.m, s.t, s.f, s.i, s.e, s.p]));
       else if (id === 'soCorreo') ventanaCorreoMasivo(marcadosAhora());
@@ -2254,19 +2284,21 @@
   }
 
   /* WhatsApp: no permite envíos masivos automáticos, así que se abre un chat por persona, con el mensaje ya escrito */
-  function ventanaWhatsApp(lista) {
+  function ventanaWhatsApp(lista, textoInicial) {
     const v = document.createElement('div');
     v.className = 'modalx';
     v.innerHTML = `<div class="modalx__caja" role="dialog" aria-modal="true" aria-label="WhatsApp a los socios">
       <h3>WhatsApp a ${lista.length} socio${lista.length === 1 ? '' : 's'}</h3>
       <label class="campo__et">Mensaje (puedes usar <b>{nombre}</b> para poner el nombre de cada uno)
-        <textarea id="waTexto" rows="5">Hola {nombre}, te escribimos del Club de Leones Temuco Antumalal. </textarea></label>
+        <textarea id="waTexto" rows="5">${esc(textoInicial || 'Hola {nombre}, te escribimos del Club de Leones Temuco Antumalal. ')}</textarea></label>
       <p class="nota-res">WhatsApp no deja mandar mensajes masivos de una vez. Toca el botón de cada persona: se abre su chat con el mensaje listo y tú solo das «Enviar». Los ya enviados quedan marcados.</p>
-      <div class="lista-wa">${lista.map((s, i) => { const w = numWa(s.m); return `<div class="fila-wa"><span><b>${esc(nombreSocio(s))}</b><small>${w ? '+' + w : 'sin WhatsApp válido'}</small></span>${w ? `<button class="btn btn--linea btn--sm" data-i="${i}" type="button">💬 Enviar</button>` : ''}</div>`; }).join('')}</div>
+      <div class="lista-wa">${lista.map((s, i) => { const w = numWa(s.m); return `<div class="fila-wa"><span><b>${esc(nombreSocio(s))}</b><small>${w ? '+' + w : esc(motivoSinWa(s))}</small></span>${w ? `<button class="btn btn--linea btn--sm" data-i="${i}" type="button">💬 Enviar</button>` : (s.c ? `<button class="btn btn--linea btn--sm" data-m="${i}" type="button">✉ Por correo</button>` : '')}</div>`; }).join('')}</div>
       <div class="msg__acc"><button class="btn btn--linea" id="waCerrar" type="button">Cerrar</button></div></div>`;
     document.body.appendChild(v);
     v.addEventListener('click', (e) => {
       if (e.target === v || e.target.id === 'waCerrar') return v.remove();
+      const bm = e.target.closest('[data-m]');
+      if (bm) { const s = lista[+bm.dataset.m]; const txt = v.querySelector('#waTexto').value.replace(/\{nombre\}/gi, (s.n || '').split(' ')[0]); window.location.href = 'mailto:' + s.c + '?subject=' + encodeURIComponent('Un saludo del Club de Leones') + '&body=' + encodeURIComponent(txt); bm.textContent = '✓ Abierto'; return; }
       const b = e.target.closest('[data-i]'); if (!b) return;
       const s = lista[+b.dataset.i];
       const txt = v.querySelector('#waTexto').value.replace(/\{nombre\}/gi, (s.n || '').split(' ')[0]);

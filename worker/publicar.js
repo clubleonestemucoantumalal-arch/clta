@@ -108,8 +108,10 @@ async function tablas(env) {
   if (tablasListas) return;
   if (!env.DB) throw Object.assign(new Error('Falta conectar la base de datos (D1) al publicador.'), { status: 503 });
   await env.DB.batch([
-    env.DB.prepare('CREATE TABLE IF NOT EXISTS visitas (id INTEGER PRIMARY KEY AUTOINCREMENT, t INTEGER, dia TEXT, ruta TEXT, ref TEXT, vid TEXT)'),
-    env.DB.prepare('CREATE INDEX IF NOT EXISTS i_vis_dia ON visitas(dia)'),
+    env.DB.prepare('CREATE TABLE IF NOT EXISTS visitas (id INTEGER PRIMARY KEY AUTOINCREMENT, t INTEGER, dia TEXT, hora INTEGER, tipo TEXT, ruta TEXT, ref TEXT, vid TEXT)'),
+    env.DB.prepare('CREATE INDEX IF NOT EXISTS i_vis_dia ON visitas(dia, tipo)'),
+    /* Un mismo dispositivo cuenta una sola vez por día (por tipo y lugar), aunque recargue o borre sus datos */
+    env.DB.prepare('CREATE UNIQUE INDEX IF NOT EXISTS u_vis ON visitas(dia, tipo, ruta, vid)'),
     env.DB.prepare('CREATE TABLE IF NOT EXISTS mensajes (id INTEGER PRIMARY KEY AUTOINCREMENT, t INTEGER, nombre TEXT, email TEXT, telefono TEXT, motivo TEXT, mensaje TEXT, origen TEXT, estado TEXT DEFAULT \'nuevo\', nota TEXT DEFAULT \'\', reenvios TEXT DEFAULT \'[]\', ip TEXT)'),
     env.DB.prepare('CREATE TABLE IF NOT EXISTS ajustes (clave TEXT PRIMARY KEY, valor TEXT)')
   ]);
@@ -136,8 +138,13 @@ async function rutaPublica(req, env, url) {
     let ref = '';
     try { ref = c.ref ? new URL(String(c.ref)).hostname.replace(/^www\./, '').slice(0, 80) : ''; } catch { ref = ''; }
     if (ref === 'clta.cl') ref = '';
-    await env.DB.prepare('INSERT INTO visitas (t, dia, ruta, ref, vid) VALUES (?,?,?,?,?)')
-      .bind(Date.now(), hoyChile(), ruta, ref, recorta(c.v, 40)).run();
+    const tipo = ['v', 'p', 's'].includes(c.tipo) ? c.tipo : 'p';
+    const vid = recorta(c.v, 40);
+    if (!vid) return json({ ok: true });
+    const ahora = Date.now();
+    const hora = parseInt(new Date(ahora).toLocaleString('en-GB', { timeZone: 'America/Santiago', hour: '2-digit', hour12: false }), 10) % 24;
+    await env.DB.prepare('INSERT OR IGNORE INTO visitas (t, dia, hora, tipo, ruta, ref, vid) VALUES (?,?,?,?,?,?,?)')
+      .bind(ahora, hoyChile(ahora), hora, tipo, tipo === 's' ? ruta.replace(/^.*#/, '#') : ruta, tipo === 'v' ? ref : '', vid).run();
     return json({ ok: true });
   }
 
@@ -163,18 +170,25 @@ async function rutaPanel(req, env, url) {
     const hoy = hoyChile();
     const desde = (d) => hoyChile(Date.now() - d * 86400000);
     const q = async (sql, ...p) => (await env.DB.prepare(sql).bind(...p).all()).results || [];
-    const [tot, d30, d7, dh, uni, porDia, paginas, origenes, nuevos] = await Promise.all([
-      q('SELECT COUNT(*) AS n FROM visitas'),
-      q('SELECT COUNT(*) AS n FROM visitas WHERE dia >= ?', desde(29)),
-      q('SELECT COUNT(*) AS n FROM visitas WHERE dia >= ?', desde(6)),
-      q('SELECT COUNT(*) AS n FROM visitas WHERE dia = ?', hoy),
-      q('SELECT COUNT(DISTINCT vid) AS n FROM visitas WHERE dia >= ?', desde(29)),
-      q('SELECT dia, COUNT(*) AS n FROM visitas WHERE dia >= ? GROUP BY dia ORDER BY dia', desde(29)),
-      q('SELECT ruta, COUNT(*) AS n FROM visitas WHERE dia >= ? GROUP BY ruta ORDER BY n DESC LIMIT 8', desde(29)),
-      q("SELECT ref, COUNT(*) AS n FROM visitas WHERE dia >= ? AND ref != '' GROUP BY ref ORDER BY n DESC LIMIT 6", desde(29)),
+    const V = "tipo = 'v'";
+    const [tot, d30, d7, dh, uni, porDia, porHora, porSemana, paginas, secciones, origenes, ultimas, nuevos] = await Promise.all([
+      q(`SELECT COUNT(*) AS n FROM visitas WHERE ${V}`),
+      q(`SELECT COUNT(*) AS n FROM visitas WHERE ${V} AND dia >= ?`, desde(29)),
+      q(`SELECT COUNT(*) AS n FROM visitas WHERE ${V} AND dia >= ?`, desde(6)),
+      q(`SELECT COUNT(*) AS n FROM visitas WHERE ${V} AND dia = ?`, hoy),
+      q(`SELECT COUNT(DISTINCT vid) AS n FROM visitas WHERE ${V} AND dia >= ?`, desde(29)),
+      q(`SELECT dia, COUNT(*) AS n FROM visitas WHERE ${V} AND dia >= ? GROUP BY dia ORDER BY dia`, desde(29)),
+      q(`SELECT hora, COUNT(*) AS n FROM visitas WHERE ${V} AND dia >= ? GROUP BY hora ORDER BY hora`, desde(29)),
+      q(`SELECT dia FROM visitas WHERE ${V} AND dia >= ?`, desde(89)),
+      q("SELECT ruta, COUNT(*) AS n FROM visitas WHERE tipo = 'p' AND dia >= ? GROUP BY ruta ORDER BY n DESC LIMIT 8", desde(29)),
+      q("SELECT ruta, COUNT(*) AS n FROM visitas WHERE tipo = 's' AND dia >= ? GROUP BY ruta ORDER BY n DESC LIMIT 14", desde(29)),
+      q(`SELECT ref, COUNT(*) AS n FROM visitas WHERE ${V} AND dia >= ? AND ref != '' GROUP BY ref ORDER BY n DESC LIMIT 6`, desde(29)),
+      q(`SELECT t, dia, hora, ruta, ref FROM visitas WHERE ${V} ORDER BY t DESC LIMIT 15`),
       q("SELECT COUNT(*) AS n FROM mensajes WHERE estado = 'nuevo'")
     ]);
-    return json({ ok: true, hoy, total: tot[0].n, d30: d30[0].n, d7: d7[0].n, hoyN: dh[0].n, unicos30: uni[0].n, porDia, paginas, origenes, nuevos: nuevos[0].n });
+    const semana = [0, 0, 0, 0, 0, 0, 0]; /* lunes a domingo */
+    porSemana.forEach((r) => { const d = new Date(r.dia + 'T12:00:00Z').getUTCDay(); semana[(d + 6) % 7]++; });
+    return json({ ok: true, hoy, total: tot[0].n, d30: d30[0].n, d7: d7[0].n, hoyN: dh[0].n, unicos30: uni[0].n, porDia, porHora, semana, paginas, secciones, origenes, ultimas, nuevos: nuevos[0].n });
   }
 
   if (ruta === '/api/mensajes' && req.method === 'GET') {

@@ -1,5 +1,8 @@
 # Activar visitas y mensajes en el panel (una sola vez)
 
+> **Estado:** activado el 8 de noviembre de 2026 (base `clta-datos`, publicador `clta-publicar`). Esta guía queda por si hay que repetirlo.
+
+
 El panel ya trae las secciones **Resumen (visitas)** y **Mensajes**. Para que muestren datos hay que crear una
 base de datos en Cloudflare y conectarla al publicador. Sin esto el panel funciona igual, pero esas dos partes
 avisan «todavía no está conectada» y los mensajes siguen llegando al correo del club.
