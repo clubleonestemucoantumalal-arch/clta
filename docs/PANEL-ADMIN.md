@@ -13,7 +13,7 @@ El menú tiene **dos bloques plegables**:
 
 **Administración e informes** — *Resumen* (contador de visitas, accesos rápidos, pendientes),
 *Mensajes* (lo que llega por el cuadro de contacto: reenviar a socios con comentario, responder,
-archivar, descargar en Excel), *Agenda* (la misma de la página, con vista previa), *Informes*
+archivar, descargar en Excel), *Socios* (lista desde el Excel de MyLCI, cumpleaños, correo masivo en copia oculta y WhatsApp uno a uno; datos privados, nunca en el repositorio), *Agenda* (la misma de la página, con vista previa), *Informes*
 (PDF para imprimir y Excel), *Ayuda*, *Ajustes* (letra grande, colores, socios para reenviar)
 y *Publicar y respaldos*.
 

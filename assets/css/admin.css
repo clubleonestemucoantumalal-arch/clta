@@ -719,3 +719,28 @@ body.conVivo .app{ margin-right:min(46vw,640px) }
 .bloque__cab{ color:#7A5A00 !important; font-size:.76rem }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{ outline:3px solid var(--azul-claro); outline-offset:2px }
 .nav__b{ min-height:44px }
+
+/* Socios */
+.tabla-socios{ margin-top:8px; border-top:1px solid var(--g-borde) }
+.fila-so{ display:grid; grid-template-columns:28px 1.4fr 1.6fr 1fr; gap:10px; align-items:center; padding:10px 4px; border-bottom:1px solid var(--g-borde); cursor:pointer; font-size:.95rem }
+.fila-so:hover{ background:var(--g-hover) }
+.fila-so input{ width:20px; height:20px }
+.fs-n small{ display:block; color:var(--g-suave); font-size:.78rem }
+.fs-c{ overflow-wrap:anywhere } .fs-c em{ color:var(--g-suave) }
+@media (max-width:760px){ .fila-so{ grid-template-columns:28px 1fr } .fs-c,.fs-m{ grid-column:2 } }
+.lista-wa{ margin:8px 0 }
+.fila-wa{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--g-borde) }
+.fila-wa small{ display:block; color:var(--g-suave); font-size:.78rem }
+.filtros input[type=search], .filtros select{ padding:8px 12px; border:1px solid var(--g-borde); border-radius:10px; font:inherit; background:#fff }
+
+/* Modo oscuro para lo agregado: antes quedaba texto claro sobre fondo blanco */
+html[data-tema="oscuro"] .rapido{ background:#0F2250; color:#E9EEFA; border-color:#2B4686 }
+html[data-tema="oscuro"] .rapido:hover{ background:#1D3A7C; border-color:#6D9BFF }
+html[data-tema="oscuro"] .modalx__caja,
+html[data-tema="oscuro"] .vivo,
+html[data-tema="oscuro"] .ved{ background:#0F2250; color:#E9EEFA }
+html[data-tema="oscuro"] .modalx textarea, html[data-tema="oscuro"] .modalx input,
+html[data-tema="oscuro"] .ajuste input[type=text], html[data-tema="oscuro"] .ajuste select,
+html[data-tema="oscuro"] .fila-socio input, html[data-tema="oscuro"] #soFirma, html[data-tema="oscuro"] .ved textarea,
+html[data-tema="oscuro"] .filtros input[type=search], html[data-tema="oscuro"] .filtros select{ background:#081A42; color:#E9EEFA; border-color:#2B4686 }
+html[data-tema="oscuro"] .color{ border-color:#0F2250 }

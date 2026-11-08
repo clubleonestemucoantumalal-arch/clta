@@ -825,7 +825,9 @@
 
     $('[data-nuevo]', caja).addEventListener('click', () => {
       const l = clonar(datos());
-      l.push(clonar(def.nuevo));
+      const nuevo = clonar(def.nuevo);
+      if (nuevo && 'fecha' in nuevo && !nuevo.fecha) nuevo.fecha = new Date().toISOString().slice(0, 10); /* hoy, para que salga primero */
+      l.push(nuevo);
       abierto = l.length - 1;
       guardar(l); pintar();
       lista.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -870,6 +872,11 @@
       titulo: 'Mensajes de la página',
       bajada: 'Lo que la gente escribe en el cuadro de contacto. Puedes reenviarlo a un socio, responder o descargarlo en Excel.',
       pintar: panelMensajes },
+
+    { id: 'socios', grupo: 'Administración', nombre: 'Socios', ico: ICO.gente,
+      titulo: 'Socios del club',
+      bajada: 'La lista de socios, los cumpleaños y el envío de correos o WhatsApp a varios a la vez.',
+      pintar: panelSocios },
 
     { id: 'informes', grupo: 'Administración', nombre: 'Informes', ico: ICO.diario,
       titulo: 'Informes y descargas',
@@ -1408,13 +1415,20 @@
     rapido.innerHTML = `<div class="tarjeta__cab"><div><h3>¿Qué quieres hacer hoy?</h3><p>Toca una opción. Siempre puedes volver aquí con «Resumen» en el menú.</p></div></div>
       <div class="rapidos">
         <button type="button" class="rapido" data-ir="portada"><span>✏️</span><b>Cambiar un texto o una foto de la página</b></button>
+        <button type="button" class="rapido" data-nuevo="proyectos"><span>🦁</span><b>Contar lo que hicimos en terreno (nuevo proyecto)</b></button>
+        <button type="button" class="rapido" data-nuevo="articulos"><span>📰</span><b>Escribir un artículo para el blog</b></button>
         <button type="button" class="rapido" data-ir="agenda"><span>📅</span><b>Agregar o cambiar una actividad</b></button>
         <button type="button" class="rapido" data-ir="mensajes"><span>✉️</span><b>Leer los mensajes que llegaron</b></button>
         <button type="button" class="rapido" data-pub="1"><span>🚀</span><b>Publicar mis cambios en la página</b></button>
       </div>`;
     rapido.addEventListener('click', (e) => {
       const b = e.target.closest('.rapido'); if (!b) return;
-      if (b.dataset.pub) abrirPublicar(); else ir(b.dataset.ir);
+      if (b.dataset.pub) abrirPublicar();
+      else if (b.dataset.nuevo) {
+        /* va a la sección y deja una ficha nueva abierta, lista para escribir */
+        ir(b.dataset.nuevo);
+        setTimeout(() => { const nuevo = document.querySelector('#lienzo [data-nuevo]'); if (nuevo) nuevo.click(); }, 60);
+      } else ir(b.dataset.ir);
     });
     lienzo.appendChild(rapido);
     tarjetaVisitas(lienzo);
@@ -1607,7 +1621,7 @@
     const caja = document.createElement('div');
     lienzo.appendChild(caja);
     caja.innerHTML = '<p class="nota-res">Cargando mensajes…</p>';
-    const [r] = await Promise.all([api('/api/mensajes'), cargarAjustes()]);
+    const [r] = await Promise.all([api('/api/mensajes'), cargarAjustes(), cargarSocios()]);
     if (!r) { caja.innerHTML = SIN_CONEXION; return; }
     let todos = r.mensajes, filtro = 'activos';
 
@@ -1677,7 +1691,8 @@
   function ventanaReenviar(m, alTerminar) {
     const v = document.createElement('div');
     v.className = 'modalx';
-    const miembros = (AJ.miembros || []).filter((x) => x.correo);
+    const deSocios = (SOCIOS || []).filter((x) => x.c).map((x) => ({ nombre: nombreSocio(x), cargo: '', correo: x.c }));
+    const miembros = [...(AJ.miembros || []).filter((x) => x.correo), ...deSocios.filter((x) => !(AJ.miembros || []).some((y) => y.correo === x.correo))];
     v.innerHTML = `<div class="modalx__caja" role="dialog" aria-modal="true" aria-label="Reenviar mensaje">
       <h3>Reenviar el mensaje de ${esc(m.nombre)}</h3>
       <p class="nota-res">1. Marca a quién se lo quieres mandar.</p>
@@ -1830,6 +1845,195 @@
       <button class="btn btn--linea" type="button" id="irPub">Ir a «Publicar y respaldos»</button></div>`;
     mas.querySelector('#irPub').addEventListener('click', () => ir('publicar'));
     lienzo.appendChild(mas);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     SOCIOS: lista del club, cumpleaños y envío de correos / WhatsApp
+     Los datos personales NUNCA van al repositorio público: se guardan en la base
+     privada del publicador (detrás de Cloudflare Access) o, si aún no está conectada,
+     solo en este computador.
+     ═══════════════════════════════════════════════════════════════ */
+  let SOCIOS = [];
+  const nombreSocio = (s) => ((s.n || '') + ' ' + (s.a || '')).replace(/\s+/g, ' ').trim();
+  const soloNum = (t) => String(t || '').replace(/[^\d]/g, '');
+  /* Número chileno para wa.me: 56 + 9 dígitos. Acepta «56-9-92633932», «+56 9 …», «9 …» */
+  function numWa(t) {
+    let n = soloNum(t);
+    if (n.length === 9 && n[0] === '9') n = '56' + n;
+    return /^569\d{8}$/.test(n) ? n : '';
+  }
+  async function cargarSocios() {
+    const r = await api('/api/socios');
+    if (r && Array.isArray(r.socios)) SOCIOS = r.socios;
+    else { try { SOCIOS = JSON.parse(localStorage.getItem('antumalal.socios') || '[]'); } catch { SOCIOS = []; } }
+    return !!r;
+  }
+  async function guardarSocios() {
+    try { localStorage.setItem('antumalal.socios', JSON.stringify(SOCIOS)); } catch { /* ignorar */ }
+    return !!(await api('/api/socios', { socios: SOCIOS }));
+  }
+  const cargarScript = (src) => new Promise((ok, mal) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = mal; document.head.appendChild(s); });
+
+  /* Lee el Excel que se baja de MyLCI («Member Detail Information») */
+  async function leerExcelSocios(archivo) {
+    if (!window.XLSX) await cargarScript('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js');
+    const wb = window.XLSX.read(await archivo.arrayBuffer(), { type: 'array' });
+    const filas = window.XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, raw: false, defval: '' });
+    const h = filas.findIndex((f) => f.some((c) => /^Contacto: Nombre$/i.test(String(c).trim())));
+    if (h < 0) throw new Error('No parece el listado de socios (falta la columna «Contacto: Nombre»).');
+    const cab = filas[h].map((c) => String(c).trim().toLowerCase());
+    const col = (re) => cab.findIndex((c) => re.test(c));
+    const cols = { n: col(/^contacto: nombre$/), a: col(/^contacto: apellidos$/), m: col(/^contacto: móvil$/), t: col(/^contacto: teléfono particular$/),
+      f: col(/^contacto: fecha de nacimiento$/), i: col(/^fecha de ingreso/), e: col(/^categoría de afiliación/), p: col(/^programa$/), id: col(/^contacto: número de identificación/) };
+    const correos = cab.map((c, i) => (/^contacto: correo electrónico/.test(c) ? i : -1)).filter((i) => i >= 0);
+    const val = (f, c) => (c >= 0 ? String(f[c] || '').replace(/<[^>]*>/g, '').trim() : '');
+    const lista = filas.slice(h + 1).filter((f) => val(f, cols.n) || val(f, cols.a)).map((f) => ({
+      id: val(f, cols.id), n: val(f, cols.n), a: val(f, cols.a),
+      c: (correos.map((i) => String(f[i] || '').trim()).find((x) => /^\S+@\S+\.\S+$/.test(x)) || '').toLowerCase(),
+      m: val(f, cols.m), t: val(f, cols.t), f: val(f, cols.f), i: val(f, cols.i), e: val(f, cols.e), p: val(f, cols.p)
+    }));
+    if (!lista.length) throw new Error('El archivo no trae socios.');
+    return lista;
+  }
+  /* «dd-mm-aaaa» → { d, m } */
+  const cumple = (s) => { const x = String(s.f || '').match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/); return x ? { d: +x[1], m: +x[2] } : null; };
+  const MES_L = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+  async function panelSocios(lienzo) {
+    const caja = document.createElement('div');
+    lienzo.appendChild(caja);
+    caja.innerHTML = '<p class="nota-res">Cargando socios…</p>';
+    const conectado = await cargarSocios();
+    let buscar = '', estado = 'Activo', sel = new Set();
+
+    const visibles = () => SOCIOS.filter((s) => (estado === 'todos' || s.e === estado) &&
+      (!buscar || (nombreSocio(s) + ' ' + s.c).toLowerCase().includes(buscar.toLowerCase())));
+
+    const pintar = () => {
+      const lista = visibles();
+      const estados = [...new Set(SOCIOS.map((s) => s.e).filter(Boolean))];
+      const hoy = new Date(), mes = hoy.getMonth() + 1;
+      const cumples = SOCIOS.filter((s) => { const c = cumple(s); return c && c.m === mes; }).sort((a, b) => cumple(a).d - cumple(b).d);
+      const marcados = SOCIOS.filter((s) => sel.has(s.id || nombreSocio(s)));
+      caja.innerHTML = `
+      <div class="tarjeta">
+        <div class="tarjeta__cab"><div><h3>${SOCIOS.length ? SOCIOS.length + ' socios en la lista' : 'Aún no hay socios cargados'}</h3>
+          <p>${SOCIOS.length ? SOCIOS.filter((s) => s.c).length + ' tienen correo · ' + SOCIOS.filter((s) => numWa(s.m)).length + ' tienen WhatsApp.' : 'Sube el Excel que se baja de MyLCI («Member Detail Information»).'}
+          ${conectado ? ' Los datos quedan guardados en la base privada del club.' : ' Por ahora quedan guardados solo en este computador.'}</p></div></div>
+        <div class="msg__acc">
+          <label class="btn" style="cursor:pointer">⬆ ${SOCIOS.length ? 'Actualizar la lista (Excel)' : 'Subir el Excel de socios'}<input type="file" id="soArchivo" accept=".xlsx,.xls,.csv" hidden></label>
+          ${SOCIOS.length ? '<button class="btn btn--linea" id="soBajar" type="button">⬇ Descargar en Excel</button>' : ''}
+        </div>
+        <p class="nota-res">🔒 Los datos de los socios son privados: no se publican en la página ni en GitHub.</p>
+      </div>
+      ${SOCIOS.length ? `
+      <div class="tarjeta">
+        <div class="tarjeta__cab"><div><h3>🎂 Cumpleaños de ${MES_L[mes - 1]}</h3><p>Un saludo a tiempo hace mucho por el club.</p></div></div>
+        ${cumples.length ? `<ul class="chequeo">${cumples.map((s) => { const c = cumple(s), esHoy = c.d === hoy.getDate();
+          const wa = numWa(s.m);
+          return `<li><span class="marca" data-ok="si">${esHoy ? '🎉' : '🎂'}</span><span class="txt"><b>${esc(nombreSocio(s))}</b><span>${c.d} de ${MES_L[mes - 1]}${esHoy ? ' · ¡es hoy!' : ''}</span></span>
+            ${wa ? `<a class="btn btn--linea btn--sm" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent('¡Feliz cumpleaños, ' + (s.n.split(' ')[0] || 'amigo León') + '! Te saludamos de parte de todo el Club de Leones Temuco Antumalal. Que tengas un día muy lindo. 🦁')}">💬 Saludar</a>` : ''}</li>`; }).join('')}</ul>` : '<p class="nota-res">Nadie cumple años este mes.</p>'}
+      </div>
+      <div class="tarjeta">
+        <div class="tarjeta__cab"><div><h3>✉ Escribir a los socios</h3><p>Marca a quién (o usa «Marcar todos los que se ven») y elige cómo enviarlo.</p></div></div>
+        <div class="filtros">
+          <input type="search" id="soBuscar" placeholder="Buscar por nombre o correo" value="${esc(buscar)}" style="max-width:280px">
+          <select id="soEstado" aria-label="Estado"><option value="todos">Todos</option>${estados.map((e) => `<option ${estado === e ? 'selected' : ''}>${esc(e)}</option>`).join('')}</select>
+          <button class="btn btn--linea btn--sm" id="soTodos" type="button">Marcar todos los que se ven</button>
+          <button class="btn btn--linea btn--sm" id="soNinguno" type="button">Quitar marcas</button>
+        </div>
+        <div class="msg__acc" style="margin-bottom:6px">
+          <button class="btn" id="soCorreo" type="button" ${marcados.length ? '' : 'disabled'}>✉ Correo a los marcados (${marcados.length})</button>
+          <button class="btn btn--linea" id="soWa" type="button" ${marcados.length ? '' : 'disabled'}>💬 WhatsApp a los marcados</button>
+        </div>
+        <div class="tabla-socios">${lista.map((s) => { const k = s.id || nombreSocio(s); return `
+          <label class="fila-so"><input type="checkbox" data-k="${esc(k)}" ${sel.has(k) ? 'checked' : ''}>
+            <span class="fs-n"><b>${esc(nombreSocio(s))}</b><small>${esc(s.e || '')}${s.p && s.p !== 'Regular' ? ' · ' + esc(s.p) : ''}</small></span>
+            <span class="fs-c">${s.c ? esc(s.c) : '<em>sin correo</em>'}</span>
+            <span class="fs-m">${esc(s.m || s.t || '')}</span></label>`; }).join('') || '<p class="nota-res">No hay socios con ese filtro.</p>'}</div>
+      </div>` : ''}`;
+    };
+    pintar();
+
+    const marcadosAhora = () => SOCIOS.filter((s) => sel.has(s.id || nombreSocio(s)));
+    caja.addEventListener('change', async (e) => {
+      if (e.target.id === 'soArchivo') {
+        const f = e.target.files[0]; if (!f) return;
+        try {
+          const lista = await leerExcelSocios(f);
+          if (SOCIOS.length && !confirm('Se reemplazará la lista actual (' + SOCIOS.length + ' socios) por la del archivo (' + lista.length + ' socios). ¿Seguir?')) return;
+          SOCIOS = lista; sel.clear();
+          const ok = await guardarSocios();
+          aviso(ok ? 'Listo: ' + lista.length + ' socios guardados.' : lista.length + ' socios cargados (guardados solo en este computador, el servidor aún no está conectado).', ok ? 'ok' : 'mal');
+          pintar();
+        } catch (err) { aviso(err.message || 'No se pudo leer el archivo.', 'mal'); }
+      } else if (e.target.id === 'soEstado') { estado = e.target.value; pintar(); }
+      else if (e.target.dataset.k !== undefined) {
+        e.target.checked ? sel.add(e.target.dataset.k) : sel.delete(e.target.dataset.k);
+        const n = sel.size; const b1 = caja.querySelector('#soCorreo'), b2 = caja.querySelector('#soWa');
+        b1.disabled = b2.disabled = !n; b1.textContent = '✉ Correo a los marcados (' + n + ')';
+      }
+    });
+    caja.addEventListener('input', (e) => { if (e.target.id === 'soBuscar') { buscar = e.target.value; const pos = e.target.selectionStart; pintar(); const n = caja.querySelector('#soBuscar'); n.focus(); n.setSelectionRange(pos, pos); } });
+    caja.addEventListener('click', (e) => {
+      const id = e.target.id;
+      if (id === 'soTodos') { visibles().forEach((s) => sel.add(s.id || nombreSocio(s))); pintar(); }
+      else if (id === 'soNinguno') { sel.clear(); pintar(); }
+      else if (id === 'soBajar') bajarCsv('socios-' + new Date().toISOString().slice(0, 10) + '.csv', ['Nombre', 'Apellidos', 'Correo', 'Móvil', 'Teléfono', 'Cumpleaños', 'Ingreso', 'Estado', 'Tipo'], SOCIOS.map((s) => [s.n, s.a, s.c, s.m, s.t, s.f, s.i, s.e, s.p]));
+      else if (id === 'soCorreo') ventanaCorreoMasivo(marcadosAhora());
+      else if (id === 'soWa') ventanaWhatsApp(marcadosAhora());
+    });
+  }
+
+  /* Correo a varios socios: van en copia oculta (CCO) para que nadie vea los correos de los demás */
+  function ventanaCorreoMasivo(lista) {
+    const con = lista.filter((s) => s.c), sin = lista.filter((s) => !s.c);
+    const v = document.createElement('div');
+    v.className = 'modalx';
+    v.innerHTML = `<div class="modalx__caja" role="dialog" aria-modal="true" aria-label="Correo a los socios">
+      <h3>Correo a ${con.length} socio${con.length === 1 ? '' : 's'}</h3>
+      ${sin.length ? `<p class="aviso aviso--info" style="margin:6px 0">${sin.length} no tiene${sin.length === 1 ? '' : 'n'} correo y no se incluye${sin.length === 1 ? '' : 'n'}: ${esc(sin.map(nombreSocio).join(', '))}.</p>` : ''}
+      <label class="campo__et">Asunto<input type="text" id="cmAsunto" placeholder="Ej.: Sesión del lunes 23" style="width:100%"></label>
+      <label class="campo__et">Mensaje<textarea id="cmTexto" rows="7" placeholder="Estimados socios:&#10;&#10;…"></textarea></label>
+      <p class="nota-res">Los correos van en <b>copia oculta</b>: cada socio ve solo su propio mensaje, no las direcciones de los demás.</p>
+      <div class="msg__acc">
+        <button class="btn" id="cmGmail" type="button">✉ Abrir en Gmail</button>
+        <button class="btn btn--linea" id="cmMail" type="button">Abrir en mi programa de correo</button>
+        <button class="btn btn--linea" id="cmCopiar" type="button">📋 Copiar los correos</button>
+        <button class="btn btn--linea" id="cmCerrar" type="button">Cancelar</button>
+      </div></div>`;
+    document.body.appendChild(v);
+    const dat = () => ({ cco: con.map((s) => s.c).join(','), asunto: v.querySelector('#cmAsunto').value.trim(), texto: v.querySelector('#cmTexto').value });
+    v.addEventListener('click', async (e) => {
+      if (e.target === v || e.target.id === 'cmCerrar') return v.remove();
+      if (!con.length) return;
+      const { cco, asunto, texto } = dat();
+      if (e.target.id === 'cmGmail') window.open('https://mail.google.com/mail/?view=cm&fs=1&bcc=' + encodeURIComponent(cco) + '&su=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(texto), '_blank', 'noopener');
+      else if (e.target.id === 'cmMail') window.location.href = 'mailto:?bcc=' + encodeURIComponent(cco) + '&subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(texto);
+      else if (e.target.id === 'cmCopiar') { try { await navigator.clipboard.writeText(con.map((s) => s.c).join(', ')); aviso('Correos copiados. Pégalos en «CCO» de tu correo.', 'ok'); } catch { aviso('No se pudo copiar.', 'mal'); } }
+    });
+  }
+
+  /* WhatsApp: no permite envíos masivos automáticos, así que se abre un chat por persona, con el mensaje ya escrito */
+  function ventanaWhatsApp(lista) {
+    const v = document.createElement('div');
+    v.className = 'modalx';
+    v.innerHTML = `<div class="modalx__caja" role="dialog" aria-modal="true" aria-label="WhatsApp a los socios">
+      <h3>WhatsApp a ${lista.length} socio${lista.length === 1 ? '' : 's'}</h3>
+      <label class="campo__et">Mensaje (puedes usar <b>{nombre}</b> para poner el nombre de cada uno)
+        <textarea id="waTexto" rows="5">Hola {nombre}, te escribimos del Club de Leones Temuco Antumalal. </textarea></label>
+      <p class="nota-res">WhatsApp no deja mandar mensajes masivos de una vez. Toca el botón de cada persona: se abre su chat con el mensaje listo y tú solo das «Enviar». Los ya enviados quedan marcados.</p>
+      <div class="lista-wa">${lista.map((s, i) => { const w = numWa(s.m); return `<div class="fila-wa"><span><b>${esc(nombreSocio(s))}</b><small>${w ? '+' + w : 'sin WhatsApp válido'}</small></span>${w ? `<button class="btn btn--linea btn--sm" data-i="${i}" type="button">💬 Enviar</button>` : ''}</div>`; }).join('')}</div>
+      <div class="msg__acc"><button class="btn btn--linea" id="waCerrar" type="button">Cerrar</button></div></div>`;
+    document.body.appendChild(v);
+    v.addEventListener('click', (e) => {
+      if (e.target === v || e.target.id === 'waCerrar') return v.remove();
+      const b = e.target.closest('[data-i]'); if (!b) return;
+      const s = lista[+b.dataset.i];
+      const txt = v.querySelector('#waTexto').value.replace(/\{nombre\}/gi, (s.n || '').split(' ')[0]);
+      window.open('https://wa.me/' + numWa(s.m) + '?text=' + encodeURIComponent(txt), '_blank', 'noopener');
+      b.textContent = '✓ Enviado'; b.disabled = true;
+    });
   }
 
   /* ─── Informes ─── */
@@ -2081,7 +2285,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
   /* El menú tiene dos bloques plegables: uno para administrar e informarse y otro para cambiar la página */
   const BLOQUES = [
     { id: 'admin', titulo: 'Administración e informes', grupos: ['Administración'],
-      orden: ['inicio', 'mensajes', 'agenda', 'informes', 'ayuda', 'ajustes', 'publicar'] },
+      orden: ['inicio', 'mensajes', 'socios', 'agenda', 'informes', 'ayuda', 'ajustes', 'publicar'] },
     { id: 'web',   titulo: 'Mi página web', grupos: ['Datos del club', 'Contenido de la página', 'Conexiones'] }
   ];
 

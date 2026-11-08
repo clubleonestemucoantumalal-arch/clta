@@ -202,6 +202,20 @@ async function rutaPanel(req, env, url) {
     return json({ ok: true });
   }
 
+  if (ruta === '/api/socios' && req.method === 'GET') {
+    const f = await env.DB.prepare("SELECT valor FROM ajustes WHERE clave = 'socios'").first();
+    let v = []; try { v = JSON.parse((f && f.valor) || '[]'); } catch { v = []; }
+    return json({ ok: true, socios: v });
+  }
+  if (ruta === '/api/socios' && req.method === 'POST') {
+    await identificar(req, env);
+    const c = await req.json().catch(() => null);
+    if (!c || !Array.isArray(c.socios) || c.socios.length > 1500) return json({ error: 'Datos inválidos.' }, 400);
+    const limpio = c.socios.map((x) => ({ id: recorta(x.id, 20), n: recorta(x.n, 80), a: recorta(x.a, 80), c: recorta(x.c, 160), m: recorta(x.m, 30), t: recorta(x.t, 30), f: recorta(x.f, 12), i: recorta(x.i, 12), e: recorta(x.e, 40), p: recorta(x.p, 40) }));
+    await env.DB.prepare("INSERT INTO ajustes (clave, valor) VALUES ('socios', ?) ON CONFLICT(clave) DO UPDATE SET valor = excluded.valor").bind(JSON.stringify(limpio)).run();
+    return json({ ok: true });
+  }
+
   if (ruta === '/api/ajustes' && req.method === 'GET') {
     const f = await env.DB.prepare("SELECT valor FROM ajustes WHERE clave = 'panel'").first();
     let v = {}; try { v = JSON.parse((f && f.valor) || '{}'); } catch { v = {}; }
@@ -224,7 +238,7 @@ export default {
     const url = new URL(req.url);
     try {
       if (url.pathname.startsWith('/p/')) return await rutaPublica(req, env, url);
-      if (url.pathname === '/api/resumen' || url.pathname === '/api/mensajes' || url.pathname === '/api/ajustes') {
+      if (url.pathname === '/api/resumen' || url.pathname === '/api/mensajes' || url.pathname === '/api/ajustes' || url.pathname === '/api/socios') {
         await identificar(req, env);
         const r = await rutaPanel(req, env, url);
         if (r) return r;
