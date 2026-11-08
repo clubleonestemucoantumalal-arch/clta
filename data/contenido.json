@@ -305,9 +305,9 @@
       "tag": "Juventud",
       "titulo": "Cartel de la Paz: la paz vista por los estudiantes",
       "texto": "Llevamos el concurso Cartel de la Paz a los colegios de la zona. Los estudiantes expresaron en sus dibujos lo que significa la paz para ellos, y un jurado recibió y seleccionó los trabajos.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "imagen": "assets/img/proyectos/cartel-de-la-paz.jpg",
       "enlace": "#contacto",
-      "ancho": false,
+      "ancho": true,
       "fecha": "2026-10-28"
     },
     {
