@@ -1542,13 +1542,14 @@
   }
 
   /* ─── Mensajes del formulario de contacto ─── */
+  const ETIQUETAS = ['Quiero ser socio', 'Donación', 'Consulta', 'Prensa', 'Urgente', 'Respondido'];
   async function panelMensajes(lienzo) {
     const caja = document.createElement('div');
     lienzo.appendChild(caja);
     caja.innerHTML = '<p class="nota-res">Cargando mensajes…</p>';
     const [r] = await Promise.all([api('/api/mensajes'), cargarAjustes(), cargarSocios()]);
     if (!r) { caja.innerHTML = SIN_CONEXION; return; }
-    let todos = r.mensajes, filtro = 'activos';
+    let todos = r.mensajes, filtro = 'activos', abierto = null;
 
     const pintar = () => {
       const lista = todos.filter((m) => filtro === 'todos' ? true : filtro === 'archivados' ? m.estado === 'archivado' : m.estado !== 'archivado');
@@ -1563,12 +1564,20 @@
         </div>
         ${lista.length ? lista.map((m) => `
         <div class="tarjeta msg ${m.estado === 'nuevo' ? 'msg--nuevo' : ''}" data-id="${m.id}">
-          <div class="msg__cab"><b>${esc(m.nombre)}</b>${m.estado === 'nuevo' ? '<span class="etq etq--nuevo">Nuevo</span>' : ''}${m.estado === 'archivado' ? '<span class="etq">Archivado</span>' : ''}<span class="msg__fecha">${esc(fechaHora(m.t))}</span></div>
+          <div class="msg__cab"><b>${esc(m.nombre)}</b>${m.estado === 'nuevo' ? '<span class="etq etq--nuevo">Nuevo</span>' : ''}${m.etiqueta ? `<span class="etq etq--tag">🏷 ${esc(m.etiqueta)}</span>` : ''}${m.estado === 'archivado' ? '<span class="etq">Archivado</span>' : ''}<span class="msg__fecha">${esc(fechaHora(m.t))}</span></div>
           <div class="msg__datos">${m.motivo ? `<span>📌 ${esc(m.motivo)}</span>` : ''}<span>✉ <a href="mailto:${esc(m.email)}">${esc(m.email)}</a></span>${m.telefono ? `<span>📞 <a href="tel:${esc(m.telefono)}">${esc(m.telefono)}</a></span>` : ''}${m.origen ? `<span>🔎 Nos conoció por: ${esc(m.origen)}</span>` : ''}</div>
           <p class="msg__texto">${esc(m.mensaje).replace(/\n/g, '<br>')}</p>
+          ${m.nota ? `<div class="msg__nota">💬 <b>Comentario:</b> ${esc(m.nota).replace(/\n/g, '<br>')}</div>` : ''}
+          ${abierto === m.id ? `<div class="msg__etq">
+            <b>Etiqueta</b>
+            <div class="opc">${ETIQUETAS.map((t) => `<button type="button" class="btn btn--sm ${m.etiqueta === t ? '' : 'btn--linea'}" data-tag="${esc(t)}">${esc(t)}</button>`).join('')}${m.etiqueta ? '<button type="button" class="btn btn--linea btn--sm" data-tag="">✕ Quitar etiqueta</button>' : ''}</div>
+            <label class="campo__et">Comentario (solo lo ve quien entra al panel)<textarea id="msgNota" rows="2" placeholder="Ej.: Llamé a la persona el lunes; quedó de venir a la sesión.">${esc(m.nota || '')}</textarea></label>
+            <div class="msg__acc"><button class="btn btn--sm" data-a="guardarnota" type="button">💾 Guardar comentario</button><button class="btn btn--linea btn--sm" data-a="cerrarcl" type="button">Cerrar</button></div>
+          </div>` : ''}
           ${m.reenvios.length ? `<div class="msg__rev">${m.reenvios.map((x) => `↪ Reenviado el ${esc(fechaHora(x.t))} a ${esc(x.para)}${x.comentario ? ` — «${esc(x.comentario)}»` : ''}`).join('<br>')}</div>` : ''}
           <div class="msg__acc">
             <button class="btn btn--sm" data-a="reenviar" type="button">↪ Reenviar a un socio</button>
+            <button class="btn btn--linea btn--sm" data-a="clasificar" type="button">🏷 Etiqueta y comentario</button>
             <a class="btn btn--linea btn--sm" href="mailto:${esc(m.email)}?subject=${encodeURIComponent('Re: ' + (m.motivo || 'Tu mensaje al Club de Leones'))}">✉ Responder</a>
             ${m.estado === 'nuevo' ? '<button class="btn btn--linea btn--sm" data-a="leido" type="button">✓ Marcar como leído</button>' : ''}
             ${m.estado !== 'archivado' ? '<button class="btn btn--linea btn--sm" data-a="archivar" type="button">🗂 Archivar</button>' : '<button class="btn btn--linea btn--sm" data-a="desarchivar" type="button">↩ Volver a Por atender</button>'}
@@ -1589,14 +1598,27 @@
       if (f) { filtro = f.dataset.f; pintar(); return; }
       if (e.target.closest('#msgExcel')) {
         bajarCsv('mensajes-' + new Date().toISOString().slice(0, 10) + '.csv',
-          ['Fecha', 'Nombre', 'Correo', 'Teléfono', 'Motivo', 'Mensaje', 'Cómo nos conoció', 'Estado', 'Reenviado a / comentario'],
-          todos.map((m) => [fechaHora(m.t), m.nombre, m.email, m.telefono, m.motivo, m.mensaje, m.origen, m.estado,
+          ['Fecha', 'Nombre', 'Correo', 'Teléfono', 'Motivo', 'Mensaje', 'Cómo nos conoció', 'Estado', 'Etiqueta', 'Comentario', 'Reenviado a / comentario'],
+          todos.map((m) => [fechaHora(m.t), m.nombre, m.email, m.telefono, m.motivo, m.mensaje, m.origen, m.estado, m.etiqueta || '', m.nota || '',
             m.reenvios.map((x) => x.para + (x.comentario ? ' (' + x.comentario + ')' : '')).join(' | ')]));
+        return;
+      }
+      const tg = e.target.closest('[data-tag]');
+      if (tg) {
+        const m = todos.find((x) => x.id === +tg.closest('.msg').dataset.id);
+        if (m && await cambiar(m, 'etiqueta', { etiqueta: tg.dataset.tag })) { m.etiqueta = tg.dataset.tag; pintar(); }
         return;
       }
       const b = e.target.closest('[data-a]'); if (!b) return;
       const m = todos.find((x) => x.id === +b.closest('.msg').dataset.id); if (!m) return;
       const a = b.dataset.a;
+      if (a === 'clasificar') { abierto = abierto === m.id ? null : m.id; pintar(); return; }
+      if (a === 'cerrarcl') { abierto = null; pintar(); return; }
+      if (a === 'guardarnota') {
+        const txt = b.closest('.msg').querySelector('#msgNota').value.trim();
+        if (await cambiar(m, 'nota', { nota: txt })) { m.nota = txt; abierto = null; pintar(); aviso('Comentario guardado.', 'ok'); }
+        return;
+      }
       if (a === 'leido' && await cambiar(m, 'estado', { estado: 'leido' })) { m.estado = 'leido'; pintar(); }
       else if (a === 'archivar' && await cambiar(m, 'estado', { estado: 'archivado' })) { m.estado = 'archivado'; pintar(); }
       else if (a === 'desarchivar' && await cambiar(m, 'estado', { estado: 'leido' })) { m.estado = 'leido'; pintar(); }

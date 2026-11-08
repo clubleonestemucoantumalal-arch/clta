@@ -115,6 +115,8 @@ async function tablas(env) {
     env.DB.prepare('CREATE TABLE IF NOT EXISTS mensajes (id INTEGER PRIMARY KEY AUTOINCREMENT, t INTEGER, nombre TEXT, email TEXT, telefono TEXT, motivo TEXT, mensaje TEXT, origen TEXT, estado TEXT DEFAULT \'nuevo\', nota TEXT DEFAULT \'\', reenvios TEXT DEFAULT \'[]\', ip TEXT)'),
     env.DB.prepare('CREATE TABLE IF NOT EXISTS ajustes (clave TEXT PRIMARY KEY, valor TEXT)')
   ]);
+  /* Bases creadas antes de existir las etiquetas: se agrega la columna una vez */
+  try { await env.DB.prepare("ALTER TABLE mensajes ADD COLUMN etiqueta TEXT DEFAULT ''").run(); } catch { /* ya existe */ }
   tablasListas = true;
 }
 
@@ -192,7 +194,7 @@ async function rutaPanel(req, env, url) {
   }
 
   if (ruta === '/api/mensajes' && req.method === 'GET') {
-    const r = await env.DB.prepare('SELECT id, t, nombre, email, telefono, motivo, mensaje, origen, estado, nota, reenvios FROM mensajes ORDER BY t DESC LIMIT 500').all();
+    const r = await env.DB.prepare('SELECT id, t, nombre, email, telefono, motivo, mensaje, origen, estado, nota, etiqueta, reenvios FROM mensajes ORDER BY t DESC LIMIT 500').all();
     return json({ ok: true, mensajes: (r.results || []).map((m) => ({ ...m, reenvios: (() => { try { return JSON.parse(m.reenvios); } catch { return []; } })() })) });
   }
 
@@ -203,6 +205,8 @@ async function rutaPanel(req, env, url) {
     if (!id) return json({ error: 'Falta el mensaje.' }, 400);
     if (c.accion === 'estado' && ['nuevo', 'leido', 'archivado'].includes(c.estado)) {
       await env.DB.prepare('UPDATE mensajes SET estado = ? WHERE id = ?').bind(c.estado, id).run();
+    } else if (c.accion === 'etiqueta') {
+      await env.DB.prepare('UPDATE mensajes SET etiqueta = ? WHERE id = ?').bind(recorta(c.etiqueta, 40), id).run();
     } else if (c.accion === 'nota') {
       await env.DB.prepare('UPDATE mensajes SET nota = ? WHERE id = ?').bind(recorta(c.nota, 1000), id).run();
     } else if (c.accion === 'reenvio') {
