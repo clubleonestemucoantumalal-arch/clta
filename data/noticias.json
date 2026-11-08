@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-08T11:28:56.428Z",
+  "generado": "2026-11-08T23:28:54.053Z",
   "total": 24,
   "fuentes": [
     {
@@ -29,6 +29,15 @@
     }
   ],
   "noticias": [
+    {
+      "titulo": "Nancy Echeverría Silva: una vida de compromiso con el Leonismo",
+      "resumen": "El Distrito T-4 recuerda con cariño y gratitud a quien dedicó parte importante de su vida al servicio leonístico, dejando un valioso legado en el Club de Leones Valdivia Isla Teja.",
+      "enlace": "https://leonest4.cl/noticias/nancy-echeverria-silva-una-vida-de-compromiso-con-el-leonismo",
+      "fecha": "2026-11-08T12:00:00.000Z",
+      "fuente": "Distrito T4",
+      "tipo": "oficial",
+      "imagen": "https://leonest4.cl/uploads/publicaciones/nancy-echeverria-silva-una-vida-de-compromiso-con-el-leonism-20261108111217-06edc2.webp"
+    },
     {
       "titulo": "Learning to Live with Diabetes",
       "resumen": "Life with type 1 diabetes (T1D) can be very difficult for children. The level of responsibility required for managing the disease, including constant blood sugar monitoring, can be extremely overwhelming for people so young. The D",
@@ -127,15 +136,6 @@
       "fuente": "LION Magazine",
       "tipo": "oficial",
       "imagen": "https://lionmagazine.org/wp-content/uploads/2026/07/Lyon_DSC07079-Fix-300x178.jpg"
-    },
-    {
-      "titulo": "El Distrito T4 moderniza sus comunicaciones con el nuevo sistema de publicación de noticias por correo electrónico",
-      "resumen": "Con el objetivo de agilizar la difusión de las actividades y obras de servicio de los Clubes de Leones, el Área de Informática del Distrito T4 presentó una innovadora herramienta que permite a los encargados de prensa publicar not",
-      "enlace": "https://leonest4.cl/noticias/el-distrito-t4-moderniza-sus-comunicaciones-con-el-nuevo-sistema-de-publicacion-de-noticias-por-correo-electronico",
-      "fecha": "2026-07-22T12:00:00.000Z",
-      "fuente": "Distrito T4",
-      "tipo": "oficial",
-      "imagen": "https://leonest4.cl/uploads/publicaciones/noticia-de-prueba_20260722132001.jpg"
     },
     {
       "titulo": "En una emotiva y solemne ceremonia, realizada el viernes 10 de julio, el Club de Leones Puerto Varas efectuó el tradicional Cambio de Mando de su Directorio para el período leonístico 2026–2027, dando inicio a una nueva etapa de servicio en beneficio d",

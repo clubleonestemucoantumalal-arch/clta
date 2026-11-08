@@ -1,8 +1,15 @@
 {
-  "generado": "2026-10-20T19:29:52.402Z",
+  "generado": "2026-11-08T23:28:55.345Z",
   "fuente": "https://leonest4.cl/",
-  "total": 35,
+  "total": 81,
   "eventos": [
+    {
+      "fecha": "2026-11-08",
+      "titulo": "Aniversario del Club de Leones Pucón Lacustre",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
     {
       "fecha": "2026-11-14",
       "titulo": "Día Mundial de la Diabetes",
@@ -18,6 +25,13 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2026-11-17",
+      "titulo": "Aniversario del Club de Leones Loncoche",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2026-11-19",
       "titulo": "Día del Hombre",
       "texto": "",
@@ -27,6 +41,20 @@
     {
       "fecha": "2026-11-20",
       "titulo": "Día Mundial de la Infancia",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2026-11-29",
+      "titulo": "Aniversario del Club de Leones Calbuco",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2026-11-29",
+      "titulo": "Aniversario del Club de Leones Lautaro",
       "texto": "",
       "hora": "",
       "ambito": "distrito"
@@ -53,6 +81,55 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2026-12-06",
+      "titulo": "Aniversario del Club de Leones Coyhaique Trapananda",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2026-12-07",
+      "titulo": "Aniversario del Club de Leones Puerto Varas",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2026-12-08",
+      "titulo": "Aniversario del Club de Leones Temuco Ñielol",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2026-12-19",
+      "titulo": "Aniversario del Club de Leones Puerto Natales",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2026-12-28",
+      "titulo": "Aniversario del Club de Leones Chaiten",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2026-12-28",
+      "titulo": "Aniversario del Club de Leones Vilcún San Patricio",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-01-12",
+      "titulo": "Aniversario del Club de Leones Frutillar",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-01-13",
       "titulo": "Natalicio Melvin Jones",
       "texto": "",
@@ -67,8 +144,36 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2027-01-15",
+      "titulo": "Aniversario del Club de Leones Los Muermos Sarao",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-01-20",
+      "titulo": "Aniversario del Club de Leones Temuco Nueva Frontera",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-01-26",
       "titulo": "Día Mundial de la Educación Ambiental",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-01-28",
+      "titulo": "Aniversario del Club de Leones Puerto Varas Los Colonos",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-01-30",
+      "titulo": "Aniversario del Club de Leones Puerto Montt Angelmó",
       "texto": "",
       "hora": "",
       "ambito": "distrito"
@@ -95,6 +200,34 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2027-02-22",
+      "titulo": "Aniversario del Club de Leones Frutillar Martín Pescador",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-02-22",
+      "titulo": "Aniversario del Club de Leones Pucón",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-02-28",
+      "titulo": "Aniversario del Club de Leones Puerto Montt Austral",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-02-28",
+      "titulo": "Aniversario del Club de Leones Purranque",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-03-01",
       "titulo": "Día de la Inclusión y Cero Discriminación",
       "texto": "",
@@ -116,8 +249,57 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2027-03-13",
+      "titulo": "Aniversario del Club de Leones Osorno Antillanca",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-03-22",
       "titulo": "Día Mundial del Agua",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-03-24",
+      "titulo": "Aniversario del Club de Leones Puerto Montt",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-03-26",
+      "titulo": "Aniversario del Club de Leones Osorno",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-03-28",
+      "titulo": "Aniversario del Club de Leones Lanco",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-03-28",
+      "titulo": "Aniversario del Club de Leones Temuco Antumalal",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-03-28",
+      "titulo": "Aniversario del Club de Leones Valdivia",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-03-28",
+      "titulo": "Aniversario del Club de Leones Valdivia Isla Teja",
       "texto": "",
       "hora": "",
       "ambito": "distrito"
@@ -137,9 +319,37 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2027-04-13",
+      "titulo": "Aniversario del Club de Leones Puerto Montt Correntoso",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-04-17",
       "titulo": "Convención Distrital Valdivia",
       "texto": "Valdivia, Chile · Presencial",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-04-17",
+      "titulo": "Aniversario del Club de Leones Punta Arenas",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-04-17",
+      "titulo": "Aniversario del Club de Leones Temuco",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-04-17",
+      "titulo": "Aniversario del Club de Leones Valdivia El Bosque",
+      "texto": "",
       "hora": "",
       "ambito": "distrito"
     },
@@ -186,8 +396,22 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2027-05-08",
+      "titulo": "Aniversario del Club de Leones Valdivia Los Ríos",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-05-10",
       "titulo": "Día de la Mamá",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-05-13",
+      "titulo": "Aniversario del Club de Leones Coyhaique",
       "texto": "",
       "hora": "",
       "ambito": "distrito"
@@ -200,6 +424,13 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2027-05-18",
+      "titulo": "Aniversario del Club de Leones Dalcahue",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-05-22",
       "titulo": "Convención Nacional La Serena",
       "texto": "La Serena, Chile · Presencial",
@@ -207,8 +438,29 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2027-05-27",
+      "titulo": "Aniversario del Club de Leones Achao Quinchao",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-05-31",
+      "titulo": "Aniversario del Club de Leones Punta Arenas Rugido Austral",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-06-01",
       "titulo": "Día de Hellen Keller",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-06-03",
+      "titulo": "Aniversario del Club de Leones Pitrufquén",
       "texto": "",
       "hora": "",
       "ambito": "distrito"
@@ -221,8 +473,36 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2027-06-06",
+      "titulo": "Aniversario del Club de Leones Golheth Tem Wouk",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-06-07",
       "titulo": "Aniversario de la Asoc. Intern. de Clubes de Leones",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-06-08",
+      "titulo": "Aniversario del Club de Leones Ancud Goleta",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-06-12",
+      "titulo": "Aniversario del Club de Leones Puerto Montt Reloncaví",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-06-12",
+      "titulo": "Aniversario del Club de Leones Punta Arenas Mujer Austral",
       "texto": "",
       "hora": "",
       "ambito": "distrito"
@@ -235,8 +515,50 @@
       "ambito": "distrito"
     },
     {
+      "fecha": "2027-06-16",
+      "titulo": "Aniversario del Club de Leones Nueva Imperial",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-06-17",
+      "titulo": "Aniversario del Club de Leones Mariquina",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-06-17",
+      "titulo": "Aniversario del Club de Leones Punta Arenas Cruz del Sur",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
       "fecha": "2027-06-19",
       "titulo": "Día del Padre",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-06-23",
+      "titulo": "Aniversario del Club de Leones Valdivia Amigos del Calle Calle",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-06-30",
+      "titulo": "Aniversario del Club de Leones Puerto Porvenir",
+      "texto": "",
+      "hora": "",
+      "ambito": "distrito"
+    },
+    {
+      "fecha": "2027-06-30",
+      "titulo": "Aniversario del Club de Leones Quellón",
       "texto": "",
       "hora": "",
       "ambito": "distrito"
