@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-11-10T21:42:21.264Z",
+  "actualizado": "2026-11-10T21:56:42.701Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -889,6 +889,27 @@
       "cuerpo": "El canal Multi Verso Medios publicó, el 26 de mayo de 2024, un video de 14 minutos y 39 segundos dedicado al Club de Leones Temuco Antumalal. La pieza reúne los testimonios de integrantes de la institución y de profesionales que colaboran con ella, quienes describen la labor social que desarrolla el club.\n\nEl urólogo y socio del club, doctor Mario Gorena, expone la misión de la institución y explica su trabajo en operativos médicos y en actividades vinculadas al medio ambiente.\n\nEl gastroenterólogo Edmundo Hofmann se refiere a las labores de ayuda práctica que desarrolla el club, entre ellas la construcción de viviendas para familias que lo necesitan.\n\nEl oftalmólogo y actual presidente del club, doctor Sergio Echeverría, destaca el énfasis de la institución en la salud visual y en la prevención de enfermedades como la diabetes.\n\nLa kinesióloga Norma Carvajal, directora del Hogar de Adultos Mayores, agradece el apoyo permanente que reciben del club, que incluye acompañamiento en festividades y entrega de suministros básicos.\n\nEntre los minutos 5:45 y 9:08, el video recoge los testimonios del equipo de la unidad de hematoncología pediátrica del Hospital Hernán Henríquez Aravena. La enfermera Bárbara Silva, el psicólogo Manuel Castaño y la enfermera Carol Esperguel describen el efecto positivo que la ayuda del Club de Leones tiene en el ánimo al interior de la unidad.\n\nLos testimonios dan cuenta de un trabajo que se realiza de manera concreta en ámbitos diversos: la salud, el cuidado de las personas mayores, la vivienda y el medio ambiente.\n\nQuienes deseen conocer más sobre la labor del club o incorporarse a ella pueden comunicarse a través del formulario de contacto de este sitio."
     }
   ],
-  "aliados": [],
+  "aliados": [
+    {
+      "nombre": "Hospital Regional de Temuco",
+      "logo": "img:aliado-i01-mwb7zz5l",
+      "enlace": "https://www.hhha.cl"
+    },
+    {
+      "nombre": "Municipalidad de Temuco",
+      "logo": "img:aliado-i05-mwb82zfa",
+      "enlace": "https://www.temuco.cl"
+    },
+    {
+      "nombre": "Hogar de Cristo",
+      "logo": "img:aliado-hogar-de-cristo",
+      "enlace": "https://www.hogardecristo.cl"
+    },
+    {
+      "nombre": "Universidad de La Frontera (UFRO)",
+      "logo": "img:aliado-i26-mwb8477s",
+      "enlace": "https://www.ufro.cl"
+    }
+  ],
   "aliadosMostrar": true
 }
