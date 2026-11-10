@@ -1548,6 +1548,7 @@
 
   function panelInicio(lienzo) {
     /* Pantalla de inicio pensada para personas mayores: pocas opciones, grandes, con una frase que explica cada una */
+    tarjetaVisitas(lienzo);   /* lo primero que se ve: cuánta gente visita la página */
     const nombre = (leerPref().nombre || '').trim();
     const h = new Date().getHours();
     const saludo = h < 6 ? 'Buenas noches' : h < 13 ? 'Buenos días' : h < 20 ? 'Buenas tardes' : 'Buenas noches';
@@ -1607,7 +1608,6 @@
       const el = document.getElementById('rapMsg');
       if (el && r && r.nuevos) { el.textContent = r.nuevos === 1 ? '1 mensaje nuevo' : r.nuevos + ' mensajes nuevos'; el.classList.add('rapido__nuevo'); }
     });
-    tarjetaVisitas(lienzo);
   }
 
   /* Salir del panel: cierra la sesión (en el sitio, también la de Cloudflare Access) */
