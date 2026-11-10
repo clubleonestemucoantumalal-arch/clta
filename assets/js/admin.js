@@ -2237,10 +2237,19 @@
     /* Aliados en la página: mostrar u ocultar la sección */
     const alCaja = document.createElement('div');
     alCaja.className = 'tarjeta';
-    const alLista = (ESTADO.datos.aliados || []);
     alCaja.innerHTML = `<div class="tarjeta__cab"><div><h3>🤝 Nuestros aliados en la página</h3><p>Muestra en la página del club los logos de los aliados que marcaste en <b>Contactos</b> como «Puede aparecer en la página web».</p></div></div>
       <label class="chk"><input type="checkbox" id="ajAliados" ${ESTADO.datos.aliadosMostrar ? 'checked' : ''}> <span><b>Mostrar la sección «Nuestros aliados» en la página</b><small>Si la desmarcas, la sección se oculta y los logos quedan guardados.</small></span></label>
-      <p class="nota-res" id="ajAliadosN">${alLista.length ? 'Listos para mostrar (' + alLista.length + '): ' + esc(alLista.map((a) => a.nombre).join(', ')) + '.' : 'Todavía no hay aliados con logo marcados para la página. Entra a <b>Contactos</b>, abre un contacto, sube su logo y marca «Puede aparecer en la página web».'}</p>`;
+      <div id="ajAliadosN"><p class="nota-res">Revisando tus aliados…</p></div>`;
+    cargarContactos().then(() => {
+      const todos = []; CONT.listas.forEach((l) => l.contactos.forEach((c) => todos.push(c)));
+      const listos = todos.filter((c) => c.web && logoDe(c)), sinMarcar = todos.filter((c) => !c.web && logoDe(c));
+      const publicados = (ESTADO.huellaPublicada && JSON.parse(ESTADO.huellaPublicada)[0] && JSON.parse(ESTADO.huellaPublicada)[0].aliados) || [];
+      const nombre = (c) => esc(c.org || c.nombre);
+      alCaja.querySelector('#ajAliadosN').innerHTML =
+        (listos.length ? `<p class="nota-res">✅ <b>Listos para la página (${listos.length}):</b> ${listos.map(nombre).join(', ')}.</p>` : '<p class="nota-res">Todavía no hay aliados con logo marcados para la página.</p>')
+        + (sinMarcar.length ? `<p class="nota-res">⚠️ <b>Tienen logo pero no están marcados (${sinMarcar.length}):</b> ${sinMarcar.map(nombre).join(', ')}. Para que salgan, abre el contacto en <b>Contactos</b> y marca «Puede aparecer en la página web».</p>` : '')
+        + (listos.length && publicados.length !== listos.length ? '<p class="nota-res">📣 <b>Falta tocar «Publicar»</b> (arriba a la derecha) para que se vean en la página.</p>' : '');
+    });
     alCaja.querySelector('#ajAliados').addEventListener('change', (e) => { ESTADO.datos.aliadosMostrar = e.target.checked; ensuciar(); aviso(e.target.checked ? 'Listo: la sección de aliados se mostrará. Toca «Publicar» para que se vea.' : 'Listo: la sección de aliados se ocultará. Toca «Publicar» para que se note.', 'ok'); });
     lienzo.appendChild(alCaja);
 
@@ -2541,12 +2550,28 @@
   }
 
   /* Aliados que pueden verse en la página: solo logo, nombre y enlace (nada más sale de la base privada) */
+  const logoDe = (c) => c.logoDato || resolverImagen(c.logo);
   function sincronizarAliados() {
-    const out = [];
-    (CONT.listas || []).forEach((l) => (l.contactos || []).forEach((c) => { if (c.web && c.logo) out.push({ nombre: c.org || c.nombre, logo: c.logo, enlace: c.sitio || '' }); }));
+    const out = [], vivos = new Set();
+    (CONT.listas || []).forEach((l) => (l.contactos || []).forEach((c) => {
+      if (!c.web) return;
+      let ref = '';
+      if (c.logoDato) { const k = 'aliado-' + c.id; ESTADO.imagenes[k] = c.logoDato; ref = 'img:' + k; vivos.add(k); }
+      else if (c.logo && resolverImagen(c.logo)) { ref = c.logo; vivos.add(String(c.logo).replace(/^img:/, '')); }
+      if (ref) out.push({ nombre: c.org || c.nombre, logo: ref, enlace: c.sitio || '' });
+    }));
+    /* se limpian los logos de aliados que ya no se usan */
+    Object.keys(ESTADO.imagenes).forEach((k) => { if (k.startsWith('aliado-') && !vivos.has(k)) delete ESTADO.imagenes[k]; });
     const antes = JSON.stringify(ESTADO.datos.aliados || []);
     ESTADO.datos.aliados = out;
     if (JSON.stringify(out) !== antes) ensuciar();
+  }
+  /* Al publicar se vuelve a leer la lista de contactos del servidor, para no depender de lo que haya en pantalla */
+  async function sincronizarAntesDePublicar() {
+    try {
+      const r = await api('/api/contactos');
+      if (r && r.contactos && Array.isArray(r.contactos.listas)) { CONT = r.contactos; if (!Array.isArray(CONT.fechas)) CONT.fechas = []; if (!CONT.mensajes) CONT.mensajes = {}; sincronizarAliados(); }
+    } catch { /* se publica con lo que haya */ }
   }
 
   /* Fechas importantes para saludar, con un mensaje listo para cada una */
@@ -2597,6 +2622,12 @@
     caja.innerHTML = '<p class="nota-res">Cargando contactos…</p>';
     const conectado = await cargarContactos();
     await cargarSocios();
+    /* Logos que estaban solo en este navegador: se guardan con el contacto para que no se pierdan */
+    let sanados = false;
+    CONT.listas.forEach((l) => l.contactos.forEach((c) => {
+      if (!c.logoDato && c.logo && ESTADO.imagenes[String(c.logo).replace(/^img:/, '')]) { c.logoDato = ESTADO.imagenes[String(c.logo).replace(/^img:/, '')]; sanados = true; }
+    }));
+    if (sanados) guardarContactos();
     let activa = 'socios';
 
     const nuevoId = () => 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
@@ -2732,7 +2763,7 @@
           </div>
           <div class="tabla-socios">${lista.map((c) => `
             <div class="fila-so fila-so--c"><input type="checkbox" data-k="${esc(c.id)}" ${sel.has(c.id) ? 'checked' : ''} aria-label="Marcar a ${esc(c.nombre)}">
-              <span class="fs-n">${resolverImagen(c.logo) ? `<img class="ct__mini" src="${esc(resolverImagen(c.logo))}" alt="">` : ''}<b>${esc(c.nombre)}</b>${c.web ? ' <em class="ct__web">🌐 En la web</em>' : ''}<small>${esc([c.cargo, c.org].filter(Boolean).join(' · '))}</small></span>
+              <span class="fs-n">${logoDe(c) ? `<img class="ct__mini" src="${esc(logoDe(c))}" alt="">` : ''}<b>${esc(c.nombre)}</b>${c.web ? ' <em class="ct__web">🌐 En la web</em>' : (logoDe(c) ? ' <em class="ct__web ct__web--no">Tiene logo, sin marcar para la web</em>' : '')}<small>${esc([c.cargo, c.org].filter(Boolean).join(' · '))}</small></span>
               <span class="fs-c">${c.correo ? esc(c.correo) : '<em>sin correo</em>'}</span>
               <span class="fs-m">${esc(c.celular || '')}${c.ultimo ? `<small> · Último saludo: ${esc(c.ultimo)}</small>` : ''}</span>
               <button class="btn btn--linea btn--sm" data-c="editar" data-id="${esc(c.id)}" type="button">✏️ Editar</button></div>`).join('') || '<p class="nota-res">No hay contactos con ese filtro.</p>'}</div>
@@ -2757,7 +2788,7 @@
           <div class="ct__logo">
             <b>Logo del aliado (opcional)</b>
             <div class="ct__logo-fila">
-              <div class="ct__logo-vista" id="ctLogoVista">${resolverImagen(c.logo) ? `<img src="${esc(resolverImagen(c.logo))}" alt="">` : '<span>Sin logo</span>'}</div>
+              <div class="ct__logo-vista" id="ctLogoVista">${logoDe(c) ? `<img src="${esc(logoDe(c))}" alt="">` : '<span>Sin logo</span>'}</div>
               <label class="btn btn--linea" style="cursor:pointer">⬆ Subir logo<input type="file" id="ctLogo" accept="image/*" hidden></label>
               <button class="btn btn--linea btn--sm" id="ctLogoQuitar" type="button">Quitar logo</button>
             </div>
@@ -2787,15 +2818,15 @@
             const web = v.querySelector('#ctW').checked;
             const sitio = v.querySelector('#ctS').value.trim();
             if (sitio && !/^https?:\/\//i.test(sitio)) { aviso('El sitio web debe empezar con https://', 'mal'); return; }
-            const tendraLogo = logoNuevo || (c.logo && !logoQuitado);
+            const tendraLogo = logoNuevo || (logoDe(c) && !logoQuitado);
             if (web && !tendraLogo) { aviso('Para que aparezca en la página, sube primero su logo.', 'mal'); return; }
             const viejo = String(c.logo || '');
-            if (logoNuevo || logoQuitado) { if (viejo.startsWith('img:')) delete ESTADO.imagenes[viejo.slice(4)]; c.logo = ''; }
-            if (logoNuevo) { ESTADO.imagenes[logoNuevo.clave] = logoNuevo.dato; c.logo = 'img:' + logoNuevo.clave; }
+            if (logoNuevo || logoQuitado) { if (viejo.startsWith('img:')) delete ESTADO.imagenes[viejo.slice(4)]; c.logo = ''; c.logoDato = ''; }
+            if (logoNuevo) { c.logoDato = logoNuevo.dato; c.logo = 'img:aliado-' + c.id; ESTADO.imagenes['aliado-' + c.id] = logoNuevo.dato; }
             c.sitio = sitio; c.web = web;
             Object.assign(c, { nombre: n, org: v.querySelector('#ctO').value.trim(), cargo: v.querySelector('#ctC').value.trim(), correo, celular: v.querySelector('#ctM').value.trim(), trato: v.querySelector('#ctT').value.trim(), notas: v.querySelector('#ctX').value.trim() });
             if (nuevo) l.contactos.push(c);
-            v.remove(); dibuja(); guardar('Contacto guardado');
+            v.remove(); dibuja(); guardar(c.web ? 'Contacto guardado. Falta tocar «Publicar» para que su logo se vea en la página' : 'Contacto guardado');
           } else if (a === 'ctLogoQuitar') {
           } else if (a === 'borrar' && confirm('¿Quitar a «' + c.nombre + '» de esta lista?')) {
             l.contactos = l.contactos.filter((z) => z.id !== c.id); sel.delete(c.id); v.remove(); dibuja(); guardar('Contacto quitado');
@@ -3782,6 +3813,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
   };
 
   async function publicarEnGitHub() {
+    await sincronizarAntesDePublicar();
     const usuario = $('#ghUsuario').value.trim();
     const repo    = $('#ghRepo').value.trim();
     const rama    = $('#ghRama').value.trim() || 'main';
@@ -3849,6 +3881,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
 
   /* ─── Publicar con la cuenta (sin token) ─── */
   async function publicarConCuenta() {
+    await sincronizarAntesDePublicar();
     const salida = $('#cuentaSalida');
     const boton = $('#btnCuentaPublicar');
     boton.disabled = true;

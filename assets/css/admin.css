@@ -1095,3 +1095,5 @@ html[data-tema="oscuro"] .cm__directo{ background:#0F3A2A; color:#BFF0D8; border
 .panel__vivo p{ margin:0 0 10px; font-size:1.05rem; line-height:1.5; color:inherit !important }
 html[data-tema="oscuro"] .panel__vivo{ background:#14306E; border-color:#4A6BB5; color:#DCE6FF }
 @media (max-width:640px){ .panel__vivo .btn{ width:100% } }
+
+.ct__web--no{ color:#8A4B00; background:#FFE8C2 }
