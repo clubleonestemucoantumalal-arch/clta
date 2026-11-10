@@ -1008,3 +1008,15 @@ html[data-tema="oscuro"] .panel__guia{ background:#0F3A2A; color:#BFF0D8 }
 .buscador__vacio{ margin:10px 8px 0; font-size:.95rem; color:var(--gris) }
 html[data-tema="oscuro"] .buscador{ background:#0F2250 }
 html[data-tema="oscuro"] .buscador input{ background:#081A42; color:#E9EEFA; border-color:#4A6BB5 }
+
+/* Aprovechar mejor el ancho de la pantalla */
+.lienzo{ max-width:1500px !important }
+.panel--inicio{ display:block }
+@media (min-width:1100px){
+  .panel--inicio.activo{ display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:0 24px; align-items:start }
+  .panel--inicio > .inicio__saludo{ grid-column:1 / -1 }
+  .panel--inicio > #inicioAviso{ grid-column:1 / -1; grid-row:2 }
+  .panel--inicio > .tarjeta--visitas{ grid-column:1; grid-row:3 }
+  .panel--inicio > .tarjeta--acciones{ grid-column:2; grid-row:3 }
+  .panel--inicio .rapidos--grandes{ grid-template-columns:repeat(2,minmax(0,1fr)) }
+}

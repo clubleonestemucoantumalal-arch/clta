@@ -1558,6 +1558,7 @@
 
   function panelInicio(lienzo) {
     /* Pantalla de inicio pensada para personas mayores: pocas opciones, grandes, con una frase que explica cada una */
+    lienzo.classList.add('panel--inicio');   /* en pantallas anchas: visitas a un lado y botones al otro */
     const cabP = lienzo.querySelector('.panel__cab'); if (cabP) cabP.remove();   /* el saludo es lo primero que se ve */
     const nombre = (leerPref().nombre || '').trim();
     const h = new Date().getHours();
@@ -1588,7 +1589,7 @@
     pintarAviso();
 
     const rapido = document.createElement('div');
-    rapido.className = 'tarjeta';
+    rapido.className = 'tarjeta tarjeta--acciones';
     rapido.innerHTML = `<div class="rapidos rapidos--grandes">
         <button type="button" class="rapido rapido--pri" data-pub="1"><span>🚀</span><b>Publicar mis cambios<small>Para que todos los vean en la página</small></b></button>
         <button type="button" class="rapido" data-ir="portada"><span>✏️</span><b>Cambiar un texto o una foto<small>De la página del club</small></b></button>
@@ -1700,7 +1701,7 @@
   /* ─── Contador de visitas (arriba del Resumen) ─── */
   function tarjetaVisitas(lienzo) {
     const t = document.createElement('div');
-    t.className = 'tarjeta';
+    t.className = 'tarjeta tarjeta--visitas';
     t.innerHTML = '<div class="tarjeta__cab"><div><h3>👁 ¿Cuánta gente visita la página?</h3><p>Las personas que entraron a la página del club.</p></div></div><div id="visBody"><p class="nota-res">Cargando…</p></div>';
     lienzo.appendChild(t);
     api('/api/resumen').then((r) => {
