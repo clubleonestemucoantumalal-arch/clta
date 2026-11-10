@@ -921,6 +921,25 @@
     subir:   '<path d="M12 16V4M7 9l5-5 5 5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>'
   };
 
+
+  /* Frase corta y clara bajo el título de cada sección, para quien usa poco el computador */
+  const FACIL = {
+    inicio: 'Aquí ves lo más importante y puedes empezar lo que necesites.',
+    mensajes: 'Aquí están los mensajes que la gente escribió en la página. Puedes leerlos y reenviarlos a un socio.',
+    socios: 'La lista de socios del club. Puedes ver los cumpleaños y escribirles a varios a la vez.',
+    informes: 'Aquí sacas informes del club para imprimir, o listas para abrir en Excel.',
+    ayuda: 'Una guía corta, con los pasos de siempre, para usar este panel.',
+    ajustes: 'Cambia el tamaño de la letra y los colores del panel, para verlo más cómodo.',
+    publicar: 'Aquí publicas tus cambios y guardas una copia de respaldo por seguridad.',
+    agenda: 'Las actividades que aparecen en la página. Agrega una nueva o cambia la fecha de una.',
+    portada: 'Lo primero que ve la gente al entrar a la página. Cambia los textos y la foto principal.',
+    proyectos: 'Lo que el club hizo en terreno. Toca «Agregar» para contar un trabajo nuevo, con sus fotos.',
+    articulos: 'Las noticias del blog del club. Toca «Agregar» para escribir una nueva.',
+    directiva: 'Las personas de la directiva que se muestran en la página.',
+    testimonios: 'Lo que dicen quienes recibieron ayuda del club.',
+    faq: 'Las preguntas que más hacen y sus respuestas.'
+  };
+
   const SECCIONES = [
 
     /* ───────────────────────────── INICIO ───────────────────────────── */
@@ -1467,20 +1486,43 @@
   }
 
   function panelInicio(lienzo) {
-    /* Accesos grandes para lo que más se hace: pensado para quien usa poco el computador */
+    /* Pantalla de inicio pensada para personas mayores: pocas opciones, grandes, con una frase que explica cada una */
+    const nombre = (leerPref().nombre || '').trim();
+    const h = new Date().getHours();
+    const saludo = h < 6 ? 'Buenas noches' : h < 13 ? 'Buenos días' : h < 20 ? 'Buenas tardes' : 'Buenas noches';
+    const cab = document.createElement('div');
+    cab.className = 'inicio__saludo';
+    cab.innerHTML = `<h3>${saludo}${nombre ? ', ' + esc(nombre) : ''}</h3><p>Toca lo que quieras hacer. Todo se explica paso a paso.</p>`;
+    lienzo.appendChild(cab);
+
+    const aviso = document.createElement('div');
+    aviso.id = 'inicioAviso';
+    lienzo.appendChild(aviso);
+    const pintarAviso = () => {
+      aviso.innerHTML = ESTADO.sucio
+        ? `<div class="inicio__alerta"><span aria-hidden="true">⚠️</span><div><b>Tienes cambios sin publicar.</b> La página del club todavía no los muestra. Toca «Publicar mis cambios» cuando termines.</div></div>`
+        : `<div class="inicio__alerta inicio__alerta--ok"><span aria-hidden="true">✅</span><div><b>Todo está publicado.</b> La página del club muestra lo último que escribiste.</div></div>`;
+    };
+    pintarAviso();
+
     const rapido = document.createElement('div');
     rapido.className = 'tarjeta';
-    rapido.innerHTML = `<div class="tarjeta__cab"><div><h3>¿Qué quieres hacer hoy?</h3><p>Toca una opción. Siempre puedes volver aquí con «Resumen» en el menú.</p></div></div>
-      <div class="rapidos">
-        <button type="button" class="rapido" data-ir="portada"><span>✏️</span><b>Cambiar un texto o una foto de la página</b></button>
-        <button type="button" class="rapido" data-nuevo="proyectos"><span>🦁</span><b>Contar lo que hicimos en terreno (nuevo proyecto)</b></button>
-        <button type="button" class="rapido" data-nuevo="articulos"><span>📰</span><b>Escribir un artículo para el blog</b></button>
-        <button type="button" class="rapido" data-ir="agenda"><span>📅</span><b>Agregar o cambiar una actividad</b></button>
-        <button type="button" class="rapido" data-ir="mensajes"><span>✉️</span><b>Leer los mensajes que llegaron</b></button>
-        <button type="button" class="rapido" data-pub="1"><span>🚀</span><b>Publicar mis cambios en la página</b></button>
+    rapido.innerHTML = `<div class="rapidos rapidos--grandes">
+        <button type="button" class="rapido rapido--pri" data-pub="1"><span>🚀</span><b>Publicar mis cambios<small>Para que todos los vean en la página</small></b></button>
+        <button type="button" class="rapido" data-ir="portada"><span>✏️</span><b>Cambiar un texto o una foto<small>De la página del club</small></b></button>
+        <button type="button" class="rapido" data-ir="mensajes"><span>✉️</span><b>Leer los mensajes<small id="rapMsg">Lo que escribió la gente</small></b></button>
+        <button type="button" class="rapido" data-ir="agenda"><span>📅</span><b>Agregar o cambiar una actividad<small>En la agenda</small></b></button>
+        <button type="button" class="rapido" data-nuevo="proyectos"><span>🦁</span><b>Contar lo que hicimos<small>Nuevo proyecto en terreno</small></b></button>
+        <button type="button" class="rapido" data-nuevo="articulos"><span>📰</span><b>Escribir un artículo<small>Para el blog</small></b></button>
+      </div>
+      <div class="inicio__pie">
+        <button type="button" class="btn btn--linea btn--grande" data-letra="1">🔠 Letra más grande</button>
+        <button type="button" class="btn btn--linea btn--grande" data-ir="ayuda">🙋 Necesito ayuda</button>
       </div>`;
     rapido.addEventListener('click', (e) => {
-      const b = e.target.closest('.rapido'); if (!b) return;
+      const l = e.target.closest('[data-letra]');
+      if (l) { cambiarLetra(); return; }
+      const b = e.target.closest('.rapido, [data-ir]'); if (!b) return;
       if (b.dataset.pub) abrirPublicar();
       else if (b.dataset.nuevo) {
         /* va a la sección y deja una ficha nueva abierta, lista para escribir */
@@ -1489,7 +1531,20 @@
       } else ir(b.dataset.ir);
     });
     lienzo.appendChild(rapido);
+    api('/api/resumen').then((r) => {
+      const el = document.getElementById('rapMsg');
+      if (el && r && r.nuevos) { el.textContent = r.nuevos === 1 ? '1 mensaje nuevo' : r.nuevos + ' mensajes nuevos'; el.classList.add('rapido__nuevo'); }
+    });
     tarjetaVisitas(lienzo);
+  }
+
+  /* Letra más grande: pasa por 100 %, 115 % y 130 % y se acuerda de la elección en este computador */
+  function cambiarLetra() {
+    const p = leerPref();
+    const sig = p.letra >= 130 ? 100 : p.letra >= 115 ? 130 : 115;
+    guardarPref(Object.assign(p, { letra: sig }));
+    aplicarPref();
+    aviso(sig === 100 ? 'Letra normal.' : 'Letra más grande (' + sig + ' %). Toca de nuevo para agrandar más o volver.', 'ok');
   }
 
   /* ═══════════════════════════════════════════════════════════════
@@ -1553,7 +1608,7 @@
   function tarjetaVisitas(lienzo) {
     const t = document.createElement('div');
     t.className = 'tarjeta';
-    t.innerHTML = '<div class="tarjeta__cab"><div><h3>👁 Visitas a la página</h3><p>Cuánta gente entra a la página del club.</p></div></div><div id="visBody"><p class="nota-res">Cargando…</p></div>';
+    t.innerHTML = '<div class="tarjeta__cab"><div><h3>👁 ¿Cuánta gente visita la página?</h3><p>Las personas que entraron a la página del club.</p></div></div><div id="visBody"><p class="nota-res">Cargando…</p></div>';
     lienzo.appendChild(t);
     api('/api/resumen').then((r) => {
       const c = t.querySelector('#visBody');
@@ -1577,7 +1632,7 @@
       const pais = (cod) => { if (!cod) return ''; try { return new Intl.DisplayNames(['es'], { type: 'region' }).of(cod) || cod; } catch (e) { return cod; } };
       const lugar = (x) => [x.ciudad, pais(x.pais)].filter(Boolean).join(', ') || 'Sin dato';
       const fh = (t) => new Date(t).toLocaleString('es-CL', { timeZone: 'America/Santiago', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-      c.innerHTML = `<div class="vis">
+      const completa = `<div class="vis">
         ${r.desdeDia ? `<p class="nota-res">🔄 Contador en cero desde el <b>${esc(fechaLarga(r.desdeDia))}</b>. El historial sigue guardado (abajo).</p>` : ''}
         <div class="resumen vis__kpis">
           <div class="resumen__caja"><b>${r.hoyN}</b><span>Hoy</span></div>
@@ -1612,6 +1667,40 @@
           ${barras(r.historico.porMes.map((x) => [x.mes, x.n]), r.historico.porMes.length > 1 ? '<span>' + esc(r.historico.porMes[0].mes) + '</span><span>' + esc(r.historico.porMes[r.historico.porMes.length - 1].mes) + '</span>' : '<span>' + esc((r.historico.porMes[0] || {}).mes || '') + '</span>', 'Visitas por mes, historial completo')}`
           : '<p class="nota-res">Aún no hay historial.</p>'}
         </details></div>`;
+
+      /* Vista simple: pensada para leer de un vistazo, con letra grande y frases claras */
+      const plural = (n, uno, varios) => (n === 1 ? uno : varios);
+      const ult7 = dias.slice(-7);
+      const DS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+      const max7 = Math.max(1, ...ult7.map((x) => x[1]));
+      const top3 = (r.ciudades || []).slice(0, 3);
+      const semDia = semTop[1] ? semTop[0].toLowerCase() + (/s$/.test(semTop[0]) ? '' : 's') : '';
+      const PER = [['hoy', r.hoyN, 'hoy'], ['sem', r.d7, 'esta semana'], ['mes', r.d30, 'este mes']];
+      const frasePer = (n, txt) => `${plural(n, 'persona entró', 'personas entraron')} ${txt} a la página`;
+      const simple = `<div class="vs">
+        <div class="vs__per" role="group" aria-label="Período">${PER.map((x, k) => `<button type="button" data-per="${k}" class="${k === 0 ? 'on' : ''}">${x[2].charAt(0).toUpperCase() + x[2].slice(1)}</button>`).join('')}</div>
+        <div class="vs__gran"><b id="vsNum">${r.hoyN}</b><span id="vsFrase">${frasePer(r.hoyN, 'hoy')}</span></div>
+        <h4 class="vs__t">Los últimos 7 días</h4>
+        <div class="vs__barras">${ult7.map((x, k) => `<div><i class="${k === 6 ? 'hoy' : ''}" style="height:${Math.max(6, Math.round(x[1] / max7 * 100))}%"></i><b>${x[1]}</b></div>`).join('')}</div>
+        <div class="vs__dias">${ult7.map((x, k) => `<span class="${k === 6 ? 'hoy' : ''}">${k === 6 ? 'Hoy' : DS[new Date(x[0] + 'T12:00:00').getDay()]}</span>`).join('')}</div>
+        <div class="vs__cols">
+          <div class="vs__caja"><h4>📍 ¿Desde dónde entran?</h4>${top3.length ? top3.map((x) => `<p class="vs__l"><span>${esc(x.ciudad)}${x.pais && x.pais !== 'CL' ? ', ' + esc(pais(x.pais)) : ''}</span><b>${x.n}</b></p>`).join('') : '<p class="vs__vacio">Todavía no hay datos. Se irán sumando con las próximas visitas.</p>'}</div>
+          <div class="vs__caja"><h4>⏰ ¿Cuándo entran?</h4>${horaTop[1] ? `<p>La mayoría entra <b>a las ${esc(horaTop[0])}</b>.</p>` : ''}${semDia ? `<p>Se visita más los <b>${esc(semDia)}</b>.</p>` : ''}${horaTop[1] || semDia ? '' : '<p class="vs__vacio">Todavía no hay datos.</p>'}</div>
+        </div>
+      </div>`;
+      const pone = (modo) => {
+        try { localStorage.setItem('antumalal.visVista', modo); } catch (e) { /* sin guardar */ }
+        c.innerHTML = `<div class="vs__sw"><button type="button" id="visCambia">${modo === 'simple' ? '🔎 Ver más detalle' : '← Volver a la vista simple'}</button></div>` + (modo === 'simple' ? simple : completa);
+        c.querySelector('#visCambia').onclick = () => pone(modo === 'simple' ? 'completa' : 'simple');
+        c.querySelectorAll('[data-per]').forEach((b) => b.onclick = () => {
+          const x = PER[+b.dataset.per];
+          c.querySelectorAll('[data-per]').forEach((o) => o.classList.toggle('on', o === b));
+          c.querySelector('#vsNum').textContent = x[1];
+          c.querySelector('#vsFrase').textContent = frasePer(x[1], x[2]);
+        });
+      };
+      let modo0 = 'simple'; try { modo0 = localStorage.getItem('antumalal.visVista') || 'simple'; } catch (e) { /* simple */ }
+      pone(modo0);
     });
   }
 
@@ -2913,7 +3002,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     panel.className = 'panel activo';
     panel.innerHTML = `<div class="panel__cab">
       <h2>${esc(s.titulo)}</h2>
-      ${s.bajada ? `<p>${s.bajada}</p>` : ''}
+      ${(FACIL[s.id] || s.bajada) ? `<p>${FACIL[s.id] || s.bajada}</p>` : ''}
     </div>`;
     lienzo.appendChild(panel);
 
@@ -3248,6 +3337,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     });
 
     // La vista previa siempre debe abrir el borrador más reciente.
+    const bLetra = $('#btnLetra'); if (bLetra) bLetra.addEventListener('click', cambiarLetra);
     $('#btnVista').addEventListener('click', () => {
       ALMACEN.guardarChico('borrador', ESTADO.datos);
       ALMACEN.guardarChico('borradorIg', ESTADO.instagram);
