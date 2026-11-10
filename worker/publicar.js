@@ -299,6 +299,11 @@ async function rutaPanel(req, env, url) {
         logo: recorta(x.logo, 80), sitio: recorta(x.sitio, 200), web: !!x.web
       }))
     })) };
+    limpio.fechas = (Array.isArray(c.contactos.fechas) ? c.contactos.fechas : []).slice(0, 60).map((f) => ({
+      id: recorta(f.id, 30), nombre: recorta(f.nombre, 80), ico: recorta(f.ico, 8), mes: Math.min(12, Math.max(1, parseInt(f.mes, 10) || 1)), dia: Math.min(31, Math.max(1, parseInt(f.dia, 10) || 1)),
+      asunto: recorta(f.asunto, 200), texto: recorta(f.texto, 4000) }));
+    limpio.mensajes = {};
+    Object.keys(c.contactos.mensajes || {}).slice(0, 40).forEach((k) => { const m = c.contactos.mensajes[k] || {}; limpio.mensajes[recorta(k, 30)] = { asunto: recorta(m.asunto, 200), texto: recorta(m.texto, 4000) }; });
     const txt = JSON.stringify(limpio);
     if (txt.length > 900000) return json({ error: 'Demasiado grande.' }, 413);
     await env.DB.prepare("INSERT INTO ajustes (clave, valor) VALUES ('contactos', ?) ON CONFLICT(clave) DO UPDATE SET valor = excluded.valor").bind(txt).run();

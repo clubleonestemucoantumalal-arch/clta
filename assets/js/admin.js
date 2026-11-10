@@ -1602,6 +1602,7 @@
     /* Cumpleaños de hoy: aviso para saludar a los socios */
     const cumpleCaja = document.createElement('div');
     aviso.appendChild(cumpleCaja);
+    cargarContactos().then(() => {
     const prox0 = proximasOcasiones().filter((x) => x.dias <= 10)[0];
     if (prox0) {
       const caja2 = document.createElement('div');
@@ -1610,6 +1611,7 @@
       caja2.querySelector('button').addEventListener('click', () => ir('socios'));
       aviso.appendChild(caja2);
     }
+    }).catch(() => {});
     cargarSocios().then(() => {
       const hoyD = new Date();
       const deHoy = SOCIOS.filter((x) => { const c = cumple(x); return c && c.d === hoyD.getDate() && c.m === hoyD.getMonth() + 1; });
@@ -2528,6 +2530,8 @@
     if (r && r.contactos && Array.isArray(r.contactos.listas)) CONT = r.contactos;
     else { try { CONT = JSON.parse(localStorage.getItem('antumalal.contactos') || '{"listas":[]}'); } catch { CONT = { listas: [] }; } }
     if (!Array.isArray(CONT.listas)) CONT = { listas: [] };
+    if (!Array.isArray(CONT.fechas)) CONT.fechas = [];
+    if (!CONT.mensajes || typeof CONT.mensajes !== 'object') CONT.mensajes = {};
     return !!r;
   }
   async function guardarContactos() {
@@ -2577,7 +2581,11 @@
     if (f < hoy) { f = o.fecha(hoy.getFullYear() + 1); f.setHours(0, 0, 0, 0); }
     return { f, dias: Math.round((f - hoy) / 86400000) };
   };
-  const proximasOcasiones = () => OCASIONES.map((o) => Object.assign({ o }, proximaDe(o))).sort((a, b) => a.dias - b.dias);
+  const conCambios = (o) => Object.assign({}, o, (CONT.mensajes || {})[o.id] || {}, { propio: false });
+  const ocasionesPropias = () => (CONT.fechas || []).map((f) => ({ id: f.id, nombre: f.nombre, ico: f.ico || '⭐', fecha: (a) => new Date(a, f.mes - 1, f.dia), asunto: f.asunto || f.nombre, texto: f.texto || '', propio: true }));
+  const ocasionesActivas = () => OCASIONES.map(conCambios).concat(ocasionesPropias());
+  const libresActivas = () => OCASIONES_LIBRES.map(conCambios);
+  const proximasOcasiones = () => ocasionesActivas().map((o) => Object.assign({ o }, proximaDe(o))).sort((a, b) => a.dias - b.dias);
   const textoDias = (d) => (d === 0 ? '¡es hoy!' : d === 1 ? 'mañana' : 'en ' + d + ' días');
 
   /* Une la lista de socios (MyLCI) con las demás, para elegir a quién escribir */
@@ -2603,6 +2611,42 @@
       return v;
     };
     const guardar = async (msg) => { const ok = await guardarContactos(); if (msg) aviso(ok ? msg : msg + ' (guardado solo en este computador: el servidor no respondió)', ok ? 'ok' : 'mal'); };
+
+    /* Agregar una fecha propia (cumpleaños del club, aniversario de un convenio…) o cambiar el mensaje de una existente */
+    const ICONOS_FECHA = ['⭐', '🎂', '🎉', '🤝', '🦁', '🙏', '🎄', '🎆', '💐', '🇨🇱', '📅', '❤️'];
+    const formFecha = (o) => {
+      const nuevo = !o;
+      const propio = nuevo || o.propio;
+      const f = nuevo ? { id: nuevoId(), nombre: '', ico: '⭐', mes: new Date().getMonth() + 1, dia: new Date().getDate(), asunto: '', texto: '' }
+        : propio ? (CONT.fechas.find((z) => z.id === o.id) || {}) : { id: o.id, nombre: o.nombre, ico: o.ico, asunto: o.asunto, texto: o.texto };
+      const v = modal(`<h3>${nuevo ? 'Nueva fecha importante' : 'Cambiar el mensaje'}</h3>
+        ${propio ? `<label class="campo__et">¿Qué se celebra?<input type="text" id="fcN" value="${esc(f.nombre)}" placeholder="Ej.: Aniversario del club, Día del Bombero" style="width:100%"></label>
+        <div class="dos-c">
+          <label class="campo__et">Día<select id="fcD">${Array.from({ length: 31 }, (_, i) => `<option value="${i + 1}" ${+f.dia === i + 1 ? 'selected' : ''}>${i + 1}</option>`).join('')}</select></label>
+          <label class="campo__et">Mes<select id="fcM">${MES_L.map((m, i) => `<option value="${i + 1}" ${+f.mes === i + 1 ? 'selected' : ''}>${m}</option>`).join('')}</select></label>
+        </div>
+        <p class="nota-res">Se repite todos los años en esa fecha.</p>
+        <label class="campo__et">Ícono<select id="fcI">${ICONOS_FECHA.map((i) => `<option ${f.ico === i ? 'selected' : ''}>${i}</option>`).join('')}</select></label>` : `<p class="nota-res"><b>${esc(o.ico)} ${esc(o.nombre)}</b>: puedes cambiar el asunto y el mensaje que viene escrito.</p>`}
+        <label class="campo__et">Asunto del correo<input type="text" id="fcA" value="${esc(f.asunto)}" style="width:100%"></label>
+        <label class="campo__et">Mensaje<textarea id="fcT" rows="7" placeholder="Estimados amigos:&#10;&#10;…">${esc(f.texto)}</textarea></label>
+        <div class="msg__acc"><button class="btn" data-x="guardar" type="button">💾 Guardar</button>
+          ${(!nuevo && !propio && (CONT.mensajes || {})[o.id]) ? '<button class="btn btn--linea" data-x="original" type="button">↺ Volver al mensaje original</button>' : ''}
+          <button class="btn btn--linea" data-x="cerrar" type="button">Cancelar</button></div>`);
+      v.addEventListener('click', (e) => {
+        const a = e.target.dataset.x;
+        if (a === 'guardar') {
+          const asunto = v.querySelector('#fcA').value.trim(), texto = v.querySelector('#fcT').value;
+          if (propio) {
+            const nombre = v.querySelector('#fcN').value.trim();
+            if (!nombre) { aviso('Escribe qué se celebra.', 'mal'); return; }
+            const nf = { id: f.id, nombre, ico: v.querySelector('#fcI').value, mes: +v.querySelector('#fcM').value, dia: +v.querySelector('#fcD').value, asunto: asunto || nombre, texto };
+            const i = CONT.fechas.findIndex((z) => z.id === f.id);
+            if (i >= 0) CONT.fechas[i] = nf; else CONT.fechas.push(nf);
+          } else CONT.mensajes[o.id] = { asunto, texto };
+          v.remove(); pintar(); guardar('Guardado');
+        } else if (a === 'original') { delete CONT.mensajes[o.id]; v.remove(); pintar(); guardar('Mensaje original recuperado'); }
+      });
+    };
 
     /* Elegir a qué lista(s) escribir para una fecha importante o un mensaje libre */
     const elegirDestino = (o) => {
@@ -2633,12 +2677,16 @@
       <div class="tarjeta">
         <div class="tarjeta__cab"><div><h3>📅 Fechas importantes para saludar</h3><p>Un saludo a tiempo cuida la relación con socios, autoridades, empresas y aliados. Toca una fecha y el mensaje ya viene escrito; tú lo puedes cambiar.</p></div></div>
         <ul class="chequeo">${pie.map((x) => `<li><span class="marca" data-ok="si">${x.o.ico}</span><span class="txt"><b>${esc(x.o.nombre)}</b><span>${x.f.getDate()} de ${MES_L[x.f.getMonth()]} · ${textoDias(x.dias)}</span></span>
-          <button class="btn btn--sm" data-oca="${esc(x.o.id)}" type="button">✉ Preparar saludo</button></li>`).join('')}</ul>
+          <button class="btn btn--sm" data-oca="${esc(x.o.id)}" type="button">✉ Preparar saludo</button>
+          <button class="btn btn--linea btn--sm" data-edit-oca="${esc(x.o.id)}" type="button">✏️ Cambiar mensaje</button></li>`).join('')}</ul>
         <details class="vis-hist"><summary>Ver todas las fechas y otros mensajes</summary>
           <ul class="chequeo">${prox.slice(3).map((x) => `<li><span class="marca" data-ok="si">${x.o.ico}</span><span class="txt"><b>${esc(x.o.nombre)}</b><span>${x.f.getDate()} de ${MES_L[x.f.getMonth()]}</span></span>
-            <button class="btn btn--linea btn--sm" data-oca="${esc(x.o.id)}" type="button">✉ Preparar</button></li>`).join('')}
-          ${OCASIONES_LIBRES.map((o) => `<li><span class="marca" data-ok="si">${o.ico}</span><span class="txt"><b>${esc(o.nombre)}</b><span>Para cuando tú quieras</span></span>
-            <button class="btn btn--linea btn--sm" data-oca="${esc(o.id)}" type="button">✉ Preparar</button></li>`).join('')}</ul></details>
+            <button class="btn btn--linea btn--sm" data-oca="${esc(x.o.id)}" type="button">✉ Preparar</button>
+            <button class="btn btn--linea btn--sm" data-edit-oca="${esc(x.o.id)}" type="button">✏️ Cambiar</button>${x.o.propio ? `<button class="btn btn--peligro btn--sm" data-borrar-fecha="${esc(x.o.id)}" type="button">🗑 Quitar</button>` : ''}</li>`).join('')}
+          ${libresActivas().map((o) => `<li><span class="marca" data-ok="si">${o.ico}</span><span class="txt"><b>${esc(o.nombre)}</b><span>Para cuando tú quieras</span></span>
+            <button class="btn btn--linea btn--sm" data-oca="${esc(o.id)}" type="button">✉ Preparar</button>
+            <button class="btn btn--linea btn--sm" data-edit-oca="${esc(o.id)}" type="button">✏️ Cambiar</button></li>`).join('')}</ul></details>
+        <div class="msg__acc" style="margin-top:10px"><button class="btn btn--linea btn--grande" data-nueva-fecha="1" type="button">＋ Agregar una fecha importante</button></div>
       </div>
       <div class="tarjeta">
         <div class="tarjeta__cab"><div><h3>📚 Mis listas</h3><p>Cada lista es un grupo de personas a quienes escribir: socios, municipalidad, empresas, prensa… Crea las que necesites.${conectado ? '' : ' Por ahora se guardan solo en este computador.'}</p></div></div>
@@ -2803,7 +2851,12 @@
 
     caja.addEventListener('click', (e) => {
       const oca = e.target.closest('[data-oca]');
-      if (oca) { const o = OCASIONES.concat(OCASIONES_LIBRES).find((x) => x.id === oca.dataset.oca); if (o) elegirDestino(o); return; }
+      if (oca) { const o = ocasionesActivas().concat(libresActivas()).find((x) => x.id === oca.dataset.oca); if (o) elegirDestino(o); return; }
+      const edo = e.target.closest('[data-edit-oca]');
+      if (edo) { const o = ocasionesActivas().concat(libresActivas()).find((x) => x.id === edo.dataset.editOca); if (o) formFecha(o); return; }
+      if (e.target.closest('[data-nueva-fecha]')) { formFecha(null); return; }
+      const bf = e.target.closest('[data-borrar-fecha]');
+      if (bf) { const o = (CONT.fechas || []).find((z) => z.id === bf.dataset.borrarFecha); if (o && confirm('¿Quitar la fecha «' + o.nombre + '»?')) { CONT.fechas = CONT.fechas.filter((z) => z.id !== o.id); pintar(); guardar('Fecha quitada'); } return; }
       const ir2 = e.target.closest('[data-lista-ir]');
       if (ir2) { activa = ir2.dataset.listaIr; pintar(); return; }
       if (e.target.closest('[data-nueva-lista]')) {
