@@ -781,6 +781,7 @@
     /* Las listas con fecha (proyectos, artículos, actividades) quedan siempre ordenadas por fecha.
        Proyectos y artículos: lo más reciente primero. Actividades: lo más próximo primero. */
     const porFecha = !!(def.nuevo && 'fecha' in def.nuevo);
+    const conFoto = !!(def.nuevo && 'imagen' in def.nuevo);   /* proyectos y artículos: se ve la foto en la lista */
     const ascendente = def.ruta === 'agenda.eventos';
     const MES3 = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
     const fechaBonita = (f) => { const m = String(f || '').match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? (+m[3]) + ' ' + MES3[+m[2] - 1] + ' ' + m[1] : 'sin fecha'; };
@@ -822,6 +823,7 @@
           <div class="item__fila">
             <button type="button" class="item__cab">
               <span class="item__n">${i + 1}</span>
+              ${conFoto ? (resolverImagen(it.imagen) ? `<img class="item__foto" src="${esc(resolverImagen(it.imagen))}" alt="" loading="lazy">` : '<span class="item__foto item__foto--falta">Sin foto</span>') : ''}
               ${porFecha ? `<span class="item__f${it.fecha ? '' : ' item__f--falta'}">${esc(fechaBonita(it.fecha))}</span>` : ''}
               <span class="item__t">${titulo ? esc(titulo) : '<em>Sin título</em>'}</span>
               <svg class="item__flecha" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
@@ -2726,7 +2728,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
   const BLOQUES = [
     { id: 'admin', titulo: 'Administración e informes', grupos: ['Administración'],
       orden: ['inicio', 'mensajes', 'socios', 'agenda', 'informes', 'ayuda', 'ajustes', 'publicar'] },
-    { id: 'web',   titulo: 'Mi página web', grupos: ['Datos del club', 'Contenido de la página', 'Conexiones'] }
+    { id: 'web',   titulo: 'Editar mi página web', grupos: ['Datos del club', 'Contenido de la página', 'Conexiones'] }
   ];
 
   function abrirBloque(el, abrir) {

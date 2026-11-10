@@ -965,3 +965,10 @@ html[data-tema="oscuro"] .btn--linea{ color:#E9EEFA; border-color:#4A6BB5 }
 html[data-tema="oscuro"] .barra .btn--linea svg{ color:#E9EEFA }
 html[data-tema="oscuro"] .btn--peligro{ background:transparent; color:#FFB4AE; border-color:#B4584F }
 html[data-tema="oscuro"] .item__f{ color:#E9EEFA }
+
+/* Foto de primera vista en las listas de proyectos y artículos */
+.item__foto{ width:64px; height:48px; object-fit:cover; border-radius:8px; flex:none; background:var(--g-fondo) }
+.item__foto--falta{ display:inline-flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; text-align:center; line-height:1.1; color:#8A4B00; background:#FFE8C2; border:1px dashed #E8B84A }
+.item__cab{ gap:10px }
+html[data-tema="oscuro"] .bloque__cab{ color:#FFD84D }
+html[data-tema="oscuro"] .lateral__grupo{ color:#B9C6E6 }
