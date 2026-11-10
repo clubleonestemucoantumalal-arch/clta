@@ -386,6 +386,69 @@ async function historialPagina(env) {
   return json({ ok: true, items });
 }
 
+/* ───────────────────────── Envío de correos desde el panel (Resend) ─────────────────────────
+   Cada persona recibe su propio correo (no hay copia oculta ni lista visible). Se necesita el secreto RESEND_API_KEY
+   y el dominio clta.cl verificado en Resend. Ver docs/CORREOS.md */
+const LIMITE_CORREOS_DIA = 100;           /* plan gratuito de Resend */
+const MAX_DESTINOS = 100;
+const esCorreo = (x) => /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/.test(String(x || ''));
+const escHtml = (t) => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+async function enviarCorreos(req, env, correoUsuario) {
+  if (!env.RESEND_API_KEY) return json({ error: 'Todavía no está conectado el servicio de correos.' }, 503);
+  const c = await req.json().catch(() => null);
+  if (!c || typeof c !== 'object') return json({ error: 'Datos inválidos.' }, 400);
+  const asunto = recorta(c.asunto, 200);
+  const texto = String(c.texto || '').slice(0, 20000);
+  const html = String(c.html || '').slice(0, 250000);
+  if (!asunto) return json({ error: 'Falta el asunto.' }, 400);
+  if (!texto.trim() && !html) return json({ error: 'Falta el mensaje.' }, 400);
+
+  let destinos;
+  if (c.prueba) destinos = [{ correo: correoUsuario, nombre: 'amigo' }];
+  else {
+    destinos = (Array.isArray(c.destinos) ? c.destinos : []).filter((d) => d && esCorreo(d.correo)).map((d) => ({ correo: String(d.correo).trim().toLowerCase(), nombre: recorta(d.nombre, 80) }));
+    const vistos = new Set(); destinos = destinos.filter((d) => (vistos.has(d.correo) ? false : vistos.add(d.correo)));
+  }
+  if (!destinos.length) return json({ error: 'No hay destinatarios con correo válido.' }, 400);
+  if (destinos.length > MAX_DESTINOS) return json({ error: `Se pueden enviar hasta ${MAX_DESTINOS} correos a la vez. Divide la lista.` }, 400);
+
+  await tablas(env);
+  const hoy = hoyChile();
+  const fila = await env.DB.prepare("SELECT valor FROM ajustes WHERE clave = 'correos_dia'").first();
+  let reg = { dia: hoy, n: 0 };
+  try { const j = JSON.parse((fila && fila.valor) || '{}'); if (j && j.dia === hoy) reg = j; } catch { /* nuevo día */ }
+  if (!c.prueba && reg.n + destinos.length > LIMITE_CORREOS_DIA) {
+    return json({ error: `Hoy ya se enviaron ${reg.n} correos y el límite diario es ${LIMITE_CORREOS_DIA}. Quedan ${Math.max(0, LIMITE_CORREOS_DIA - reg.n)}. Prueba mañana o envía a menos personas.` }, 429);
+  }
+
+  const de = env.MAIL_DE || 'Club de Leones Temuco Antumalal <info@clta.cl>';
+  const responder = env.MAIL_RESPONDER || 'info@clta.cl';
+  const pie = 'Recibes este mensaje porque eres parte de la red de amigos del Club de Leones Temuco Antumalal. Si prefieres no recibirlo, responde a este correo y te quitamos de la lista.';
+  const cuerpos = destinos.map((d) => {
+    const nombre = d.nombre || 'amigo';
+    const t = texto.replace(/\{nombre\}/gi, nombre) + '\n\n--\n' + pie;
+    const h = html ? html.replace(/\{nombre\}/gi, escHtml(nombre)) + `<p style="margin:0;padding:6px 16px 16px;text-align:center;font:11px/1.5 Arial,sans-serif;color:#8A93A8">${escHtml(pie)}</p>` : undefined;
+    return { from: de, to: [d.correo], subject: asunto, text: t, reply_to: responder, ...(h ? { html: h } : {}) };
+  });
+
+  let enviados = 0; const fallidos = [];
+  for (let i = 0; i < cuerpos.length; i += 100) {
+    const lote = cuerpos.slice(i, i + 100);
+    const r = await fetch('https://api.resend.com/emails/batch', { method: 'POST', headers: { Authorization: 'Bearer ' + env.RESEND_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(lote) });
+    if (r.ok) enviados += lote.length;
+    else {
+      const e = await r.json().catch(() => ({}));
+      return json({ error: 'El servicio de correos respondió: ' + (e.message || r.status) + (enviados ? ` (se alcanzaron a enviar ${enviados})` : ''), enviados }, 502);
+    }
+  }
+  if (!c.prueba) {
+    reg.n += enviados;
+    await env.DB.prepare("INSERT INTO ajustes (clave, valor) VALUES ('correos_dia', ?) ON CONFLICT(clave) DO UPDATE SET valor = excluded.valor").bind(JSON.stringify(reg)).run();
+  }
+  return json({ ok: true, enviados, fallidos, hoy: reg.n, limite: LIMITE_CORREOS_DIA });
+}
+
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);
@@ -399,6 +462,14 @@ export default {
       if (url.pathname === '/api/historial' && req.method === 'GET') {
         await identificar(req, env);
         return await historialPagina(env);
+      }
+      if (url.pathname === '/api/correo-estado' && req.method === 'GET') {
+        await identificar(req, env);
+        return json({ ok: true, configurado: !!env.RESEND_API_KEY });
+      }
+      if (url.pathname === '/api/enviar-correo' && req.method === 'POST') {
+        const quien = await identificar(req, env);
+        return await enviarCorreos(req, env, quien);
       }
       if (url.pathname === '/api/sesion' && req.method === 'GET') {
         return json({ ok: true, email: await identificar(req, env) });

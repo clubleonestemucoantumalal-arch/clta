@@ -1076,3 +1076,6 @@ html[data-tema="oscuro"] .chip-lista.on{ background:#2F5FD0; border-color:#2F5FD
 .modalx__caja--ancha{ width:min(760px, calc(100vw - 24px)) !important; max-height:92vh; overflow:auto }
 .cm__vista{ border:2px solid var(--g-borde, #D9DEE8); border-radius:12px; margin:10px 0; max-height:46vh; overflow:auto; background:#fff; color:#1B2338 }
 .cm__vista img{ max-width:100% }
+
+.cm__directo{ margin:10px 0; padding:14px 16px; border-radius:14px; background:#E7F6EC; border:2px solid #7CC8A8; color:#0B5A2E }
+html[data-tema="oscuro"] .cm__directo{ background:#0F3A2A; color:#BFF0D8; border-color:#2E7D5B }

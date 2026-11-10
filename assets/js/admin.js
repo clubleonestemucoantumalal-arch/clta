@@ -2816,8 +2816,16 @@
         </select></label>
       <div id="cmVista" class="cm__vista" aria-label="Así se verá el correo"></div>
       <p class="nota-res" id="cmNota"></p>
+      <div id="cmDirecto" class="cm__directo oculto">
+        <p class="nota-res"><b>Envío directo:</b> cada persona recibe su propio correo con el diseño, sin pegar nada. Puedes escribir <b>{nombre}</b> en el mensaje y se cambia por el nombre de cada uno.</p>
+        <div class="msg__acc">
+          <button class="btn btn--oro btn--grande" id="cmEnviar" type="button">📨 Enviar ahora a ${con.length}</button>
+          <button class="btn btn--linea btn--grande" id="cmPrueba" type="button">Enviarme una prueba primero</button>
+        </div>
+      </div>
+      <p class="nota-res" id="cmSinServicio" hidden>Para enviar sin pegar nada hay que conectar el servicio de correos (se hace una sola vez, ver <code>docs/CORREOS.md</code>). Mientras tanto puedes usar los botones de abajo.</p>
       <div class="msg__acc">
-        <button class="btn btn--grande" id="cmGmail" type="button">✉ Abrir en Gmail</button>
+        <button class="btn btn--linea btn--grande" id="cmGmail" type="button">✉ Abrir en Gmail</button>
         <button class="btn btn--linea" id="cmMail" type="button">Abrir en mi programa de correo</button>
         <button class="btn btn--linea" id="cmCopiarDis" type="button">📋 Copiar el correo con diseño</button>
         <button class="btn btn--linea" id="cmCopiar" type="button">📋 Copiar las direcciones</button>
@@ -2837,6 +2845,28 @@
         : 'Los correos van en <b>copia oculta</b>: cada persona ve solo su propio mensaje, no las direcciones de los demás.';
     };
     pintaVista();
+    api('/api/correo-estado').then((r) => {
+      if (r && r.configurado) v.querySelector('#cmDirecto').classList.remove('oculto');
+      else if (r) v.querySelector('#cmSinServicio').hidden = false;
+    });
+    const enviarDirecto = async (prueba) => {
+      const d = dat();
+      if (!d.asunto) { aviso('Escribe el asunto.', 'mal'); return; }
+      if (!d.texto.trim()) { aviso('Escribe el mensaje.', 'mal'); return; }
+      if (!prueba && !confirm('Se enviará este correo a ' + con.length + ' persona' + (con.length === 1 ? '' : 's') + '.' + String.fromCharCode(10, 10) + '¿Enviar ahora? No se puede deshacer.')) return;
+      const b = v.querySelector(prueba ? '#cmPrueba' : '#cmEnviar'); const txt0 = b.textContent; b.disabled = true; b.textContent = 'Enviando…';
+      try {
+        const resp = await fetch('/api/enviar-correo', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+          asunto: d.asunto, texto: d.texto, html: htmlActual(), prueba: !!prueba,
+          destinos: con.map((x) => ({ correo: x.c, nombre: x.trato || (x.n || '').split(' ')[0] || '' })) }) });
+        const j = await resp.json().catch(() => ({}));
+        if (!resp.ok || !j.ok) { aviso(j.error || 'No se pudo enviar. Inténtalo de nuevo.', 'mal'); }
+        else if (prueba) aviso('Listo: te enviamos una prueba a tu correo. Revísala y, si está bien, envía a todos.', 'ok');
+        else { aviso('Listo: se enviaron ' + j.enviados + ' correos. Hoy van ' + j.hoy + ' de ' + j.limite + '.', 'ok'); if (opts.alEnviar) opts.alEnviar(); v.remove(); }
+      } catch { aviso('No hay conexión con el servidor de correos.', 'mal'); }
+      b.disabled = false; b.textContent = txt0;
+    };
+    v.addEventListener('click', (e) => { if (e.target.id === 'cmEnviar') enviarDirecto(false); else if (e.target.id === 'cmPrueba') enviarDirecto(true); });
     v.addEventListener('input', pintaVista);
     v.addEventListener('change', pintaVista);
     const copiarDiseno = async () => {

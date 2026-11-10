@@ -25,5 +25,8 @@ ACCESS_TEAM = "twilight-wave-97b6"   # lo que va antes de .cloudflareaccess.com
 ACCESS_AUD  = "843e15c9744e0817b5ffccd6be5153836edc640dbda71d7605554610edc8edba"   # "Application Audience (AUD) Tag" de la aplicación Panel del club
 # Opcional: lista de correos que pueden publicar, separados por coma. Vacío = todos los autorizados en Access.
 EDITORES = ""
+# Envío de correos desde el panel (servicio Resend). El secreto RESEND_API_KEY se guarda con:  npx wrangler secret put RESEND_API_KEY
+MAIL_DE = "Club de Leones Temuco Antumalal <info@clta.cl>"
+MAIL_RESPONDER = "info@clta.cl"
 
 # El secreto GITHUB_TOKEN NO va aquí. Se guarda con:  npx wrangler secret put GITHUB_TOKEN
