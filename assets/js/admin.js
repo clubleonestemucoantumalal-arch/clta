@@ -1574,10 +1574,12 @@
       const NSEM = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
       const sem = r.semana.map((n, i) => [NSEM[i], n]);
       const semTop = sem.reduce((a, b) => (b[1] > a[1] ? b : a), ['—', 0]);
+      const pais = (cod) => { if (!cod) return ''; try { return new Intl.DisplayNames(['es'], { type: 'region' }).of(cod) || cod; } catch (e) { return cod; } };
+      const lugar = (x) => [x.ciudad, pais(x.pais)].filter(Boolean).join(', ') || 'Sin dato';
       const fh = (t) => new Date(t).toLocaleString('es-CL', { timeZone: 'America/Santiago', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
       c.innerHTML = `
         ${r.desdeDia ? `<p class="nota-res">🔄 El contador está <b>en cero desde el ${esc(fechaLarga(r.desdeDia))}</b>. El historial anterior sigue guardado (abajo, en «Historial completo»).</p>` : ''}
-        <p class="nota-res">Cada dispositivo (celular o computador) cuenta <b>una sola vez al día</b>, aunque vuelva a entrar o recargue la página.</p>
+        <p class="nota-res">Cada dispositivo o conexión de internet cuenta <b>una sola vez cada 7 días</b>, aunque vuelva a entrar o recargue la página.</p>
         <div class="resumen">
           <div class="resumen__caja"><b>${r.hoyN}</b><span>Visitas hoy</span></div>
           <div class="resumen__caja"><b>${r.d7}</b><span>Últimos 7 días</span></div>
@@ -1594,6 +1596,10 @@
             <p class="nota-res">${semTop[1] ? 'Se visita más los <b>' + semTop[0].toLowerCase() + '</b> (últimos 90 días).' : 'Aún no hay datos.'}</p></div>
         </div>
         <div class="dos">
+          <div><h4 class="vis-t">🌎 Desde qué país</h4>${hbar(r.paises || [], (x) => pais(x.pais))}</div>
+          <div><h4 class="vis-t">🏙 Desde qué ciudad</h4>${hbar(r.ciudades || [], (x) => x.ciudad + (x.pais && x.pais !== 'CL' ? ' (' + pais(x.pais) + ')' : ''))}</div>
+        </div>
+        <div class="dos">
           <div><h4 class="vis-t">📍 Qué parte de la página se mira más</h4>${hbar(r.secciones, (x) => SEC[x.ruta] || x.ruta)}</div>
           <div><h4 class="vis-t">📄 Páginas más abiertas</h4>${hbar(r.paginas, (x) => nomRuta(x.ruta))}
             <h4 class="vis-t" style="margin-top:16px">🔗 De dónde llegan</h4>${hbar(r.origenes, (x) => x.ref)}</div>
@@ -1607,7 +1613,7 @@
           : '<p class="nota-res">Aún no hay historial.</p>'}
         </details>
         <h4 class="vis-t">🕒 Últimas visitas</h4>
-        ${r.ultimas.length ? `<div class="tabla-vis"><div class="fv fv--cab"><span>Fecha y hora</span><span>Entró a</span><span>Llegó desde</span></div>${r.ultimas.map((x) => `<div class="fv"><span>${esc(fh(x.t))}</span><span>${esc(nomRuta(x.ruta))}</span><span>${esc(x.ref || 'Directo / sin dato')}</span></div>`).join('')}</div>` : '<p class="nota-res">Aún no hay visitas registradas.</p>'}`;
+        ${r.ultimas.length ? `<div class="tabla-vis"><div class="fv fv--cab"><span>Fecha y hora</span><span>Ciudad y país</span><span>Llegó desde</span></div>${r.ultimas.map((x) => `<div class="fv"><span>${esc(fh(x.t))}</span><span>${esc(lugar(x))}</span><span>${esc(x.ref || 'Directo / sin dato')}</span></div>`).join('')}</div>` : '<p class="nota-res">Aún no hay visitas registradas.</p>'}`;
     });
   }
 
