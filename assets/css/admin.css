@@ -1047,3 +1047,20 @@ html[data-tema="oscuro"] .inicio__alerta--cumple{ background:#3A1530; color:#FFD
   .modalx__caja{ width:calc(100vw - 20px) !important; max-height:92vh; overflow:auto }
   .dos-c{ grid-template-columns:1fr !important }
 }
+
+/* Contactos: listas */
+.listas__tabs{ display:flex; flex-wrap:wrap; gap:8px }
+.chip-lista{ all:unset; cursor:pointer; box-sizing:border-box; min-height:48px; padding:8px 18px; border-radius:999px; border:2px solid var(--g-borde, #D9DEE8); font-weight:700; font-size:1.02rem; display:inline-flex; align-items:center; gap:8px }
+.chip-lista small{ font-weight:600; opacity:.7 }
+.chip-lista.on{ background:var(--azul); border-color:var(--azul); color:#fff }
+.chip-lista--nueva{ border-style:dashed; color:var(--azul) }
+.chip-lista:focus-visible{ outline:4px solid var(--oro) }
+.fila-so--c{ display:grid; grid-template-columns:auto minmax(0,1.4fr) minmax(0,1.2fr) minmax(0,1fr) auto; gap:10px; align-items:center; padding:8px 4px; border-bottom:1px solid var(--g-borde, #E6E8EE) }
+.fila-so--c .fs-m small{ display:block; opacity:.75 }
+@media (max-width:760px){ .fila-so--c{ grid-template-columns:auto 1fr auto } .fila-so--c .fs-c, .fila-so--c .fs-m{ grid-column:2 / -1 } }
+.inicio__alerta--fecha{ background:#EAF2FF; color:#0B2F6B; border-color:#9DBBEF; flex-wrap:wrap }
+.inicio__alerta--fecha > div{ flex:1 1 260px }
+html[data-tema="oscuro"] .inicio__alerta--fecha{ background:#14306E; color:#DCE6FF; border-color:#4A6BB5 }
+html[data-tema="oscuro"] .chip-lista{ border-color:#4A6BB5; color:#E9EEFA }
+html[data-tema="oscuro"] .chip-lista.on{ background:#2F5FD0; border-color:#2F5FD0 }
+@media (max-width:640px){ .inicio__alerta--fecha .btn, .listas__tabs .chip-lista{ flex:1 1 100% } }

@@ -281,6 +281,28 @@ async function rutaPanel(req, env, url) {
     return json({ ok: true, reiniciado: que, por: correo });
   }
 
+
+  if (ruta === '/api/contactos' && req.method === 'GET') {
+    const f = await env.DB.prepare("SELECT valor FROM ajustes WHERE clave = 'contactos'").first();
+    let v = { listas: [] }; try { v = JSON.parse((f && f.valor) || '{"listas":[]}'); } catch { v = { listas: [] }; }
+    return json({ ok: true, contactos: v });
+  }
+  if (ruta === '/api/contactos' && req.method === 'POST') {
+    await identificar(req, env);
+    const c = await req.json().catch(() => null);
+    if (!c || !c.contactos || !Array.isArray(c.contactos.listas) || c.contactos.listas.length > 30) return json({ error: 'Datos inválidos.' }, 400);
+    const limpio = { listas: c.contactos.listas.map((l) => ({
+      id: recorta(l.id, 30), nombre: recorta(l.nombre, 60),
+      contactos: (Array.isArray(l.contactos) ? l.contactos : []).slice(0, 2000).map((x) => ({
+        id: recorta(x.id, 30), nombre: recorta(x.nombre, 120), org: recorta(x.org, 120), cargo: recorta(x.cargo, 80), correo: recorta(x.correo, 160),
+        celular: recorta(x.celular, 40), trato: recorta(x.trato, 80), notas: recorta(x.notas, 600), ultimo: recorta(x.ultimo, 12)
+      }))
+    })) };
+    const txt = JSON.stringify(limpio);
+    if (txt.length > 900000) return json({ error: 'Demasiado grande.' }, 413);
+    await env.DB.prepare("INSERT INTO ajustes (clave, valor) VALUES ('contactos', ?) ON CONFLICT(clave) DO UPDATE SET valor = excluded.valor").bind(txt).run();
+    return json({ ok: true });
+  }
   if (ruta === '/api/ajustes' && req.method === 'GET') {
     const f = await env.DB.prepare("SELECT valor FROM ajustes WHERE clave = 'panel'").first();
     let v = {}; try { v = JSON.parse((f && f.valor) || '{}'); } catch { v = {}; }
@@ -369,7 +391,7 @@ export default {
     const url = new URL(req.url);
     try {
       if (url.pathname.startsWith('/p/')) return await rutaPublica(req, env, url);
-      if (url.pathname === '/api/resumen' || url.pathname === '/api/mensajes' || url.pathname === '/api/ajustes' || url.pathname === '/api/socios') {
+      if (url.pathname === '/api/resumen' || url.pathname === '/api/mensajes' || url.pathname === '/api/ajustes' || url.pathname === '/api/socios' || url.pathname === '/api/contactos') {
         await identificar(req, env);
         const r = await rutaPanel(req, env, url);
         if (r) return r;
