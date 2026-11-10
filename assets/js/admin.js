@@ -2593,7 +2593,7 @@
           else { const l = CONT.listas.find((z) => z.id === id); if (l) { destinatarios.push(...l.contactos.map(comoContacto)); marcar.push(l); } }
         });
         v.remove();
-        ventanaCorreoMasivo(destinatarios, { asunto: o.asunto, texto: o.texto + FIRMA,
+        ventanaCorreoMasivo(destinatarios, { asunto: o.asunto, texto: o.texto + FIRMA, ico: o.ico, estilo: 'festivo',
           alEnviar: () => { marcar.forEach((l) => l.contactos.forEach((x) => { if (x.correo) x.ultimo = hoyIso(); })); guardarContactos(); } });
       });
     };
@@ -2768,36 +2768,103 @@
     pintar();
   }
 
-  /* Correo a varios socios: van en copia oculta (CCO) para que nadie vea los correos de los demás */
+  /* Correo con diseño de los Leones (azul y dorado, con logo). Se arma con estilos dentro de cada etiqueta,
+     que es lo único que entienden Gmail y los demás programas de correo. */
+  const SITIO = 'https://clta.cl';
+  function correoConDiseno(estilo, { titulo, texto, ico }) {
+    const c = (ESTADO.datos && ESTADO.datos.contacto) || {};
+    const nombreClub = (ESTADO.datos && ESTADO.datos.identidad && ESTADO.datos.identidad.nombre) || 'Club de Leones Temuco Antumalal';
+    const parrafos = String(texto || '').split(/\n{2,}/).map((t) => t.trim()).filter(Boolean)
+      .map((t) => `<p style="margin:0 0 16px;font-size:16px;line-height:1.65;color:#1B2338">${esc(t).replace(/\n/g, '<br>')}</p>`).join('');
+    const logo = `<img src="${SITIO}/assets/img/lions-international.png" alt="Lions" width="64" height="64" style="display:block;border:0;width:64px;height:64px">`;
+    const cabecera = estilo === 'festivo'
+      ? `<tr><td align="center" style="background:#FFCD00;padding:30px 24px 22px">
+           <div style="font-size:54px;line-height:1">${ico || '🦁'}</div>
+           <div style="font:700 28px/1.2 Georgia,'Times New Roman',serif;color:#00338D;margin-top:10px">${esc(titulo || nombreClub)}</div>
+           <div style="font:600 13px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#00338D;margin-top:8px">${esc(nombreClub)}</div></td></tr>`
+      : `<tr><td style="background:#00338D;padding:20px 28px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+           <td width="76" valign="middle">${logo}</td>
+           <td valign="middle" style="font:700 20px/1.25 Georgia,'Times New Roman',serif;color:#FFFFFF">${esc(nombreClub)}<br><span style="font:600 12px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#FFCD00">Nosotros servimos</span></td></tr></table></td></tr>
+         <tr><td style="background:#FFCD00;height:5px;line-height:5px;font-size:0">&nbsp;</td></tr>`;
+    const titular = estilo === 'festivo' ? '' : (titulo ? `<h1 style="margin:0 0 18px;font:700 26px/1.25 Georgia,'Times New Roman',serif;color:#00338D">${esc(titulo)}</h1>` : '');
+    const datos = [c.telefono && 'Tel. ' + esc(c.telefono), c.email && esc(c.email), c.direccion && esc(c.direccion)].filter(Boolean).join(' &nbsp;·&nbsp; ');
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#EEF1F7;padding:20px 8px"><tr><td align="center">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#FFFFFF;border-radius:12px;overflow:hidden;font-family:Arial,Helvetica,sans-serif">
+        ${cabecera}
+        <tr><td style="padding:30px 32px 10px">${titular}${parrafos}</td></tr>
+        <tr><td style="padding:0 32px 28px"><div style="border-top:2px solid #FFCD00;padding-top:16px;font:15px/1.5 Georgia,'Times New Roman',serif;color:#00338D">🦁 <b>${esc(nombreClub)}</b><br><span style="font:13px Arial,sans-serif;color:#5B6478">Lions Clubs International · Distrito T-4</span></div></td></tr>
+        <tr><td style="background:#001B4D;padding:16px 24px;text-align:center;font:12px/1.6 Arial,sans-serif;color:#C9D4F0">${datos ? datos + '<br>' : ''}<a href="${SITIO}" style="color:#FFCD00;text-decoration:none;font-weight:700">clta.cl</a></td></tr>
+      </table></td></tr></table>`;
+  }
+
+  /* Correo a varios contactos: van en copia oculta (CCO) para que nadie vea los correos de los demás */
   function ventanaCorreoMasivo(lista, opts) {
     opts = opts || {};
     const con = lista.filter((s) => s.c), sin = lista.filter((s) => !s.c);
     const v = document.createElement('div');
     v.className = 'modalx';
-    v.innerHTML = `<div class="modalx__caja" role="dialog" aria-modal="true" aria-label="Correo a los socios">
-      <h3>Correo a ${con.length} socio${con.length === 1 ? '' : 's'}</h3>
+    v.innerHTML = `<div class="modalx__caja modalx__caja--ancha" role="dialog" aria-modal="true" aria-label="Correo a los contactos">
+      <h3>Correo a ${con.length} contacto${con.length === 1 ? '' : 's'}</h3>
       ${sin.length ? `<p class="aviso aviso--info" style="margin:6px 0">${sin.length} no tiene${sin.length === 1 ? '' : 'n'} correo y no se incluye${sin.length === 1 ? '' : 'n'}: ${esc(sin.map(nombreSocio).join(', '))}.</p>` : ''}
       <label class="campo__et">Asunto<input type="text" id="cmAsunto" placeholder="Ej.: Sesión del lunes 23" style="width:100%"></label>
-      <label class="campo__et">Mensaje<textarea id="cmTexto" rows="7" placeholder="Estimados socios:&#10;&#10;…"></textarea></label>
-      <p class="nota-res">Los correos van en <b>copia oculta</b>: cada socio ve solo su propio mensaje, no las direcciones de los demás.</p>
+      <label class="campo__et">Mensaje<textarea id="cmTexto" rows="6" placeholder="Estimados amigos:&#10;&#10;…"></textarea></label>
+      <label class="campo__et">Diseño del correo
+        <select id="cmDis" style="width:100%">
+          <option value="lions">Lions: azul y dorado, con logo (recomendado)</option>
+          <option value="festivo">Festivo: banner dorado grande con el nombre de la fecha</option>
+          <option value="simple">Texto sencillo, sin diseño</option>
+        </select></label>
+      <div id="cmVista" class="cm__vista" aria-label="Así se verá el correo"></div>
+      <p class="nota-res" id="cmNota"></p>
       <div class="msg__acc">
-        <button class="btn" id="cmGmail" type="button">✉ Abrir en Gmail</button>
+        <button class="btn btn--grande" id="cmGmail" type="button">✉ Abrir en Gmail</button>
         <button class="btn btn--linea" id="cmMail" type="button">Abrir en mi programa de correo</button>
-        <button class="btn btn--linea" id="cmCopiar" type="button">📋 Copiar los correos</button>
+        <button class="btn btn--linea" id="cmCopiarDis" type="button">📋 Copiar el correo con diseño</button>
+        <button class="btn btn--linea" id="cmCopiar" type="button">📋 Copiar las direcciones</button>
         <button class="btn btn--linea" id="cmCerrar" type="button">Cancelar</button>
       </div></div>`;
     document.body.appendChild(v);
     if (opts.asunto) v.querySelector('#cmAsunto').value = opts.asunto;
     if (opts.texto) v.querySelector('#cmTexto').value = opts.texto;
-    const dat = () => ({ cco: con.map((s) => s.c).join(','), asunto: v.querySelector('#cmAsunto').value.trim(), texto: v.querySelector('#cmTexto').value });
+    if (opts.ico && /festiv/.test(opts.estilo || 'festivo')) v.querySelector('#cmDis').value = 'festivo';
+    const dat = () => ({ cco: con.map((s) => s.c).join(','), asunto: v.querySelector('#cmAsunto').value.trim(), texto: v.querySelector('#cmTexto').value, dis: v.querySelector('#cmDis').value });
+    const htmlActual = () => { const d = dat(); return d.dis === 'simple' ? '' : correoConDiseno(d.dis, { titulo: d.asunto, texto: d.texto, ico: opts.ico }); };
+    const pintaVista = () => {
+      const d = dat(), h = htmlActual();
+      v.querySelector('#cmVista').innerHTML = h || '<p class="nota-res">Se enviará como texto sencillo.</p>';
+      v.querySelector('#cmNota').innerHTML = h
+        ? 'Con diseño: se <b>copia el correo</b> y se abre Gmail. En el cuerpo del correo, <b>toca y pega con Ctrl+V</b> (en el celular, mantén apretado y elige «Pegar»). Los correos van en <b>copia oculta</b>.'
+        : 'Los correos van en <b>copia oculta</b>: cada persona ve solo su propio mensaje, no las direcciones de los demás.';
+    };
+    pintaVista();
+    v.addEventListener('input', pintaVista);
+    v.addEventListener('change', pintaVista);
+    const copiarDiseno = async () => {
+      const h = htmlActual(); if (!h) return true;
+      const plano = dat().texto;
+      try {
+        await navigator.clipboard.write([new ClipboardItem({ 'text/html': new Blob([h], { type: 'text/html' }), 'text/plain': new Blob([plano], { type: 'text/plain' }) })]);
+        return true;
+      } catch {
+        try { const r = document.createRange(); r.selectNodeContents(v.querySelector('#cmVista')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); const ok = document.execCommand('copy'); sel.removeAllRanges(); return ok; } catch { return false; }
+      }
+    };
     v.addEventListener('click', async (e) => {
-      if (e.target === v || e.target.id === 'cmCerrar') return v.remove();
+      const id = e.target.id;
+      if (e.target === v || id === 'cmCerrar') return v.remove();
+      if (id === 'cmCopiarDis') { aviso((await copiarDiseno()) ? 'Correo copiado. Pégalo en el cuerpo de tu correo con Ctrl+V.' : 'No se pudo copiar. Intenta de nuevo.', 'ok'); return; }
       if (!con.length) return;
-      const { cco, asunto, texto } = dat();
-      if ((e.target.id === 'cmGmail' || e.target.id === 'cmMail') && opts.alEnviar) opts.alEnviar();
-      if (e.target.id === 'cmGmail') window.open('https://mail.google.com/mail/?view=cm&fs=1&bcc=' + encodeURIComponent(cco) + '&su=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(texto), '_blank', 'noopener');
-      else if (e.target.id === 'cmMail') window.location.href = 'mailto:?bcc=' + encodeURIComponent(cco) + '&subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(texto);
-      else if (e.target.id === 'cmCopiar') { try { await navigator.clipboard.writeText(con.map((s) => s.c).join(', ')); aviso('Correos copiados. Pégalos en «CCO» de tu correo.', 'ok'); } catch { aviso('No se pudo copiar.', 'mal'); } }
+      const { cco, asunto, texto, dis } = dat();
+      if ((id === 'cmGmail' || id === 'cmMail') && opts.alEnviar) opts.alEnviar();
+      const conDiseno = dis !== 'simple';
+      if (conDiseno && (id === 'cmGmail' || id === 'cmMail')) {
+        const ok = await copiarDiseno();
+        aviso(ok ? 'Correo con diseño copiado. En Gmail, toca el cuerpo del correo y pega con Ctrl+V.' : 'No se pudo copiar el diseño; usa el botón «Copiar el correo con diseño».', ok ? 'ok' : 'mal');
+      }
+      const cuerpo = conDiseno ? '' : texto;
+      if (id === 'cmGmail') window.open('https://mail.google.com/mail/?view=cm&fs=1&bcc=' + encodeURIComponent(cco) + '&su=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo), '_blank', 'noopener');
+      else if (id === 'cmMail') window.location.href = 'mailto:?bcc=' + encodeURIComponent(cco) + '&subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
+      else if (id === 'cmCopiar') { try { await navigator.clipboard.writeText(con.map((s) => s.c).join(', ')); aviso('Direcciones copiadas. Pégalas en «CCO» de tu correo.', 'ok'); } catch { aviso('No se pudo copiar.', 'mal'); } }
     });
   }
 

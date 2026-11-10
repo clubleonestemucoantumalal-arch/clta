@@ -1071,3 +1071,8 @@ html[data-tema="oscuro"] .chip-lista.on{ background:#2F5FD0; border-color:#2F5FD
 @media (max-width:640px){ .inicio__alerta > .btn{ flex:1 1 100%; width:100% } }
 /* Inicio sin la caja de botones: visitas ocupan todo el ancho */
 @media (min-width:1100px){ .panel--inicio.activo{ grid-template-columns:minmax(0,1fr) !important } .panel--inicio > .tarjeta--visitas{ grid-column:1 !important } }
+
+/* Correo con diseño */
+.modalx__caja--ancha{ width:min(760px, calc(100vw - 24px)) !important; max-height:92vh; overflow:auto }
+.cm__vista{ border:2px solid var(--g-borde, #D9DEE8); border-radius:12px; margin:10px 0; max-height:46vh; overflow:auto; background:#fff; color:#1B2338 }
+.cm__vista img{ max-width:100% }
