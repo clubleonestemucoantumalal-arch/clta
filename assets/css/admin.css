@@ -983,3 +983,13 @@ html[data-tema="oscuro"] .lateral__grupo{ color:#B9C6E6 }
 html[data-tema="oscuro"] .nav__b span small{ color:#B9C6E6 }
 html[data-tema="oscuro"] .bloque__explica{ background:#14306E; color:#DCE6FF }
 html[data-tema="oscuro"] .panel__pista{ background:#3A3110; color:#FFE9A0 !important }
+
+/* Inicio: frase del día · Historial de cambios */
+.inicio__frase{ font-size:1.2rem !important; color:var(--azul) !important; font-weight:600; margin:6px 0 4px; line-height:1.4 }
+.hist{ list-style:none; padding:0; margin:0 }
+.hist > li{ border-left:4px solid var(--azul); padding:6px 0 6px 14px; margin-bottom:14px }
+.hist__cab{ display:flex; gap:12px; flex-wrap:wrap; align-items:baseline }
+.hist__cab b{ font-size:1.05rem; text-transform:capitalize }
+.hist__cab span{ font-size:.9rem; color:var(--gris) }
+.hist ul{ margin:6px 0 0 18px; font-size:1rem; line-height:1.6 }
+html[data-tema="oscuro"] .inicio__frase{ color:#9DBBFF !important }

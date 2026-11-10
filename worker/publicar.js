@@ -298,6 +298,72 @@ async function rutaPanel(req, env, url) {
   return null;
 }
 
+
+/* ───────────────────────── Historial de cambios de la página ─────────────────────────
+   Lee de GitHub las últimas publicaciones del panel (data/contenido.json) y cuenta qué cambió en cada una. */
+const NOMBRES_SECCION = {
+  identidad: 'Nombre y lema del club', contacto: 'Teléfono y correo', redes: 'Redes sociales', formulario: 'Cuadro para escribirnos',
+  noticias: 'Noticias', causas: 'Causas', sellos: 'Franja azul de respaldo', impacto: 'Números del club', proyectos: 'Trabajo en terreno',
+  articulos: 'Blog', valores: 'Valores', directiva: 'Directiva', testimonios: 'Testimonios', faq: 'Preguntas frecuentes',
+  donaEventos: 'Actividades solidarias', donaOps: 'Cómo ayudar', clubFirma: 'Firma del club', agenda: 'Agenda', textos: 'Textos de la página',
+  donaciones: 'Cuenta para donar', pie: 'Final de la página', unete: 'Invitación a ser socio', quienes: 'Quiénes somos', portada: 'Portada'
+};
+const nombreDe = (x) => String((x && (x.titulo || x.nombre || x.etiqueta || x.pregunta || x.id)) || 'sin título').slice(0, 60);
+function describirCambios(antes, despues) {
+  const out = [];
+  const A = antes || {}, D = despues || {};
+  const claves = new Set([...Object.keys(A), ...Object.keys(D)]);
+  claves.delete('actualizado');
+  for (const k of claves) {
+    const a = A[k], d = D[k];
+    if (JSON.stringify(a) === JSON.stringify(d)) continue;
+    const nom = NOMBRES_SECCION[k] || k;
+    if (Array.isArray(a) || Array.isArray(d)) {
+      const la = Array.isArray(a) ? a : [], ld = Array.isArray(d) ? d : [];
+      const ta = la.map(nombreDe), td = ld.map(nombreDe);
+      const nuevos = td.filter((t) => !ta.includes(t)), quitados = ta.filter((t) => !td.includes(t));
+      if (nuevos.length) out.push(`${nom}: se agregó «${nuevos[0]}»${nuevos.length > 1 ? ` y ${nuevos.length - 1} más` : ''}`);
+      if (quitados.length) out.push(`${nom}: se quitó «${quitados[0]}»${quitados.length > 1 ? ` y ${quitados.length - 1} más` : ''}`);
+      if (!nuevos.length && !quitados.length) out.push(`${nom}: se cambió un texto o una foto`);
+    } else if (a && d && typeof a === 'object' && typeof d === 'object') {
+      if (k === 'agenda') {
+        const sub = describirCambios({ eventos: a.eventos }, { eventos: d.eventos }).map((x) => x.replace(/^eventos/, 'Agenda'));
+        if (sub.length) out.push(...sub);
+        if (JSON.stringify({ ...a, eventos: 0 }) !== JSON.stringify({ ...d, eventos: 0 })) out.push('Agenda: se cambió la sesión o la configuración');
+      } else {
+        const subs = [...new Set([...Object.keys(a), ...Object.keys(d)])].filter((x) => JSON.stringify(a[x]) !== JSON.stringify(d[x]));
+        const nombres = subs.map((x) => NOMBRES_SECCION[x] || x).slice(0, 3).join(', ');
+        out.push(`${nom}: se cambió ${nombres || 'un texto'}${subs.length > 3 ? ' y más' : ''}`);
+      }
+    } else out.push(`${nom}: se cambió`);
+  }
+  return out;
+}
+
+async function historialPagina(env) {
+  if (!env.GITHUB_TOKEN || !env.GH_USUARIO || !env.GH_REPO) return json({ error: 'El publicador no tiene su llave de GitHub.' }, 503);
+  const base = `https://api.github.com/repos/${encodeURIComponent(env.GH_USUARIO)}/${encodeURIComponent(env.GH_REPO)}`;
+  const cab = { Authorization: 'Bearer ' + env.GITHUB_TOKEN, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'clta-publicar' };
+  const rama = env.GH_RAMA || 'main';
+  const r = await fetch(`${base}/commits?sha=${encodeURIComponent(rama)}&path=data/contenido.json&per_page=12`, { headers: cab });
+  if (!r.ok) return json({ error: 'No se pudo leer el historial (GitHub respondió ' + r.status + ').' }, 502);
+  const commits = await r.json();
+  const leer = async (sha) => {
+    if (!sha) return null;
+    const x = await fetch(`https://api.github.com/repos/${encodeURIComponent(env.GH_USUARIO)}/${encodeURIComponent(env.GH_REPO)}/contents/data/contenido.json?ref=${sha}`, { headers: { ...cab, Accept: 'application/vnd.github.raw+json' } });
+    if (!x.ok) return null;
+    try { return JSON.parse(await x.text()); } catch { return null; }
+  };
+  const items = await Promise.all(commits.slice(0, 10).map(async (c) => {
+    const msg = (c.commit && c.commit.message || '').split('\n')[0];
+    const quien = (msg.match(/\(([^)]+@[^)]+)\)/) || [])[1] || '';
+    const [nuevo, previo] = await Promise.all([leer(c.sha), leer(c.parents && c.parents[0] && c.parents[0].sha)]);
+    const cambios = nuevo && previo ? describirCambios(previo, nuevo) : [];
+    return { fecha: c.commit && c.commit.author && c.commit.author.date, quien, mensaje: msg, cambios: cambios.slice(0, 8) };
+  }));
+  return json({ ok: true, items });
+}
+
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);
@@ -307,6 +373,10 @@ export default {
         await identificar(req, env);
         const r = await rutaPanel(req, env, url);
         if (r) return r;
+      }
+      if (url.pathname === '/api/historial' && req.method === 'GET') {
+        await identificar(req, env);
+        return await historialPagina(env);
       }
       if (url.pathname === '/api/sesion' && req.method === 'GET') {
         return json({ ok: true, email: await identificar(req, env) });

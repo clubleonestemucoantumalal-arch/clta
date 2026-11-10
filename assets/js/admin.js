@@ -1355,7 +1355,7 @@
 
     { id: 'aportar', grupo: 'Contenido de la página', nombre: 'Formas de aportar', ico: ICO.dona,
       titulo: 'Formas de aportar',
-      bajada: 'Los textos de la sección de donaciones. Los datos bancarios se editan en "Datos para donar".',
+      bajada: 'Los textos de la sección de donaciones.',
       tarjetas: [
         { titulo: 'Encabezado', campos: [
           { tipo: 'texto', ruta: 'textos.dona.eyebrow', etiqueta: 'Palabra pequeña de arriba' },
@@ -1553,7 +1553,16 @@
     const saludo = h < 6 ? 'Buenas noches' : h < 13 ? 'Buenos días' : h < 20 ? 'Buenas tardes' : 'Buenas noches';
     const cab = document.createElement('div');
     cab.className = 'inicio__saludo';
-    cab.innerHTML = `<h3>${saludo}${nombre ? ', ' + esc(nombre) : ''}</h3><p>Toca lo que quieras hacer. Todo se explica paso a paso.</p>`;
+    const FRASES = ['«Nosotros servimos.» Ese es el lema de todos los Leones del mundo.',
+      'Cada gesto de ayuda, por pequeño que sea, cambia el día de alguien.',
+      'Servir juntos nos hace más fuertes como club y como comunidad.',
+      'Hoy es un buen día para contar lo bueno que hace el club.',
+      '«No puedes llegar muy lejos hasta que empiezas a hacer algo por alguien más.» Melvin Jones, fundador de los Leones.',
+      'Lo que el club hace en terreno merece que todos lo conozcan.',
+      'Un León no mira desde lejos: se acerca y ayuda.',
+      'Gracias por dedicar tu tiempo a servir a los demás.'];
+    const frase = FRASES[Math.floor(Date.now() / 86400000) % FRASES.length];
+    cab.innerHTML = `<h3>${saludo}${nombre ? ', ' + esc(nombre) : ''}</h3><p class="inicio__frase">🦁 ${esc(frase)}</p><p>Toca lo que quieras hacer. Todo se explica paso a paso.</p>`;
     lienzo.appendChild(cab);
 
     const aviso = document.createElement('div');
@@ -2210,6 +2219,21 @@
     const p = leerPref();
     const conectado = await cargarAjustes();
 
+    /* Historial de cambios de la página (publicaciones hechas desde el panel) */
+    const histCaja = document.createElement('div');
+    histCaja.className = 'tarjeta';
+    histCaja.innerHTML = '<div class="tarjeta__cab"><div><h3>📜 Historial de cambios de la página</h3><p>Lo último que se publicó en la página del club: cuándo, quién y qué cambió.</p></div></div><div id="histBody"><p class="nota-res">Cargando…</p></div>';
+    lienzo.appendChild(histCaja);
+    api('/api/historial').then((r) => {
+      const c = histCaja.querySelector('#histBody');
+      if (!r) { c.innerHTML = '<p class="nota-res">El historial solo se ve cuando el panel está abierto desde <b>clta.cl/admin.html</b> con tu cuenta.</p>'; return; }
+      const fh2 = (t) => new Date(t).toLocaleString('es-CL', { timeZone: 'America/Santiago', weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+      c.innerHTML = r.items && r.items.length ? `<ol class="hist">${r.items.map((x) => `<li>
+        <div class="hist__cab"><b>${esc(fh2(x.fecha))}</b>${x.quien ? `<span>Publicó: ${esc(x.quien)}</span>` : ''}</div>
+        ${x.cambios && x.cambios.length ? `<ul>${x.cambios.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '<p class="nota-res">Se publicaron cambios en la página.</p>'}
+      </li>`).join('')}</ol>` : '<p class="nota-res">Todavía no hay publicaciones registradas.</p>';
+    });
+
     const apariencia = document.createElement('div');
     apariencia.className = 'tarjeta';
     apariencia.innerHTML = `
@@ -2792,7 +2816,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     salir.innerHTML = '<span>🚪</span>Salir del panel';
     salir.addEventListener('click', salirDelPanel);
     BLOQUES.forEach((bl) => {
-      let secs = SECCIONES.filter((s) => bl.grupos.includes(s.grupo));
+      let secs = SECCIONES.filter((s) => bl.grupos.includes(s.grupo) && s.id !== 'donaciones');
       if (bl.orden) secs = bl.orden.map((id) => secs.find((s) => s.id === id)).filter(Boolean);
       if (!secs.length) return;
       const caja = document.createElement('div');
