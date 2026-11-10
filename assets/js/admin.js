@@ -1558,7 +1558,7 @@
     const aviso2 = ESTADO.sucio ? String.fromCharCode(10, 10) + 'Ojo: tienes cambios sin publicar. Quedan guardados en este computador y los verás al volver a entrar.' : '';
     if (!confirm('¿Quieres salir del panel?' + aviso2)) return;
     try { sessionStorage.removeItem('accesoReintento'); } catch (e) { /* sin almacenamiento */ }
-    if (/(^|\.)clta\.cl$/.test(location.hostname)) location.href = '/cdn-cgi/access/logout';
+    if (/(^|\.)clta\.cl$/.test(location.hostname)) location.href = 'https://twilight-wave-97b6.cloudflareaccess.com/cdn-cgi/access/logout';
     else location.reload();
   }
 
