@@ -1,7 +1,7 @@
 {
   "_comentario": "Este archivo lo escribe el PANEL DE ADMINISTRACIÓN (admin.html). Contiene todos los textos editables del sitio. No hace falta abrirlo a mano: si lo editas aquí y te equivocas en una coma, el sitio simplemente vuelve a los textos de index.html.",
   "version": 1,
-  "actualizado": "2026-11-08T06:14:26.080Z",
+  "actualizado": "2026-11-10T20:31:35.648Z",
   "identidad": {
     "nombre": "Club de Leones Temuco Antumalal",
     "nombreCorto": "Leones Antumalal",
@@ -290,6 +290,30 @@
   ],
   "proyectos": [
     {
+      "tag": "",
+      "titulo": "Nuevo proyecto",
+      "texto": "",
+      "fecha": "2026-11-10",
+      "cuerpo": "",
+      "lugar": "",
+      "personas": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "",
+      "ancho": false
+    },
+    {
+      "tag": "",
+      "titulo": "Nuevo proyecto",
+      "texto": "",
+      "fecha": "2026-11-10",
+      "cuerpo": "",
+      "lugar": "",
+      "personas": "",
+      "imagen": "assets/img/fotos/proyecto-1.svg",
+      "enlace": "",
+      "ancho": false
+    },
+    {
       "idLions": "SA-10528131",
       "tag": "Servicio humanitario",
       "titulo": "Corrida Saludable",
@@ -438,18 +462,6 @@
       "foto3": "assets/img/proyectos/galeria/liceo-mistral-2.jpg"
     },
     {
-      "idLions": "SA-10314768",
-      "tag": "Servicio humanitario",
-      "titulo": "Preparando el concierto del Maestro Roberto Bravo",
-      "texto": "Nos reunimos para coordinar el concierto de piano del Maestro Roberto Bravo, el 24 de octubre. Con él esperamos reunir fondos para continuar con nuestra obra solidaria.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-09-21",
-      "lugar": "Teatro Municipal de Temuco",
-      "cuerpo": "El 21 de septiembre nos reunimos para coordinar el concierto de piano del Maestro Roberto Bravo, programado para el 24 de octubre en el Teatro Municipal de Temuco.\n\nCon esta actividad esperamos reunir fondos para continuar con nuestra obra solidaria, junto a la comunidad."
-    },
-    {
       "tag": "Septiembre · Salud visual",
       "titulo": "Lentes para quienes los necesitan",
       "texto": "Junto al Comité de Damas entregamos lentes a dos personas que requerían este apoyo: un alivio para su salud y para su economía familiar.",
@@ -557,18 +569,6 @@
       "lugar": "Temuco",
       "personas": "2",
       "cuerpo": "El 28 de agosto acompañamos la entrega de cajas de alimentos a adultos mayores de Temuco que viven en situación de pobreza. La actividad se realizó entre las 15:00 y las 17:00 horas.\n\nLa visita fue tan importante como la caja: muchos adultos mayores pasan buena parte del día solos."
-    },
-    {
-      "idLions": "SA-10111527",
-      "tag": "Emergencias",
-      "titulo": "Reunión con el Director de Emergencias de la Municipalidad de Temuco",
-      "texto": "Los Leones Héctor Jara y Luis Villalobos se reunieron con el director de Emergencias municipal, Armin Llanos, para coordinar el uso de los fondos del proyecto LCIF destinado a adquirir equipos DEA, que ayudan a salvar vidas en una emergencia cardíaca.",
-      "imagen": "assets/img/fotos/proyecto-1.svg",
-      "enlace": "#contacto",
-      "ancho": false,
-      "fecha": "2026-08-27",
-      "lugar": "Municipalidad de Temuco",
-      "cuerpo": "Los Leones Héctor Jara y Luis Villalobos asistieron el 27 de agosto a una reunión con el director de Emergencias de la Municipalidad de Temuco, Armin Llanos.\n\nSe coordinaron los fondos del proyecto LCIF para adquirir equipos DEA, desfibriladores que pueden salvar vidas ante una emergencia cardíaca."
     },
     {
       "idLions": "SA-10111467",
