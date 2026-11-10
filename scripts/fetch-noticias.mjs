@@ -65,6 +65,16 @@ const FUENTES = [
   }
 ];
 
+/* Se descartan las notas que mezclan al Leonismo con una polémica política:
+   nombran a una persona, partido o institución política Y usan un tono de conflicto o crítica.
+   Así el sitio no queda en medio de discusiones partidistas. */
+const POLITICA = /\b(kast|boric|matthei|jara|kaiser|piñera|bachelet|partido|republicano|frente amplio|udi|renovaci[oó]n nacional|candidat[oa]|diputad[oa]s?|senador(a|es)?|congreso|oposici[oó]n|oficialismo|gobierno|presidente de la rep[uú]blica|campa[ñn]a electoral|elecciones)\b/i;
+const CONFLICTO = /\b(pol[eé]mic[oa]s?|cr[ií]ticas?|critic[aó]|cuestion[aó]\w*|acusa\w*|denuncia\w*|esc[aá]ndalo|controversia|rechaza\w*|ataca\w*|desmiente|molestia|dichos|reacciona|aclara a|responde a|descalific\w*|querella|polariz\w*)\b/i;
+const esPolemicaPolitica = (n) => {
+  const t = `${n.titulo || ''} ${n.resumen || ''}`;
+  return POLITICA.test(t) && CONFLICTO.test(t);
+};
+
 /* Sólo se publican notas de prensa que realmente hablen del leonismo:
    Google News devuelve coincidencias por nombre de calles, escuelas, etc. */
 const RELEVANTE = /\bleon(es|ismo|ístic)|\blions?\b/i;
@@ -234,7 +244,8 @@ async function leerFuente(f) {
     };
   })).then((items) => items.filter((n) =>
     n.titulo && n.enlace &&
-    (n.tipo !== 'prensa' || RELEVANTE.test(n.titulo))
+    (n.tipo !== 'prensa' || RELEVANTE.test(n.titulo)) &&
+    !esPolemicaPolitica(n)
   ));
 }
 
