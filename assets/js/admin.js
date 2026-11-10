@@ -1548,7 +1548,7 @@
 
   function panelInicio(lienzo) {
     /* Pantalla de inicio pensada para personas mayores: pocas opciones, grandes, con una frase que explica cada una */
-    tarjetaVisitas(lienzo);   /* lo primero que se ve: cuánta gente visita la página */
+    const cabP = lienzo.querySelector('.panel__cab'); if (cabP) cabP.remove();   /* el saludo es lo primero que se ve */
     const nombre = (leerPref().nombre || '').trim();
     const h = new Date().getHours();
     const saludo = h < 6 ? 'Buenas noches' : h < 13 ? 'Buenos días' : h < 20 ? 'Buenas tardes' : 'Buenas noches';
@@ -1565,6 +1565,7 @@
     const frase = FRASES[Math.floor(Date.now() / 86400000) % FRASES.length];
     cab.innerHTML = `<h3>${saludo}${nombre ? ', ' + esc(nombre) : ''}</h3><p class="inicio__frase">🦁 ${esc(frase)}</p><p>Toca lo que quieras hacer. Todo se explica paso a paso.</p>`;
     lienzo.appendChild(cab);
+    tarjetaVisitas(lienzo);   /* y enseguida, cuánta gente visita la página */
 
     const aviso = document.createElement('div');
     aviso.id = 'inicioAviso';
