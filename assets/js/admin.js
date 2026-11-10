@@ -958,8 +958,8 @@
   const SECCIONES = [
 
     /* ───────────────────────────── INICIO ───────────────────────────── */
-    { id: 'inicio', grupo: 'Administración', nombre: 'Resumen', ico: ICO.inicio,
-      titulo: 'Resumen del club',
+    { id: 'inicio', grupo: 'Administración', nombre: 'Inicio', ico: ICO.inicio,
+      titulo: 'Inicio',
       bajada: 'Un vistazo rápido al club, a la página y a lo que falta por completar.',
       pintar: panelInicio },
 
@@ -2741,25 +2741,10 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
   function pintarNav() {
     const nav = $('#nav');
     nav.innerHTML = '';
-    /* Atajos grandes a lo que más se hace */
-    const atajos = document.createElement('div');
-    atajos.className = 'atajos';
-    atajos.innerHTML = `<div class="atajos__t">Lo que más uso</div>
-      <button type="button" class="atajo" data-nuevo="articulos"><span>＋</span>Escribir un artículo</button>
-      <button type="button" class="atajo" data-nuevo="proyectos"><span>＋</span>Agregar un proyecto</button>
-      <button type="button" class="atajo" data-ir="agenda"><span>📅</span>Agenda de actividades</button>
-      <button type="button" class="atajo" data-ir="portada"><span>✏️</span>Cambiar textos y fotos</button>`;
     const salir = document.createElement('button');
     salir.type = 'button'; salir.className = 'atajo atajo--salir'; salir.id = 'btnSalir';
     salir.innerHTML = '<span>🚪</span>Salir del panel';
     salir.addEventListener('click', salirDelPanel);
-    atajos.addEventListener('click', (e) => {
-      const b = e.target.closest('.atajo'); if (!b) return;
-      if (b.dataset.nuevo) { ir(b.dataset.nuevo); setTimeout(() => { const n = document.querySelector('#lienzo [data-nuevo]'); if (n) n.click(); }, 60); }
-      else ir(b.dataset.ir);
-    });
-    nav.appendChild(atajos);
-    nav.dataset.salir = '1';
     BLOQUES.forEach((bl) => {
       let secs = SECCIONES.filter((s) => bl.grupos.includes(s.grupo));
       if (bl.orden) secs = bl.orden.map((id) => secs.find((s) => s.id === id)).filter(Boolean);
@@ -3338,9 +3323,9 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
 
     aplicarPref();
     const prefs = leerPref();
-    const desdeUrl = location.hash.slice(1);
-    if (desdeUrl && SECCIONES.some((s) => s.id === desdeUrl)) ESTADO.seccion = desdeUrl;
-    else if (SECCIONES.some((x) => x.id === prefs.inicio)) ESTADO.seccion = prefs.inicio;
+    /* Al entrar al panel siempre se ve primero el Inicio, sin importar dónde se quedó la vez anterior */
+    ESTADO.seccion = 'inicio';
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* ignorar */ }
     pintarNav();
     revisarMensajesNuevos();
     pintarSeccion();
