@@ -1577,43 +1577,41 @@
       const pais = (cod) => { if (!cod) return ''; try { return new Intl.DisplayNames(['es'], { type: 'region' }).of(cod) || cod; } catch (e) { return cod; } };
       const lugar = (x) => [x.ciudad, pais(x.pais)].filter(Boolean).join(', ') || 'Sin dato';
       const fh = (t) => new Date(t).toLocaleString('es-CL', { timeZone: 'America/Santiago', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-      c.innerHTML = `
-        ${r.desdeDia ? `<p class="nota-res">🔄 El contador está <b>en cero desde el ${esc(fechaLarga(r.desdeDia))}</b>. El historial anterior sigue guardado (abajo, en «Historial completo»).</p>` : ''}
-        <p class="nota-res">Cada dispositivo o conexión de internet cuenta <b>una sola vez cada 7 días</b>, aunque vuelva a entrar o recargue la página.</p>
-        <div class="resumen">
-          <div class="resumen__caja"><b>${r.hoyN}</b><span>Visitas hoy</span></div>
-          <div class="resumen__caja"><b>${r.d7}</b><span>Últimos 7 días</span></div>
-          <div class="resumen__caja"><b>${r.d30}</b><span>Últimos 30 días</span></div>
-          <div class="resumen__caja"><b>${r.unicos30}</b><span>Dispositivos distintos (30 días)</span></div>
-          <div class="resumen__caja"><b>${r.total}</b><span>Visitas desde el inicio</span></div>
+      c.innerHTML = `<div class="vis">
+        ${r.desdeDia ? `<p class="nota-res">🔄 Contador en cero desde el <b>${esc(fechaLarga(r.desdeDia))}</b>. El historial sigue guardado (abajo).</p>` : ''}
+        <div class="resumen vis__kpis">
+          <div class="resumen__caja"><b>${r.hoyN}</b><span>Hoy</span></div>
+          <div class="resumen__caja"><b>${r.d7}</b><span>7 días</span></div>
+          <div class="resumen__caja"><b>${r.d30}</b><span>30 días</span></div>
+          <div class="resumen__caja"><b>${r.unicos30}</b><span>Dispositivos (30 días)</span></div>
+          <div class="resumen__caja"><b>${r.total}</b><span>Desde el inicio</span></div>
         </div>
-        <h4 class="vis-t">Visitas por día (últimos 30 días)</h4>
-        ${barras(dias, '<span>hace 30 días</span><span>hoy</span>', 'Visitas por día')}
-        <div class="dos">
-          <div><h4 class="vis-t">⏰ A qué hora entra la gente</h4>${barras(horas, '<span>0 h</span><span>6 h</span><span>12 h</span><span>18 h</span><span>23 h</span>', 'Visitas por hora')}
-            <p class="nota-res">${horaTop[1] ? 'La hora con más visitas es las <b>' + horaTop[0] + '</b> (hora de Chile).' : 'Aún no hay datos.'}</p></div>
-          <div><h4 class="vis-t">📅 Qué día de la semana</h4>${barras(sem, '<span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>', 'Visitas por día de la semana')}
-            <p class="nota-res">${semTop[1] ? 'Se visita más los <b>' + semTop[0].toLowerCase() + '</b> (últimos 90 días).' : 'Aún no hay datos.'}</p></div>
+        <p class="nota-res vis__nota">Cada dispositivo o conexión cuenta una sola vez cada 7 días.</p>
+        <div class="vis__fila vis__fila--2">
+          <div><h4 class="vis-t">Visitas por día · 30 días</h4>${barras(dias, '<span>hace 30 días</span><span>hoy</span>', 'Visitas por día')}</div>
+          <div><h4 class="vis-t">⏰ A qué hora${horaTop[1] ? ' · punta ' + horaTop[0] : ''}</h4>${barras(horas, '<span>0</span><span>6</span><span>12</span><span>18</span><span>23 h</span>', 'Visitas por hora')}</div>
         </div>
-        <div class="dos">
-          <div><h4 class="vis-t">🌎 Desde qué país</h4>${hbar(r.paises || [], (x) => pais(x.pais))}</div>
-          <div><h4 class="vis-t">🏙 Desde qué ciudad</h4>${hbar(r.ciudades || [], (x) => x.ciudad + (x.pais && x.pais !== 'CL' ? ' (' + pais(x.pais) + ')' : ''))}</div>
+        <div class="vis__fila vis__fila--3">
+          <div><h4 class="vis-t">🌎 País</h4>${hbar(r.paises || [], (x) => pais(x.pais))}</div>
+          <div><h4 class="vis-t">🏙 Ciudad</h4>${hbar(r.ciudades || [], (x) => x.ciudad + (x.pais && x.pais !== 'CL' ? ' (' + pais(x.pais) + ')' : ''))}</div>
+          <div><h4 class="vis-t">🔗 De dónde llegan</h4>${hbar(r.origenes, (x) => x.ref)}</div>
         </div>
-        <div class="dos">
-          <div><h4 class="vis-t">📍 Qué parte de la página se mira más</h4>${hbar(r.secciones, (x) => SEC[x.ruta] || x.ruta)}</div>
-          <div><h4 class="vis-t">📄 Páginas más abiertas</h4>${hbar(r.paginas, (x) => nomRuta(x.ruta))}
-            <h4 class="vis-t" style="margin-top:16px">🔗 De dónde llegan</h4>${hbar(r.origenes, (x) => x.ref)}</div>
-        </div>
-        <details class="vis-hist"><summary>📚 Historial completo (desde el primer día)</summary>
-          ${r.historico && r.historico.total ? `
-          <p class="nota-res"><b>${r.historico.total}</b> visitas en total${r.historico.primera ? ' desde el ' + esc(fechaLarga(r.historico.primera)) : ''}.
-          ${(r.historico.reinicios || []).length ? 'El contador se reinició ' + r.historico.reinicios.map((x) => 'el ' + esc(fechaLarga(x.dia))).join(', ') + '.' : ''}</p>
-          ${barras(r.historico.porMes.map((x) => [x.mes, x.n]), r.historico.porMes.length > 1 ? '<span>' + esc(r.historico.porMes[0].mes) + '</span><span>' + esc(r.historico.porMes[r.historico.porMes.length - 1].mes) + '</span>' : '<span>' + esc((r.historico.porMes[0] || {}).mes || '') + '</span>', 'Visitas por mes, historial completo')}
-          <div class="tabla-vis" style="margin-top:10px"><div class="fv fv--cab"><span>Mes</span><span>Visitas</span><span></span></div>${r.historico.porMes.slice().reverse().map((x) => `<div class="fv"><span>${esc(x.mes)}</span><span>${x.n}</span><span></span></div>`).join('')}</div>`
-          : '<p class="nota-res">Aún no hay historial.</p>'}
-        </details>
         <h4 class="vis-t">🕒 Últimas visitas</h4>
-        ${r.ultimas.length ? `<div class="tabla-vis"><div class="fv fv--cab"><span>Fecha y hora</span><span>Ciudad y país</span><span>Llegó desde</span></div>${r.ultimas.map((x) => `<div class="fv"><span>${esc(fh(x.t))}</span><span>${esc(lugar(x))}</span><span>${esc(x.ref || 'Directo / sin dato')}</span></div>`).join('')}</div>` : '<p class="nota-res">Aún no hay visitas registradas.</p>'}`;
+        ${r.ultimas.length ? `<div class="tabla-vis"><div class="fv fv--cab"><span>Fecha y hora</span><span>Ciudad y país</span><span>Llegó desde</span></div>${r.ultimas.slice(0, 8).map((x) => `<div class="fv"><span>${esc(fh(x.t))}</span><span>${esc(lugar(x))}</span><span>${esc(x.ref || 'Directo')}</span></div>`).join('')}</div>` : '<p class="nota-res">Aún no hay visitas registradas.</p>'}
+        <details class="vis-hist"><summary>Ver más detalle (días de la semana, secciones, páginas e historial)</summary>
+          <div class="vis__fila vis__fila--2">
+            <div><h4 class="vis-t">📅 Día de la semana</h4>${barras(sem, '<span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>', 'Visitas por día de la semana')}
+              <p class="nota-res">${semTop[1] ? 'Se visita más los <b>' + semTop[0].toLowerCase() + '</b> (90 días).' : 'Aún no hay datos.'}</p></div>
+            <div><h4 class="vis-t">📄 Páginas más abiertas</h4>${hbar(r.paginas, (x) => nomRuta(x.ruta))}</div>
+          </div>
+          <h4 class="vis-t">📍 Qué parte de la portada se mira más</h4>${hbar(r.secciones, (x) => SEC[x.ruta] || x.ruta)}
+          <h4 class="vis-t">📚 Historial completo</h4>
+          ${r.historico && r.historico.total ? `
+          <p class="nota-res"><b>${r.historico.total}</b> visitas${r.historico.primera ? ' desde el ' + esc(fechaLarga(r.historico.primera)) : ''}.
+          ${(r.historico.reinicios || []).length ? 'Reinicios: ' + r.historico.reinicios.map((x) => esc(fechaLarga(x.dia))).join(', ') + '.' : ''}</p>
+          ${barras(r.historico.porMes.map((x) => [x.mes, x.n]), r.historico.porMes.length > 1 ? '<span>' + esc(r.historico.porMes[0].mes) + '</span><span>' + esc(r.historico.porMes[r.historico.porMes.length - 1].mes) + '</span>' : '<span>' + esc((r.historico.porMes[0] || {}).mes || '') + '</span>', 'Visitas por mes, historial completo')}`
+          : '<p class="nota-res">Aún no hay historial.</p>'}
+        </details></div>`;
     });
   }
 

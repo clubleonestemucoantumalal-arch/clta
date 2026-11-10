@@ -838,3 +838,20 @@ html[data-tema="oscuro"] .msg__nota{ background:#3A3110; color:#FFE9A0 }
 
 .vis-hist{ margin:14px 0; border:1px solid var(--g-borde); border-radius:12px; padding:10px 14px }
 .vis-hist summary{ cursor:pointer; font-weight:700 }
+
+/* Contador de visitas: versión compacta */
+.vis .vis__kpis{ grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:6px }
+.vis .resumen__caja{ padding:10px 12px }
+.vis .resumen__caja b{ font-size:1.5rem }
+.vis .resumen__caja span{ font-size:.72rem; margin-top:2px }
+.vis .vis__nota{ margin:0 0 4px; font-size:.8rem }
+.vis .vis-t{ font-size:.88rem; margin:12px 0 4px }
+.vis .barras{ height:64px; margin:6px 0 3px }
+.vis .hbar li{ padding:4px 9px; margin-bottom:3px; font-size:.84rem }
+.vis .fv{ padding:5px 10px; font-size:.84rem }
+.vis .vis-hist{ margin:10px 0 0; padding:8px 12px }
+.vis__fila{ display:grid; gap:18px }
+.vis__fila--2{ grid-template-columns:1.6fr 1fr }
+.vis__fila--3{ grid-template-columns:repeat(3,1fr) }
+@media (max-width:900px){ .vis__fila--3{ grid-template-columns:1fr 1fr } }
+@media (max-width:640px){ .vis .vis__kpis{ grid-template-columns:repeat(3,1fr) } .vis__fila--2,.vis__fila--3{ grid-template-columns:1fr; gap:0 } }
