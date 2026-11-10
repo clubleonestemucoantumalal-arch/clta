@@ -295,7 +295,8 @@ async function rutaPanel(req, env, url) {
       id: recorta(l.id, 30), nombre: recorta(l.nombre, 60),
       contactos: (Array.isArray(l.contactos) ? l.contactos : []).slice(0, 2000).map((x) => ({
         id: recorta(x.id, 30), nombre: recorta(x.nombre, 120), org: recorta(x.org, 120), cargo: recorta(x.cargo, 80), correo: recorta(x.correo, 160),
-        celular: recorta(x.celular, 40), trato: recorta(x.trato, 80), notas: recorta(x.notas, 600), ultimo: recorta(x.ultimo, 12)
+        celular: recorta(x.celular, 40), trato: recorta(x.trato, 80), notas: recorta(x.notas, 600), ultimo: recorta(x.ultimo, 12),
+        logo: recorta(x.logo, 80), sitio: recorta(x.sitio, 200), web: !!x.web
       }))
     })) };
     const txt = JSON.stringify(limpio);

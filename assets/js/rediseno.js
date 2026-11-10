@@ -520,6 +520,25 @@
       </div>
     </section>`;
 
+    /* ── ALIADOS (solo si el club los activa en el panel, en Ajustes) ── */
+    const AL = T.aliadosSec || {};
+    const listaAliados = (D.aliados || []).filter((a) => fotoReal(a.logo));
+    const aliados = (D.aliadosMostrar && listaAliados.length) ? `
+    <section class="sec sec--papel aliados" id="aliados" data-nav>
+      <div class="wrap">
+        ${cabecera(AL.eyebrow || 'Juntos servimos', AL.titulo || 'Nuestros aliados', AL.lead || 'Instituciones y empresas que caminan junto a nosotros para ayudar a más personas.')}
+        <div class="aliados__grid">
+          ${listaAliados.map((a) => {
+            const logo = `<img src="${esc(fotoReal(a.logo))}" alt="${esc(texto(a.nombre))}" loading="lazy">`;
+            const url = texto(a.enlace);
+            return /^https?:\/\//i.test(url)
+              ? `<a class="aliado" href="${esc(url)}" target="_blank" rel="noopener" data-rev>${logo}<span>${esc(texto(a.nombre))}</span></a>`
+              : `<div class="aliado" data-rev>${logo}<span>${esc(texto(a.nombre))}</span></div>`;
+          }).join('')}
+        </div>
+      </div>
+    </section>` : '';
+
     /* ── LLAMADO A SOCIO ── */
     const CT = T.cta || {};
     const cta = `
@@ -650,7 +669,7 @@
       </div>
     </footer>`;
 
-    return hero + marquesina + club + impacto + causas + proyectos + valores + noticiasSec + agendaSec + directorio + testimonios + cta + dona + faq + contacto + pie;
+    return hero + marquesina + club + impacto + causas + proyectos + valores + noticiasSec + agendaSec + directorio + testimonios + aliados + cta + dona + faq + contacto + pie;
   }
 
   /* ═══════════════ DIVISIÓN DE TEXTO EN PALABRAS ═══════════════

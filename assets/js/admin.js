@@ -273,6 +273,8 @@
     if (typeof d.agenda !== 'object' || d.agenda === null) d.agenda = {};
     if (!Array.isArray(d.agenda.eventos)) d.agenda.eventos = [];
     if (!Array.isArray(d.textos.marquesina)) d.textos.marquesina = [];
+    if (!Array.isArray(d.aliados)) d.aliados = [];
+    if (typeof d.aliadosMostrar !== 'boolean') d.aliadosMostrar = false;
     return d;
   }
 
@@ -2230,6 +2232,16 @@
     const p = leerPref();
     const conectado = await cargarAjustes();
 
+    /* Aliados en la página: mostrar u ocultar la sección */
+    const alCaja = document.createElement('div');
+    alCaja.className = 'tarjeta';
+    const alLista = (ESTADO.datos.aliados || []);
+    alCaja.innerHTML = `<div class="tarjeta__cab"><div><h3>🤝 Nuestros aliados en la página</h3><p>Muestra en la página del club los logos de los aliados que marcaste en <b>Contactos</b> como «Puede aparecer en la página web».</p></div></div>
+      <label class="chk"><input type="checkbox" id="ajAliados" ${ESTADO.datos.aliadosMostrar ? 'checked' : ''}> <span><b>Mostrar la sección «Nuestros aliados» en la página</b><small>Si la desmarcas, la sección se oculta y los logos quedan guardados.</small></span></label>
+      <p class="nota-res" id="ajAliadosN">${alLista.length ? 'Listos para mostrar (' + alLista.length + '): ' + esc(alLista.map((a) => a.nombre).join(', ')) + '.' : 'Todavía no hay aliados con logo marcados para la página. Entra a <b>Contactos</b>, abre un contacto, sube su logo y marca «Puede aparecer en la página web».'}</p>`;
+    alCaja.querySelector('#ajAliados').addEventListener('change', (e) => { ESTADO.datos.aliadosMostrar = e.target.checked; ensuciar(); aviso(e.target.checked ? 'Listo: la sección de aliados se mostrará. Toca «Publicar» para que se vea.' : 'Listo: la sección de aliados se ocultará. Toca «Publicar» para que se note.', 'ok'); });
+    lienzo.appendChild(alCaja);
+
     /* Historial de cambios de la página (publicaciones hechas desde el panel) */
     const histCaja = document.createElement('div');
     histCaja.className = 'tarjeta';
@@ -2519,8 +2531,18 @@
     return !!r;
   }
   async function guardarContactos() {
+    sincronizarAliados();
     try { localStorage.setItem('antumalal.contactos', JSON.stringify(CONT)); } catch { /* ignorar */ }
     return !!(await api('/api/contactos', { contactos: CONT }));
+  }
+
+  /* Aliados que pueden verse en la página: solo logo, nombre y enlace (nada más sale de la base privada) */
+  function sincronizarAliados() {
+    const out = [];
+    (CONT.listas || []).forEach((l) => (l.contactos || []).forEach((c) => { if (c.web && c.logo) out.push({ nombre: c.org || c.nombre, logo: c.logo, enlace: c.sitio || '' }); }));
+    const antes = JSON.stringify(ESTADO.datos.aliados || []);
+    ESTADO.datos.aliados = out;
+    if (JSON.stringify(out) !== antes) ensuciar();
   }
 
   /* Fechas importantes para saludar, con un mensaje listo para cada una */
@@ -2662,7 +2684,7 @@
           </div>
           <div class="tabla-socios">${lista.map((c) => `
             <div class="fila-so fila-so--c"><input type="checkbox" data-k="${esc(c.id)}" ${sel.has(c.id) ? 'checked' : ''} aria-label="Marcar a ${esc(c.nombre)}">
-              <span class="fs-n"><b>${esc(c.nombre)}</b><small>${esc([c.cargo, c.org].filter(Boolean).join(' · '))}</small></span>
+              <span class="fs-n">${resolverImagen(c.logo) ? `<img class="ct__mini" src="${esc(resolverImagen(c.logo))}" alt="">` : ''}<b>${esc(c.nombre)}</b>${c.web ? ' <em class="ct__web">🌐 En la web</em>' : ''}<small>${esc([c.cargo, c.org].filter(Boolean).join(' · '))}</small></span>
               <span class="fs-c">${c.correo ? esc(c.correo) : '<em>sin correo</em>'}</span>
               <span class="fs-m">${esc(c.celular || '')}${c.ultimo ? `<small> · Último saludo: ${esc(c.ultimo)}</small>` : ''}</span>
               <button class="btn btn--linea btn--sm" data-c="editar" data-id="${esc(c.id)}" type="button">✏️ Editar</button></div>`).join('') || '<p class="nota-res">No hay contactos con ese filtro.</p>'}</div>
@@ -2684,18 +2706,49 @@
           </div>
           <label class="campo__et">Cómo se le saluda en WhatsApp (opcional)<input type="text" id="ctT" value="${esc(c.trato)}" placeholder="Ej.: Alcaldesa González" style="width:100%"></label>
           <label class="campo__et">Notas (opcional)<textarea id="ctX" rows="3" placeholder="Algo que conviene recordar de esta relación">${esc(c.notas)}</textarea></label>
+          <div class="ct__logo">
+            <b>Logo del aliado (opcional)</b>
+            <div class="ct__logo-fila">
+              <div class="ct__logo-vista" id="ctLogoVista">${resolverImagen(c.logo) ? `<img src="${esc(resolverImagen(c.logo))}" alt="">` : '<span>Sin logo</span>'}</div>
+              <label class="btn btn--linea" style="cursor:pointer">⬆ Subir logo<input type="file" id="ctLogo" accept="image/*" hidden></label>
+              <button class="btn btn--linea btn--sm" id="ctLogoQuitar" type="button">Quitar logo</button>
+            </div>
+            <label class="campo__et">Sitio web del aliado (opcional)<input type="url" id="ctS" value="${esc(c.sitio || '')}" placeholder="https://…" style="width:100%"></label>
+            <label class="chk"><input type="checkbox" id="ctW" ${c.web ? 'checked' : ''}> <span><b>Puede aparecer en la página web del club</b><small>Se muestra solo su logo, su nombre y el enlace. Marca esto solo si el aliado está de acuerdo. También debe estar activado en Ajustes.</small></span></label>
+          </div>
           <div class="msg__acc"><button class="btn" data-x="guardar" type="button">💾 Guardar</button>
             ${nuevo ? '' : '<button class="btn btn--peligro" data-x="borrar" type="button">🗑 Quitar</button>'}
             <button class="btn btn--linea" data-x="cerrar" type="button">Cancelar</button></div>`);
+        let logoNuevo = null, logoQuitado = false;
+        v.addEventListener('change', async (e) => {
+          if (e.target.id !== 'ctLogo') return;
+          const f = e.target.files[0]; if (!f) return;
+          try {
+            const dato = await comprimir(f, 500);
+            logoNuevo = { clave: 'aliado-' + c.id + '-' + Date.now().toString(36), dato }; logoQuitado = false;
+            v.querySelector('#ctLogoVista').innerHTML = '<img src="' + dato + '" alt="">';
+          } catch { aviso('No se pudo leer esa imagen. Prueba con otra (JPG o PNG).', 'mal'); }
+        });
+        v.addEventListener('click', (e) => { if (e.target.id === 'ctLogoQuitar') { logoQuitado = true; logoNuevo = null; v.querySelector('#ctLogoVista').innerHTML = '<span>Sin logo</span>'; } });
         v.addEventListener('click', async (e) => {
           const a = e.target.dataset.x;
           if (a === 'guardar') {
             const n = v.querySelector('#ctN').value.trim(), correo = v.querySelector('#ctE').value.trim();
             if (!n) { aviso('Escribe el nombre.', 'mal'); return; }
             if (correo && !/^\S+@\S+\.\S+$/.test(correo)) { aviso('Ese correo no parece correcto. Revísalo.', 'mal'); return; }
+            const web = v.querySelector('#ctW').checked;
+            const sitio = v.querySelector('#ctS').value.trim();
+            if (sitio && !/^https?:\/\//i.test(sitio)) { aviso('El sitio web debe empezar con https://', 'mal'); return; }
+            const tendraLogo = logoNuevo || (c.logo && !logoQuitado);
+            if (web && !tendraLogo) { aviso('Para que aparezca en la página, sube primero su logo.', 'mal'); return; }
+            const viejo = String(c.logo || '');
+            if (logoNuevo || logoQuitado) { if (viejo.startsWith('img:')) delete ESTADO.imagenes[viejo.slice(4)]; c.logo = ''; }
+            if (logoNuevo) { ESTADO.imagenes[logoNuevo.clave] = logoNuevo.dato; c.logo = 'img:' + logoNuevo.clave; }
+            c.sitio = sitio; c.web = web;
             Object.assign(c, { nombre: n, org: v.querySelector('#ctO').value.trim(), cargo: v.querySelector('#ctC').value.trim(), correo, celular: v.querySelector('#ctM').value.trim(), trato: v.querySelector('#ctT').value.trim(), notas: v.querySelector('#ctX').value.trim() });
             if (nuevo) l.contactos.push(c);
             v.remove(); dibuja(); guardar('Contacto guardado');
+          } else if (a === 'ctLogoQuitar') {
           } else if (a === 'borrar' && confirm('¿Quitar a «' + c.nombre + '» de esta lista?')) {
             l.contactos = l.contactos.filter((z) => z.id !== c.id); sel.delete(c.id); v.remove(); dibuja(); guardar('Contacto quitado');
           }
