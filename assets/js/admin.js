@@ -1585,10 +1585,11 @@
     lienzo.appendChild(aviso);
     const pintarAviso = () => {
       aviso.innerHTML = ESTADO.sucio
-        ? `<div class="inicio__alerta"><span aria-hidden="true">⚠️</span><div><b>Tienes cambios sin publicar.</b> La página del club todavía no los muestra. Toca «Publicar mis cambios» cuando termines.</div></div>`
+        ? `<div class="inicio__alerta"><span aria-hidden="true">⚠️</span><div><b>Tienes cambios sin publicar.</b> La página del club todavía no los muestra. Toca «Publicar» cuando termines.</div><button type="button" class="btn btn--grande" data-pub-inicio="1">🚀 Publicar mis cambios</button></div>`
         : `<div class="inicio__alerta inicio__alerta--ok"><span aria-hidden="true">✅</span><div><b>Todo está publicado.</b> La página del club muestra lo último que escribiste.</div></div>`;
     };
     pintarAviso();
+    aviso.addEventListener('click', (e) => { if (e.target.closest('[data-pub-inicio]')) abrirPublicar(); });
 
     /* Cumpleaños de hoy: aviso para saludar a los socios */
     const cumpleCaja = document.createElement('div');
@@ -1612,39 +1613,6 @@
       }).join('');
       cumpleCaja.querySelectorAll('[data-ir-socios]').forEach((b) => b.addEventListener('click', () => ir('socios')));
     }).catch(() => {});
-
-    const rapido = document.createElement('div');
-    rapido.className = 'tarjeta tarjeta--acciones';
-    rapido.innerHTML = `<div class="rapidos rapidos--grandes">
-        <button type="button" class="rapido rapido--pri" data-pub="1"><span>🚀</span><b>Publicar mis cambios<small>Para que todos los vean en la página</small></b></button>
-        <button type="button" class="rapido" data-ir="portada"><span>✏️</span><b>Cambiar un texto o una foto<small>De la página del club</small></b></button>
-        <button type="button" class="rapido" data-ir="mensajes"><span>✉️</span><b>Leer los mensajes<small id="rapMsg">Lo que escribió la gente</small></b></button>
-        <button type="button" class="rapido" data-ir="agenda"><span>📅</span><b>Agregar o cambiar una actividad<small>En la agenda</small></b></button>
-        <button type="button" class="rapido" data-nuevo="proyectos"><span>🦁</span><b>Contar lo que hicimos<small>Nuevo proyecto en terreno</small></b></button>
-        <button type="button" class="rapido" data-nuevo="articulos"><span>📰</span><b>Escribir un artículo<small>Para el blog</small></b></button>
-      </div>
-      <div class="inicio__pie">
-        <button type="button" class="btn btn--linea btn--grande" data-letra="1">🔠 Letra más grande</button>
-        <button type="button" class="btn btn--linea btn--grande" data-ir="ayuda">🙋 Necesito ayuda</button>
-        <button type="button" class="btn btn--linea btn--grande" data-salir="1">🚪 Salir del panel</button>
-      </div>`;
-    rapido.addEventListener('click', (e) => {
-      const l = e.target.closest('[data-letra]');
-      if (l) { cambiarLetra(); return; }
-      if (e.target.closest('[data-salir]')) { salirDelPanel(); return; }
-      const b = e.target.closest('.rapido, [data-ir]'); if (!b) return;
-      if (b.dataset.pub) abrirPublicar();
-      else if (b.dataset.nuevo) {
-        /* va a la sección y deja una ficha nueva abierta, lista para escribir */
-        ir(b.dataset.nuevo);
-        setTimeout(() => { const nuevo = document.querySelector('#lienzo [data-nuevo]'); if (nuevo) nuevo.click(); }, 60);
-      } else ir(b.dataset.ir);
-    });
-    lienzo.appendChild(rapido);
-    api('/api/resumen').then((r) => {
-      const el = document.getElementById('rapMsg');
-      if (el && r && r.nuevos) { el.textContent = r.nuevos === 1 ? '1 mensaje nuevo' : r.nuevos + ' mensajes nuevos'; el.classList.add('rapido__nuevo'); }
-    });
   }
 
   /* Salir del panel: cierra la sesión (en el sitio, también la de Cloudflare Access) */

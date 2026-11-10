@@ -1064,3 +1064,10 @@ html[data-tema="oscuro"] .inicio__alerta--fecha{ background:#14306E; color:#DCE6
 html[data-tema="oscuro"] .chip-lista{ border-color:#4A6BB5; color:#E9EEFA }
 html[data-tema="oscuro"] .chip-lista.on{ background:#2F5FD0; border-color:#2F5FD0 }
 @media (max-width:640px){ .inicio__alerta--fecha .btn, .listas__tabs .chip-lista{ flex:1 1 100% } }
+
+.inicio__alerta[class] > .btn[data-pub-inicio]{ flex:none }
+.inicio__alerta{ flex-wrap:wrap }
+.inicio__alerta > div{ flex:1 1 240px }
+@media (max-width:640px){ .inicio__alerta > .btn{ flex:1 1 100%; width:100% } }
+/* Inicio sin la caja de botones: visitas ocupan todo el ancho */
+@media (min-width:1100px){ .panel--inicio.activo{ grid-template-columns:minmax(0,1fr) !important } .panel--inicio > .tarjeta--visitas{ grid-column:1 !important } }
