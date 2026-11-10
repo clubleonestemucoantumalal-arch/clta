@@ -3654,10 +3654,18 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     panel.innerHTML = `<div class="panel__cab">
       <h2>${esc(nomFacil)}</h2>
       ${(FACIL[s.id] || s.bajada) ? `<p>${FACIL[s.id] || s.bajada}</p>` : ''}
+      ${(seccionEsWeb() && s.id !== 'agenda') ? '<div class="panel__vivo"><b>✨ La forma más fácil de editar</b><p>Mira tu página aquí al lado y <b>toca directamente el texto o la foto</b> que quieres cambiar. Lo que escribas se ve al instante.</p><button type="button" class="btn btn--oro btn--grande" data-abrir-vivo="1">👁 Editar mirando la página</button></div>' : ''}
       ${GUIA[s.id] ? '<div class="panel__guia"><b>Cómo se hace, paso a paso</b><ol>' + GUIA[s.id].map((t) => '<li>' + esc(t) + '</li>').join('') + '</ol></div>' : ''}
-      ${NAVFACIL[s.id] && !GUIA[s.id] && s.grupo !== 'Administración' ? '<p class="panel__pista">💡 Cambia lo que quieras. Al terminar, toca <b>Publicar</b> (arriba a la derecha) para que se vea en la página. Si no publicas, la página no cambia.</p>' : ''}
+      ${NAVFACIL[s.id] && !GUIA[s.id] && s.grupo !== 'Administración' ? '<p class="panel__pista">💡 También puedes escribir aquí abajo. Al terminar, toca <b>Publicar</b> (arriba a la derecha) para que se vea en la página. Si no publicas, la página no cambia.</p>' : ''}
     </div>`;
     lienzo.appendChild(panel);
+    const bVivo = panel.querySelector('[data-abrir-vivo]');
+    if (bVivo) bVivo.addEventListener('click', () => {
+      const ed = $('#vEditar'); if (ed && !ed.checked) { ed.checked = true; ed.dispatchEvent(new Event('change')); }
+      if (!vivoAbierto) $('#vTab').click();
+      else try { $('#vFrame').contentDocument.body.classList.add('ed-on'); } catch (e) { /* ignorar */ }
+      aviso('Toca en tu página el texto o la foto que quieras cambiar.', 'ok');
+    });
 
     if (s.pintar) { s.pintar(panel); return; }
 

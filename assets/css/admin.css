@@ -1088,3 +1088,10 @@ html[data-tema="oscuro"] .cm__directo{ background:#0F3A2A; color:#BFF0D8; border
 .ct__logo-vista img{ max-width:100%; max-height:100%; object-fit:contain }
 .ct__mini{ width:44px; height:32px; object-fit:contain; background:#fff; border:1px solid var(--g-borde, #D9DEE8); border-radius:6px; margin-right:8px; vertical-align:middle }
 .ct__web{ font-style:normal; font-size:.78rem; font-weight:700; color:#0B5A2E; background:#E7F6EC; border-radius:99px; padding:2px 8px; margin-left:6px }
+
+/* Invitación a editar mirando la página */
+.panel__vivo{ margin-top:12px; padding:16px 18px; border-radius:14px; background:#EAF2FF; border:2px solid #9DBBEF; color:#0B2F6B; max-width:72ch }
+.panel__vivo b{ display:block; font-size:1.15rem; margin-bottom:4px }
+.panel__vivo p{ margin:0 0 10px; font-size:1.05rem; line-height:1.5; color:inherit !important }
+html[data-tema="oscuro"] .panel__vivo{ background:#14306E; border-color:#4A6BB5; color:#DCE6FF }
+@media (max-width:640px){ .panel__vivo .btn{ width:100% } }
