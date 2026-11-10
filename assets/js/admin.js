@@ -950,9 +950,55 @@
     portada: 'Lo primero que ve la gente al entrar a la página. Cambia los textos y la foto principal.',
     proyectos: 'Lo que el club hizo en terreno. Toca «Agregar» para contar un trabajo nuevo, con sus fotos.',
     articulos: 'Las noticias del blog del club. Toca «Agregar» para escribir una nueva.',
-    directiva: 'Las personas de la directiva que se muestran en la página.',
+    directiva: 'Las personas que dirigen el club este período. Toca «Agregar» para sumar a alguien.',
     testimonios: 'Lo que dicen quienes recibieron ayuda del club.',
-    faq: 'Las preguntas que más hacen y sus respuestas.'
+    faq: 'Las preguntas que más hacen y sus respuestas. Escribe la pregunta y, debajo, la respuesta.',
+    'club-datos': 'El nombre del club y su frase. Si lo cambias aquí, se cambia en toda la página a la vez.',
+    contacto: 'Teléfono, correo y dirección del club. Es lo que la gente usa para comunicarse.',
+    redes: 'Escribe la dirección de cada red social. Si dejas una en blanco, ese ícono no se muestra.',
+    donaciones: 'Los datos del banco para que la gente pueda donar. Revísalos bien antes de publicar.',
+    quienes: 'La historia del club. Puedes cambiar los textos y la foto.',
+    causas: 'Las áreas de ayuda del club. Cada una lleva un título y una explicación corta.',
+    sellos: 'La franja azul con lo que respalda al club. Se cambia rara vez.',
+    impacto: 'Los números grandes de la página, como «familias ayudadas». Usa solo cifras que el club pueda respaldar.',
+    valores: 'Los valores y la frase final que se ven en la página.',
+    unete: 'El aviso que invita a las personas a hacerse socias.',
+    aportar: 'Cómo se puede ayudar al club: donaciones y actividades solidarias, como un bingo o una paella.',
+    'contacto-sec': 'Los textos que rodean al cuadro para escribirle al club.',
+    pie: 'El texto del final de la página, abajo de todo.',
+    noticias: 'Las noticias se traen solas desde la prensa y Lions. No hay que hacer nada aquí.',
+    instagram: 'Las fotos de Instagram que se muestran en la página.'
+  };
+
+
+  /* Nombres claros y una línea de ayuda para cada parte de «Editar mi página web» */
+  const NAVFACIL = {
+    'club-datos':   ['Nombre y lema del club', 'El nombre y la frase que identifican al club'],
+    contacto:       ['Teléfono y correo', 'Cómo pueden comunicarse con el club'],
+    redes:          ['Redes sociales', 'Los enlaces a Instagram, Facebook y otras'],
+    donaciones:     ['Cuenta para donar', 'Los datos del banco para recibir ayuda'],
+    portada:        ['Portada', 'Lo primero que se ve al entrar a la página'],
+    quienes:        ['Quiénes somos', 'La historia del club y para qué existe'],
+    causas:         ['Causas que apoyamos', 'Las áreas de ayuda: salud, vista, niños…'],
+    sellos:         ['Franja azul de respaldo', 'Lo que respalda y da confianza al club'],
+    impacto:        ['Números del club', 'Cifras de la ayuda entregada'],
+    proyectos:      ['Trabajo en terreno', 'Lo que hicimos, con fotos (proyectos)'],
+    articulos:      ['Blog: artículos', 'Las noticias que escribe el propio club'],
+    valores:        ['Valores del club', 'Las frases y principios del club'],
+    directiva:      ['Directiva', 'Quiénes dirigen el club este período'],
+    testimonios:    ['Testimonios', 'Lo que dicen las personas ayudadas'],
+    unete:          ['Invitación a ser socio', 'El aviso para que más gente se sume'],
+    aportar:        ['Cómo ayudar', 'Donaciones y actividades solidarias'],
+    faq:            ['Preguntas frecuentes', 'Las dudas más comunes y sus respuestas'],
+    'contacto-sec': ['Cuadro para escribirnos', 'El formulario de contacto de la página'],
+    pie:            ['Final de la página', 'El texto que va al pie, abajo de todo'],
+    noticias:       ['Noticias automáticas', 'Se actualizan solas, no hay que hacer nada'],
+    instagram:      ['Fotos de Instagram', 'Las fotos del club que se muestran']
+  };
+  const GRUPO_FACIL = {
+    'Datos del club': 'Datos del club',
+    'Contenido de la página': 'Partes de la página (textos y fotos)',
+    'Conexiones': 'Cosas que se actualizan solas'
   };
 
   const SECCIONES = [
@@ -2761,6 +2807,12 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
 
       const cuerpo = document.createElement('div');
       cuerpo.className = 'bloque__cuerpo';
+      if (bl.id === 'web') {
+        const ex = document.createElement('p');
+        ex.className = 'bloque__explica';
+        ex.textContent = 'Aquí cambias lo que la gente lee y ve en la página del club. Elige la parte que quieres cambiar.';
+        cuerpo.appendChild(ex);
+      }
       let grupoActual = '';
       secs.forEach((s) => {
         /* los subtítulos solo se muestran cuando el bloque tiene varios grupos */
@@ -2768,15 +2820,16 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
           grupoActual = s.grupo;
           const g = document.createElement('div');
           g.className = 'lateral__grupo';
-          g.textContent = grupoActual;
+          g.textContent = GRUPO_FACIL[grupoActual] || grupoActual;
           cuerpo.appendChild(g);
         }
         const b = document.createElement('button');
         b.type = 'button';
         b.className = 'nav__b' + (s.id === ESTADO.seccion ? ' activo' : '');
         b.dataset.ir = s.id;
+        const nf = NAVFACIL[s.id];
         b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
-          stroke-linecap="round" stroke-linejoin="round">${s.ico}</svg><span>${esc(s.nombre)}</span>`;
+          stroke-linecap="round" stroke-linejoin="round">${s.ico}</svg><span>${nf ? `<b>${esc(nf[0])}</b><small>${esc(nf[1])}</small>` : esc(s.nombre)}</span>`;
         b.addEventListener('click', () => ir(s.id));
         cuerpo.appendChild(b);
       });
@@ -3033,7 +3086,8 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
 
   function pintarSeccion() {
     const s = SECCIONES.find((x) => x.id === ESTADO.seccion) || SECCIONES[0];
-    $('#barraTitulo').textContent = s.titulo;
+    const nomFacil = NAVFACIL[s.id] ? NAVFACIL[s.id][0] : s.titulo;
+    $('#barraTitulo').textContent = nomFacil;
 
     const lienzo = $('#lienzo');
     lienzo.innerHTML = '';
@@ -3041,8 +3095,9 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     const panel = document.createElement('div');
     panel.className = 'panel activo';
     panel.innerHTML = `<div class="panel__cab">
-      <h2>${esc(s.titulo)}</h2>
+      <h2>${esc(nomFacil)}</h2>
       ${(FACIL[s.id] || s.bajada) ? `<p>${FACIL[s.id] || s.bajada}</p>` : ''}
+      ${NAVFACIL[s.id] ? '<p class="panel__pista">💡 Cambia lo que quieras. Al terminar, toca <b>Publicar</b> (arriba a la derecha) para que se vea en la página. Si no publicas, la página no cambia.</p>' : ''}
     </div>`;
     lienzo.appendChild(panel);
 

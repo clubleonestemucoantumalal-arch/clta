@@ -972,3 +972,14 @@ html[data-tema="oscuro"] .item__f{ color:#E9EEFA }
 .item__cab{ gap:10px }
 html[data-tema="oscuro"] .bloque__cab{ color:#FFD84D }
 html[data-tema="oscuro"] .lateral__grupo{ color:#B9C6E6 }
+
+/* Menú «Editar mi página web» más explicativo */
+.nav__b span b{ display:block; font-weight:700; font-size:1.02rem; line-height:1.2 }
+.nav__b span small{ display:block; font-weight:400; font-size:.8rem; line-height:1.25; color:var(--g-suave, var(--gris)); margin-top:1px }
+.nav__b.activo span small{ color:inherit; opacity:.8 }
+.bloque__explica{ margin:2px 10px 8px; padding:10px 12px; border-radius:12px; background:var(--g-fondo, #F4F5F8); font-size:.92rem; line-height:1.4 }
+.lateral__grupo{ font-size:.82rem !important; font-weight:800 !important; letter-spacing:.02em }
+.panel__pista{ margin-top:10px !important; padding:10px 14px; border-radius:12px; background:#FFF6D6; color:#5A4300 !important; font-size:1rem !important; max-width:70ch }
+html[data-tema="oscuro"] .nav__b span small{ color:#B9C6E6 }
+html[data-tema="oscuro"] .bloque__explica{ background:#14306E; color:#DCE6FF }
+html[data-tema="oscuro"] .panel__pista{ background:#3A3110; color:#FFE9A0 !important }
