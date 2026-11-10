@@ -936,3 +936,26 @@ html[data-tema="oscuro"] .rapido b small{ color:#B9C6E6 }
   .barra__acc{ gap:6px }
 }
 @media (max-width:1180px){ #btnTema span, #btnVista span{ display:none } .barra__acc .btn{ padding-left:14px; padding-right:14px } }
+
+/* Atajos del menú, listas fáciles y salir */
+.atajos{ padding:8px 4px 14px; border-bottom:1px solid var(--g-borde); margin-bottom:8px }
+.atajos__t{ font-size:.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--g-suave); padding:4px 10px 8px }
+.atajo{ all:unset; box-sizing:border-box; cursor:pointer; display:flex; align-items:center; gap:12px; width:100%; min-height:52px; padding:10px 14px; margin-bottom:6px; border-radius:12px; background:var(--g-activo); color:var(--azul-900); font-weight:700; font-size:1.02rem }
+.atajo span{ font-size:1.3rem; width:26px; text-align:center }
+.atajo:hover{ background:#D6E3FB }
+.atajo:focus-visible{ outline:4px solid var(--oro) }
+.atajo--salir{ background:transparent; border:2px solid var(--g-borde); color:var(--g-texto); margin:14px 4px 6px; width:calc(100% - 8px) }
+.atajo--salir:hover{ background:var(--rojo-100) }
+.rep__nuevo{ width:100%; margin-bottom:14px; min-height:60px; font-size:1.2rem }
+.item__acc{ display:flex; gap:6px; align-items:center; padding:0 8px; flex:none }
+.item__t{ font-size:1.05rem }
+.item__pie{ gap:10px; flex-wrap:wrap; align-items:center }
+.ag__ed{ display:flex; flex-direction:column; gap:6px; align-items:flex-end }
+.ag__quitar{ all:unset; cursor:pointer; box-sizing:border-box; min-height:40px; padding:6px 14px; border-radius:99px; border:1px solid rgba(255,255,255,.4); font-weight:700; font-size:.9rem; color:#fff; display:inline-flex; align-items:center }
+.ag__quitar:hover{ background:#B42318; border-color:#B42318 }
+.ag__btn{ min-height:50px !important; font-size:1.05rem !important; padding:10px 22px !important }
+.ag__ed{ font-size:1rem !important }
+@media (max-width:760px){ .item__fila{ flex-wrap:wrap } .item__acc{ width:100%; padding:0 10px 10px } .item__acc .btn{ flex:1 } }
+html[data-tema="oscuro"] .atajo{ background:#1D3A7C; color:#E9EEFA }
+html[data-tema="oscuro"] .atajo--salir{ background:transparent; border-color:#2B4686 }
+@media (max-width:1180px){ #btnLetra span{ display:none } }

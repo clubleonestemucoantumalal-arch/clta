@@ -764,8 +764,8 @@
         </div>
         <span class="cuenta"></span>
       </div>
-      <button type="button" class="btn btn--linea btn--sm" data-nuevo style="margin-bottom:12px">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      <button type="button" class="btn btn--oro btn--grande rep__nuevo" data-nuevo>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         ${esc(def.textoNuevo || 'Agregar')}
       </button>
       <div class="lista"></div>`;
@@ -826,9 +826,20 @@
               <span class="item__t">${titulo ? esc(titulo) : '<em>Sin título</em>'}</span>
               <svg class="item__flecha" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
             </button>
+            <span class="item__acc">
+              <button type="button" class="btn btn--linea btn--sm" data-editar>${i === abierto ? '✔ Cerrar' : '✏️ Editar'}</button>
+              <button type="button" class="btn btn--peligro btn--sm" data-quitarfila>🗑 Quitar</button>
+            </span>
             ${def.visible ? `<label class="item__ver" title="Marcado: se ve en la página. Desmarcado: queda guardada pero oculta."><input type="checkbox" ${visible ? 'checked' : ''}><span>${visible ? 'En la página' : 'Oculta'}</span></label>` : ''}
           </div>
           <div class="item__cuerpo"></div>`;
+        $('[data-editar]', el).addEventListener('click', () => { abierto = (abierto === i) ? -1 : i; pintar(); if (abierto === i) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+        $('[data-quitarfila]', el).addEventListener('click', () => {
+          const nombre = (def.titulo ? def.titulo(it, i) : '') || 'esta ficha';
+          if (!confirm('¿Quitar «' + nombre + '»?' + String.fromCharCode(10, 10) + 'Dejará de verse en la página cuando publiques. Si solo quieres esconderla por un tiempo, mejor desmarca «En la página».')) return;
+          const l = clonar(datos()); l.splice(i, 1);
+          abierto = -1; guardar(l); pintar(); aviso('Quitado. Toca «Publicar» para que se note en la página.', 'ok');
+        });
         if (def.visible) {
           $('.item__ver input', el).addEventListener('change', (ev) => {
             asignar(`${def.ruta}.${i}.${def.visible}`, ev.target.checked);
@@ -848,11 +859,13 @@
             ${porFecha ? '<span class="item__orden">Se ordena sola por la fecha</span>' : `<button type="button" class="btn btn--linea" data-mover="-1" ${i === 0 ? 'disabled' : ''}>↑ Subir</button>
             <button type="button" class="btn btn--linea" data-mover="1" ${i === items.length - 1 ? 'disabled' : ''}>↓ Bajar</button>`}
             <button type="button" class="btn btn--linea" data-duplicar>Duplicar</button>
-            <button type="button" class="btn btn--peligro" data-borrar style="margin-left:auto">Eliminar</button>`;
+            <button type="button" class="btn btn--peligro" data-borrar>🗑 Quitar</button>
+            <button type="button" class="btn btn--oro btn--grande" data-listo style="margin-left:auto">✔ Listo</button>`;
           cuerpo.appendChild(pie);
 
+          $('[data-listo]', pie).addEventListener('click', () => { abierto = -1; pintar(); aviso('Guardado. Toca «Publicar» cuando quieras que se vea en la página.', 'ok'); });
           $('[data-borrar]', pie).addEventListener('click', () => {
-            if (!confirm('¿Eliminar esta ficha? No se puede deshacer.')) return;
+            if (!confirm('¿Quitar esta ficha? No se puede deshacer.')) return;
             const l = clonar(datos()); l.splice(i, 1);
             abierto = -1; guardar(l); pintar();
           });
@@ -1518,10 +1531,12 @@
       <div class="inicio__pie">
         <button type="button" class="btn btn--linea btn--grande" data-letra="1">🔠 Letra más grande</button>
         <button type="button" class="btn btn--linea btn--grande" data-ir="ayuda">🙋 Necesito ayuda</button>
+        <button type="button" class="btn btn--linea btn--grande" data-salir="1">🚪 Salir del panel</button>
       </div>`;
     rapido.addEventListener('click', (e) => {
       const l = e.target.closest('[data-letra]');
       if (l) { cambiarLetra(); return; }
+      if (e.target.closest('[data-salir]')) { salirDelPanel(); return; }
       const b = e.target.closest('.rapido, [data-ir]'); if (!b) return;
       if (b.dataset.pub) abrirPublicar();
       else if (b.dataset.nuevo) {
@@ -1536,6 +1551,15 @@
       if (el && r && r.nuevos) { el.textContent = r.nuevos === 1 ? '1 mensaje nuevo' : r.nuevos + ' mensajes nuevos'; el.classList.add('rapido__nuevo'); }
     });
     tarjetaVisitas(lienzo);
+  }
+
+  /* Salir del panel: cierra la sesión (en el sitio, también la de Cloudflare Access) */
+  function salirDelPanel() {
+    const aviso2 = ESTADO.sucio ? String.fromCharCode(10, 10) + 'Ojo: tienes cambios sin publicar. Quedan guardados en este computador y los verás al volver a entrar.' : '';
+    if (!confirm('¿Quieres salir del panel?' + aviso2)) return;
+    try { sessionStorage.removeItem('accesoReintento'); } catch (e) { /* sin almacenamiento */ }
+    if (/(^|\.)clta\.cl$/.test(location.hostname)) location.href = '/cdn-cgi/access/logout';
+    else location.reload();
   }
 
   /* Letra más grande: pasa por 100 %, 115 % y 130 % y se acuerda de la elección en este computador */
@@ -1918,7 +1942,7 @@
     marco.className = 'ag';
     marco.innerHTML = `
       <div class="ag__barra">
-        <button type="button" class="ag__btn ag__btn--oro" data-c="nuevo">＋ Agregar actividad</button>
+        <button type="button" class="ag__btn ag__btn--oro" data-c="nuevo">＋ Agregar una actividad</button>
         <button type="button" class="ag__btn" data-c="ics" title="Para abrirlo en Google Calendar u otro calendario">⬇ Bajar calendario</button>
         <button type="button" class="ag__btn" data-c="pub">↑ Publicar</button>
       </div>
@@ -1960,7 +1984,7 @@
           <div class="ag__c"><h4>${esc(x.titulo)}${x.suspendida ? ' <em>(suspendida)</em>' : ''}</h4>${detalle ? `<p>${esc(detalle)}</p>` : ''}
             <div class="ag__h"><span>${DIA_L[x.f.getDay()]}</span>${x.hora ? `<b>${esc(x.hora)}</b>` : ''}</div>
             <span class="ag__tag${x.tipo === 'evento' && x.abierto !== false ? ' abierto' : ''}">${tipo}</span></div>
-          <span class="ag__ed">${x.tipo === 'distrito' ? '' : 'Cambiar ›'}</span>
+          <span class="ag__ed">${x.tipo === 'distrito' ? '' : '✏️ Cambiar'}${x.tipo === 'evento' ? `<button type="button" class="ag__quitar" data-bor="${x.idx}">🗑 Quitar</button>` : ''}</span>
         </li>`;
       }).join('') : `<li class="ag__vacio">${diaSel ? 'No hay actividades ese día.' : 'No hay actividades registradas en ' + MESES[mes] + '.'}<br><button type="button" class="ag__btn ag__btn--oro" data-c="nuevo" style="margin-top:12px">＋ Agregar una actividad</button></li>`;
     };
@@ -2079,6 +2103,14 @@
         else if (a === 'pub') return abrirPublicar();
         else if (a === 'ics') return bajarIcs();
         return pintar();
+      }
+      const bor = e.target.closest('[data-bor]');
+      if (bor) {
+        const l = clonar(cfg().eventos || []), ev = l[+bor.dataset.bor] || {};
+        if (!confirm('¿Quitar la actividad «' + (ev.titulo || 'sin título') + '» de la agenda?')) return;
+        l.splice(+bor.dataset.bor, 1); asignar('agenda.eventos', l); pintar();
+        aviso('Actividad quitada. Toca «Publicar» para que se note en la página.', 'ok');
+        return;
       }
       const fila = e.target.closest('.ag__ev');
       if (fila) {
@@ -2706,6 +2738,25 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
   function pintarNav() {
     const nav = $('#nav');
     nav.innerHTML = '';
+    /* Atajos grandes a lo que más se hace */
+    const atajos = document.createElement('div');
+    atajos.className = 'atajos';
+    atajos.innerHTML = `<div class="atajos__t">Lo que más uso</div>
+      <button type="button" class="atajo" data-nuevo="articulos"><span>＋</span>Escribir un artículo</button>
+      <button type="button" class="atajo" data-nuevo="proyectos"><span>＋</span>Agregar un proyecto</button>
+      <button type="button" class="atajo" data-ir="agenda"><span>📅</span>Agenda de actividades</button>
+      <button type="button" class="atajo" data-ir="portada"><span>✏️</span>Cambiar textos y fotos</button>`;
+    const salir = document.createElement('button');
+    salir.type = 'button'; salir.className = 'atajo atajo--salir'; salir.id = 'btnSalir';
+    salir.innerHTML = '<span>🚪</span>Salir del panel';
+    salir.addEventListener('click', salirDelPanel);
+    atajos.addEventListener('click', (e) => {
+      const b = e.target.closest('.atajo'); if (!b) return;
+      if (b.dataset.nuevo) { ir(b.dataset.nuevo); setTimeout(() => { const n = document.querySelector('#lienzo [data-nuevo]'); if (n) n.click(); }, 60); }
+      else ir(b.dataset.ir);
+    });
+    nav.appendChild(atajos);
+    nav.dataset.salir = '1';
     BLOQUES.forEach((bl) => {
       let secs = SECCIONES.filter((s) => bl.grupos.includes(s.grupo));
       if (bl.orden) secs = bl.orden.map((id) => secs.find((s) => s.id === id)).filter(Boolean);
@@ -2749,6 +2800,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
       const conActivo = secs.some((s) => s.id === ESTADO.seccion);
       abrirBloque(caja, conActivo || guardado !== '0');
     });
+    nav.appendChild(salir);
   }
 
   function ir(id) {
@@ -3337,6 +3389,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     });
 
     // La vista previa siempre debe abrir el borrador más reciente.
+    const bSalir = $('#btnSalirBarra'); if (bSalir) bSalir.addEventListener('click', salirDelPanel);
     const bLetra = $('#btnLetra'); if (bLetra) bLetra.addEventListener('click', cambiarLetra);
     $('#btnVista').addEventListener('click', () => {
       ALMACEN.guardarChico('borrador', ESTADO.datos);
