@@ -1020,3 +1020,30 @@ html[data-tema="oscuro"] .buscador input{ background:#081A42; color:#E9EEFA; bor
   .panel--inicio > .tarjeta--acciones{ grid-column:2; grid-row:3 }
   .panel--inicio .rapidos--grandes{ grid-template-columns:repeat(2,minmax(0,1fr)) }
 }
+
+/* Aviso de cumpleaños */
+.inicio__alerta--cumple{ background:#FFF0F6; color:#7A1F47; border-color:#F0A9C8; flex-wrap:wrap }
+.inicio__alerta--cumple > div{ flex:1 1 260px }
+.inicio__alerta--cumple .btn{ flex:none }
+html[data-tema="oscuro"] .inicio__alerta--cumple{ background:#3A1530; color:#FFD0E4; border-color:#A34D78 }
+
+/* Teléfono: todo cabe en el ancho de la pantalla y los botones son fáciles de tocar */
+@media (max-width:640px){
+  .btn{ white-space:normal; text-align:center; line-height:1.25 }
+  .tarjeta__cab{ flex-wrap:wrap; gap:8px }
+  .tarjeta{ padding-left:14px; padding-right:14px }
+  .lienzo{ padding:16px 12px 90px !important }
+  .inicio__pie .btn, .inicio__alerta--cumple .btn, .rep__nuevo{ flex:1 1 100%; width:100% }
+  .rapidos--grandes{ grid-template-columns:1fr !important }
+  .inicio__alerta{ padding:14px; font-size:1.02rem }
+  .panel__cab h2{ font-size:1.55rem }
+  .vs__gran b{ font-size:2.6rem }
+  .vs__barras{ height:100px }
+  .item__cab{ min-width:0 }
+  .item__t{ overflow-wrap:anywhere }
+  .barra{ min-height:60px }
+  .ag__barra{ flex-wrap:wrap }
+  .ag__barra .ag__btn{ flex:1 1 100% }
+  .modalx__caja{ width:calc(100vw - 20px) !important; max-height:92vh; overflow:auto }
+  .dos-c{ grid-template-columns:1fr !important }
+}

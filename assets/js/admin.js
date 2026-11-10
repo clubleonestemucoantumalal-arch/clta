@@ -1588,6 +1588,21 @@
     };
     pintarAviso();
 
+    /* Cumpleaños de hoy: aviso para saludar a los socios */
+    const cumpleCaja = document.createElement('div');
+    aviso.appendChild(cumpleCaja);
+    cargarSocios().then(() => {
+      const hoyD = new Date();
+      const deHoy = SOCIOS.filter((x) => { const c = cumple(x); return c && c.d === hoyD.getDate() && c.m === hoyD.getMonth() + 1; });
+      if (!deHoy.length) return;
+      cumpleCaja.innerHTML = deHoy.map((x) => {
+        const wa = numWa(x.m);
+        return `<div class="inicio__alerta inicio__alerta--cumple"><span aria-hidden="true">🎂</span><div><b>¡Hoy cumple años ${esc(nombreSocio(x))}!</b> Es un buen día para enviarle un saludo${wa ? '' : ' (no tiene un celular válido en la lista)'}.</div>
+          ${wa ? `<a class="btn btn--grande" target="_blank" rel="noopener" href="https://wa.me/${wa}?text=${encodeURIComponent(textoCumple(x))}">💬 Saludar por WhatsApp</a>` : '<button type="button" class="btn btn--linea btn--grande" data-ir-socios="1">Ver socios</button>'}</div>`;
+      }).join('');
+      cumpleCaja.querySelectorAll('[data-ir-socios]').forEach((b) => b.addEventListener('click', () => ir('socios')));
+    }).catch(() => {});
+
     const rapido = document.createElement('div');
     rapido.className = 'tarjeta tarjeta--acciones';
     rapido.innerHTML = `<div class="rapidos rapidos--grandes">
