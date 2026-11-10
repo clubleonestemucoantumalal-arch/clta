@@ -946,11 +946,11 @@
     ayuda: 'Una guía corta, con los pasos de siempre, para usar este panel.',
     ajustes: 'Cambia el tamaño de la letra y los colores del panel, para verlo más cómodo.',
     publicar: 'Aquí publicas tus cambios y guardas una copia de respaldo por seguridad.',
-    agenda: 'Las actividades que aparecen en la página. Agrega una nueva o cambia la fecha de una.',
+    agenda: 'El calendario de actividades del club: reuniones, operativos, cenas y más. Lo que agregues aquí se ve en la página.',
     portada: 'Lo primero que ve la gente al entrar a la página. Cambia los textos y la foto principal.',
-    proyectos: 'Lo que el club hizo en terreno. Toca «Agregar» para contar un trabajo nuevo, con sus fotos.',
-    articulos: 'Las noticias del blog del club. Toca «Agregar» para escribir una nueva.',
-    directiva: 'Las personas que dirigen el club este período. Toca «Agregar» para sumar a alguien.',
+    proyectos: 'Cada vez que el club ayuda en terreno, se cuenta aquí con fotos. Cada proyecto tiene su propia página.',
+    articulos: 'El blog del club: textos más largos que el club escribe, como entrevistas o reflexiones.',
+    directiva: 'Las personas que dirigen el club este período, con su cargo y foto. Se actualiza una vez al año.',
     testimonios: 'Lo que dicen quienes recibieron ayuda del club.',
     faq: 'Las preguntas que más hacen y sus respuestas. Escribe la pregunta y, debajo, la respuesta.',
     'club-datos': 'El nombre del club y su frase. Si lo cambias aquí, se cambia en toda la página a la vez.',
@@ -982,10 +982,11 @@
     causas:         ['Causas que apoyamos', 'Las áreas de ayuda: salud, vista, niños…'],
     sellos:         ['Franja azul de respaldo', 'Lo que respalda y da confianza al club'],
     impacto:        ['Números del club', 'Cifras de la ayuda entregada'],
-    proyectos:      ['Trabajo en terreno', 'Lo que hicimos, con fotos (proyectos)'],
-    articulos:      ['Blog: artículos', 'Las noticias que escribe el propio club'],
+    proyectos:      ['Editar terrenos', 'Agregar o cambiar lo que hicimos en terreno'],
+    articulos:      ['Editar blog', 'Escribir o cambiar artículos del club'],
+    agenda:         ['Editar agenda', 'Agregar, cambiar o quitar actividades'],
     valores:        ['Valores del club', 'Las frases y principios del club'],
-    directiva:      ['Directiva', 'Quiénes dirigen el club este período'],
+    directiva:      ['Editar directiva', 'Los cargos del club (una vez al año)'],
     testimonios:    ['Testimonios', 'Lo que dicen las personas ayudadas'],
     unete:          ['Invitación a ser socio', 'El aviso para que más gente se sume'],
     aportar:        ['Cómo ayudar', 'Donaciones y actividades solidarias'],
@@ -995,6 +996,15 @@
     noticias:       ['Noticias automáticas', 'Se actualizan solas, no hay que hacer nada'],
     instagram:      ['Fotos de Instagram', 'Las fotos del club que se muestran']
   };
+
+  /* Guía paso a paso para las partes que más se editan */
+  const GUIA = {
+    agenda: ['Toca «＋ Agregar una actividad», o toca un día vacío del calendario.', 'Escribe qué se hace, el día y la hora.', 'Toca «💾 Guardar».', 'Para cambiar o borrar una, toca ✏️ Cambiar o 🗑 Quitar.', 'Al terminar, toca «Publicar» (arriba a la derecha).'],
+    articulos: ['Toca el botón amarillo «＋ Agregar artículo».', 'Escribe el título, el resumen y el texto completo.', 'Agrega una foto (se ve en la lista y en la página).', 'Toca «✔ Listo».', 'Al terminar, toca «Publicar» (arriba a la derecha).'],
+    proyectos: ['Toca el botón amarillo «＋ Agregar proyecto».', 'Escribe el título, la fecha y cuenta lo que se hizo, en primera persona («Fuimos…», «Entregamos…»).', 'Agrega las fotos.', 'Toca «✔ Listo».', 'Al terminar, toca «Publicar» (arriba a la derecha).'],
+    directiva: ['Esto se cambia una vez al año, cuando asume una nueva directiva.', 'Toca ✏️ Editar en la persona que cambia el cargo, y escribe el nombre nuevo y su foto.', 'Para sumar a alguien, toca «＋ Agregar integrante».', 'Al terminar, toca «Publicar» (arriba a la derecha).']
+  };
+
   const GRUPO_FACIL = {
     'Datos del club': 'Datos del club',
     'Contenido de la página': 'Partes de la página (textos y fotos)',
@@ -1203,7 +1213,7 @@
           ] } }
       ] },
 
-    { id: 'proyectos', grupo: 'Contenido de la página', nombre: 'Proyectos', ico: ICO.grid,
+    { id: 'proyectos', grupo: 'Administración', nombre: 'Proyectos', ico: ICO.grid,
       titulo: 'Proyectos',
       bajada: 'Las tarjetas con foto de "Lo que hacemos en terreno". En la portada se ven las primeras 4; todas quedan en la página de archivo por mes (trabajo-en-terreno.html), así no se pierde el trabajo de meses pasados.',
       tarjetas: [
@@ -1240,7 +1250,7 @@
           ] } }
       ] },
 
-    { id: 'articulos', grupo: 'Contenido de la página', nombre: 'Blog', ico: ICO.diario,
+    { id: 'articulos', grupo: 'Administración', nombre: 'Blog', ico: ICO.diario,
       titulo: 'Blog Leones Antumalal',
       bajada: 'Textos más largos del club: entrevistas, testimonios y reflexiones. Cada artículo puede llevar un video de YouTube. Se ven en la portada y tienen su propia página.',
       tarjetas: [
@@ -1295,7 +1305,7 @@
       bajada: 'Como un calendario: toca un día para agregar una actividad y toca una actividad para cambiarla.',
       pintar: panelAgendaAdmin },
 
-    { id: 'directiva', grupo: 'Contenido de la página', nombre: 'Directorio', ico: ICO.gente,
+    { id: 'directiva', grupo: 'Administración', nombre: 'Directorio', ico: ICO.gente,
       titulo: 'Directorio del club',
       bajada: 'Quiénes encabezan el club este período.',
       tarjetas: [
@@ -2798,7 +2808,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
   /* El menú tiene dos bloques plegables: uno para administrar e informarse y otro para cambiar la página */
   const BLOQUES = [
     { id: 'admin', titulo: 'Administración e informes', grupos: ['Administración'],
-      orden: ['inicio', 'mensajes', 'socios', 'agenda', 'informes', 'ayuda', 'ajustes', 'publicar'] },
+      orden: ['inicio', 'mensajes', 'socios', 'agenda', 'articulos', 'proyectos', 'directiva', 'informes', 'ayuda', 'ajustes', 'publicar'] },
     { id: 'web',   titulo: 'Editar mi página web', grupos: ['Datos del club', 'Contenido de la página', 'Conexiones'] }
   ];
 
@@ -2812,6 +2822,52 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
   function pintarNav() {
     const nav = $('#nav');
     nav.innerHTML = '';
+
+    /* Buscador: escribe una palabra y se muestran solo las secciones que la tienen */
+    const PALABRAS = {
+      agenda: 'calendario evento actividad reunión fecha hora sesión cena operativo',
+      articulos: 'blog artículo noticia texto escribir entrevista',
+      proyectos: 'terreno terrenos proyecto foto fotos ayuda trabajo hicimos',
+      directiva: 'presidente secretario tesorero cargo integrante junta directorio',
+      mensajes: 'correo contacto formulario escribieron responder',
+      socios: 'miembros lista cumpleaños whatsapp excel',
+      informes: 'reporte imprimir pdf excel descargar',
+      ajustes: 'letra tamaño color historial cambios claro oscuro',
+      publicar: 'respaldo copia seguridad subir clave',
+      ayuda: 'guía pasos cómo usar',
+      inicio: 'visitas resumen principal',
+      portada: 'inicio principal foto título', contacto: 'teléfono correo dirección whatsapp', redes: 'instagram facebook youtube enlaces',
+      quienes: 'historia club somos', causas: 'salud vista niños ayuda', impacto: 'cifras números', faq: 'preguntas respuestas dudas',
+      testimonios: 'opiniones frases', unete: 'socio sumarse', aportar: 'donar donaciones bingo paella', 'club-datos': 'nombre lema identidad'
+    };
+    const buscador = document.createElement('div');
+    buscador.className = 'buscador';
+    buscador.innerHTML = '<label class="solo-lectores" for="navBuscar">Buscar una sección</label>'
+      + '<input type="search" id="navBuscar" placeholder="🔍 Buscar una sección…" autocomplete="off" aria-label="Buscar una sección del panel">'
+      + '<p class="buscador__vacio oculto">No encontré nada con esa palabra. Prueba con otra, por ejemplo «blog», «agenda» o «fotos».</p>';
+    nav.appendChild(buscador);
+    const quitaTildes = (t) => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const filtrar = () => {
+      const q = quitaTildes(buscador.querySelector('input').value).trim();
+      const botones = nav.querySelectorAll('.nav__b');
+      let hay = 0;
+      botones.forEach((b) => {
+        const texto = quitaTildes(b.textContent + ' ' + (PALABRAS[b.dataset.ir] || ''));
+        const ok = !q || q.split(/\s+/).every((w) => texto.includes(w));
+        b.classList.toggle('oculto', !ok);
+        if (ok) hay++;
+      });
+      nav.classList.toggle('buscando', !!q);
+      nav.querySelectorAll('.bloque').forEach((bl) => { if (q) bl.classList.remove('cerrado'); });
+      nav.querySelectorAll('.bloque__explica, .lateral__grupo, #btnSalir').forEach((e) => e.classList.toggle('oculto', !!q));
+      buscador.querySelector('.buscador__vacio').classList.toggle('oculto', !(q && !hay));
+    };
+    buscador.querySelector('input').addEventListener('input', filtrar);
+    buscador.querySelector('input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { const primero = nav.querySelector('.nav__b:not(.oculto)'); if (primero) { primero.click(); } }
+      if (e.key === 'Escape') { e.target.value = ''; filtrar(); }
+    });
+
     const salir = document.createElement('button');
     salir.type = 'button'; salir.className = 'atajo atajo--salir'; salir.id = 'btnSalir';
     salir.innerHTML = '<span>🚪</span>Salir del panel';
@@ -2871,6 +2927,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
 
   function ir(id) {
     ESTADO.seccion = id;
+    const bq = document.getElementById('navBuscar'); if (bq && bq.value) { bq.value = ''; bq.dispatchEvent(new Event('input')); }
     document.body.classList.remove('menu-abierto');
     $$('.nav__b').forEach((b) => b.classList.toggle('activo', b.dataset.ir === id));
     const bl = document.querySelector('.nav__b.activo'); const caja = bl && bl.closest('.bloque'); if (caja && caja.classList.contains('cerrado')) abrirBloque(caja, true);
@@ -2893,7 +2950,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
 
   function seccionEsWeb() {
     const s = SECCIONES.find((x) => x.id === ESTADO.seccion);
-    return !!s && (s.grupo !== 'Administración' || s.id === 'agenda');
+    return !!s && (s.grupo !== 'Administración' || ['agenda', 'articulos', 'proyectos', 'directiva'].includes(s.id));
   }
   function cargarVivo(conservar) {
     const f = $('#vFrame');
@@ -3122,7 +3179,8 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     panel.innerHTML = `<div class="panel__cab">
       <h2>${esc(nomFacil)}</h2>
       ${(FACIL[s.id] || s.bajada) ? `<p>${FACIL[s.id] || s.bajada}</p>` : ''}
-      ${NAVFACIL[s.id] ? '<p class="panel__pista">💡 Cambia lo que quieras. Al terminar, toca <b>Publicar</b> (arriba a la derecha) para que se vea en la página. Si no publicas, la página no cambia.</p>' : ''}
+      ${GUIA[s.id] ? '<div class="panel__guia"><b>Cómo se hace, paso a paso</b><ol>' + GUIA[s.id].map((t) => '<li>' + esc(t) + '</li>').join('') + '</ol></div>' : ''}
+      ${NAVFACIL[s.id] && !GUIA[s.id] ? '<p class="panel__pista">💡 Cambia lo que quieras. Al terminar, toca <b>Publicar</b> (arriba a la derecha) para que se vea en la página. Si no publicas, la página no cambia.</p>' : ''}
     </div>`;
     lienzo.appendChild(panel);
 

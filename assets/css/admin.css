@@ -993,3 +993,18 @@ html[data-tema="oscuro"] .panel__pista{ background:#3A3110; color:#FFE9A0 !impor
 .hist__cab span{ font-size:.9rem; color:var(--gris) }
 .hist ul{ margin:6px 0 0 18px; font-size:1rem; line-height:1.6 }
 html[data-tema="oscuro"] .inicio__frase{ color:#9DBBFF !important }
+
+/* Guía paso a paso */
+.panel__guia{ margin-top:12px; padding:14px 18px; border-radius:14px; background:#E7F6EC; color:#0B5A2E; max-width:72ch }
+.panel__guia b{ display:block; font-size:1.1rem; margin-bottom:6px }
+.panel__guia ol{ margin:0 0 0 22px; font-size:1.05rem; line-height:1.6 }
+.panel__guia li{ margin-bottom:3px }
+html[data-tema="oscuro"] .panel__guia{ background:#0F3A2A; color:#BFF0D8 }
+
+/* Buscador del menú */
+.buscador{ padding:6px 4px 10px; position:sticky; top:0; z-index:2; background:var(--g-fondo-lateral, #fff) }
+.buscador input{ width:100%; min-height:50px; padding:10px 16px; font-size:1.05rem; border:2px solid var(--g-borde, #D9DEE8); border-radius:999px; background:#fff }
+.buscador input:focus{ outline:3px solid var(--oro); border-color:var(--azul) }
+.buscador__vacio{ margin:10px 8px 0; font-size:.95rem; color:var(--gris) }
+html[data-tema="oscuro"] .buscador{ background:#0F2250 }
+html[data-tema="oscuro"] .buscador input{ background:#081A42; color:#E9EEFA; border-color:#4A6BB5 }
