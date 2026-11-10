@@ -1558,6 +1558,7 @@
     const aviso2 = ESTADO.sucio ? String.fromCharCode(10, 10) + 'Ojo: tienes cambios sin publicar. Quedan guardados en este computador y los verás al volver a entrar.' : '';
     if (!confirm('¿Quieres salir del panel?' + aviso2)) return;
     try { sessionStorage.removeItem('accesoReintento'); } catch (e) { /* sin almacenamiento */ }
+    window.__saliendo = true;   /* el borrador ya está guardado en este computador: no hace falta frenar la salida */
     if (/(^|\.)clta\.cl$/.test(location.hostname)) location.href = 'https://twilight-wave-97b6.cloudflareaccess.com/cdn-cgi/access/logout';
     else location.reload();
   }
@@ -3383,7 +3384,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
 
     // Al salir con cambios sin publicar, el navegador pregunta.
     window.addEventListener('beforeunload', (e) => {
-      if (!ESTADO.sucio) return;
+      if (!ESTADO.sucio || window.__saliendo) return;
       e.preventDefault();
       e.returnValue = '';
     });

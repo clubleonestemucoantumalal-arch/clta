@@ -959,3 +959,9 @@ html[data-tema="oscuro"] .rapido b small{ color:#B9C6E6 }
 html[data-tema="oscuro"] .atajo{ background:#1D3A7C; color:#E9EEFA }
 html[data-tema="oscuro"] .atajo--salir{ background:transparent; border-color:#2B4686 }
 @media (max-width:1180px){ #btnLetra span{ display:none } }
+
+/* Tema oscuro: botones de la barra legibles */
+html[data-tema="oscuro"] .btn--linea{ color:#E9EEFA; border-color:#4A6BB5 }
+html[data-tema="oscuro"] .barra .btn--linea svg{ color:#E9EEFA }
+html[data-tema="oscuro"] .btn--peligro{ background:transparent; color:#FFB4AE; border-color:#B4584F }
+html[data-tema="oscuro"] .item__f{ color:#E9EEFA }
