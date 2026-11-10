@@ -974,6 +974,12 @@
   /* Nombres claros y una línea de ayuda para cada parte de «Editar mi página web» */
   const NAVFACIL = {
     socios:         ['Contactos', 'Socios, aliados y autoridades: listas y saludos'],
+    inicio:         ['Inicio', 'Lo más importante de un vistazo'],
+    mensajes:       ['Mensajes', 'Lo que la gente escribió en la página'],
+    informes:       ['Informes', 'Documentos para imprimir o abrir en Excel'],
+    ayuda:          ['Ayuda', 'Guía paso a paso para usar el panel'],
+    ajustes:        ['Ajustes', 'Letra, colores e historial de cambios'],
+    publicar:       ['Publicar y respaldos', 'Subir tus cambios y guardar una copia de seguridad'],
     'club-datos':   ['Nombre y lema del club', 'El nombre y la frase que identifican al club'],
     contacto:       ['Teléfono y correo', 'Cómo pueden comunicarse con el club'],
     redes:          ['Redes sociales', 'Los enlaces a Instagram, Facebook y otras'],
@@ -3543,7 +3549,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
       <h2>${esc(nomFacil)}</h2>
       ${(FACIL[s.id] || s.bajada) ? `<p>${FACIL[s.id] || s.bajada}</p>` : ''}
       ${GUIA[s.id] ? '<div class="panel__guia"><b>Cómo se hace, paso a paso</b><ol>' + GUIA[s.id].map((t) => '<li>' + esc(t) + '</li>').join('') + '</ol></div>' : ''}
-      ${NAVFACIL[s.id] && !GUIA[s.id] ? '<p class="panel__pista">💡 Cambia lo que quieras. Al terminar, toca <b>Publicar</b> (arriba a la derecha) para que se vea en la página. Si no publicas, la página no cambia.</p>' : ''}
+      ${NAVFACIL[s.id] && !GUIA[s.id] && s.grupo !== 'Administración' ? '<p class="panel__pista">💡 Cambia lo que quieras. Al terminar, toca <b>Publicar</b> (arriba a la derecha) para que se vea en la página. Si no publicas, la página no cambia.</p>' : ''}
     </div>`;
     lienzo.appendChild(panel);
 
