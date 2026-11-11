@@ -1069,3 +1069,9 @@ a.op--link:hover .op__go svg { transform: translateX(5px); }
 .aliado img { max-width: 100%; max-height: 80px; object-fit: contain; }
 .aliado span { font-size: .88rem; font-weight: 600; color: var(--tinta-2); }
 a.aliado:hover { transform: translateY(-3px); box-shadow: 0 14px 30px -16px rgba(13, 9, 37, .35); }
+
+/* Campos de selección del formulario: la etiqueta va arriba, sin encimarse (se ve bien aunque sea larga o en el celular) */
+.campo--sel { display: flex; flex-direction: column; }
+.campo--sel label { position: static; order: -1; transform: none; display: block; font-size: .8rem; line-height: 1.35; color: var(--oro); margin: 0 1.8rem .15rem 0; pointer-events: none; transition: none; }
+.campo--sel select { padding: .25rem 1.8rem .6rem 0; text-overflow: ellipsis; }
+.campo--sel::after { bottom: 1.15rem; }
