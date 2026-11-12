@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-11T23:42:47.104Z",
+  "generado": "2026-11-12T11:50:22.334Z",
   "total": 24,
   "fuentes": [
     {
@@ -57,6 +57,15 @@
       "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
+      "titulo": "Roberto Bravo ofrecerá concierto en apoyo a la obra social del Club de Leones Temuco Antumalal",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQVlB6Z01YbHlxQmVxejJ1ZkpxbWFKZ1E1eG9hRGJlVlY3ODlMTC1oeHpjYXAtMkU4aDREREk2anZBMFZtVll1VEliejB3ZmNlZDY2ZV96Uk4zTkxiLWlmdVJzMUR3SEVQWExSMnJuNHpGdEwySTl2bW93TU1nVXVlMWtqbHRLTjY5Ql9LbzRiZXFpMG95TmV2b21NREJaN0dSUTQ3ZjBrRkRwazFncDloYjdwSmItZjZKV0ZOWk4xcmM5V1phMEZrX0lyYnlzOFV2T19DRllyVjJ0Rms?oc=5",
+      "fecha": "2026-10-23T07:00:00.000Z",
+      "fuente": "lavozdepucon",
+      "tipo": "prensa",
+      "imagen": "https://us-mia-1.linodeobjects.com/lavozdepucon/2026/10/ggOY42eK-roberto_bravo-986x600.png"
+    },
+    {
       "titulo": "El Club de Leones Puerto Varas Los Colonos recibió a la Gobernadora del Distrito T-4, León Claudia Brulé Puentes, en una instancia que destacó el compromiso institucional, la trayectoria de sus integrantes y el aporte solidario a la comunidad. En el ámbito",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1Xc0dKellxYzFYOGNtZFhldlZNZ0dMYzdTMlphdm9CaHF3TVZHWXFLamxzaWxNNF9hSGVGSHBzQTk5Z2hBa1ZoWGRxR2ZOazhicWc?oc=5",
@@ -82,15 +91,6 @@
       "fuente": "LION Magazine",
       "tipo": "oficial",
       "imagen": "https://lionmagazine.org/wp-content/uploads/2026/10/WhatsApp-Image-2026-04-28-at-10.13.47-AM-169x300.jpeg"
-    },
-    {
-      "titulo": "Donación en Osorno: Club de Leones Pilmaiquén apoya a Comedor Solidario",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9SQnNDNlB5OW43eEZMSkM1OEF0am9aQ3BVeEJDY2NvS2JGQ0MxOEV2djQ4UUdPdlB3czhQSmh0M19uaVhKaXdWanExU19FVnlhZTYtbG1GUEhzUkFUaWNXNWcwbXNRNS1vOE5EZzVDYm1jZWFraUxyQ1BR?oc=5",
-      "fecha": "2026-10-05T07:00:00.000Z",
-      "fuente": "Paislobo Prensa",
-      "tipo": "prensa",
-      "imagen": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLsgdtXAVDgp3m7G9BoG_HORA9sNRy7mUlsYoAuFpiyAtdqB68bzeK5ava9FlkIabIbyZ9gvITdkURP6NToTPEWRtTxa6tMVd6zi6nHcOKE7GhkVTT3YLFc_T4iKZf_WAAVwOObNFUrfpJmfX9arixI9UD3sSCE9OJEDswwTy_JhLtinROKhmSz0SMi_0/s1600/PL_Prensa_01.jpg"
     },
     {
       "titulo": "Con profundo pesar despedimos al león César Sánchez Neira",
@@ -219,15 +219,6 @@
       "imagen": "https://radiolibertadores.com/wp-content/uploads/IMG-20260403-WA0001-1.jpg"
     },
     {
-      "titulo": "El viernes 27 de junio, en la sede del Club de Leones de Puerto Varas, se llevó a cabo la transmisión de mando del Club de Leones de Puerto Varas donde hizo entrega del mando el León Osvaldo Emhart Vicencio al nuevo presidente periodo 2025- 2026 L",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE16bldoQzRsU25BUmxpY1R6cmV1aGdhVUlobmhOWml3aUdKMDRKSHNZSU5odGNZVWNvQ1FNdnR3b2l3OGhjSlZ4MjRUQTBIdTgwZ3c?oc=5",
-      "fecha": "2025-07-03T07:00:00.000Z",
-      "fuente": "Instagram",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
-    },
-    {
       "titulo": "Conoce la labor de los Clubes de Leones y lo que trae la próxima convención nacional",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNcTJ6OVN3YXlOTWtWc2JmZTFMbEcxbEZSRXdBejAySTBkRUFPLTQwNkxzeDBlNTFSUWRndFE1cVVvNXpvZWJ6UzdqYVc5M2ljaTVoOWlneDBGSnBiM3g1X05KY1NCbkJhbDNwLVNzTFVBbS1CT3FKckk1Tl9pLXZGYXZvVXVsbEs1Mm5Ram5FY2FzSlVLWjZrS1czWHNPT1FfbGE2NGtFV2ZSdndoSFB6cDFaUWtLSUJHWHJBV254bkxDSzhnTWpxYnRGLVROdmU1MnVRNFg5QQ?oc=5",
@@ -244,6 +235,15 @@
       "fuente": "Radio Viaducto Collipulli",
       "tipo": "prensa",
       "imagen": "assets/img/noticias-respaldo.jpg"
+    },
+    {
+      "titulo": "Ley declara el 24 de abril como el Día del Leonismo Chileno",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMimgFBVV95cUxONzhrNllSYkFSTjk4SE5ERXVDT1ozazZoZkg3RTA5U0xSV0ozdmN1ekdTZVN2bXNWbzBNdU9kUnFjbnQ0U2FyeG9XVWVFYkZwWTB2eERUa1lQOWs0MHRVNkVKc2VVQ3lYa0JPSkZsekdxbTJONGdkM2x4LTFCVjdkVkJNaDJZelhFSlJ5Z3ozSjV3Mm9HbGZPMHdR?oc=5",
+      "fecha": "2022-07-04T17:31:59.000Z",
+      "fuente": "home.doe.cl",
+      "tipo": "prensa",
+      "imagen": "https://actualidadjuridica.doe.cl/wp-content/uploads/2022/07/shutterstock_1607267161.jpg"
     }
   ]
 }
