@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-13T11:48:05.458Z",
+  "generado": "2026-11-13T23:34:26.225Z",
   "total": 24,
   "fuentes": [
     {
@@ -138,15 +138,6 @@
       "imagen": "https://lionmagazine.org/wp-content/uploads/2026/07/Lyon_DSC07079-Fix-300x178.jpg"
     },
     {
-      "titulo": "En una emotiva y solemne ceremonia, realizada el viernes 10 de julio, el Club de Leones Puerto Varas efectuó el tradicional Cambio de Mando de su Directorio para el período leonístico 2026–2027, dando inicio a una nueva etapa de servicio en beneficio d",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9aNDNpTTRhZV8xRDFFbGlNbW9tbDdROHJnUGUxbWNWeTBjMnYyMmVlZkxqNmlKX3hmV21fM3VZWkxNV0c4dTJxNmVpS2lyZEY4S0E?oc=5",
-      "fecha": "2026-07-16T07:00:00.000Z",
-      "fuente": "Instagram",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
-    },
-    {
       "titulo": "Club de Leones de Collipulli realizó ceremonia de transmisión de mando",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdld1VW5TLTNXV21aWXNta19oZ216LXNBR3Jxazh5V01ibXBRSXJtcVZWREMzclFicEwyMENKWjd3bWtwQ0luZkpVWUZxNWM3ZHIyOWVTZUhFMjRmVElmTFNjeUg4aXRNaFFlYmNNcUlFM25YUUYwdmF3aUJFaVQwaVVNcHRCOFZvVWViQktsOVhCTmVzWm1kb2xaUmZzdHBJNkZDRURtQ0xPQ1A5NTVIS1Fmbw?oc=5",
@@ -228,15 +219,6 @@
       "imagen": "https://media.canal9.cl/2025/05/CLUB-DE-LEONES-768x432.jpeg"
     },
     {
-      "titulo": "DÍA DEL LEONISMO CHILENO",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5rT3FRUnN0UkhmZWNzbEVQX0VOZ1pLbmFUeXVHa2ZxaEM1UWlpMEZGQWJfVFNmRU11SUk5akx0NS1nYU9OY0tKcGI0dFhJbmt4MURKYklCSFFsbGMtd0hfT1FycElzR0tjV0E4UHJn?oc=5",
-      "fecha": "2025-04-24T07:00:00.000Z",
-      "fuente": "Radio Viaducto Collipulli",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
-    },
-    {
       "titulo": "Ley declara el 24 de abril como el Día del Leonismo Chileno",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMimgFBVV95cUxONzhrNllSYkFSTjk4SE5ERXVDT1ozazZoZkg3RTA5U0xSV0ozdmN1ekdTZVN2bXNWbzBNdU9kUnFjbnQ0U2FyeG9XVWVFYkZwWTB2eERUa1lQOWs0MHRVNkVKc2VVQ3lYa0JPSkZsekdxbTJONGdkM2x4LTFCVjdkVkJNaDJZelhFSlJ5Z3ozSjV3Mm9HbGZPMHdR?oc=5",
@@ -244,6 +226,24 @@
       "fuente": "home.doe.cl",
       "tipo": "prensa",
       "imagen": "https://actualidadjuridica.doe.cl/wp-content/uploads/2022/07/shutterstock_1607267161.jpg"
+    },
+    {
+      "titulo": "Campaña de los Clubes de Leones en el Día Mundial de la Diabetes ¡Estamos a tiempo todavía!",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9BWmZvSEpOSXRWTktKNjNOclRGQVhZUC1STGltOTVYV1hTV2Q4SHBXcjJteGpmek5IRnRUOWt1OF9mcmVaeGcxTTRxemV6UnJLZ0hxMWlmSV9odlZrcDNtSERIQ3dMUTNvbTJ5ZktUQ3pFcEVQQjU1V0pBdkt0UlU?oc=5",
+      "fecha": "2020-11-14T08:00:00.000Z",
+      "fuente": "Paislobo Prensa",
+      "tipo": "prensa",
+      "imagen": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5DSVVAABlznL1HKGzJ5mQWMo_l3qZ5EL_XV-ULA-fjQ91c9orKbDJKNNMyp0fNVkK1hQHdjQykcBnxwvo3CeTxehf6FlAQTBxlbfcraB2f8xqAEBSZziSXZillYMu3NKcym7dnH9zzbU/s16000/diabetes.jpg"
+    },
+    {
+      "titulo": "En Collipulli se reunió el Clubes de Leones distrito T 3",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNZzZra2tOTXkzLXNhcldRUkhjYzVuUlRtYmZNU25saHJTd0NvdndlQU1RQ0ZiOEdTeVFjd3drVnFGZWlCNmFzTll3REg1QUNTbmwzUjQ2bnZDbHFSalBVcWVsRzZ3SDR0MFpUUGVwLWxoZmNhdElJc3ZhUVlmYW9lZ0Z6eGR5clJEcWNvWVdDSmRUclBVVE44TFR2NU42NWN3QWc?oc=5",
+      "fecha": "2018-03-12T07:00:00.000Z",
+      "fuente": "araucanianoticias.cl",
+      "tipo": "prensa",
+      "imagen": "https://araucanianoticias.cl/wp-content/uploads/2018/03/image-6.png"
     }
   ]
 }
