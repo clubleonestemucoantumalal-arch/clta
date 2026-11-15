@@ -306,15 +306,18 @@
     },
     {
       "idLions": "SA-10528131",
-      "tag": "Servicio humanitario",
-      "titulo": "Corrida Saludable",
-      "texto": "Nos sumamos a la Corrida Saludable, una jornada pensada para promover la vida sana y la actividad física en familia. Estar junto a la comunidad en actividades como esta también es una forma de servir.",
-      "imagen": "img:proyecto-mw7etyhf",
+      "tag": "Salud · Cáncer",
+      "titulo": "Corrida Saludable: caldo caliente para 250 corredores",
+      "texto": "A pedido de una fundación que lucha contra el cáncer, preparamos 45 litros de caldo de huesos y entregamos 250 vasos calientes a los corredores de la Corrida Saludable, en avenida Martín Lutero.",
+      "imagen": "assets/img/proyectos/corrida-saludable-1.jpg",
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-11-01",
-      "foto2": "img:terreno-mw7eu91v",
-      "cuerpo": "El 1 de noviembre nos sumamos a la Corrida Saludable, una jornada para promover la vida sana y el movimiento en familia.\n\nComo club, nos gusta estar donde la comunidad se reúne. Esta fue una buena ocasión para compartir con quienes cuidan su salud y la de los suyos."
+      "foto2": "assets/img/proyectos/corrida-saludable-2.jpg",
+      "cuerpo": "El domingo 1 de noviembre, desde las 08:00 y hasta el mediodía, la avenida Martín Lutero de Temuco se llenó de corredores y familias en la Corrida Saludable, una gran jornada organizada por una fundación que impulsa el movimiento contra el cáncer.\n\nLa organización nos pidió una tarea muy concreta: recibir a los participantes con algo caliente. Así, seis socios y socias preparamos 45 litros de caldo de huesos y, bajo nuestras carpas, repartimos 250 vasos a quienes llegaban a la meta o se detenían a recuperar fuerzas.\n\nMientras en el escenario se bailaba y se entrenaba al aire libre, nuestro puesto fue un punto de encuentro y de buena conversación. Para nosotros, servir también es estar donde la comunidad cuida su salud.",
+      "id": "corrida-saludable",
+      "lugar": "Avenida Martín Lutero, Temuco",
+      "personas": "250"
     },
     {
       "idLions": "SA-10482725",
