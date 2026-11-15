@@ -290,6 +290,21 @@
   ],
   "proyectos": [
     {
+      "idLions": "SA-10567533",
+      "tag": "Salud · Diabetes",
+      "titulo": "Corrida por la Diabetes: Desafío del Budi",
+      "texto": "Junto al equipo de salud de Puerto Domínguez, instalamos un puesto en el Desafío del Budi para entregar agua y fruta a los participantes y conversar sobre la prevención de la diabetes, con folletos informativos.",
+      "imagen": "assets/img/proyectos/corrida-diabetes-budi-2.jpg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-11-07",
+      "foto2": "assets/img/proyectos/corrida-diabetes-budi-1.jpg",
+      "id": "corrida-por-la-diabetes-desafio-del-budi",
+      "lugar": "Puerto Domínguez",
+      "personas": "80",
+      "cuerpo": "El sábado 7 de noviembre, entre las 08:00 y las 13:00 horas, Puerto Domínguez se llenó de corredores y caminantes en el Desafío del Budi, una corrida pensada para crear conciencia sobre la diabetes.\n\nNosotros llegamos junto al equipo de salud de la localidad. Con doce socios y socias montamos un puesto bajo nuestras carpas para recibir a los participantes con agua y fruta, un gesto pequeño pero muy agradecido tras el esfuerzo de la jornada.\n\nAdemás, entregamos folletos con información para prevenir y detectar a tiempo la diabetes, una de las causas que como Lions nos convoca. Cerca de 80 personas pasaron por la actividad, que combinó deporte, salud y comunidad a orillas del lago Budi."
+    },
+    {
       "idLions": "SA-10528131",
       "tag": "Servicio humanitario",
       "titulo": "Corrida Saludable",
