@@ -196,6 +196,12 @@
       if (k === mitad - 1 && p.cita && parrafos.length > 2) rel.appendChild(el('blockquote', 'cita', plano(p.cita)));
     });
     main.appendChild(rel);
+    if (!cod && (p.videoCredito || p.enlace)) {
+      var cw = el('div', 'art-video estrecho');
+      if (p.enlace && /^https?:\/\//i.test(p.enlace)) { var be = el('a', 'btn', plano(p.enlaceTexto) || 'Ver publicación original'); be.href = p.enlace; be.target = '_blank'; be.rel = 'noopener'; cw.appendChild(be); }
+      if (p.videoCredito) cw.appendChild(el('p', 'video__pie', plano(p.videoCredito)));
+      main.appendChild(cw);
+    }
 
     var ac = el('div', 'acciones estrecho'); ac.appendChild(el('span', null, 'Comparte este artículo'));
     var url = location.href.split('#')[0];
