@@ -58,6 +58,11 @@
   .relato p { margin-bottom: 1.4rem; }
   .relato p:first-child::first-letter { float: left; font: 400 4.6rem/.8 var(--f-tit); color: var(--oro); padding: .35rem .6rem 0 0; }
   .relato p:first-child { color: #fff; font-size: 1.2rem; }
+  .relato h2.sub, .refs h2.sub { font: 400 clamp(1.6rem, 3.4vw, 2.1rem)/1.15 var(--f-tit); color: #fff; margin: 2.2rem 0 1rem; }
+  .relato h2.sub { color: var(--oro); }
+  .refs { padding: .5rem 0 1.5rem; font-size: .92rem; color: rgba(255,255,255,.75); }
+  .refs ol { padding-left: 1.4rem; display: grid; gap: .6rem; }
+  .refs a { color: rgba(255,255,255,.85); text-decoration: underline; text-decoration-color: var(--oro); text-underline-offset: 3px; overflow-wrap: anywhere; }
   .cita { margin: clamp(2rem, 5vh, 3rem) 0; padding: .4rem 0 .4rem 1.6rem; border-left: 3px solid var(--oro); font: italic 400 clamp(1.6rem, 3.6vw, 2.2rem)/1.2 var(--f-tit); color: #fff; }
 
   /* galería */
@@ -192,6 +197,7 @@
     var rel = el('article', 'relato relato--art estrecho');
     var mitad = Math.ceil(parrafos.length / 2);
     parrafos.forEach(function (t, k) {
+      if (/^##\s/.test(t)) { rel.appendChild(el('h2', 'sub', t.replace(/^##\s+/, ''))); return; }
       rel.appendChild(el('p', null, t));
       if (k === mitad - 1 && p.cita && parrafos.length > 2) rel.appendChild(el('blockquote', 'cita', plano(p.cita)));
     });
@@ -201,6 +207,17 @@
       if (p.enlace && /^https?:\/\//i.test(p.enlace)) { var be = el('a', 'btn', plano(p.enlaceTexto) || 'Ver publicación original'); be.href = p.enlace; be.target = '_blank'; be.rel = 'noopener'; cw.appendChild(be); }
       if (p.videoCredito) cw.appendChild(el('p', 'video__pie', plano(p.videoCredito)));
       main.appendChild(cw);
+    }
+
+    if (p.fuentes && p.fuentes.length) {
+      var rf = el('section', 'refs estrecho'); rf.appendChild(el('h2', 'sub', 'Referencias'));
+      var ol = el('ol');
+      p.fuentes.forEach(function (f) {
+        var li = el('li');
+        if (f && /^https?:\/\//i.test(f.url || '')) { var al = el('a', null, plano(f.texto)); al.href = f.url; al.target = '_blank'; al.rel = 'noopener'; li.appendChild(al); } else { li.textContent = plano(f && f.texto); }
+        ol.appendChild(li);
+      });
+      rf.appendChild(ol); main.appendChild(rf);
     }
 
     var ac = el('div', 'acciones estrecho'); ac.appendChild(el('span', null, 'Comparte este artículo'));
