@@ -290,16 +290,34 @@
   ],
   "proyectos": [
     {
+      "idLions": "SA-10567533",
+      "tag": "Salud · Diabetes",
+      "titulo": "Corrida por la Diabetes: Desafío del Budi",
+      "texto": "Junto al equipo de salud de Puerto Domínguez, instalamos un puesto en el Desafío del Budi para entregar agua y fruta a los participantes y conversar sobre la prevención de la diabetes, con folletos informativos.",
+      "imagen": "assets/img/proyectos/corrida-diabetes-budi-2.jpg",
+      "enlace": "#contacto",
+      "ancho": false,
+      "fecha": "2026-11-07",
+      "foto2": "assets/img/proyectos/corrida-diabetes-budi-1.jpg",
+      "id": "corrida-por-la-diabetes-desafio-del-budi",
+      "lugar": "Puerto Domínguez",
+      "personas": "80",
+      "cuerpo": "El sábado 7 de noviembre, entre las 08:00 y las 13:00 horas, Puerto Domínguez se llenó de corredores y caminantes en el Desafío del Budi, una corrida pensada para crear conciencia sobre la diabetes.\n\nNosotros llegamos junto al equipo de salud de la localidad. Con doce socios y socias montamos un puesto bajo nuestras carpas para recibir a los participantes con agua y fruta, un gesto pequeño pero muy agradecido tras el esfuerzo de la jornada.\n\nAdemás, entregamos folletos con información para prevenir y detectar a tiempo la diabetes, una de las causas que como Lions nos convoca. Cerca de 80 personas pasaron por la actividad, que combinó deporte, salud y comunidad a orillas del lago Budi."
+    },
+    {
       "idLions": "SA-10528131",
-      "tag": "Servicio humanitario",
-      "titulo": "Corrida Saludable",
-      "texto": "Nos sumamos a la Corrida Saludable, una jornada pensada para promover la vida sana y la actividad física en familia. Estar junto a la comunidad en actividades como esta también es una forma de servir.",
-      "imagen": "img:proyecto-mw7etyhf",
+      "tag": "Salud · Cáncer",
+      "titulo": "Corrida Saludable: caldo caliente para 250 corredores",
+      "texto": "A pedido de una fundación que lucha contra el cáncer, preparamos 45 litros de caldo de huesos y entregamos 250 vasos calientes a los corredores de la Corrida Saludable, en avenida Martín Lutero.",
+      "imagen": "assets/img/proyectos/corrida-saludable-1.jpg",
       "enlace": "#contacto",
       "ancho": false,
       "fecha": "2026-11-01",
-      "foto2": "img:terreno-mw7eu91v",
-      "cuerpo": "El 1 de noviembre nos sumamos a la Corrida Saludable, una jornada para promover la vida sana y el movimiento en familia.\n\nComo club, nos gusta estar donde la comunidad se reúne. Esta fue una buena ocasión para compartir con quienes cuidan su salud y la de los suyos."
+      "foto2": "assets/img/proyectos/corrida-saludable-2.jpg",
+      "cuerpo": "El domingo 1 de noviembre, desde las 08:00 y hasta el mediodía, la avenida Martín Lutero de Temuco se llenó de corredores y familias en la Corrida Saludable, una gran jornada organizada por una fundación que impulsa el movimiento contra el cáncer.\n\nLa organización nos pidió una tarea muy concreta: recibir a los participantes con algo caliente. Así, seis socios y socias preparamos 45 litros de caldo de huesos y, bajo nuestras carpas, repartimos 250 vasos a quienes llegaban a la meta o se detenían a recuperar fuerzas.\n\nMientras en el escenario se bailaba y se entrenaba al aire libre, nuestro puesto fue un punto de encuentro y de buena conversación. Para nosotros, servir también es estar donde la comunidad cuida su salud.",
+      "id": "corrida-saludable",
+      "lugar": "Avenida Martín Lutero, Temuco",
+      "personas": "250"
     },
     {
       "idLions": "SA-10482725",
@@ -866,6 +884,51 @@
   ],
   "articulos": [
     {
+      "id": "dia-mundial-de-la-diabetes-prevencion",
+      "tag": "Salud · Día Mundial de la Diabetes",
+      "titulo": "Día Mundial de la Diabetes: detectar a tiempo hace la diferencia",
+      "texto": "El Comité de Damas Temuco Antumalal se sumó al Día Mundial de la Diabetes con un mensaje de prevención. Repasamos qué dicen las cifras en Chile y La Araucanía, y cómo cada persona puede ayudar.",
+      "fecha": "2026-11-14",
+      "autor": "",
+      "imagen": "assets/img/proyectos/corrida-diabetes-budi-2.jpg",
+      "video": "",
+      "videoCredito": "Video publicado en Instagram el 14 de noviembre de 2026 por @valejaraf en colaboración con el Comité de Damas Temuco Antumalal (@damas_temucoantumalal).",
+      "enlace": "https://www.instagram.com/p/Dfvav7lJWQ5/",
+      "enlaceTexto": "Ver el video en Instagram",
+      "cuerpo": "Cada 14 de noviembre se conmemora el Día Mundial de la Diabetes, una fecha para recordar que informarse a tiempo puede cambiar el rumbo de esta enfermedad. Este año, el Comité de Damas Temuco Antumalal quiso sumarse con un mensaje breve y directo, difundido en video en Instagram.\n\n«Hoy es una oportunidad para recordar la importancia de la prevención y del cuidado de nuestra salud», dice la publicación. El mensaje invita a informarse, a incorporar hábitos saludables y a mantener los controles de salud al día, acciones que, señala, «pueden marcar una diferencia». En pantalla, la idea central queda resumida en una frase: «Detectar a tiempo hace la diferencia».\n\nLa publicación cierra con una convicción que el club comparte: «La prevención es una tarea que construimos entre todos». El video fue publicado en colaboración con la cuenta del Comité de Damas, a quienes damos el crédito y agradecemos su iniciativa.\n\n## La diabetes en Chile, en cifras\n\nLa última Encuesta Nacional de Salud con resultados oficiales publicados, la de 2016-2017, estimó que un 12,3 % de la población mayor de 15 años vive con diabetes [1]. Estimaciones más recientes difundidas por la prensa hablan de alrededor de 1,9 millones de personas adultas, cerca del 13 % de los mayores de 18 años [2].\n\nEl mismo estudio mostró que no todos llegan a tiempo al tratamiento: solo el 86 % de las personas con diabetes sabía que la tenía, el 69 % se trataba y apenas el 55 % lograba controlar la enfermedad [3].\n\nLlegar tarde pesa. Una encuesta del Instituto de Salud Pública de la Universidad Andrés Bello a pacientes con diabetes tipo 2 del sistema público, difundida en 2023, encontró que el 57 % fue diagnosticado cuando ya tenía síntomas. Entre los 18 y los 29 años, ese porcentaje subió al 73 % [4].\n\n## Y en La Araucanía\n\nEn noviembre de 2024, el Servicio de Salud Araucanía Sur informó que en la provincia de Cautín había 55.943 personas con diabetes tipo 2 atendidas en la atención primaria, y que cerca de 400 pacientes con diabetes tipo 1 se atendían en el Hospital Hernán Henríquez Aravena, de Temuco. El servicio reportó además más de 6.000 nuevos diagnósticos, un 13,7 % más que en el mismo período del año anterior [5].\n\nEn Malleco, el Servicio de Salud Araucanía Norte registraba 19.271 pacientes diagnosticados a junio de 2024 [5]. Las autoridades sanitarias atribuyeron el aumento a factores prevenibles, como el sobrepeso, la falta de ejercicio y el acceso a alimentos ultraprocesados, y llamaron a mantener los chequeos médicos al día, especialmente en niños [5].\n\n## Por qué conviene prevenir y controlar\n\nHay tres tipos principales: la diabetes tipo 1, más frecuente en niños y adolescentes; la tipo 2, más común en adultos y asociada al sobrepeso, el sedentarismo y la mala alimentación; y la gestacional, que aparece durante el embarazo. Según el Ministerio de Salud, mal controlada puede provocar complicaciones graves: es la principal causa de ceguera en adultos, de amputación no traumática de extremidades inferiores y de insuficiencia renal crónica, y aumenta de 2 a 4 veces la incidencia de enfermedades cardiovasculares [6].\n\nLa buena noticia es que gran parte de este camino se puede torcer a tiempo. Los especialistas coinciden en que la diabetes tipo 2 puede prevenirse con cambios de estilo de vida sostenidos y realistas, y que detectar la prediabetes permite intervenir antes de que avance [2].\n\n## Cómo podemos ayudar\n\nHágase el examen. El Examen de Medicina Preventiva es gratuito en la red pública de salud y permite detectar a tiempo la diabetes y otros factores de riesgo. Pregunte por él en su Cesfam [6].\n\nSi ya vive con diabetes, no abandone sus controles. El diagnóstico y el tratamiento de por vida de los tipos 1 y 2 están cubiertos por las Garantías Explícitas en Salud (GES), tanto en Fonasa como en Isapres [6].\n\nCuide los hábitos de todos los días: moverse más, comer de forma saludable, cuidar el peso y evitar el tabaco. No se trata de dietas estrictas, sino de cambios que se puedan sostener en el tiempo, junto a la familia [2][6].\n\nAcompañe y difunda. Anime a sus cercanos a controlarse, comparta información confiable como esta y ayude a que nadie se quede sin saber si tiene diabetes.\n\nSúmese a nuestro trabajo. Como club realizamos actividades de prevención y operativos de salud durante el año; si quiere participar o proponer una, puede escribirnos desde el formulario de contacto de este sitio.\n\nEsta información es general y no reemplaza la consulta con un profesional de la salud.",
+      "cita": "La prevención es una tarea que construimos entre todos.",
+      "fuentes": [
+        {
+          "texto": "Encuesta Nacional de Salud 2016-2017: un aporte a la planificación sanitaria y políticas públicas en Chile. Ars Médica (Pontificia Universidad Católica de Chile).",
+          "url": "https://www.arsmedica.cl/index.php/MED/article/view/1354"
+        },
+        {
+          "texto": "Experta advierte por aumento de la diabetes en Chile en el Día Mundial de la enfermedad. Pauta, 14 de noviembre de 2025 (la cifra de 1,9 millones no indica fuente primaria; las recomendaciones son de Ximena Rodríguez, directora de Nutrición y Dietética de la UBO).",
+          "url": "https://www.pauta.cl/tendencias/2025/11/14/experta-advierte-por-aumento-de-la-diabetes-en-chile-en-el-dia-mundial-de-la-enfermedad-y-llama-a-reforzar-la-prevencion.html"
+        },
+        {
+          "texto": "Servicio de Salud Araucanía Sur, pionero en telemonitoreo de pacientes con diabetes mellitus. Temuco Televisión, 18 de noviembre de 2020 (cita datos de la ENS 2016-2017).",
+          "url": "https://temucotelevision.cl/web/2020/11/18/servicio-de-salud-araucania-sur-pionero-en-telemonitoreo-de-pacientes-con-diabetes-mellitus%EF%BB%BF/"
+        },
+        {
+          "texto": "Estudio revela que más de la mitad de los pacientes de diabetes en Chile son diagnosticados tarde. La Tercera, 27 de noviembre de 2023 (encuesta del Instituto de Salud Pública, Universidad Andrés Bello).",
+          "url": "https://www.latercera.com/que-pasa/noticia/estudio-revela-que-mas-de-la-mitad-de-los-pacientes-de-diabetes-en-chile-son-diagnosticados-tarde/ES5QFPP6HBAMHPR3H7IZTDVLYU/"
+        },
+        {
+          "texto": "Reportan alarmante aumento en casos de diabetes en La Araucanía: hay 6 mil nuevos diagnósticos. BioBioChile, 27 de noviembre de 2024.",
+          "url": "https://www.biobiochile.cl/noticias/nacional/region-de-la-araucania/2024/11/27/reportan-alarmante-aumento-en-casos-de-diabetes-en-la-araucania-hay-6-mil-nuevos-diagnosticos.shtml"
+        },
+        {
+          "texto": "Diabetes: enfermedad crónica que podemos prevenir. Ministerio de Salud de Chile, 31 de julio de 2019.",
+          "url": "https://www.minsal.cl/salud-en-casa/diabetes/"
+        },
+        {
+          "texto": "Publicación original del Día Mundial de la Diabetes, Instagram, 14 de noviembre de 2026 (@valejaraf con @damas_temucoantumalal).",
+          "url": "https://www.instagram.com/p/Dfvav7lJWQ5/"
+        }
+      ]
+    },
+    {
       "tag": "Artículo",
       "titulo": "Nuevo artículo",
       "texto": "",
@@ -899,6 +962,11 @@
       "nombre": "Municipalidad de Temuco",
       "logo": "img:aliado-i05",
       "enlace": "https://www.temuco.cl"
+    },
+    {
+      "nombre": "Hogar de Cristo",
+      "logo": "img:aliado-hogar-de-cristo",
+      "enlace": "https://www.hogardecristo.cl"
     },
     {
       "nombre": "Universidad de La Frontera (UFRO)",
