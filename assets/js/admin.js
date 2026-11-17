@@ -122,7 +122,8 @@
     clearTimeout(tempGuardado);
     tempGuardado = setTimeout(() => {
       const ok = ALMACEN.guardarChico('borrador', ESTADO.datos)
-              && ALMACEN.guardarChico('borradorIg', ESTADO.instagram);
+              && ALMACEN.guardarChico('borradorIg', ESTADO.instagram)
+              && (!ESTADO.base || ALMACEN.guardarChico('borradorBase', ESTADO.base));
       if (!ok) aviso('No se pudo guardar el borrador en este navegador.', 'mal');
       ALMACEN.guardar('imagenes', ESTADO.imagenes).catch(() => {
         aviso('Las fotos no cupieron en el borrador. Publica pronto.', 'mal');
@@ -133,6 +134,7 @@
   function olvidarBorrador() {
     ALMACEN.borrarChico('borrador');
     ALMACEN.borrarChico('borradorIg');
+    ALMACEN.borrarChico('borradorBase');
     ALMACEN.borrar('imagenes');
   }
 
@@ -233,25 +235,41 @@
     // Así está el sitio en línea ahora mismo: sirve de referencia para saber
     // si lo que hay en pantalla tiene cambios sin publicar.
     ESTADO.huellaPublicada = huella();
+    /* Punto de partida: lo publicado en este momento. Al publicar se aplican solo los cambios hechos
+       respecto de esto, sobre lo que esté publicado en ese instante. */
+    ESTADO.base = { contenido: clonar(ESTADO.datos), instagram: clonar(ESTADO.instagram) };
 
     // ¿Quedó trabajo a medio hacer la última vez?
     let b = ALMACEN.leerChico('borrador', null);
+    /* Un borrador con su punto de partida guardado se pone al día solo (se le aplican encima los cambios
+       publicados después). Uno antiguo, sin punto de partida, no se puede comparar: ahí se avisa. */
+    const baseBorrador = b ? ALMACEN.leerChico('borradorBase', null) : null;
+    let borradorBase = baseBorrador && baseBorrador.contenido ? baseBorrador : null;
     /* Protección: si el sitio se publicó desde otro lugar (o por otra persona) DESPUÉS de empezar este borrador,
        publicar el borrador viejo pisaría esos cambios. Se avisa y se recomienda usar lo publicado. */
     if (b) {
       const igual = JSON.stringify(Object.assign({}, normalizar(clonar(b)), { actualizado: null })) === JSON.stringify(Object.assign({}, ESTADO.datos, { actualizado: null }));
       const viejo = String(b.actualizado || '') !== String(contenido.actualizado || '');
-      if (!igual && viejo) {
+      if (!igual && viejo && !borradorBase) {
         const usarPublicado = confirm(['Ojo: la página se publicó con cambios más nuevos que el borrador guardado en este computador.', '', 'Si sigues con el borrador viejo y publicas, esos cambios nuevos se perderían.', '', 'Aceptar = abrir lo que está publicado (recomendado).', 'Cancelar = seguir con mi borrador viejo.'].join(String.fromCharCode(10)));
-        if (usarPublicado) { olvidarBorrador(); b = null; }
+        if (usarPublicado) { olvidarBorrador(); b = null; borradorBase = null; }
       }
     }
     if (b) {
       const bIg = ALMACEN.leerChico('borradorIg', null);
       const bImg = await ALMACEN.leer('imagenes');
+      const publicado = ESTADO.datos, publicadoIg = ESTADO.instagram, publicadasImg = ESTADO.imagenes;
       ESTADO.datos = normalizar(b);
       if (bIg) ESTADO.instagram = bIg;
       if (bImg) ESTADO.imagenes = bImg;
+      /* Se aplica el borrador sobre lo publicado ahora: nada de lo publicado después se pierde */
+      if (window.FUSION) {
+        try {
+          ESTADO.datos = normalizar(FUSION.fusionar(borradorBase ? borradorBase.contenido : undefined, ESTADO.datos, publicado));
+          ESTADO.instagram = FUSION.fusionar(borradorBase ? borradorBase.instagram : undefined, ESTADO.instagram, publicadoIg);
+          ESTADO.imagenes = Object.assign({}, publicadasImg, ESTADO.imagenes);
+        } catch (e) { /* si algo falla se queda con el borrador tal cual */ }
+      }
     }
 
     ESTADO.sucio = huella() !== ESTADO.huellaPublicada;
@@ -3737,7 +3755,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
      ═══════════════════════════════════════════════════════════════ */
 
   /* Los archivos que se generan, tal como quedan en la carpeta data/ */
-  function archivos() {
+  function archivos(shas) {
     const contenido = clonar(ESTADO.datos);
     contenido.actualizado = new Date().toISOString();
 
@@ -3746,11 +3764,73 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
       ESTADO.imagenes
     );
 
-    return [
+    const lista = [
       { ruta: 'data/contenido.json', texto: JSON.stringify(contenido, null, 2) },
       { ruta: 'data/imagenes.json',  texto: JSON.stringify(imagenes, null, 2) },
       { ruta: 'data/instagram.json', texto: JSON.stringify(ESTADO.instagram, null, 2) }
     ];
+    if (shas) lista.forEach((f) => { if (f.ruta in shas) f.sha = shas[f.ruta]; });
+    return lista;
+  }
+
+  /* ─── Poner el panel al día con lo publicado ───
+     Antes de publicar se lee lo que está publicado AHORA y se le aplican encima solo los cambios hechos
+     en este panel. Así nunca se pisa lo que otra persona (o el asistente) haya publicado después.
+     leer(ruta) devuelve { texto, sha } o null si el archivo todavía no existe. */
+  async function ponerAlDia(leer) {
+    const rutas = ['data/contenido.json', 'data/instagram.json', 'data/imagenes.json'];
+    const act = {}, shas = {};
+    for (const r of rutas) {
+      let x;
+      try { x = await leer(r); } catch (e) { throw new Error('No se pudo leer lo que está publicado (' + r + '), así que no se publicó nada para no pisarlo. ' + (e.message || '')); }
+      shas[r] = x && x.sha ? x.sha : null;
+      act[r] = x && x.texto ? JSON.parse(x.texto) : null;
+    }
+    const antes = JSON.stringify(Object.assign({}, ESTADO.datos, { actualizado: null }));
+    const datosAntes = ESTADO.datos;
+    let traidas = [];
+    try {
+      if (window.FUSION && act['data/contenido.json']) {
+        const nuevo = normalizar(FUSION.fusionar(ESTADO.base ? ESTADO.base.contenido : undefined, clonar(ESTADO.datos), act['data/contenido.json']));
+        traidas = FUSION.resumen(datosAntes, nuevo);
+        ESTADO.datos = nuevo;
+      }
+      if (window.FUSION && act['data/instagram.json']) {
+        ESTADO.instagram = FUSION.fusionar(ESTADO.base ? ESTADO.base.instagram : undefined, clonar(ESTADO.instagram), act['data/instagram.json']);
+      }
+      if (act['data/imagenes.json']) {
+        const o = Object.assign({}, act['data/imagenes.json'], ESTADO.imagenes);
+        delete o._comentario;
+        ESTADO.imagenes = o;
+      }
+    } catch (e) {
+      throw new Error('No se pudo combinar con lo publicado, así que no se publicó nada. ' + (e.message || ''));
+    }
+    const cambio = JSON.stringify(Object.assign({}, ESTADO.datos, { actualizado: null })) !== antes;
+    if (cambio) {
+      ESTADO.sucio = true;
+      guardarBorrador();
+      try { pintarSeccion(); } catch (e) { /* da igual */ }
+    }
+    return { shas, traidas, cambio };
+  }
+
+  const textoTraidas = (r) => (r && r.cambio
+    ? ' Se combinó con cambios que ya estaban publicados' + (r.traidas.length ? ' (' + r.traidas.join(', ') + ' que no estaban en este panel)' : '') + ' y se conservaron.'
+    : '');
+
+  /* Lectura de lo publicado: con la cuenta (a través del publicador) o del sitio en línea */
+  async function leerConCuenta(ruta) {
+    const r = await fetch('/api/publicado?ruta=' + encodeURIComponent(ruta), { credentials: 'same-origin', cache: 'no-store' });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || ('Error ' + r.status));
+    return j.existe ? { texto: j.texto, sha: j.sha } : null;
+  }
+  async function leerSitio(ruta) {
+    const r = await fetch(ruta + '?v=' + Date.now(), { cache: 'no-store' });
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error('Error ' + r.status);
+    return { texto: await r.text() };
   }
 
   function descargar(nombre, texto, tipo) {
@@ -3761,12 +3841,14 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     setTimeout(() => URL.revokeObjectURL(url), 1500);
   }
 
-  function abrirPublicar() {
+  async function abrirPublicar() {
     const velo = $('#veloPublicar');
     velo.classList.add('abierto');
 
     const cont = $('#botonesDescarga');
     cont.innerHTML = '';
+    /* Si se puede, se combina con lo publicado antes de armar los archivos para descargar */
+    try { const r = await ponerAlDia(leerSitio); if (r.cambio) aviso('Se combinó con cambios que ya estaban publicados.' + (r.traidas.length ? ' Trae ' + r.traidas.join(', ') + '.' : ''), 'ok'); } catch (e) { /* se descarga lo que hay */ }
     archivos().forEach((f) => {
       const b = document.createElement('button');
       b.type = 'button';
@@ -3795,6 +3877,8 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
   function cerrarPublicar() { $('#veloPublicar').classList.remove('abierto'); }
 
   function marcarPublicado() {
+    /* Lo que quedó publicado pasa a ser el nuevo punto de partida */
+    ESTADO.base = { contenido: clonar(ESTADO.datos), instagram: clonar(ESTADO.instagram) };
     ESTADO.huellaPublicada = huella();
     ESTADO.sucio = false;
     pintarEstado();
@@ -3840,15 +3924,24 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     };
     const base = `https://api.github.com/repos/${encodeURIComponent(usuario)}/${encodeURIComponent(repo)}/contents/`;
 
+    const leerGh = async (ruta) => {
+      const previo = await fetch(base + ruta + '?ref=' + encodeURIComponent(rama), { headers: cabeceras });
+      if (previo.status === 401 || previo.status === 403) {
+        throw new Error('El token no tiene permiso sobre este repositorio (necesita Contents: Read and write).');
+      }
+      if (previo.status === 404) return null;
+      if (!previo.ok) throw new Error('GitHub respondió ' + previo.status);
+      const sha = (await previo.json()).sha;
+      const cru = await fetch(base + ruta + '?ref=' + encodeURIComponent(rama), { headers: Object.assign({}, cabeceras, { Accept: 'application/vnd.github.raw+json' }) });
+      if (!cru.ok) throw new Error('GitHub respondió ' + cru.status);
+      return { texto: await cru.text(), sha };
+    };
+
+    let fus;
     try {
-      for (const f of archivos()) {
-        // 1. ¿El archivo ya existe? Se necesita su sha para reemplazarlo.
-        let sha;
-        const previo = await fetch(base + f.ruta + '?ref=' + encodeURIComponent(rama), { headers: cabeceras });
-        if (previo.status === 401 || previo.status === 403) {
-          throw new Error('El token no tiene permiso sobre este repositorio (necesita Contents: Read and write).');
-        }
-        if (previo.ok) sha = (await previo.json()).sha;
+      fus = await ponerAlDia(leerGh);
+      for (const f of archivos(fus.shas)) {
+        const sha = f.sha || undefined;
 
         // 2. Guardar
         const r = await fetch(base + f.ruta, {
@@ -3870,7 +3963,7 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
 
       marcarPublicado();
       salida.innerHTML = mensaje('ok', '¡Publicado!',
-        'Los cambios están en GitHub. En uno o dos minutos se ven en clta.cl (recarga con Ctrl + F5).');
+        'Los cambios están en GitHub. En uno o dos minutos se ven en clta.cl (recarga con Ctrl + F5).' + textoTraidas(fus));
       aviso('Cambios publicados en GitHub.');
     } catch (e) {
       salida.innerHTML = mensaje('mal', 'No se pudo publicar', e.message);
@@ -3885,19 +3978,24 @@ small{color:#5b6478}button{padding:8px 16px;border:0;border-radius:8px;backgroun
     const salida = $('#cuentaSalida');
     const boton = $('#btnCuentaPublicar');
     boton.disabled = true;
-    salida.innerHTML = mensaje('info', 'Publicando…', 'Subiendo los cambios a la página.');
+    salida.innerHTML = mensaje('info', 'Publicando…', 'Revisando lo que ya está publicado y subiendo tus cambios encima.');
     try {
-      const r = await fetch('/api/publicar', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ archivos: archivos().map((f) => ({ ruta: f.ruta, texto: f.texto })) })
-      });
-      const j = await r.json().catch(() => ({}));
+      let fus, r, j;
+      for (let intento = 0; intento < 3; intento++) {
+        fus = await ponerAlDia(leerConCuenta);
+        r = await fetch('/api/publicar', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ archivos: archivos(fus.shas).map((f) => ({ ruta: f.ruta, texto: f.texto, sha: f.sha })) })
+        });
+        j = await r.json().catch(() => ({}));
+        if (r.status !== 409) break;      // alguien publicó justo en medio: se vuelve a combinar y a intentar
+      }
       if (!r.ok) throw new Error(j.error || ('Error ' + r.status));
       marcarPublicado();
       salida.innerHTML = mensaje('ok', '¡Publicado!',
-        'Los cambios ya están en camino: en uno o dos minutos se ven en clta.cl (recarga con Ctrl + F5).');
+        'Los cambios ya están en camino: en uno o dos minutos se ven en clta.cl (recarga con Ctrl + F5).' + textoTraidas(fus));
       aviso('Cambios publicados.');
     } catch (e) {
       salida.innerHTML = mensaje('mal', 'No se pudo publicar', e.message);

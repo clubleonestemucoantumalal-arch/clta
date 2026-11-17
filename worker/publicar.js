@@ -69,19 +69,44 @@ async function identificar(req, env) {
   return correo;
 }
 
-async function subirArchivo(env, ruta, texto, correo) {
+function datosGitHub(env, ruta) {
   const usuario = env.GH_USUARIO, repo = env.GH_REPO, rama = env.GH_RAMA || 'main';
-  const base = `https://api.github.com/repos/${encodeURIComponent(usuario)}/${encodeURIComponent(repo)}/contents/${ruta}`;
-  const cab = {
-    Authorization: 'Bearer ' + env.GITHUB_TOKEN,
-    Accept: 'application/vnd.github+json',
-    'X-GitHub-Api-Version': '2022-11-28',
-    'User-Agent': 'clta-publicar'
+  return {
+    rama,
+    base: `https://api.github.com/repos/${encodeURIComponent(usuario)}/${encodeURIComponent(repo)}/contents/${ruta}`,
+    cab: {
+      Authorization: 'Bearer ' + env.GITHUB_TOKEN,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'User-Agent': 'clta-publicar'
+    }
   };
-  let sha;
+}
+
+/** Lee lo publicado AHORA en GitHub (texto y sha), para que el panel aplique sus cambios encima. */
+async function leerPublicado(env, ruta) {
+  const { base, cab, rama } = datosGitHub(env, ruta);
   const previo = await fetch(`${base}?ref=${encodeURIComponent(rama)}`, { headers: cab });
-  if (previo.ok) sha = (await previo.json()).sha;
-  else if (previo.status !== 404) throw new Error(`GitHub respondió ${previo.status} al leer ${ruta}.`);
+  if (previo.status === 404) return { existe: false };
+  if (!previo.ok) throw new Error(`GitHub respondió ${previo.status} al leer ${ruta}.`);
+  const sha = (await previo.json()).sha;
+  const cru = await fetch(`${base}?ref=${encodeURIComponent(rama)}`, { headers: { ...cab, Accept: 'application/vnd.github.raw+json' } });
+  if (!cru.ok) throw new Error(`GitHub respondió ${cru.status} al leer ${ruta}.`);
+  return { existe: true, sha, texto: await cru.text() };
+}
+
+/* sha: el del archivo tal como lo leyó el panel justo antes de combinar. Si cambió mientras tanto,
+   GitHub rechaza la subida y no se pisa nada (el panel vuelve a combinar). undefined = no se sabe; null = archivo nuevo. */
+async function subirArchivo(env, ruta, texto, correo, shaPanel) {
+  const { base, cab, rama } = datosGitHub(env, ruta);
+  let sha;
+  if (shaPanel !== undefined) {
+    sha = shaPanel || undefined;
+  } else {
+    const previo = await fetch(`${base}?ref=${encodeURIComponent(rama)}`, { headers: cab });
+    if (previo.ok) sha = (await previo.json()).sha;
+    else if (previo.status !== 404) throw new Error(`GitHub respondió ${previo.status} al leer ${ruta}.`);
+  }
 
   const r = await fetch(base, {
     method: 'PUT',
@@ -95,6 +120,9 @@ async function subirArchivo(env, ruta, texto, correo) {
   });
   if (!r.ok) {
     const e = await r.json().catch(() => ({}));
+    if (r.status === 409 || (r.status === 422 && shaPanel !== undefined)) {
+      throw Object.assign(new Error('Alguien publicó justo mientras tanto; se vuelve a combinar.'), { status: 409 });
+    }
     throw new Error(`No se pudo guardar ${ruta}: ${e.message || r.status}`);
   }
 }
@@ -481,6 +509,14 @@ export default {
         return json({ ok: true, email: await identificar(req, env) });
       }
 
+      if (url.pathname === '/api/publicado' && req.method === 'GET') {
+        await identificar(req, env);
+        if (!env.GITHUB_TOKEN || !env.GH_USUARIO || !env.GH_REPO) return json({ error: 'El publicador no tiene su llave de GitHub.' }, 503);
+        const ruta = url.searchParams.get('ruta') || '';
+        if (!PERMITIDOS.includes(ruta)) return json({ error: 'Ruta no permitida.' }, 400);
+        return json(await leerPublicado(env, ruta));
+      }
+
       if (url.pathname === '/api/publicar' && req.method === 'POST') {
         const correo = await identificar(req, env);
         if (!env.GITHUB_TOKEN || !env.GH_USUARIO || !env.GH_REPO) return json({ error: 'El publicador no tiene su llave de GitHub.' }, 503);
@@ -498,7 +534,7 @@ export default {
         }
         if (total > MAX_TOTAL) return json({ error: 'Los cambios pesan demasiado. Reduce las fotos.' }, 413);
 
-        for (const a of archivos) await subirArchivo(env, a.ruta, a.texto, correo);
+        for (const a of archivos) await subirArchivo(env, a.ruta, a.texto, correo, a.sha === undefined ? undefined : (typeof a.sha === 'string' ? a.sha : null));
         return json({ ok: true, email: correo, archivos: archivos.length });
       }
 
