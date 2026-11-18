@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-18T11:53:41.385Z",
+  "generado": "2026-11-18T23:43:33.949Z",
   "total": 24,
   "fuentes": [
     {
@@ -29,6 +29,15 @@
     }
   ],
   "noticias": [
+    {
+      "titulo": "¡La solidaridad no tiene fronteras ni distancias!",
+      "resumen": "Un recorrido por Puerto Natales, Punta Arenas, Porvenir y Puerto Williams busca movilizar a la comunidad regional para apoyar la 39ª Edición de las Jornadas por la Rehabilitación en Magallanes.",
+      "enlace": "https://leonest4.cl/noticias/la-solidaridad-no-tiene-fronteras-ni-distancias",
+      "fecha": "2026-11-18T12:00:00.000Z",
+      "fuente": "Distrito T4",
+      "tipo": "oficial",
+      "imagen": "https://leonest4.cl/uploads/publicaciones/la-solidaridad-no-tiene-fronteras-ni-distancias-20261118160726-a438a9.webp"
+    },
     {
       "titulo": "Nancy Echeverría Silva: una vida de compromiso con el Leonismo",
       "resumen": "El Distrito T-4 recuerda con cariño y gratitud a quien dedicó parte importante de su vida al servicio leonístico, dejando un valioso legado en el Club de Leones Valdivia Isla Teja.",
@@ -64,15 +73,6 @@
       "fuente": "lavozdepucon",
       "tipo": "prensa",
       "imagen": "https://us-mia-1.linodeobjects.com/lavozdepucon/2026/10/ggOY42eK-roberto_bravo-986x600.png"
-    },
-    {
-      "titulo": "El Club de Leones Puerto Varas Los Colonos recibió a la Gobernadora del Distrito T-4, León Claudia Brulé Puentes, en una instancia que destacó el compromiso institucional, la trayectoria de sus integrantes y el aporte solidario a la comunidad. En el ámbito",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1Xc0dKellxYzFYOGNtZFhldlZNZ0dMYzdTMlphdm9CaHF3TVZHWXFLamxzaWxNNF9hSGVGSHBzQTk5Z2hBa1ZoWGRxR2ZOazhicWc?oc=5",
-      "fecha": "2026-10-20T07:00:00.000Z",
-      "fuente": "Instagram",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
       "titulo": "Expanding Vision Care Across India with US$1.8 Million in LCIF Grant Funding",
@@ -165,6 +165,15 @@
       "imagen": "https://www.minsal.cl/wp-content/uploads/2026/07/8Q7A6144-scaled.jpg"
     },
     {
+      "titulo": "SMU lanza nueva edición de campaña Unidos en apoyo de Fundación Las Rosas y Club de Leones Cruz del Sur",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNSmRIWjlwTEh0QVNnWl9zU2JmUy0wRl9OMzFFUGFZd0xPNkVsLWllcUVZYWozRzd2TTV1NkMwTEtUU2RTTUxDNWc5VnJZUENYY09WQTdNWTdrOFRUSzF6ZWhSSmRIdWx6bGZycVJmT0gxMmJ1QjdDWkNscUJHbDVFLWMxREQ0S0VIVFhTQW9rWlVOZGJpRWdEQlB1QWZVZTVTRVRxUFpSMUotVWREbG9WMEM2UllyNU5FbmhwSHlrYTR0YzVtMUJXaktmSzM2RHVGTzFHSDFFUEg?oc=5",
+      "fecha": "2026-07-02T07:00:00.000Z",
+      "fuente": "Supermercado Al Día",
+      "tipo": "prensa",
+      "imagen": "https://supermercadoaldia.newenworks.com/media/noticia/foto_noticia_33912_1.jpg"
+    },
+    {
       "titulo": "SE CUMPLEN 109 AÑOS DESDE LA FUNDACION DE LIONS INTERNATIONAL",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNaFQydERzN3RiVjdTVFFyeTlNdFVndzVHby1najZ0aEVWVVpLTlI3UFhBdjUwd3pacmtwNEczWWJqeWk5TkVUdW4wUFlCSGdycHd5LXEwMzd0NU9oTWRqT2EwbWNManFwWnVqS3BXTzBGaFlXdUNGV2g4ejJRMG5fNDQtQTRSa2w5TXpMeHBCUV9VM2ZtNkw4WEF6dVNIVm8?oc=5",
@@ -190,6 +199,15 @@
       "fuente": "Universidad de La Frontera",
       "tipo": "prensa",
       "imagen": "https://www.ufro.cl/wp-content/uploads/2026/05/UFRO-Club-Leones.webp"
+    },
+    {
+      "titulo": "El viernes 27 de junio, en la sede del Club de Leones de Puerto Varas, se llevó a cabo la transmisión de mando del Club de Leones de Puerto Varas donde hizo entrega del mando el León Osvaldo Emhart Vicencio al nuevo presidente periodo 2025- 2026 L",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE16bldoQzRsU25BUmxpY1R6cmV1aGdhVUlobmhOWml3aUdKMDRKSHNZSU5odGNZVWNvQ1FNdnR3b2l3OGhjSlZ4MjRUQTBIdTgwZ3c?oc=5",
+      "fecha": "2025-07-03T07:00:00.000Z",
+      "fuente": "Instagram",
+      "tipo": "prensa",
+      "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
       "titulo": "Conoce la labor de los Clubes de Leones y lo que trae la próxima convención nacional",
@@ -226,24 +244,6 @@
       "fuente": "Paislobo Prensa",
       "tipo": "prensa",
       "imagen": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5DSVVAABlznL1HKGzJ5mQWMo_l3qZ5EL_XV-ULA-fjQ91c9orKbDJKNNMyp0fNVkK1hQHdjQykcBnxwvo3CeTxehf6FlAQTBxlbfcraB2f8xqAEBSZziSXZillYMu3NKcym7dnH9zzbU/s16000/diabetes.jpg"
-    },
-    {
-      "titulo": "En Collipulli se reunió el Clubes de Leones distrito T 3",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNZzZra2tOTXkzLXNhcldRUkhjYzVuUlRtYmZNU25saHJTd0NvdndlQU1RQ0ZiOEdTeVFjd3drVnFGZWlCNmFzTll3REg1QUNTbmwzUjQ2bnZDbHFSalBVcWVsRzZ3SDR0MFpUUGVwLWxoZmNhdElJc3ZhUVlmYW9lZ0Z6eGR5clJEcWNvWVdDSmRUclBVVE44TFR2NU42NWN3QWc?oc=5",
-      "fecha": "2018-03-12T07:00:00.000Z",
-      "fuente": "araucanianoticias.cl",
-      "tipo": "prensa",
-      "imagen": "https://araucanianoticias.cl/wp-content/uploads/2018/03/image-6.png"
-    },
-    {
-      "titulo": "UACh y Club de Leones firman convenio de colaboración – Noticias UACh",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOS1Q2WHdwZWxhaHhfYmtlNEtLSjFzSElLZHhiS3UyYm53ZVlKelZoZFkyeUZFMFJaaTFEdGNla3NBak9FcmNLR2w2clJlZ0g3bTVJbjN1dl8zWmpPcXV3RmhTS0MwQU8yNGp1WW1xQ2N5M3M2cm1FRS00SGJPNVVaVUdB?oc=5",
-      "fecha": "2016-12-07T08:00:00.000Z",
-      "fuente": "Universidad Austral de Chile",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
     }
   ]
 }
