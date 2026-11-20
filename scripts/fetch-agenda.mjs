@@ -127,6 +127,8 @@ async function eventosInternacionales() {
   await writeFile(SALIDA, JSON.stringify(salida, null, 2) + '\n', 'utf8');
   console.log(`${eventos.length} fechas del distrito guardadas en data/agenda-distrito.json`);
 })().catch((e) => {
-  console.error('\nError:', e.message);
-  process.exit(1);
+  // La agenda es secundaria: si el sitio del distrito bloquea a GitHub, se conserva
+  // el archivo anterior y NO se detiene el flujo (las noticias igual se publican).
+  console.warn('\n! No se pudo actualizar la agenda del distrito:', e.message);
+  console.warn('  Se conserva data/agenda-distrito.json tal como estaba.');
 });
