@@ -972,6 +972,11 @@
       "nombre": "Universidad de La Frontera (UFRO)",
       "logo": "img:aliado-i26",
       "enlace": "https://www.ufro.cl"
+    },
+    {
+      "nombre": "Comité de Damas Temuco Antumalal",
+      "logo": "assets/img/lions-international.png",
+      "enlace": ""
     }
   ],
   "aliadosMostrar": true
