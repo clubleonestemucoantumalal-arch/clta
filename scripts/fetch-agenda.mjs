@@ -101,8 +101,8 @@ async function eventosInternacionales() {
     .concat((await eventosInternacionales()).filter((e) => e.fecha >= hoyISO));
 
   if (!eventos.length) {
-    console.error('No se obtuvo ninguna fecha vigente. Se conserva el archivo anterior.');
-    process.exit(1);
+    console.warn('No se obtuvo ninguna fecha vigente. Se conserva el archivo anterior.');
+    return;
   }
 
   eventos.sort((a, b) => a.fecha.localeCompare(b.fecha));
