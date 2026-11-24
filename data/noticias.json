@@ -1,6 +1,6 @@
 {
-  "generado": "2026-11-23T22:27:57.952Z",
-  "total": 24,
+  "generado": "2026-11-24T06:47:45.102Z",
+  "total": 23,
   "fuentes": [
     {
       "nombre": "Distrito T4",
@@ -37,15 +37,6 @@
       "fuente": "Distrito T4",
       "tipo": "oficial",
       "imagen": "https://leonest4.cl/uploads/publicaciones/la-solidaridad-no-tiene-fronteras-ni-distancias-20261118160726-a438a9.webp"
-    },
-    {
-      "titulo": "Solidaridad sin fronteras: Clubes de Leones de Argentina, Chile y Mercedes se unen para ayudar a la Escuela Nº 104",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE83RGFZSjVwQWVPaVl2Nm1mR1FDMWQyeTZCZklWVHg4RGN3eXA4MFg3SklucHJ0eldsY25wSnVoY1J1c01wV2dYX21PZ0tVcEpqZDlic1FTcXZHdw?oc=5",
-      "fecha": "2026-11-12T01:49:35.000Z",
-      "fuente": "AGESOR",
-      "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
       "titulo": "Nancy Echeverría Silva: una vida de compromiso con el Leonismo",
@@ -100,15 +91,6 @@
       "fuente": "OvejeroNoticias",
       "tipo": "prensa",
       "imagen": "https://www.ovejeronoticias.cl/wp-content/uploads/2026/10/donacionfrazadas.jpg"
-    },
-    {
-      "titulo": "Donación en Osorno: Club de Leones Pilmaiquén apoya a Comedor Solidario",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9SQnNDNlB5OW43eEZMSkM1OEF0am9aQ3BVeEJDY2NvS2JGQ0MxOEV2djQ4UUdPdlB3czhQSmh0M19uaVhKaXdWanExU19FVnlhZTYtbG1GUEhzUkFUaWNXNWcwbXNRNS1vOE5EZzVDYm1jZWFraUxyQ1BR?oc=5",
-      "fecha": "2026-10-05T07:00:00.000Z",
-      "fuente": "Paislobo Prensa",
-      "tipo": "prensa",
-      "imagen": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLsgdtXAVDgp3m7G9BoG_HORA9sNRy7mUlsYoAuFpiyAtdqB68bzeK5ava9FlkIabIbyZ9gvITdkURP6NToTPEWRtTxa6tMVd6zi6nHcOKE7GhkVTT3YLFc_T4iKZf_WAAVwOObNFUrfpJmfX9arixI9UD3sSCE9OJEDswwTy_JhLtinROKhmSz0SMi_0/s1600/PL_Prensa_01.jpg"
     },
     {
       "titulo": "Con profundo pesar despedimos al león César Sánchez Neira",
@@ -183,11 +165,11 @@
       "imagen": "https://www.minsal.cl/wp-content/uploads/2026/07/8Q7A6144-scaled.jpg"
     },
     {
-      "titulo": "SE CUMPLEN 109 AÑOS DESDE LA FUNDACION DE LIONS INTERNATIONAL",
+      "titulo": "El mejor Regalo para mamá: Leones presentan a Roberto Bravo en el Municipal",
       "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNaFQydERzN3RiVjdTVFFyeTlNdFVndzVHby1najZ0aEVWVVpLTlI3UFhBdjUwd3pacmtwNEczWWJqeWk5TkVUdW4wUFlCSGdycHd5LXEwMzd0NU9oTWRqT2EwbWNManFwWnVqS3BXTzBGaFlXdUNGV2g4ejJRMG5fNDQtQTRSa2w5TXpMeHBCUV9VM2ZtNkw4WEF6dVNIVm8?oc=5",
-      "fecha": "2026-06-07T07:00:00.000Z",
-      "fuente": "Radio Viaducto Collipulli",
+      "enlace": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNM3k1SGc3U1hLaHVic295WGlmQ21UME1GS3A0QUFJM0dsV1hNODZKbVc0bV8xZkFXYl9zbmZQU3dBUFFmTzF6UVFSZVhsRTI1M3dKa0x3a1hfdGdMVHhDc0U2UFN6eFRBdVpvUnlSNmpTbHNqVHlXSFlMVG1aY1RfT0RoclRHUjhKZzlkbURfN3dEUm9LX0MzbFkyS1VZUmpjcmZUbWw4Qkllc0xoZUZYbjZvLTY3Z3Rz0gGwAUFVX3lxTE56NkVFRXNLanFPRnVLWHpCdHRTSTQxU0VlcXdYRkhWbDJCbktSQm5YeDdzOXVjZGNPaGxpaGRSVGM2ZW90X0RPYXJwalR1dW5xQ3I3aG1pZnBTSDdFa0pWRHdQR1d5d1JLMXRrYXRBLXBuUDZjdGdOcjJ3clctWGFaUUlCSHpKa0hFZ0FsTXN5TjlzS3RsNzBnS3YwWUp0VUpkVGhvOXVNUmtVU2ZoSEdj?oc=5",
+      "fecha": "2026-05-08T07:00:00.000Z",
+      "fuente": "Araucanía Diario",
       "tipo": "prensa",
       "imagen": "assets/img/noticias-respaldo.jpg"
     },
@@ -208,6 +190,15 @@
       "fuente": "10minutos.com.uy",
       "tipo": "prensa",
       "imagen": "https://10minutos.com.uy/wp-content/uploads/2026/04/IMG-20260403-WA0001.jpg"
+    },
+    {
+      "titulo": "16 de Octubre de 1954, la llegada del Leonismo a nuestro país",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOVXNicThoektHNzFVMlJYR2t5UjNfQ3ZvZnM4Tm4tOVNSTG1ReVM0LUhKYXhRdDk5VHV2UG9DNGxfVVY4NVZZUm54SjFqZlFzN2s2RVhJZjUySDVoeGlZU1lubTZmRnl0WHY0bEVLU0pNc0xILUMtblZ1Rk9lMXdlRmF5MTIzMC14UTR4RWVFV295bEVB?oc=5",
+      "fecha": "2025-10-16T07:00:00.000Z",
+      "fuente": "Ayacucho al Día",
+      "tipo": "prensa",
+      "imagen": "https://ayacuchoaldia.com.ar/wp-content/uploads/2025/10/leones-fachada-scaled.jpeg"
     },
     {
       "titulo": "Conoce la labor de los Clubes de Leones y lo que trae la próxima convención nacional",
