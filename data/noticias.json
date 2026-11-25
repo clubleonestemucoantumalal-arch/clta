@@ -1,6 +1,6 @@
 {
-  "generado": "2026-11-25T05:15:46.630Z",
-  "total": 23,
+  "generado": "2026-11-25T20:23:20.703Z",
+  "total": 24,
   "fuentes": [
     {
       "nombre": "Distrito T4",
@@ -55,6 +55,15 @@
       "fuente": "LION Magazine",
       "tipo": "oficial",
       "imagen": "https://lionmagazine.org/wp-content/uploads/2026/11/panamadiabetes1-300x200.jpg"
+    },
+    {
+      "titulo": "CARTEL DE LA PAZ, UN CONCURSO INSIGNIA PARA LOS CLUBES DE LEONES",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5fOTZiYnJWT3MxTDlWVGZibDBpN1J1RGFOTWdRVFY5MWlkLTZ5ZGQwTE5CUldmdmxGTzhKSEF5azRJMmZFcV9fZUppWDhQUnpYY2RLN0Z6djlQWFBudXFSSVdvWHFRai1yaVJMX2xlOVhuR1NPSnpjSw?oc=5",
+      "fecha": "2026-11-03T08:00:00.000Z",
+      "fuente": "Radio Polar",
+      "tipo": "prensa",
+      "imagen": "https://media.cms-mspress.com/tenant/658d9f90f0909def6c18fa2c/mediaLibrary/photo/91d66238-9d09-4b81-be6a-cc58055ebdb2-extra-large-standard-q100.jpeg"
     },
     {
       "titulo": "Pianista Roberto Bravo ofrecerá concierto en apoyo a la obra social del Club de Leones Temuco Antumalal",
@@ -165,6 +174,15 @@
       "imagen": "https://www.minsal.cl/wp-content/uploads/2026/07/8Q7A6144-scaled.jpg"
     },
     {
+      "titulo": "SE CUMPLEN 109 AÑOS DESDE LA FUNDACION DE LIONS INTERNATIONAL",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNaFQydERzN3RiVjdTVFFyeTlNdFVndzVHby1najZ0aEVWVVpLTlI3UFhBdjUwd3pacmtwNEczWWJqeWk5TkVUdW4wUFlCSGdycHd5LXEwMzd0NU9oTWRqT2EwbWNManFwWnVqS3BXTzBGaFlXdUNGV2g4ejJRMG5fNDQtQTRSa2w5TXpMeHBCUV9VM2ZtNkw4WEF6dVNIVm8?oc=5",
+      "fecha": "2026-06-07T07:00:00.000Z",
+      "fuente": "Radio Viaducto Collipulli",
+      "tipo": "prensa",
+      "imagen": "assets/img/noticias-respaldo.jpg"
+    },
+    {
       "titulo": "El mejor Regalo para mamá: Leones presentan a Roberto Bravo en el Municipal",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNM3k1SGc3U1hLaHVic295WGlmQ21UME1GS3A0QUFJM0dsV1hNODZKbVc0bV8xZkFXYl9zbmZQU3dBUFFmTzF6UVFSZVhsRTI1M3dKa0x3a1hfdGdMVHhDc0U2UFN6eFRBdVpvUnlSNmpTbHNqVHlXSFlMVG1aY1RfT0RoclRHUjhKZzlkbURfN3dEUm9LX0MzbFkyS1VZUmpjcmZUbWw4Qkllc0xoZUZYbjZvLTY3Z3Rz0gGwAUFVX3lxTE56NkVFRXNLanFPRnVLWHpCdHRTSTQxU0VlcXdYRkhWbDJCbktSQm5YeDdzOXVjZGNPaGxpaGRSVGM2ZW90X0RPYXJwalR1dW5xQ3I3aG1pZnBTSDdFa0pWRHdQR1d5d1JLMXRrYXRBLXBuUDZjdGdOcjJ3clctWGFaUUlCSHpKa0hFZ0FsTXN5TjlzS3RsNzBnS3YwWUp0VUpkVGhvOXVNUmtVU2ZoSEdj?oc=5",
@@ -181,15 +199,6 @@
       "fuente": "Universidad de La Frontera",
       "tipo": "prensa",
       "imagen": "https://www.ufro.cl/wp-content/uploads/2026/05/UFRO-Club-Leones.webp"
-    },
-    {
-      "titulo": "75 años del Leonismo en Uruguay: una historia de servicio que trascendió fronteras",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPV0FjaHJMUDBQRFhLeXlaR01oSmhIa21ueWRCUDhDcE8wU0l0WWFGSjV1bWowTFY4aUVqd0JHTFNNZm1nOHJlZVJQU19vYXI5dGo4eUp4cUdLVVZCMTdFYzRvam1IZHl4U2JINThaNmN4QkNvdERLcExpTkM5MnhVa2d6UmxJWWl2Qm9wejg1NUZyQ01GUl9EcVFMZjh1NktQOVQ0MTRRUUdmVE0?oc=5",
-      "fecha": "2026-04-03T07:00:00.000Z",
-      "fuente": "10minutos.com.uy",
-      "tipo": "prensa",
-      "imagen": "https://10minutos.com.uy/wp-content/uploads/2026/04/IMG-20260403-WA0001.jpg"
     },
     {
       "titulo": "Conoce la labor de los Clubes de Leones y lo que trae la próxima convención nacional",
@@ -219,13 +228,13 @@
       "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
-      "titulo": "Campaña de los Clubes de Leones en el Día Mundial de la Diabetes ¡Estamos a tiempo todavía!",
+      "titulo": "En Collipulli se reunió el Clubes de Leones distrito T 3",
       "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9BWmZvSEpOSXRWTktKNjNOclRGQVhZUC1STGltOTVYV1hTV2Q4SHBXcjJteGpmek5IRnRUOWt1OF9mcmVaeGcxTTRxemV6UnJLZ0hxMWlmSV9odlZrcDNtSERIQ3dMUTNvbTJ5ZktUQ3pFcEVQQjU1V0pBdkt0UlU?oc=5",
-      "fecha": "2020-11-14T08:00:00.000Z",
-      "fuente": "Paislobo Prensa",
+      "enlace": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNZzZra2tOTXkzLXNhcldRUkhjYzVuUlRtYmZNU25saHJTd0NvdndlQU1RQ0ZiOEdTeVFjd3drVnFGZWlCNmFzTll3REg1QUNTbmwzUjQ2bnZDbHFSalBVcWVsRzZ3SDR0MFpUUGVwLWxoZmNhdElJc3ZhUVlmYW9lZ0Z6eGR5clJEcWNvWVdDSmRUclBVVE44TFR2NU42NWN3QWc?oc=5",
+      "fecha": "2018-03-12T07:00:00.000Z",
+      "fuente": "araucanianoticias.cl",
       "tipo": "prensa",
-      "imagen": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5DSVVAABlznL1HKGzJ5mQWMo_l3qZ5EL_XV-ULA-fjQ91c9orKbDJKNNMyp0fNVkK1hQHdjQykcBnxwvo3CeTxehf6FlAQTBxlbfcraB2f8xqAEBSZziSXZillYMu3NKcym7dnH9zzbU/s16000/diabetes.jpg"
+      "imagen": "https://araucanianoticias.cl/wp-content/uploads/2018/03/image-6.png"
     },
     {
       "titulo": "Club de Leones Temuco donó televisión para la Rifa Monumental",
