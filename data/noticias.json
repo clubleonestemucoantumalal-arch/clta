@@ -1,6 +1,6 @@
 {
-  "generado": "2026-11-26T04:43:10.421Z",
-  "total": 23,
+  "generado": "2026-11-26T19:59:52.427Z",
+  "total": 24,
   "fuentes": [
     {
       "nombre": "Distrito T4",
@@ -165,6 +165,15 @@
       "imagen": "https://www.minsal.cl/wp-content/uploads/2026/07/8Q7A6144-scaled.jpg"
     },
     {
+      "titulo": "SMU lanza nueva edición de campaña Unidos en apoyo de Fundación Las Rosas y Club de Leones Cruz del Sur",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNSmRIWjlwTEh0QVNnWl9zU2JmUy0wRl9OMzFFUGFZd0xPNkVsLWllcUVZYWozRzd2TTV1NkMwTEtUU2RTTUxDNWc5VnJZUENYY09WQTdNWTdrOFRUSzF6ZWhSSmRIdWx6bGZycVJmT0gxMmJ1QjdDWkNscUJHbDVFLWMxREQ0S0VIVFhTQW9rWlVOZGJpRWdEQlB1QWZVZTVTRVRxUFpSMUotVWREbG9WMEM2UllyNU5FbmhwSHlrYTR0YzVtMUJXaktmSzM2RHVGTzFHSDFFUEg?oc=5",
+      "fecha": "2026-07-02T07:00:00.000Z",
+      "fuente": "Supermercado Al Día",
+      "tipo": "prensa",
+      "imagen": "https://supermercadoaldia.newenworks.com/media/noticia/foto_noticia_33912_1.jpg"
+    },
+    {
       "titulo": "SE CUMPLEN 109 AÑOS DESDE LA FUNDACION DE LIONS INTERNATIONAL",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNaFQydERzN3RiVjdTVFFyeTlNdFVndzVHby1najZ0aEVWVVpLTlI3UFhBdjUwd3pacmtwNEczWWJqeWk5TkVUdW4wUFlCSGdycHd5LXEwMzd0NU9oTWRqT2EwbWNManFwWnVqS3BXTzBGaFlXdUNGV2g4ejJRMG5fNDQtQTRSa2w5TXpMeHBCUV9VM2ZtNkw4WEF6dVNIVm8?oc=5",
@@ -190,6 +199,15 @@
       "fuente": "Universidad de La Frontera",
       "tipo": "prensa",
       "imagen": "https://www.ufro.cl/wp-content/uploads/2026/05/UFRO-Club-Leones.webp"
+    },
+    {
+      "titulo": "El viernes 27 de junio, en la sede del Club de Leones de Puerto Varas, se llevó a cabo la transmisión de mando del Club de Leones de Puerto Varas donde hizo entrega del mando el León Osvaldo Emhart Vicencio al nuevo presidente periodo 2025- 2026 L",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE16bldoQzRsU25BUmxpY1R6cmV1aGdhVUlobmhOWml3aUdKMDRKSHNZSU5odGNZVWNvQ1FNdnR3b2l3OGhjSlZ4MjRUQTBIdTgwZ3c?oc=5",
+      "fecha": "2025-07-03T07:00:00.000Z",
+      "fuente": "Instagram",
+      "tipo": "prensa",
+      "imagen": "assets/img/noticias-respaldo.jpg"
     },
     {
       "titulo": "Conoce la labor de los Clubes de Leones y lo que trae la próxima convención nacional",
@@ -226,15 +244,6 @@
       "fuente": "araucanianoticias.cl",
       "tipo": "prensa",
       "imagen": "https://araucanianoticias.cl/wp-content/uploads/2018/03/image-6.png"
-    },
-    {
-      "titulo": "Club de Leones Temuco donó televisión para la Rifa Monumental",
-      "resumen": "",
-      "enlace": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQRFpBcHhBYzIzWW1kU1JGYmxqVmdfWUl0R2JwbjNfd0JCbGpUdGl0ZjNzazEzbFBFbFVmTDloVGJIMThMT2d4bXRXRHd0VkQ0MjBjR1BfUEpPNGxCRm4zYVl4V2xCeF94MkRIemJnMWdQSldkV0REbU0tMzRzV1ZKOXZUdFZXYkNsTjg3WWhUaEhnSy1wSXFB?oc=5",
-      "fecha": "2015-08-27T07:00:00.000Z",
-      "fuente": "Bomberos Temuco",
-      "tipo": "prensa",
-      "imagen": "https://www.bomberostemuco.cl/wp-content/uploads/2015/11/donacion-leones.jpg"
     }
   ]
 }
