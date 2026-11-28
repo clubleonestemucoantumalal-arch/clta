@@ -1,6 +1,6 @@
 {
-  "generado": "2026-11-28T04:33:52.784Z",
-  "total": 20,
+  "generado": "2026-11-28T18:41:49.974Z",
+  "total": 22,
   "fuentes": [
     {
       "nombre": "Distrito T4",
@@ -129,6 +129,15 @@
       "imagen": "https://www.minsal.cl/wp-content/uploads/2026/07/8Q7A6144-scaled.jpg"
     },
     {
+      "titulo": "SMU lanza nueva edición de campaña Unidos en apoyo de Fundación Las Rosas y Club de Leones Cruz del Sur",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNSmRIWjlwTEh0QVNnWl9zU2JmUy0wRl9OMzFFUGFZd0xPNkVsLWllcUVZYWozRzd2TTV1NkMwTEtUU2RTTUxDNWc5VnJZUENYY09WQTdNWTdrOFRUSzF6ZWhSSmRIdWx6bGZycVJmT0gxMmJ1QjdDWkNscUJHbDVFLWMxREQ0S0VIVFhTQW9rWlVOZGJpRWdEQlB1QWZVZTVTRVRxUFpSMUotVWREbG9WMEM2UllyNU5FbmhwSHlrYTR0YzVtMUJXaktmSzM2RHVGTzFHSDFFUEg?oc=5",
+      "fecha": "2026-07-02T07:00:00.000Z",
+      "fuente": "Supermercado Al Día",
+      "tipo": "prensa",
+      "imagen": "https://supermercadoaldia.newenworks.com/media/noticia/foto_noticia_33912_1.jpg"
+    },
+    {
       "titulo": "SE CUMPLEN 109 AÑOS DESDE LA FUNDACION DE LIONS INTERNATIONAL",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNaFQydERzN3RiVjdTVFFyeTlNdFVndzVHby1najZ0aEVWVVpLTlI3UFhBdjUwd3pacmtwNEczWWJqeWk5TkVUdW4wUFlCSGdycHd5LXEwMzd0NU9oTWRqT2EwbWNManFwWnVqS3BXTzBGaFlXdUNGV2g4ejJRMG5fNDQtQTRSa2w5TXpMeHBCUV9VM2ZtNkw4WEF6dVNIVm8?oc=5",
@@ -165,6 +174,15 @@
       "imagen": "https://media.canal9.cl/2025/05/CLUB-DE-LEONES-768x432.jpeg"
     },
     {
+      "titulo": "DÍA DEL LEONISMO CHILENO",
+      "resumen": "",
+      "enlace": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5rT3FRUnN0UkhmZWNzbEVQX0VOZ1pLbmFUeXVHa2ZxaEM1UWlpMEZGQWJfVFNmRU11SUk5akx0NS1nYU9OY0tKcGI0dFhJbmt4MURKYklCSFFsbGMtd0hfT1FycElzR0tjV0E4UHJn?oc=5",
+      "fecha": "2025-04-24T07:00:00.000Z",
+      "fuente": "Radio Viaducto Collipulli",
+      "tipo": "prensa",
+      "imagen": "assets/img/noticias-respaldo.jpg"
+    },
+    {
       "titulo": "Ley declara el 24 de abril como el Día del Leonismo Chileno",
       "resumen": "",
       "enlace": "https://news.google.com/rss/articles/CBMimgFBVV95cUxONzhrNllSYkFSTjk4SE5ERXVDT1ozazZoZkg3RTA5U0xSV0ozdmN1ekdTZVN2bXNWbzBNdU9kUnFjbnQ0U2FyeG9XVWVFYkZwWTB2eERUa1lQOWs0MHRVNkVKc2VVQ3lYa0JPSkZsekdxbTJONGdkM2x4LTFCVjdkVkJNaDJZelhFSlJ5Z3ozSjV3Mm9HbGZPMHdR?oc=5",
@@ -189,7 +207,7 @@
       "fecha": "2020-11-14T08:00:00.000Z",
       "fuente": "Paislobo Prensa",
       "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
+      "imagen": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5DSVVAABlznL1HKGzJ5mQWMo_l3qZ5EL_XV-ULA-fjQ91c9orKbDJKNNMyp0fNVkK1hQHdjQykcBnxwvo3CeTxehf6FlAQTBxlbfcraB2f8xqAEBSZziSXZillYMu3NKcym7dnH9zzbU/s16000/diabetes.jpg"
     },
     {
       "titulo": "En Collipulli se reunió el Clubes de Leones distrito T 3",
@@ -198,7 +216,7 @@
       "fecha": "2018-03-12T07:00:00.000Z",
       "fuente": "araucanianoticias.cl",
       "tipo": "prensa",
-      "imagen": "assets/img/noticias-respaldo.jpg"
+      "imagen": "https://araucanianoticias.cl/wp-content/uploads/2018/03/image-6.png"
     },
     {
       "titulo": "UACh y Club de Leones firman convenio de colaboración – Noticias UACh",
